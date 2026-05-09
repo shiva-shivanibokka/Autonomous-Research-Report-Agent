@@ -1,0 +1,47 @@
+# Multi-stage Dockerfile for the Autonomous Research Report Agent
+# Stages: base → api, worker, gradio
+
+# ---------------------------------------------------------------------------
+# Base — shared dependencies
+# ---------------------------------------------------------------------------
+FROM python:3.11-slim AS base
+
+WORKDIR /app
+
+# System deps for Playwright + asyncpg
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    build-essential \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Install Playwright Chromium
+RUN playwright install chromium --with-deps 2>/dev/null || true
+
+COPY . .
+
+ENV PYTHONPATH=/app
+ENV PYTHONUNBUFFERED=1
+
+# ---------------------------------------------------------------------------
+# API stage
+# ---------------------------------------------------------------------------
+FROM base AS api
+EXPOSE 8000
+CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "2"]
+
+# ---------------------------------------------------------------------------
+# Worker stage
+# ---------------------------------------------------------------------------
+FROM base AS worker
+CMD ["celery", "-A", "api.worker.celery_app", "worker", "--loglevel=info", "--concurrency=2"]
+
+# ---------------------------------------------------------------------------
+# Gradio UI stage
+# ---------------------------------------------------------------------------
+FROM base AS gradio
+EXPOSE 7860
+CMD ["python", "ui/app.py"]

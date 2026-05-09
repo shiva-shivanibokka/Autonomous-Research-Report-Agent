@@ -1,0 +1,69 @@
+groups:
+  - name: research_agent_alerts
+    rules:
+
+      # Report taking too long
+      - alert: ReportGenerationSlow
+        expr: research_report_duration_seconds{quantile="0.95"} > 600
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "95th percentile report generation exceeding 10 minutes"
+          description: "Reports are taking longer than expected. Check worker logs."
+
+      # High error rate
+      - alert: ReportErrorRateHigh
+        expr: rate(research_report_errors_total[5m]) > 0.1
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Report error rate > 10% in the last 5 minutes"
+          description: "Research pipeline is failing frequently. Immediate investigation required."
+
+      # Tavily/LLM failures
+      - alert: TavilySearchErrors
+        expr: rate(research_scrape_errors_total[5m]) > 0.2
+        for: 3m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High scraping error rate — possible Tavily or network issues"
+
+      # Critic rejecting too many claims (quality degradation)
+      - alert: CriticRejectionRateHigh
+        expr: rate(research_critic_rejections_total[10m]) > 5
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Critic flagging >5 claims/minute — research quality may be degrading"
+
+      # Cost spike
+      - alert: LLMCostSpike
+        expr: rate(research_llm_cost_usd_total[1h]) > 1.0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "LLM cost exceeding $1/hour"
+          description: "Current hourly spend is elevated. Review token budgets."
+
+      # Worker queue depth
+      - alert: WorkerQueueBacklog
+        expr: research_queue_depth > 20
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "More than 20 research jobs queued — consider scaling workers"
+
+      # No reports completed in an hour (pipeline may be broken)
+      - alert: NoPipelineActivity
+        expr: rate(research_report_completions_total[1h]) == 0
+        for: 60m
+        labels:
+          severity: info
+        annotations:
+          summary: "No reports completed in the last hour"
