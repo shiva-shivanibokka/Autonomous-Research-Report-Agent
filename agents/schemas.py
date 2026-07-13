@@ -438,6 +438,7 @@ class ReportResponse(BaseModel):
     query: str
     report_mode: str
     report: dict[str, Any]
+    report_markdown: str = ""  # server-rendered Markdown for the UI
     quality: QualityReport
     tokens_used: int
     cost_usd: float

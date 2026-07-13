@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply bg-ink text-text font-sans;
+    background-image:
+      radial-gradient(60rem 40rem at 80% -10%, rgba(255, 176, 32, 0.06), transparent 60%),
+      radial-gradient(50rem 40rem at -10% 10%, rgba(63, 208, 201, 0.05), transparent 55%);
+    background-attachment: fixed;
+  }
+  ::selection {
+    background: rgba(255, 176, 32, 0.28);
+  }
+  /* Thin instrument-console scrollbars */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #26314a;
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+@layer components {
+  .panel {
+    @apply rounded-xl border border-line bg-ink-800/70 shadow-panel backdrop-blur-sm;
+  }
+  .eyebrow {
+    @apply font-mono text-[11px] uppercase tracking-[0.22em] text-text-faint;
+  }
+  .field-label {
+    @apply mb-1.5 block font-mono text-[11px] uppercase tracking-[0.16em] text-text-muted;
+  }
+  .input {
+    @apply w-full rounded-lg border border-line bg-ink-700/60 px-3 py-2.5 text-sm text-text
+      outline-none transition focus:border-signal/60 focus:ring-1 focus:ring-signal/40
+      placeholder:text-text-faint;
+  }
+  select.input {
+    @apply appearance-none bg-[length:12px] bg-[right_0.75rem_center] bg-no-repeat pr-9;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238A97AE' d='M6 8.5 1.5 4h9z'/%3E%3C/svg%3E");
+  }
+}
+
+/* --- Report reading column (markdown) --- */
+.report h1 {
+  @apply mb-4 mt-2 font-display text-3xl font-semibold leading-tight text-text;
+}
+.report h2 {
+  @apply mb-3 mt-8 border-b border-line pb-2 font-display text-xl font-semibold text-text;
+}
+.report h3 {
+  @apply mb-2 mt-5 font-display text-base font-semibold text-verified;
+}
+.report p {
+  @apply my-3 text-[15px] leading-7 text-text/90;
+}
+.report ul {
+  @apply my-3 space-y-1.5 pl-1;
+}
+.report li {
+  @apply relative pl-5 text-[15px] leading-7 text-text/90;
+}
+.report li::before {
+  content: "";
+  @apply absolute left-0 top-3 h-1.5 w-1.5 rounded-sm bg-signal/70;
+}
+.report a {
+  @apply text-verified underline decoration-verified/30 underline-offset-2 hover:decoration-verified;
+}
+.report strong {
+  @apply font-semibold text-text;
+}
+.report em {
+  @apply text-text-muted;
+}
+.report table {
+  @apply my-4 w-full border-collapse text-sm;
+}
+.report th,
+.report td {
+  @apply border border-line px-3 py-2 text-left;
+}
+.report th {
+  @apply bg-ink-700 font-mono text-[11px] uppercase tracking-wider text-text-muted;
+}
+.report code {
+  @apply rounded bg-ink-700 px-1.5 py-0.5 font-mono text-[13px] text-signal;
+}

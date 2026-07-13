@@ -41,6 +41,7 @@ from api.metrics import (
 )
 from api.worker import submit_report_job
 from agents.llm_client import list_models
+from agents.report_format import render_report_markdown
 from agents.schemas import (
     JobStatusResponse,
     ReportMode,
@@ -278,6 +279,7 @@ async def get_report(job_id: str):
         query=job["query"],
         report_mode=job["report_mode"],
         report=job["report"],
+        report_markdown=render_report_markdown(job["report"], job["report_mode"]),
         quality=job["report"].get("quality", {}),
         tokens_used=job.get("tokens_used", 0),
         cost_usd=job.get("cost_usd", 0.0),
