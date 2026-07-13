@@ -43,9 +43,10 @@ Notes:
   Build and deploys it. 2 GiB memory covers headless Chromium; `--timeout 3600`
   (the 60-min max) lets long inline jobs finish.
 - The command prints a **Service URL** — copy it for step 2.
-- After you know the Vercel URL, tighten CORS:
+- After you know the Vercel URL, tighten CORS without re-passing secrets
+  (`--update-env-vars` merges; it does not replace all env vars):
   `gcloud run services update research-agent-api --region "$REGION" \
-    --set-env-vars "ALLOWED_ORIGINS=https://YOUR-APP.vercel.app,JOB_BACKEND=inline,DATABASE_URL=...,TAVILY_API_KEY=..."`
+    --update-env-vars "ALLOWED_ORIGINS=https://YOUR-APP.vercel.app"`
 - **Hardening:** put `DATABASE_URL` / `TAVILY_API_KEY` in Secret Manager and
   reference them with `--set-secrets` instead of `--set-env-vars`.
 
