@@ -59,6 +59,13 @@ log = structlog.get_logger(__name__)
 # ---------------------------------------------------------------------------
 limiter = Limiter(key_func=get_remote_address)
 
+# Job execution backend: "inline" runs the pipeline in-process (single Cloud Run
+# service, no Redis/Celery); "celery" dispatches to the worker (docker-compose).
+JOB_BACKEND = os.environ.get("JOB_BACKEND", "inline").lower()
+
+# Strong refs to in-flight inline tasks so the event loop doesn't GC them.
+_inline_tasks: set = set()
+
 
 # ---------------------------------------------------------------------------
 # App lifespan — startup/shutdown
@@ -198,9 +205,9 @@ async def generate_report(request: Request, body: ReportRequest):
         token_budget=body.token_budget,
     )
 
-    # Submit to Celery queue. BYOK provider/model/key ride the task payload
-    # (transient in the broker); the key is never persisted to the database.
-    submit_report_job.delay(
+    # Dispatch the job. BYOK provider/model/key travel with it but the key is
+    # never persisted — only in memory (inline) or transiently in the broker (celery).
+    job_kwargs = dict(
         job_id=job_id,
         query=body.query,
         report_mode=body.report_mode.value,
@@ -210,6 +217,16 @@ async def generate_report(request: Request, body: ReportRequest):
         model=body.model,
         api_key=body.api_key,
     )
+    if JOB_BACKEND == "celery":
+        submit_report_job.delay(**job_kwargs)
+    else:
+        import asyncio
+
+        from api.inline_runner import run_job_inline
+
+        task = asyncio.create_task(run_job_inline(**job_kwargs))
+        _inline_tasks.add(task)
+        task.add_done_callback(_inline_tasks.discard)
 
     track_active_jobs()
     log.info(

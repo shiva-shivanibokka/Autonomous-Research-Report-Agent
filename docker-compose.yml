@@ -18,6 +18,8 @@ x-common-env: &common-env
   REDIS_URL: redis://redis:6379/0
   OTLP_ENDPOINT: http://jaeger:4317
   LOG_LEVEL: INFO
+  # Use the dedicated Celery worker in Compose (Cloud Run defaults to inline).
+  JOB_BACKEND: celery
 
 services:
 

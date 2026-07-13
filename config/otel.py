@@ -4,7 +4,14 @@ import os
 
 
 def setup_tracing(service_name: str = "research-agent"):
-    """Configure OpenTelemetry with OTLP exporter pointing to Jaeger."""
+    """Configure OpenTelemetry with an OTLP exporter (Jaeger in Compose).
+
+    No-ops when OTLP_ENDPOINT is unset/empty — e.g. on Cloud Run, where there is
+    no collector — so spans aren't queued against an unreachable endpoint.
+    """
+    otlp_endpoint = os.environ.get("OTLP_ENDPOINT", "")
+    if not otlp_endpoint:
+        return
     try:
         from opentelemetry import trace
         from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import (
@@ -13,8 +20,6 @@ def setup_tracing(service_name: str = "research-agent"):
         from opentelemetry.sdk.resources import Resource
         from opentelemetry.sdk.trace import TracerProvider
         from opentelemetry.sdk.trace.export import BatchSpanProcessor
-
-        otlp_endpoint = os.environ.get("OTLP_ENDPOINT", "http://jaeger:4317")
 
         resource = Resource.create({"service.name": service_name})
         provider = TracerProvider(resource=resource)

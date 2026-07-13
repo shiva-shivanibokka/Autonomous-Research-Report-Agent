@@ -1,0 +1,17 @@
+# The backend image only needs the Python app — keep the frontend, VCS, and
+# local cruft out of the build context (smaller, faster builds).
+frontend/
+.git/
+.github/
+**/__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+monitoring/
+*.md
+tests/
