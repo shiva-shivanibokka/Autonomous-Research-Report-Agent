@@ -25,6 +25,13 @@ class ReportMode(str, Enum):
     GENERAL = "general"
 
 
+class LLMProvider(str, Enum):
+    ANTHROPIC = "anthropic"
+    OPENAI = "openai"
+    GOOGLE = "google"
+    GROQ = "groq"
+
+
 class ConfidenceLevel(str, Enum):
     HIGH = "high"  # 3+ independent sources agree
     MEDIUM = "medium"  # 2 sources agree
@@ -342,6 +349,11 @@ class ResearchState(BaseModel):
     max_rounds: int = 3  # max critic/re-research iterations
     token_budget: int = 100_000  # total token budget for this job
 
+    # -- BYOK LLM selection (api_key is in-memory only, never persisted to the DB) --
+    provider: LLMProvider = LLMProvider.ANTHROPIC
+    model: str = "claude-sonnet-4-5"
+    api_key: str | None = None  # None → server falls back to its own ANTHROPIC_API_KEY
+
     # -- orchestrator decomposition --
     sub_questions: list[str] = Field(default_factory=list)
 
@@ -393,6 +405,11 @@ class ReportRequest(BaseModel):
     report_mode: ReportMode = ReportMode.GENERAL
     max_rounds: int = Field(default=2, ge=1, le=3)
     token_budget: int = Field(default=80_000, ge=20_000, le=200_000)
+    # BYOK: user picks a provider + model and supplies their own key (never stored).
+    # Omit all three to use the server's own Anthropic key with a default model.
+    provider: LLMProvider = LLMProvider.ANTHROPIC
+    model: str = "claude-sonnet-4-5"
+    api_key: str | None = Field(default=None, max_length=400)
 
 
 class ReportJobResponse(BaseModel):

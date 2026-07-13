@@ -28,6 +28,7 @@ from langgraph.graph import END, StateGraph
 from agents.analyst_agent import run_parallel_analysis
 from agents.critic_agent import run_critic_agent, should_continue_research
 from agents.fact_checker_agent import run_fact_checking
+from agents.llm_client import set_llm_creds
 from agents.orchestrator import orchestrate
 from agents.scraper_agent import run_parallel_scraping
 from agents.search_agent import run_parallel_search
@@ -160,9 +161,15 @@ async def run_pipeline(state: ResearchState) -> ResearchState:
         job_id=state.job_id,
         query=state.query[:80],
         mode=state.report_mode.value,
+        provider=state.provider.value,
+        model=state.model,
         max_rounds=state.max_rounds,
         token_budget=state.token_budget,
     )
+
+    # Set the BYOK provider/model/key for this job. Every agent's call_llm() in
+    # this async context reads these creds. api_key stays in memory only.
+    set_llm_creds(state.provider.value, state.model, state.api_key)
 
     graph = get_graph()
 

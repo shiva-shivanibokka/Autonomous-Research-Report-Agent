@@ -5,9 +5,11 @@ langgraph>=0.2.0
 langchain-core>=0.2.0
 
 # ---------------------------------------------------------------------------
-# LLM providers
+# LLM providers (BYOK — multi-provider). OpenAI SDK also covers Groq + Google
+# Gemini via their OpenAI-compatible endpoints.
 # ---------------------------------------------------------------------------
 anthropic>=0.40.0
+openai>=1.40.0
 
 # ---------------------------------------------------------------------------
 # Web search & scraping

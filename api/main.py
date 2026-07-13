@@ -17,7 +17,7 @@ from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 
 import structlog
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, Header, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
@@ -40,6 +40,7 @@ from api.metrics import (
     track_active_jobs,
 )
 from api.worker import submit_report_job
+from agents.llm_client import list_models
 from agents.schemas import (
     JobStatusResponse,
     ReportMode,
@@ -92,11 +93,21 @@ app = FastAPI(
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
+# Lock CORS to explicit origins (comma-separated ALLOWED_ORIGINS env var).
+# Wildcard "*" with allow_credentials=True is rejected by browsers and unsafe;
+# BYOK keys are sent from the browser, so the origin allowlist matters.
+_allowed_origins = [
+    o.strip()
+    for o in os.environ.get(
+        "ALLOWED_ORIGINS", "http://localhost:3000,http://localhost:7860"
+    ).split(",")
+    if o.strip()
+]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
+    allow_origins=_allowed_origins,
+    allow_credentials=False,
+    allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
 
@@ -148,6 +159,26 @@ async def metrics():
 
 
 # ---------------------------------------------------------------------------
+# BYOK — list a provider's models using the caller's key (populates the UI dropdown)
+# ---------------------------------------------------------------------------
+@app.get("/providers/{provider}/models", tags=["providers"])
+async def get_provider_models(provider: str, x_provider_key: str = Header(...)):
+    """
+    Return the live model list for a provider, fetched with the user's own key.
+    The key is used only for this request and is never stored.
+    """
+    try:
+        models = await list_models(provider, x_provider_key)
+    except Exception as exc:
+        # Bad key or unknown provider — tell the client without leaking internals.
+        raise HTTPException(
+            status_code=400,
+            detail=f"Could not list models for provider '{provider}'. Check the provider and API key.",
+        ) from exc
+    return {"provider": provider, "models": models}
+
+
+# ---------------------------------------------------------------------------
 # Report generation
 # ---------------------------------------------------------------------------
 @app.post("/report/generate", response_model=ReportJobResponse, tags=["reports"])
@@ -166,13 +197,17 @@ async def generate_report(request: Request, body: ReportRequest):
         token_budget=body.token_budget,
     )
 
-    # Submit to Celery queue
+    # Submit to Celery queue. BYOK provider/model/key ride the task payload
+    # (transient in the broker); the key is never persisted to the database.
     submit_report_job.delay(
         job_id=job_id,
         query=body.query,
         report_mode=body.report_mode.value,
         max_rounds=body.max_rounds,
         token_budget=body.token_budget,
+        provider=body.provider.value,
+        model=body.model,
+        api_key=body.api_key,
     )
 
     track_active_jobs()
@@ -265,8 +300,15 @@ async def list_reports(limit: int = 10, offset: int = 0):
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
     REPORT_ERRORS.inc()
-    log.error("unhandled_exception", path=request.url.path, error=str(exc))
+    # Log the detail server-side; never return exception internals to the client.
+    request_id = request.headers.get("X-Request-ID")
+    log.error(
+        "unhandled_exception",
+        path=request.url.path,
+        error=str(exc),
+        request_id=request_id,
+    )
     return JSONResponse(
         status_code=500,
-        content={"detail": "Internal server error", "error": str(exc)},
+        content={"detail": "Internal server error", "request_id": request_id},
     )

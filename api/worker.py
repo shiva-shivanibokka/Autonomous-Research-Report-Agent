@@ -61,6 +61,9 @@ def submit_report_job(
     report_mode: str,
     max_rounds: int,
     token_budget: int,
+    provider: str = "anthropic",
+    model: str = "claude-sonnet-4-5",
+    api_key: str | None = None,
 ):
     """
     Celery task: Execute the full research pipeline for a job.
@@ -82,13 +85,17 @@ def submit_report_job(
             job_id, {"status": "running", "celery_task_id": self.request.id}
         )
 
-        # Build initial state
+        # Build initial state. provider/model/api_key drive the BYOK LLM client;
+        # api_key lives only in memory here and is never written to the DB.
         state = ResearchState(
             job_id=job_id,
             query=query,
             report_mode=ReportMode(report_mode),
             max_rounds=max_rounds,
             token_budget=token_budget,
+            provider=provider,
+            model=model,
+            api_key=api_key,
         )
 
         # Run the async pipeline
