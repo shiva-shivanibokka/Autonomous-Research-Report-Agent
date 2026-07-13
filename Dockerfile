@@ -1,5 +1,7 @@
-# Multi-stage Dockerfile for the Autonomous Research Report Agent
-# Stages: base → api, worker, gradio
+# Multi-stage Dockerfile for the Autonomous Research Report Agent.
+# Stages: base -> worker, gradio, api. The `api` stage is LAST on purpose so
+# `gcloud run deploy --source .` (which builds the final stage) deploys the API.
+# docker-compose targets each stage by name, so ordering doesn't affect it.
 
 # ---------------------------------------------------------------------------
 # Base — shared dependencies
@@ -27,23 +29,23 @@ ENV PYTHONPATH=/app
 ENV PYTHONUNBUFFERED=1
 
 # ---------------------------------------------------------------------------
-# API stage
+# Worker stage (Celery — docker-compose only)
+# ---------------------------------------------------------------------------
+FROM base AS worker
+CMD ["celery", "-A", "api.worker.celery_app", "worker", "--loglevel=info", "--concurrency=2"]
+
+# ---------------------------------------------------------------------------
+# Gradio UI stage (legacy local UI — the Next.js frontend is the primary UI)
+# ---------------------------------------------------------------------------
+FROM base AS gradio
+EXPOSE 7860
+CMD ["python", "ui/app.py"]
+
+# ---------------------------------------------------------------------------
+# API stage (final stage — what Cloud Run builds and runs)
 # ---------------------------------------------------------------------------
 FROM base AS api
 EXPOSE 8000
 # Honor Cloud Run's injected $PORT (defaults to 8000 locally). One worker keeps
 # inline jobs and their asyncio tasks in a single process.
 CMD ["sh", "-c", "uvicorn api.main:app --host 0.0.0.0 --port ${PORT:-8000} --workers 1"]
-
-# ---------------------------------------------------------------------------
-# Worker stage
-# ---------------------------------------------------------------------------
-FROM base AS worker
-CMD ["celery", "-A", "api.worker.celery_app", "worker", "--loglevel=info", "--concurrency=2"]
-
-# ---------------------------------------------------------------------------
-# Gradio UI stage
-# ---------------------------------------------------------------------------
-FROM base AS gradio
-EXPOSE 7860
-CMD ["python", "ui/app.py"]
