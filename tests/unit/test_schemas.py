@@ -1,14 +1,16 @@
 """Unit tests for Pydantic schemas — validates all agent boundary models."""
 
 import pytest
+from pydantic import ValidationError
+
 from agents.schemas import (
+    AnalystAgentOutput,
     Claim,
     ConfidenceLevel,
-    ResearchState,
     ReportMode,
-    SearchResult,
+    ResearchState,
     SearchAgentOutput,
-    AnalystAgentOutput,
+    SearchResult,
 )
 
 
@@ -42,7 +44,7 @@ def test_claim_confidence_levels():
 
 
 def test_search_result_relevance_bounds():
-    with pytest.raises(Exception):
+    with pytest.raises(ValidationError):
         SearchResult(
             url="https://example.com",
             title="Test",

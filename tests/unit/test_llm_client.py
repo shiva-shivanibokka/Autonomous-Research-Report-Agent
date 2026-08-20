@@ -21,12 +21,16 @@ def test_compute_cost_exact_match():
 
 def test_compute_cost_prefix_match():
     # A dated/suffixed id should match its family by prefix.
-    assert compute_cost("claude-haiku-4-5-20251001", 1_000_000, 0) == pytest.approx(1.00)
+    assert compute_cost("claude-haiku-4-5-20251001", 1_000_000, 0) == pytest.approx(
+        1.00
+    )
 
 
 def test_compute_cost_unknown_model_uses_default():
     # Unknown model → default estimate ($1 in / $3 out), never crashes.
-    assert compute_cost("some-future-model", 1_000_000, 1_000_000) == pytest.approx(4.00)
+    assert compute_cost("some-future-model", 1_000_000, 1_000_000) == pytest.approx(
+        4.00
+    )
 
 
 def test_build_client_anthropic():
