@@ -5,8 +5,12 @@ Returns cleaned text content with source attribution.
 
 from __future__ import annotations
 
+import asyncio
+import ipaddress
 import re
+import socket
 import time
+from urllib.parse import urlparse
 
 import httpx
 import structlog
@@ -27,6 +31,56 @@ tracer = trace.get_tracer(__name__)
 # Max characters to extract per page to stay within token budgets
 MAX_CONTENT_CHARS = 8_000
 REQUEST_TIMEOUT = 12  # seconds
+
+# Hard ceiling on bytes downloaded per page. MAX_CONTENT_CHARS truncates the
+# *cleaned text*, which happens only after the whole body is already in memory —
+# so a single large response could exhaust the container before it applied.
+MAX_DOWNLOAD_BYTES = 5 * 1024 * 1024
+
+
+class BlockedURLError(Exception):
+    """Raised when a URL resolves somewhere a scraper has no business going."""
+
+
+async def _assert_public_url(url: str) -> None:
+    """
+    Refuse non-HTTP schemes and hosts that resolve to private address space.
+
+    These URLs come from Tavily and from redirects, i.e. entirely from outside.
+    On a cloud host the loopback and link-local ranges are where the metadata
+    service and any sidecar admin ports live, so an unrestricted fetcher that
+    follows redirects is an SSRF primitive pointed at its own infrastructure.
+    """
+    parsed = urlparse(url)
+    if parsed.scheme not in ("http", "https"):
+        raise BlockedURLError(f"unsupported scheme: {parsed.scheme or 'none'}")
+    host = parsed.hostname
+    if not host:
+        raise BlockedURLError("no host in URL")
+
+    loop = asyncio.get_running_loop()
+    try:
+        infos = await loop.getaddrinfo(host, None)
+    except socket.gaierror as exc:
+        raise BlockedURLError(f"could not resolve {host}") from exc
+
+    for info in infos:
+        ip = ipaddress.ip_address(info[4][0])
+        if (
+            ip.is_private
+            or ip.is_loopback
+            or ip.is_link_local
+            or ip.is_reserved
+            or ip.is_multicast
+            or ip.is_unspecified
+        ):
+            raise BlockedURLError(f"{host} resolves to non-public address {ip}")
+
+
+def _extract_title(html: str, fallback: str) -> str:
+    """Read <title> out of a document, falling back to the URL."""
+    title_tag = BeautifulSoup(html, "html.parser").find("title")
+    return title_tag.get_text().strip() if title_tag else fallback
 
 
 def _clean_html(html: str) -> str:
@@ -53,7 +107,14 @@ def _clean_html(html: str) -> str:
     reraise=True,
 )
 async def _fetch_with_httpx(url: str) -> str:
-    """Lightweight HTTP fetch using httpx."""
+    """
+    Lightweight HTTP fetch using httpx, with a size cap and per-hop URL checks.
+
+    Redirects are followed manually rather than by httpx, because
+    `follow_redirects=True` checks nothing between hops — a page that 302s to a
+    link-local address would sail straight past a guard applied only to the
+    URL we started with.
+    """
     headers = {
         "User-Agent": (
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -63,22 +124,47 @@ async def _fetch_with_httpx(url: str) -> str:
     }
     async with httpx.AsyncClient(
         timeout=REQUEST_TIMEOUT,
-        follow_redirects=True,
+        follow_redirects=False,
         headers=headers,
     ) as client:
-        response = await client.get(url)
-        response.raise_for_status()
-        return response.text
+        for _ in range(5):
+            await _assert_public_url(url)
+            async with client.stream("GET", url) as response:
+                if response.is_redirect:
+                    location = response.headers.get("location")
+                    if not location:
+                        response.raise_for_status()
+                        raise BlockedURLError("redirect without a Location header")
+                    url = str(response.url.join(location))
+                    continue
+
+                response.raise_for_status()
+
+                chunks: list[bytes] = []
+                total = 0
+                async for chunk in response.aiter_bytes():
+                    total += len(chunk)
+                    if total > MAX_DOWNLOAD_BYTES:
+                        log.warning("scrape_truncated_oversize", url=url[:80])
+                        break
+                    chunks.append(chunk)
+
+                body = b"".join(chunks)
+                encoding = response.encoding or "utf-8"
+                return body.decode(encoding, errors="replace")
+
+        raise BlockedURLError("too many redirects")
 
 
 async def _fetch_with_playwright(url: str) -> str:
     """Playwright fallback for JS-rendered pages."""
+    await _assert_public_url(url)
     try:
         from playwright.async_api import async_playwright
-    except ImportError:
+    except ImportError as exc:
         raise RuntimeError(
             "playwright not installed — run: pip install playwright && playwright install chromium"
-        )
+        ) from exc
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
@@ -127,15 +213,13 @@ async def scrape_page(url: str, title: str = "") -> ScrapedPage:
                     scrape_error=str(e_pw)[:200],
                 )
 
-        content = _clean_html(html)[:MAX_CONTENT_CHARS]
+        content = (await asyncio.to_thread(_clean_html, html))[:MAX_CONTENT_CHARS]
         word_count = len(content.split())
         duration = time.perf_counter() - t0
 
         # Extract title from HTML if not provided
         if not title:
-            soup = BeautifulSoup(html, "html.parser")
-            title_tag = soup.find("title")
-            title = title_tag.get_text().strip() if title_tag else url
+            title = await asyncio.to_thread(_extract_title, html, url)
 
         span.set_attribute("scraper.used_playwright", used_playwright)
         span.set_attribute("scraper.word_count", word_count)
@@ -162,10 +246,7 @@ async def scrape_pages(
     urls_with_titles: list[tuple[str, str]], max_concurrent: int = 4
 ) -> list[ScrapedPage]:
     """Scrape multiple pages with bounded concurrency."""
-    import asyncio
-    from asyncio import Semaphore
-
-    sem = Semaphore(max_concurrent)
+    sem = asyncio.Semaphore(max_concurrent)
 
     async def _bounded_scrape(url: str, title: str) -> ScrapedPage:
         async with sem:

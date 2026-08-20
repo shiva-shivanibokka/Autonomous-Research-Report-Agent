@@ -5,6 +5,7 @@ Returns ranked SearchResult objects with relevance scores.
 
 from __future__ import annotations
 
+import os
 import time
 from urllib.parse import urlparse
 
@@ -16,6 +17,31 @@ from agents.schemas import SearchResult
 
 log = structlog.get_logger(__name__)
 tracer = trace.get_tracer(__name__)
+
+# One client for the process. A fresh AsyncTavilyClient per search builds a new
+# httpx connection pool and never closes it — at 5 sub-questions x 3 rounds plus
+# fact-checks that is dozens of leaked pools per job.
+_client: AsyncTavilyClient | None = None
+
+
+def _get_client() -> AsyncTavilyClient:
+    global _client
+    if _client is None:
+        if not os.environ.get("TAVILY_API_KEY"):
+            raise RuntimeError(
+                "TAVILY_API_KEY is not set — web search is required for the "
+                "research pipeline. Add it to .env (see .env.example)."
+            )
+        _client = AsyncTavilyClient()
+    return _client
+
+
+def _clamp_score(score: object) -> float:
+    """Tavily relevance -> the 0.0-1.0 the schema requires. None means unscored."""
+    try:
+        return min(1.0, max(0.0, float(score)))  # type: ignore[arg-type]
+    except (TypeError, ValueError):
+        return 0.5
 
 
 async def tavily_search(
@@ -44,7 +70,7 @@ async def tavily_search(
         span.set_attribute("search.max_results", max_results)
 
         t0 = time.perf_counter()
-        client = AsyncTavilyClient()
+        client = _get_client()
 
         kwargs: dict = {
             "query": query,
@@ -66,10 +92,10 @@ async def tavily_search(
             domain = urlparse(r.get("url", "")).netloc
             results.append(
                 SearchResult(
-                    url=r.get("url", ""),
-                    title=r.get("title", ""),
-                    snippet=r.get("content", ""),
-                    relevance_score=r.get("score", 0.5),
+                    url=r.get("url") or "",
+                    title=r.get("title") or "",
+                    snippet=r.get("content") or "",
+                    relevance_score=_clamp_score(r.get("score")),
                     published_date=r.get("published_date"),
                     source_domain=domain,
                 )
