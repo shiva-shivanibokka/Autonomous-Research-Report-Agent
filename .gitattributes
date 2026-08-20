@@ -1,0 +1,9 @@
+# Normalise line endings in the repository.
+# Ledger rule: a Python write_text() or a Windows checkout can produce CRLF, and a
+# Linux CI runner then fails in ways that look like an outage rather than an
+# encoding problem.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.ico binary

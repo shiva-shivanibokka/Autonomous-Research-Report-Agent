@@ -1,0 +1,39 @@
+# Lint configuration. The rule set is named explicitly and the ruff version is
+# pinned in requirements-dev.txt, because `pip install ruff` in CI installs
+# whatever shipped most recently — which makes a green build depend on *when* it
+# ran rather than on what was committed. A newer ruff enabling a new rule then
+# turns a docs-only commit red for reasons that have nothing to do with it.
+
+target-version = "py311"
+line-length = 88
+
+[lint]
+select = [
+    "E",      # pycodestyle errors
+    "F",      # pyflakes
+    "I",      # import sorting
+    "B",      # bugbear
+    "UP",     # pyupgrade
+    "RUF",    # ruff-specific
+    "BLE",    # blind except
+    "S",      # bandit-style security checks
+    "C4",     # comprehensions
+    "RET",    # return simplification
+]
+ignore = [
+    "E501",    # line length — the formatter owns this; long URLs in prompts stay
+    "B008",    # FastAPI's Depends()/Header()/Query() defaults are the framework idiom
+    "RET504",  # a named variable before return is often the clearer read
+    "UP042",   # str+Enum -> StrEnum changes str() output; every call site uses .value
+]
+
+[lint.per-file-ignores]
+# Tests assert on internals and use asserts by design.
+"tests/**" = ["S101", "S105", "S106", "BLE001"]
+# Agent nodes deliberately catch broad exceptions: one failed sub-question must
+# degrade to a partial result rather than kill a multi-minute research job. Each
+# site logs the error and returns a typed output carrying it.
+"agents/**" = ["BLE001"]
+
+[format]
+docstring-code-format = true

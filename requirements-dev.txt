@@ -1,0 +1,13 @@
+# Dev and CI tooling. Install on top of requirements.txt:
+#   pip install -r requirements.txt -r requirements-dev.txt
+#
+# ruff is pinned to an exact version on purpose. An unpinned linter in CI
+# installs whatever shipped most recently, so a build's result depends on the
+# day it ran rather than on the commit — a new release enabling a new rule turns
+# an unrelated commit red. Bump this deliberately, and read what the new rules
+# flag before silencing them.
+ruff==0.16.3
+
+pytest>=8.2.0
+pytest-asyncio>=0.23.0
+pytest-cov>=5.0.0

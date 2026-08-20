@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+# No job here needs an API key. A CI run that depends on a live LLM or search
+# credential fails for contributors and forks, and turns a provider outage into
+# a red build on an unrelated commit — so the pipeline is exercised against the
+# in-process job store and stubbed agents instead.
+env:
+  PYTHON_VERSION: "3.11"
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: "pip"
+      # requirements-dev.txt pins ruff exactly. Installing it unpinned makes the
+      # result depend on the day CI ran rather than on the commit.
+      - run: pip install -r requirements-dev.txt
+      - run: ruff check .
+      - run: ruff format --check .
+
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: "pip"
+      - run: pip install -r requirements.txt -r requirements-dev.txt
+      - name: Unit tests
+        run: pytest tests/unit/ -q --cov=agents --cov=api --cov-report=term-missing
+      - name: API tests (in-process job store, no database, no keys)
+        run: pytest tests/integration/ -q
+
+  frontend:
+    name: Frontend Build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npx tsc --noEmit
+      - run: npm run build
+
+  build:
+    name: Docker Build
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build API image
+        run: docker build --target api -t research-api:${{ github.sha }} .
+      - name: Build Worker image
+        run: docker build --target worker -t research-worker:${{ github.sha }} .
