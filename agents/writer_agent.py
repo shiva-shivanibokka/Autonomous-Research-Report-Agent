@@ -14,24 +14,24 @@ and a Contradiction Map section listing every detected conflict.
 from __future__ import annotations
 
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from urllib.parse import urlparse
 
 import structlog
+from pydantic import ValidationError
 
-from agents.llm_client import REASON_MODEL, call_llm
+from agents.llm_client import REASON_MODEL, call_llm, extract_json
 from agents.schemas import (
+    AcademicLitReviewReport,
     AgentActivityEntry,
     AgentStatus,
-    AcademicLitReviewReport,
     Citation,
     Claim,
     ClaimVerdict,
     CompetitiveIntelligenceReport,
     ConfidenceDistribution,
-    ContradictionEntry,
     ConfidenceLevel,
-    FactCheckResult,
+    ContradictionEntry,
     GeneralReport,
     InvestmentThesisReport,
     QualityReport,
@@ -44,24 +44,40 @@ log = structlog.get_logger(__name__)
 # Max chars of claim context passed to the Writer LLM
 MAX_WRITER_CONTEXT = 30_000
 
+# Output cap for the report call and its repair retry.
+WRITER_MAX_TOKENS = 4096
+
+# Which schema each mode's report should satisfy. schemas.py promises "no raw
+# dicts passed between agents"; the Writer was the one boundary still handing
+# back unvalidated model output, so the report was the least checked object in
+# the pipeline despite being the only one anybody reads.
+REPORT_SCHEMA_BY_MODE = {
+    ReportMode.GENERAL: GeneralReport,
+    ReportMode.COMPETITIVE_INTELLIGENCE: CompetitiveIntelligenceReport,
+    ReportMode.INVESTMENT_THESIS: InvestmentThesisReport,
+    ReportMode.ACADEMIC_LITERATURE_REVIEW: AcademicLitReviewReport,
+}
+
 
 def _build_citations(state: ResearchState) -> list[Citation]:
-    """Collect all unique URLs across search results and build numbered citations."""
+    """Collect all unique URLs across every research round and number them."""
     seen: dict[str, Citation] = {}
     idx = 1
-    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    today = datetime.now(UTC).strftime("%Y-%m-%d")
 
-    for search_out in state.search_outputs:
-        for result in search_out.results:
-            if result.url not in seen:
-                seen[result.url] = Citation(
-                    index=idx,
-                    url=result.url,
-                    title=result.title[:120],
-                    domain=result.source_domain or urlparse(result.url).netloc,
-                    accessed_date=today,
-                )
-                idx += 1
+    # state.all_sources spans every round; state.search_outputs is only the last
+    # one. Reading the accumulator is what keeps round-1 claims cited after the
+    # critic loop fires.
+    for result in state.all_sources.values():
+        if result.url not in seen:
+            seen[result.url] = Citation(
+                index=idx,
+                url=result.url,
+                title=result.title[:120],
+                domain=result.source_domain or urlparse(result.url).netloc,
+                accessed_date=today,
+            )
+            idx += 1
 
     # Also add fact-check sources
     for fc_result in state.fact_check_results:
@@ -110,7 +126,10 @@ def _build_quality_report(
     convergence_note = (
         f"Report converged after {rounds} research round(s)."
         if converged
-        else f"Maximum rounds ({state.max_rounds}) reached without full convergence."
+        else (
+            f"Did not converge: {rounds} of {state.max_rounds} round(s) used and "
+            "the Critic's quality bar was not met."
+        )
     )
     if state.fact_check_results:
         inconclusive = sum(
@@ -311,15 +330,19 @@ Cite sources using their URLs. Be factual and precise."""
             system=system,
             user=user,
             model=REASON_MODEL,
-            max_tokens=4096,
+            max_tokens=WRITER_MAX_TOKENS,
             temperature=0.3,
             agent_name="writer",
             token_budget_remaining=state.token_budget - state.tokens_used_total,
         )
     except Exception as e:
-        duration = time.perf_counter() - t0
         log.error("writer_llm_failed", error=str(e))
-        state.errors.append(f"Writer failed: {str(e)}")
+        state.errors.append(f"Writer failed: {e}")
+        # The Writer is the last node: with no report there is nothing to serve,
+        # so this has to be fatal. Returning without it marked the job "completed"
+        # with report=None, and GET /report/{id} then 404'd on a job the UI had
+        # just shown as successful.
+        state.fatal_error = f"Writer failed: {e}"
         state.activity_log.append(
             AgentActivityEntry(
                 agent_name="Writer Agent",
@@ -331,26 +354,58 @@ Cite sources using their URLs. Be factual and precise."""
 
     duration = time.perf_counter() - t0
 
-    # Parse writer output into structured report
-    import json
-
+    # Parse writer output into a structured report. extract_json ignores fences
+    # and any note the model appends after the closing brace.
     try:
-        text_clean = text.strip()
-        if text_clean.startswith("```"):
-            text_clean = text_clean.split("```")[1]
-            if text_clean.startswith("json"):
-                text_clean = text_clean[4:]
-        text_clean = text_clean.strip()
-        report_dict = json.loads(text_clean)
-    except json.JSONDecodeError:
-        # Fallback: wrap raw text in general report structure
+        report_dict = extract_json(text, expect=dict)
+    except ValueError as first_error:
+        # Observed live: the model closed an object with `]`, making the whole
+        # response unparseable. By this point the run has spent minutes and
+        # thousands of tokens gathering the research, so one cheap repair call
+        # is obviously worth it before falling back to raw text.
+        log.warning("writer_json_invalid_attempting_repair", error=str(first_error))
+        try:
+            repaired, r_inp, r_out, r_cost = await call_llm(
+                system=(
+                    "You fix malformed JSON. Return ONLY the corrected JSON object. "
+                    "Preserve all content exactly; change only the syntax. "
+                    "Do not add commentary, explanation, or markdown fences."
+                ),
+                user=f"This JSON does not parse ({first_error}). Return it corrected:\n\n{text}",
+                model=REASON_MODEL,
+                max_tokens=WRITER_MAX_TOKENS,
+                agent_name="writer_repair",
+                token_budget_remaining=state.token_budget - state.tokens_used_total,
+            )
+            inp += r_inp
+            out += r_out
+            cost += r_cost
+            report_dict = extract_json(repaired, expect=dict)
+            log.info("writer_json_repaired", job_id=state.job_id)
+        except Exception as repair_error:
+            log.warning("writer_json_repair_failed", error=str(repair_error))
+            report_dict = None
+
+    if not isinstance(report_dict, dict):
+        # Last resort: the research is done and paid for, so surface it as prose
+        # rather than throwing away a completed pipeline over a formatting slip.
+        # Strip the code fence so the reader gets text, not a wall of raw JSON.
+        log.error("writer_json_unrecoverable", job_id=state.job_id)
+        state.errors.append("Writer returned malformed JSON; raw output preserved.")
+        body = text.strip()
+        if body.startswith("```"):
+            body = body.split("\n", 1)[-1]
+        body = body.removesuffix("```").strip()
         report_dict = {
             "title": f"Research Report: {state.query[:80]}",
-            "executive_summary": text[:2000],
+            "executive_summary": (
+                "The report could not be parsed into sections. The model's full "
+                "output is reproduced below."
+            ),
             "key_findings": [],
-            "detailed_sections": {"Full Report": text},
+            "detailed_sections": {"Full Report": body},
             "confidence_assessment": quality.convergence_note,
-            "limitations": "Report parsing failed — raw output included.",
+            "limitations": "Report parsing failed — raw model output included above.",
         }
 
     # Inject shared fields into all report modes
@@ -359,6 +414,30 @@ Cite sources using their URLs. Be factual and precise."""
     report_dict["contradictions"] = [c.model_dump() for c in contradictions]
     report_dict.setdefault("title", f"Research Report: {state.query[:80]}")
     report_dict["schema_version"] = "1.0"
+
+    # Validate against the mode's schema so a missing section is a logged,
+    # visible defect rather than a key the frontend silently renders as blank.
+    # Non-fatal on purpose: a report that is 90% there still beats no report,
+    # and the reader is told what was missing.
+    schema = REPORT_SCHEMA_BY_MODE.get(mode)
+    if schema is not None:
+        try:
+            schema.model_validate(report_dict)
+        except ValidationError as ve:
+            missing = sorted({str(err["loc"][0]) for err in ve.errors() if err["loc"]})
+            log.warning(
+                "writer_report_schema_mismatch",
+                job_id=state.job_id,
+                mode=mode.value,
+                fields=missing,
+            )
+            state.errors.append(
+                f"Report did not match the {mode.value} schema: {', '.join(missing)}"
+            )
+            report_dict["limitations"] = (
+                str(report_dict.get("limitations", "")).rstrip()
+                + f"\n\nIncomplete sections (model omitted them): {', '.join(missing)}."
+            ).strip()
 
     state.final_report = report_dict
     state.tokens_used_total += inp + out

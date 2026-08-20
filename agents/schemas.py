@@ -6,12 +6,11 @@ Every agent consumes and produces one of these models — no raw dicts passed be
 from __future__ import annotations
 
 import uuid
-from datetime import datetime
+from datetime import UTC, datetime
 from enum import Enum
-from typing import Annotated, Any
+from typing import Any
 
-from pydantic import BaseModel, Field, HttpUrl
-
+from pydantic import BaseModel, ConfigDict, Field
 
 # ---------------------------------------------------------------------------
 # Enums
@@ -132,6 +131,7 @@ class AnalystAgentOutput(BaseModel):
     contradictions_found: int
     avg_confidence: float = Field(ge=0.0, le=1.0)
     tokens_used: int = 0
+    cost_usd: float = 0.0
     duration_seconds: float = 0.0
     error: str | None = None
 
@@ -177,6 +177,7 @@ class FactCheckResult(BaseModel):
     source_urls: list[str]
     confidence: ConfidenceLevel
     tokens_used: int = 0
+    cost_usd: float = 0.0
     duration_seconds: float = 0.0
 
 
@@ -325,7 +326,7 @@ AnyReport = (
 class AgentActivityEntry(BaseModel):
     """One line in the live agent activity feed shown in the UI."""
 
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(UTC))
     agent_name: str
     status: AgentStatus
     message: str
@@ -357,8 +358,14 @@ class ResearchState(BaseModel):
     # -- orchestrator decomposition --
     sub_questions: list[str] = Field(default_factory=list)
 
-    # -- search layer outputs --
+    # -- search layer outputs (current round only — cleared on re-research) --
     search_outputs: list[SearchAgentOutput] = Field(default_factory=list)
+
+    # Every source seen across all rounds, keyed by URL. search_outputs is reset
+    # each round but approved claims are not, so citations must be built from an
+    # accumulator — otherwise a round-1 claim survives into the report while the
+    # URL backing it disappears from the citation list.
+    all_sources: dict[str, SearchResult] = Field(default_factory=dict)
 
     # -- scraper layer outputs --
     scraper_outputs: list[ScraperAgentOutput] = Field(default_factory=list)
@@ -391,8 +398,7 @@ class ResearchState(BaseModel):
     errors: list[str] = Field(default_factory=list)
     fatal_error: str | None = None
 
-    class Config:
-        arbitrary_types_allowed = True
+    model_config = ConfigDict(arbitrary_types_allowed=True)
 
 
 # ---------------------------------------------------------------------------

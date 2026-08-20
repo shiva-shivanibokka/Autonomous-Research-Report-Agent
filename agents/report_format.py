@@ -46,10 +46,12 @@ def render_report_markdown(report: dict, mode: str) -> str:
                 + "\n".join(f"- **{k}:** {v}" for k, v in sizing.items())
             )
         lines.append(
-            "\n## Bull Case\n" + "\n".join(f"- {b}" for b in report.get("bull_case", []))
+            "\n## Bull Case\n"
+            + "\n".join(f"- {b}" for b in report.get("bull_case", []))
         )
         lines.append(
-            "\n## Bear Case\n" + "\n".join(f"- {b}" for b in report.get("bear_case", []))
+            "\n## Bear Case\n"
+            + "\n".join(f"- {b}" for b in report.get("bear_case", []))
         )
         lines.append(
             "\n## Risk Factors\n"
