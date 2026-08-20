@@ -21,6 +21,8 @@ Also provides:
 from __future__ import annotations
 
 import contextvars
+import json
+import re
 import time
 from dataclasses import dataclass
 from typing import Any, TypeVar
@@ -89,13 +91,120 @@ _DEFAULT_PRICE = {"input": 1.00, "output": 3.00}
 FAST_MODEL = "claude-haiku-4-5"
 REASON_MODEL = "claude-sonnet-4-5"
 
+# ---------------------------------------------------------------------------
+# OpenAI parameter drift
+#
+# OpenAI's reasoning models (o1/o3/o4-…, gpt-5-…) removed `max_tokens` and take
+# `max_completion_tokens` instead — sending the old name is a hard 400, not a
+# warning. The model list in the UI comes live from /v1/models, so these ids show
+# up in the dropdown whether or not this code knows about them.
+#
+# Two layers, because a static pattern can only know about today's model names:
+#   1. the regex skips the doomed first call for ids we recognise, and
+#   2. `_MAX_TOKENS_PARAM` learns from an actual 400 for anything we don't,
+#      so a model family invented after this was written costs one retry, once,
+#      rather than failing every call forever.
+# ---------------------------------------------------------------------------
+_REASONING_MODEL_RE = re.compile(r"^(?:o\d|gpt-5)")
+
+# model id -> the param name known to work. Populated by the regex up front and
+# corrected by _call_openai_chat when the API disagrees.
+_MAX_TOKENS_PARAM: dict[str, str] = {}
+
+
+def _max_tokens_param_for(model: str) -> str:
+    """Which max-tokens parameter name this model wants."""
+    cached = _MAX_TOKENS_PARAM.get(model)
+    if cached is not None:
+        return cached
+    return "max_completion_tokens" if _REASONING_MODEL_RE.match(model) else "max_tokens"
+
+
+async def _call_openai_chat(client: Any, model: str, max_tokens: int, messages: list):
+    """
+    One OpenAI-compatible chat call, retrying once if the server rejects the
+    max-tokens parameter name. The correction is cached per model id.
+    """
+    param = _max_tokens_param_for(model)
+    try:
+        resp = await client.chat.completions.create(
+            model=model, messages=messages, **{param: max_tokens}
+        )
+    except openai.BadRequestError as exc:
+        other = "max_completion_tokens" if param == "max_tokens" else "max_tokens"
+        # Only retry when the complaint is actually about this parameter —
+        # otherwise a genuine 400 (bad key, bad model) would be retried blind.
+        if other not in str(exc):
+            raise
+        log.info("openai_max_tokens_param_switched", model=model, to=other)
+        resp = await client.chat.completions.create(
+            model=model, messages=messages, **{other: max_tokens}
+        )
+        param = other
+    _MAX_TOKENS_PARAM[model] = param
+    return resp
+
+
+# ---------------------------------------------------------------------------
+# JSON extraction
+# ---------------------------------------------------------------------------
+def extract_json(text: str, expect: type | None = None) -> Any:
+    """
+    Pull the first complete JSON value out of an LLM reply.
+
+    Models add prose, wrap output in ```json fences, or append a note after the
+    closing brace no matter how firmly the prompt says not to. `raw_decode`
+    parses from the first `{`/`[` and stops at the end of that value, so trailing
+    commentary is ignored rather than fed to the parser.
+
+    `expect` restricts which candidates count. Without it, a reply whose
+    top-level object is malformed can still "succeed" by returning some nested
+    array or object found further along — a plausible-looking value that is not
+    the thing the caller asked for. Passing `expect=dict` turns that near-miss
+    back into the ValueError it should be.
+
+    Raises ValueError if there is no such value — callers decide what a missing
+    report is worth, which is not something a parser should guess.
+    """
+    if not text:
+        raise ValueError("empty response")
+
+    decoder = json.JSONDecoder()
+    for start, char in enumerate(text):
+        if char not in "{[":
+            continue
+        try:
+            value, _ = decoder.raw_decode(text, start)
+        except json.JSONDecodeError:
+            continue
+        if expect is not None and not isinstance(value, expect):
+            continue
+        return value
+    raise ValueError(
+        f"no JSON {expect.__name__ if expect else 'value'} found in response"
+    )
+
 
 def compute_cost(model: str, input_tokens: int, output_tokens: int) -> float:
-    """Best-effort USD cost for a call. Exact match, then prefix match, then default."""
+    """
+    Best-effort USD cost for a call. Exact match, then longest prefix, then default.
+
+    Longest-first matters: dated model ids like `gpt-4o-mini-2024-07-18` prefix-match
+    both `gpt-4o-mini` and, if the table were ordered differently, `gpt-4o` — which
+    is 17x the price. Iterating in insertion order happened to give the right answer
+    only because the longer keys were written first, which is not a property anyone
+    would think to preserve when adding a model.
+    """
     prices = _COST_TABLE.get(model)
     if prices is None:
         prices = next(
-            (p for key, p in _COST_TABLE.items() if model.startswith(key)),
+            (
+                p
+                for key, p in sorted(
+                    _COST_TABLE.items(), key=lambda kv: len(kv[0]), reverse=True
+                )
+                if model.startswith(key)
+            ),
             _DEFAULT_PRICE,
         )
     return (input_tokens / 1_000_000) * prices["input"] + (
@@ -122,10 +231,18 @@ def _build_client(provider: str, api_key: str | None) -> Any:
     provider = provider.lower()
     if provider == "anthropic":
         # api_key=None → SDK reads ANTHROPIC_API_KEY from the environment.
-        return anthropic.AsyncAnthropic(api_key=api_key) if api_key else anthropic.AsyncAnthropic()
+        return (
+            anthropic.AsyncAnthropic(api_key=api_key)
+            if api_key
+            else anthropic.AsyncAnthropic()
+        )
     if provider in _OPENAI_COMPATIBLE_BASE:
-        return openai.AsyncOpenAI(api_key=api_key, base_url=_OPENAI_COMPATIBLE_BASE[provider])
-    raise ValueError(f"Unsupported provider: {provider!r}. One of {SUPPORTED_PROVIDERS}.")
+        return openai.AsyncOpenAI(
+            api_key=api_key, base_url=_OPENAI_COMPATIBLE_BASE[provider]
+        )
+    raise ValueError(
+        f"Unsupported provider: {provider!r}. One of {SUPPORTED_PROVIDERS}."
+    )
 
 
 def set_llm_creds(provider: str, model: str, api_key: str | None = None) -> None:
@@ -134,7 +251,11 @@ def set_llm_creds(provider: str, model: str, api_key: str | None = None) -> None
     Call once at pipeline start; every subsequent call_llm() in this context uses it.
     """
     provider = (provider or "anthropic").lower()
-    _creds_var.set(_LLMCreds(provider=provider, model=model, client=_build_client(provider, api_key)))
+    _creds_var.set(
+        _LLMCreds(
+            provider=provider, model=model, client=_build_client(provider, api_key)
+        )
+    )
 
 
 async def list_models(provider: str, api_key: str) -> list[str]:
@@ -209,10 +330,11 @@ async def call_llm(
                 "",
             )
         else:
-            resp = await client.chat.completions.create(
-                model=model_id,
-                max_tokens=max_tokens,
-                messages=[
+            resp = await _call_openai_chat(
+                client,
+                model_id,
+                max_tokens,
+                [
                     {"role": "system", "content": system},
                     {"role": "user", "content": user},
                 ],
@@ -261,8 +383,6 @@ async def call_llm_structured(
     Call the LLM and parse the response as a Pydantic model by instructing it to
     return only JSON conforming to the schema. Works across all providers.
     """
-    import json
-
     schema_str = output_schema.model_json_schema()
     structured_system = f"""{system}
 
@@ -281,13 +401,7 @@ Do not include any text before or after the JSON. Do not use markdown code block
         token_budget_remaining=token_budget_remaining,
     )
 
-    # Strip any accidental markdown fencing
-    text = text.strip()
-    if text.startswith("```"):
-        text = text.split("```")[1]
-        if text.startswith("json"):
-            text = text[4:]
-    text = text.strip()
-
-    parsed = output_schema.model_validate_json(text)
+    # extract_json tolerates fences and trailing prose; the schema still decides
+    # whether what came back is usable.
+    parsed = output_schema.model_validate(extract_json(text))
     return parsed, inp, out, cost
