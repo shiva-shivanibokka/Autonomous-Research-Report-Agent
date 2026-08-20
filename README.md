@@ -139,7 +139,8 @@ docker compose up --build
 | `TAVILY_API_KEY` | — | **Required.** Web search. Free tier, no card. |
 | `DATABASE_URL` | _(unset)_ | Unset → in-process job store. Set it for durable, multi-instance storage. |
 | `JOB_BACKEND` | `inline` | `inline` runs jobs in-process; `celery` dispatches to the worker (requires `DATABASE_URL` + Redis). |
-| `ANTHROPIC_API_KEY` | _(unset)_ | Optional server-side fallback when a request omits a BYOK key. |
+| `ANTHROPIC_API_KEY` | _(unset)_ | Optional server-side fallback. Only reachable when the flag below is on. |
+| `ALLOW_SERVER_KEY_FALLBACK` | `false` | Off by default. A request without its own key is refused rather than billed to the server's key. `/health` reports the current value. |
 | `ALLOWED_ORIGINS` | `http://localhost:3000` | Comma-separated CORS allowlist. BYOK keys come from the browser, so this matters in production. |
 | `MAX_INLINE_JOBS` | `4` | Ceiling on concurrent in-process pipelines. |
 | `LOG_LEVEL` | `INFO` | |

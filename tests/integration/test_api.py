@@ -202,3 +202,55 @@ def test_cors_allowlist_is_not_a_wildcard(client):
     """BYOK keys travel from the browser, so the origin allowlist matters."""
     resp = client.get("/health", headers={"Origin": "https://not-allowed.example"})
     assert resp.headers.get("access-control-allow-origin") != "*"
+
+
+# ---------------------------------------------------------------------------
+# The server's own LLM key is not a public resource
+# ---------------------------------------------------------------------------
+def test_request_without_a_key_is_refused_by_default(client):
+    """
+    The client builder falls back to the ambient ANTHROPIC_API_KEY when a
+    request omits one. That key has to be in the environment to record a demo
+    run, so the fallback must be opt-in — otherwise exposing the service once
+    means strangers spending the owner's money silently.
+    """
+    resp = client.post(
+        "/report/generate",
+        json={
+            "query": "What are the key trends in artificial intelligence in 2026?",
+            "report_mode": "general",
+        },
+    )
+    assert resp.status_code == 400
+    assert "your own key" in resp.json()["detail"]
+    assert client.get("/health").json()["server_key_fallback"] is False
+
+
+def test_fallback_can_be_enabled_deliberately(monkeypatch):
+    monkeypatch.delenv("DATABASE_URL", raising=False)
+    monkeypatch.setenv("ALLOW_SERVER_KEY_FALLBACK", "true")
+    monkeypatch.setenv("LOG_LEVEL", "CRITICAL")
+
+    import importlib
+
+    import api.database as database
+    import api.main as main
+
+    monkeypatch.setattr(database, "DATABASE_URL", "", raising=False)
+    database._memory_jobs.clear()
+    main = importlib.reload(main)
+    monkeypatch.setattr(main, "MAX_INLINE_JOBS", 0)  # refuse to actually run it
+
+    with TestClient(main.app) as c:
+        assert c.get("/health").json()["server_key_fallback"] is True
+        resp = c.post(
+            "/report/generate",
+            json={
+                "query": "What are the key trends in artificial intelligence in 2026?",
+                "report_mode": "general",
+            },
+        )
+        # Past the key check; stopped by the capacity guard instead of a 400.
+        assert resp.status_code == 503
+
+    importlib.reload(main)

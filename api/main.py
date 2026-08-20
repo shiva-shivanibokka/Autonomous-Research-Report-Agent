@@ -72,6 +72,18 @@ _inline_tasks: set = set()
 # callers push the container into the OOM killer.
 MAX_INLINE_JOBS = int(os.environ.get("MAX_INLINE_JOBS", "4"))
 
+# May a request that carries no API key spend the server's own ANTHROPIC_API_KEY?
+#
+# Off unless explicitly enabled. The client builder falls back to the ambient
+# ANTHROPIC_API_KEY whenever a request omits one, which is convenient on a
+# laptop and a standing invitation anywhere else: the key has to be present in
+# the environment to record a demo run, and if that same environment is ever
+# exposed, strangers spend the owner's money with no signal that it is
+# happening. Opting in is a deliberate act; forgetting to opt out should not be.
+ALLOW_SERVER_KEY_FALLBACK = os.environ.get(
+    "ALLOW_SERVER_KEY_FALLBACK", ""
+).strip().lower() in ("1", "true", "yes")
+
 
 # ---------------------------------------------------------------------------
 # App lifespan — startup/shutdown
@@ -166,6 +178,9 @@ async def health():
         "job_store": backend_name(),
         "job_backend": JOB_BACKEND,
         "active_jobs": len(_inline_tasks),
+        # Visible on purpose: if this is ever true on a public deployment, the
+        # owner is paying for every visitor's research run.
+        "server_key_fallback": ALLOW_SERVER_KEY_FALLBACK,
         "timestamp": datetime.now(UTC).isoformat(),
     }
 
@@ -217,6 +232,16 @@ async def generate_report(request: Request, body: ReportRequest):
     The actual pipeline runs asynchronously in a Celery worker.
     """
     REPORT_REQUESTS.labels(mode=body.report_mode.value).inc()
+
+    if not body.api_key and not ALLOW_SERVER_KEY_FALLBACK:
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                "This server does not provide an LLM key. Choose a provider and "
+                "supply your own key with the request — it is used for this job "
+                "only and never stored."
+            ),
+        )
 
     # Reject before creating the row — a queued job nobody will run is worse
     # than an honest 503, because the UI would poll it forever.
