@@ -12,12 +12,15 @@ Endpoints:
 
 from __future__ import annotations
 
+import asyncio
 import os
+import time
+import uuid
 from contextlib import asynccontextmanager
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import structlog
-from fastapi import FastAPI, Header, HTTPException, Request
+from fastapi import FastAPI, Header, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
@@ -26,29 +29,26 @@ from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
 from starlette.responses import Response
 
-from api.database import close_db, init_db
+from agents.llm_client import SUPPORTED_PROVIDERS, list_models
+from agents.report_format import render_report_markdown
+from agents.schemas import (
+    JobStatusResponse,
+    ReportJobResponse,
+    ReportRequest,
+    ReportResponse,
+)
+from api.database import backend_name, close_db, init_db
 from api.jobs import (
     create_job,
     get_job,
     get_recent_jobs,
-    update_job_status,
 )
 from api.metrics import (
-    REPORT_DURATION,
     REPORT_ERRORS,
     REPORT_REQUESTS,
     track_active_jobs,
 )
 from api.worker import submit_report_job
-from agents.llm_client import list_models
-from agents.report_format import render_report_markdown
-from agents.schemas import (
-    JobStatusResponse,
-    ReportMode,
-    ReportRequest,
-    ReportJobResponse,
-    ReportResponse,
-)
 from config.logging import setup_logging
 from config.otel import setup_tracing
 
@@ -65,6 +65,12 @@ JOB_BACKEND = os.environ.get("JOB_BACKEND", "inline").lower()
 
 # Strong refs to in-flight inline tasks so the event loop doesn't GC them.
 _inline_tasks: set = set()
+
+# Ceiling on concurrent in-process pipelines. Each one fans out searches, may
+# launch headless Chromium, and holds its scraped pages in memory; the per-IP
+# rate limit does not bound this because it is per-IP. Without a cap, enough
+# callers push the container into the OOM killer.
+MAX_INLINE_JOBS = int(os.environ.get("MAX_INLINE_JOBS", "4"))
 
 
 # ---------------------------------------------------------------------------
@@ -106,9 +112,7 @@ app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 # BYOK keys are sent from the browser, so the origin allowlist matters.
 _allowed_origins = [
     o.strip()
-    for o in os.environ.get(
-        "ALLOWED_ORIGINS", "http://localhost:3000,http://localhost:7860"
-    ).split(",")
+    for o in os.environ.get("ALLOWED_ORIGINS", "http://localhost:3000").split(",")
     if o.strip()
 ]
 app.add_middleware(
@@ -125,9 +129,11 @@ app.add_middleware(
 # ---------------------------------------------------------------------------
 @app.middleware("http")
 async def log_requests(request: Request, call_next):
-    import time, uuid
-
     request_id = str(uuid.uuid4())[:8]
+    # Stash it so the exception handler reports the id we generated. It used to
+    # read request.headers["X-Request-ID"], which is whatever the *caller* sent
+    # — normally absent (so the field was always null) and otherwise attacker-set.
+    request.state.request_id = request_id
     t0 = time.perf_counter()
 
     with structlog.contextvars.bound_contextvars(
@@ -154,7 +160,13 @@ async def health():
     return {
         "status": "ok",
         "service": "research-api",
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        # Which job store actually answered. A fallback that reports the name of
+        # the thing it replaced hides real outages, so this says "memory" plainly
+        # when no DATABASE_URL is configured.
+        "job_store": backend_name(),
+        "job_backend": JOB_BACKEND,
+        "active_jobs": len(_inline_tasks),
+        "timestamp": datetime.now(UTC).isoformat(),
     }
 
 
@@ -170,11 +182,19 @@ async def metrics():
 # BYOK — list a provider's models using the caller's key (populates the UI dropdown)
 # ---------------------------------------------------------------------------
 @app.get("/providers/{provider}/models", tags=["providers"])
-async def get_provider_models(provider: str, x_provider_key: str = Header(...)):
+@limiter.limit("20/minute")
+async def get_provider_models(
+    request: Request, provider: str, x_provider_key: str = Header(...)
+):
     """
     Return the live model list for a provider, fetched with the user's own key.
     The key is used only for this request and is never stored.
     """
+    # Rate limited because this is an unauthenticated endpoint that makes an
+    # outbound call with a caller-supplied credential — i.e. exactly the shape
+    # of a key-validation oracle if left open.
+    if provider.lower() not in SUPPORTED_PROVIDERS:
+        raise HTTPException(status_code=404, detail=f"Unknown provider '{provider}'.")
     try:
         models = await list_models(provider, x_provider_key)
     except Exception as exc:
@@ -198,6 +218,14 @@ async def generate_report(request: Request, body: ReportRequest):
     """
     REPORT_REQUESTS.labels(mode=body.report_mode.value).inc()
 
+    # Reject before creating the row — a queued job nobody will run is worse
+    # than an honest 503, because the UI would poll it forever.
+    if JOB_BACKEND != "celery" and len(_inline_tasks) >= MAX_INLINE_JOBS:
+        raise HTTPException(
+            status_code=503,
+            detail=f"Server is at capacity ({MAX_INLINE_JOBS} concurrent research jobs). Try again shortly.",
+        )
+
     job_id = await create_job(
         query=body.query,
         report_mode=body.report_mode.value,
@@ -207,21 +235,19 @@ async def generate_report(request: Request, body: ReportRequest):
 
     # Dispatch the job. BYOK provider/model/key travel with it but the key is
     # never persisted — only in memory (inline) or transiently in the broker (celery).
-    job_kwargs = dict(
-        job_id=job_id,
-        query=body.query,
-        report_mode=body.report_mode.value,
-        max_rounds=body.max_rounds,
-        token_budget=body.token_budget,
-        provider=body.provider.value,
-        model=body.model,
-        api_key=body.api_key,
-    )
+    job_kwargs = {
+        "job_id": job_id,
+        "query": body.query,
+        "report_mode": body.report_mode.value,
+        "max_rounds": body.max_rounds,
+        "token_budget": body.token_budget,
+        "provider": body.provider.value,
+        "model": body.model,
+        "api_key": body.api_key,
+    }
     if JOB_BACKEND == "celery":
         submit_report_job.delay(**job_kwargs)
     else:
-        import asyncio
-
         from api.inline_runner import run_job_inline
 
         task = asyncio.create_task(run_job_inline(**job_kwargs))
@@ -240,7 +266,7 @@ async def generate_report(request: Request, body: ReportRequest):
         job_id=job_id,
         status="queued",
         message="Research job queued. Poll /report/status/{job_id} for live updates.",
-        created_at=datetime.now(timezone.utc),
+        created_at=datetime.now(UTC),
     )
 
 
@@ -283,9 +309,16 @@ async def get_report(job_id: str):
         )
 
     if job["status"] == "failed":
+        # The stored error is a raw exception string — it can carry a URL, a
+        # driver message, or a file path. The client is told the job failed and
+        # given the id to quote; the detail stays in the log. (The frontend
+        # renders `detail` verbatim, so anything put here lands in a browser.)
+        log.warning(
+            "report_requested_for_failed_job", job_id=job_id, error=job.get("error")
+        )
         raise HTTPException(
-            status_code=500,
-            detail=f"Report generation failed: {job.get('error', 'unknown error')}",
+            status_code=409,
+            detail="Report generation failed for this job. See /report/status/{job_id} for the agent activity feed.",
         )
 
     if not job.get("report"):
@@ -307,8 +340,13 @@ async def get_report(job_id: str):
 
 
 @app.get("/reports", tags=["reports"])
-async def list_reports(limit: int = 10, offset: int = 0):
+async def list_reports(
+    limit: int = Query(default=10, ge=1, le=50),
+    offset: int = Query(default=0, ge=0),
+):
     """List recent research reports with summary metadata."""
+    # Bounded on purpose: unvalidated, `?limit=1000000` was a single-request
+    # dump of every job ever run, and a negative offset was a driver error.
     jobs = await get_recent_jobs(limit=limit, offset=offset)
     return {"reports": jobs, "total": len(jobs)}
 
@@ -320,7 +358,7 @@ async def list_reports(limit: int = 10, offset: int = 0):
 async def global_exception_handler(request: Request, exc: Exception):
     REPORT_ERRORS.inc()
     # Log the detail server-side; never return exception internals to the client.
-    request_id = request.headers.get("X-Request-ID")
+    request_id = getattr(request.state, "request_id", None)
     log.error(
         "unhandled_exception",
         path=request.url.path,
