@@ -14,8 +14,8 @@ from __future__ import annotations
 import structlog
 from pydantic import BaseModel
 
-from agents.llm_client import FAST_MODEL, REASON_MODEL, call_llm_structured
-from agents.schemas import AgentActivityEntry, AgentStatus, ReportMode, ResearchState
+from agents.llm_client import REASON_MODEL, call_llm_structured
+from agents.schemas import AgentActivityEntry, AgentStatus, ResearchState
 
 log = structlog.get_logger(__name__)
 
@@ -78,21 +78,40 @@ Rules:
     user = f"Research query: {state.query}"
 
     budget_per_call = state.token_budget // 20  # ~5% of budget for orchestration
-    result, inp, out, cost = await call_llm_structured(
-        system=system,
-        user=user,
-        output_schema=SubQuestionList,
-        model=REASON_MODEL,
-        max_tokens=min(1024, budget_per_call),
-        agent_name="orchestrator",
-        token_budget_remaining=state.token_budget - state.tokens_used_total,
-    )
+    try:
+        result, inp, out, cost = await call_llm_structured(
+            system=system,
+            user=user,
+            output_schema=SubQuestionList,
+            model=REASON_MODEL,
+            max_tokens=min(1024, budget_per_call),
+            agent_name="orchestrator",
+            token_budget_remaining=state.token_budget - state.tokens_used_total,
+        )
+    except Exception as e:
+        # Every other LLM-calling agent handles its own failures; this one did
+        # not, and it runs first — so the commonest failure of all (a rejected
+        # API key) escaped as a raw exception before a single activity entry was
+        # recorded. LangGraph discards a node's mutations when it raises, so the
+        # user got an empty feed and a 401 with no indication of which agent
+        # produced it. Record it, mark the run fatal, and let the graph unwind.
+        log.error("orchestrator_llm_failed", job_id=state.job_id, error=str(e))
+        state.activity_log.append(
+            AgentActivityEntry(
+                agent_name="Orchestrator",
+                status=AgentStatus.FAILED,
+                message=f"Could not decompose the query: {str(e)[:200]}",
+            )
+        )
+        state.errors.append(f"Orchestrator failed: {e}")
+        state.fatal_error = f"Orchestrator failed: {e}"
+        return state
 
     # On re-research rounds, add targeted sub-questions from Critic flags
     if state.current_round > 0 and state.critic_output:
         for fc in state.critic_output.flagged_claims[:3]:
-            targeted_q = fc.re_search_query
-            if targeted_q not in result.sub_questions:
+            targeted_q = fc.re_search_query.strip()
+            if targeted_q and targeted_q not in result.sub_questions:
                 result.sub_questions.append(targeted_q)
 
     state.sub_questions = result.sub_questions

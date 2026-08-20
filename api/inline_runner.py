@@ -15,7 +15,7 @@ JOB_BACKEND=celery (docker-compose) for the durable, separately-scaled path.
 from __future__ import annotations
 
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import structlog
 
@@ -55,10 +55,35 @@ async def run_job_inline(
             api_key=api_key,
         )
 
-        final_state = await run_pipeline(state)
+        async def persist_progress(snapshot: ResearchState) -> None:
+            """Push the agent feed to the store after every graph node."""
+            await update_job_status(
+                job_id,
+                {
+                    "current_round": snapshot.current_round,
+                    "tokens_used": snapshot.tokens_used_total,
+                    "cost_usd": snapshot.cost_usd_total,
+                    "activity_log": [
+                        e.model_dump(mode="json") for e in snapshot.activity_log
+                    ],
+                },
+            )
+
+        final_state = await run_pipeline(state, on_progress=persist_progress)
         duration = time.perf_counter() - t0
 
         if final_state.fatal_error:
+            # Keep the partial feed: it names the agent that broke.
+            await update_job_status(
+                job_id,
+                {
+                    "activity_log": [
+                        e.model_dump(mode="json") for e in final_state.activity_log
+                    ],
+                    "tokens_used": final_state.tokens_used_total,
+                    "cost_usd": final_state.cost_usd_total,
+                },
+            )
             raise RuntimeError(final_state.fatal_error)
 
         await update_job_status(
@@ -73,7 +98,7 @@ async def run_job_inline(
                     e.model_dump(mode="json") for e in final_state.activity_log
                 ],
                 "duration_seconds": duration,
-                "completed_at": datetime.now(timezone.utc).isoformat(),
+                "completed_at": datetime.now(UTC),
             },
         )
         log.info(
@@ -83,15 +108,21 @@ async def run_job_inline(
             tokens=final_state.tokens_used_total,
         )
 
-    except Exception as exc:
+    except Exception as exc:  # noqa: BLE001 — last line of defence for a detached task
         duration = time.perf_counter() - t0
         log.error("inline_job_failed", job_id=job_id, error=str(exc))
-        await update_job_status(
-            job_id,
-            {
-                "status": "failed",
-                "error": str(exc)[:500],
-                "duration_seconds": duration,
-                "completed_at": datetime.now(timezone.utc).isoformat(),
-            },
-        )
+        try:
+            await update_job_status(
+                job_id,
+                {
+                    "status": "failed",
+                    "error": str(exc)[:500],
+                    "duration_seconds": duration,
+                    "completed_at": datetime.now(UTC),
+                },
+            )
+        except Exception:
+            # Nothing above this catches: run_job_inline is a bare asyncio task,
+            # so an exception escaping here is only ever printed by the loop's
+            # default handler and the job is left on 'running' forever.
+            log.exception("inline_job_status_write_failed", job_id=job_id)

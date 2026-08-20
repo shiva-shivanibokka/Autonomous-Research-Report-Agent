@@ -8,8 +8,9 @@ This worker picks it up and executes the full multi-agent pipeline.
 from __future__ import annotations
 
 import asyncio
+import os
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import structlog
 from celery import Celery
@@ -21,8 +22,6 @@ log = structlog.get_logger(__name__)
 # ---------------------------------------------------------------------------
 # Celery app — broker and result backend both use Redis
 # ---------------------------------------------------------------------------
-import os
-
 REDIS_URL = os.environ.get("REDIS_URL", "redis://redis:6379/0")
 
 celery_app = Celery(
@@ -75,9 +74,9 @@ def submit_report_job(
     t0 = time.perf_counter()
 
     # Import here to avoid circular imports at module load time
-    from api.database import sync_update_job, sync_get_db
     from agents.graph import run_pipeline
     from agents.schemas import ReportMode, ResearchState
+    from api.database import sync_update_job
 
     try:
         # Mark job as running
@@ -119,7 +118,7 @@ def submit_report_job(
                     e.model_dump(mode="json") for e in final_state.activity_log
                 ],
                 "duration_seconds": duration,
-                "completed_at": datetime.now(timezone.utc).isoformat(),
+                "completed_at": datetime.now(UTC),
             },
         )
 
@@ -146,7 +145,7 @@ def submit_report_job(
                 "status": "failed",
                 "error": str(exc)[:500],
                 "duration_seconds": duration,
-                "completed_at": datetime.now(timezone.utc).isoformat(),
+                "completed_at": datetime.now(UTC),
             },
         )
 
@@ -154,6 +153,6 @@ def submit_report_job(
         if "RateLimitError" in str(type(exc).__name__) or "ConnectionError" in str(
             type(exc).__name__
         ):
-            raise self.retry(exc=exc, countdown=30)
+            raise self.retry(exc=exc, countdown=30) from exc
 
         raise

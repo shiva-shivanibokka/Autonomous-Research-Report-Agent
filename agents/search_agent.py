@@ -80,6 +80,11 @@ async def run_parallel_search(state: ResearchState) -> ResearchState:
     LangGraph node: Fan out Search Agents in parallel across all sub-questions.
     Uses asyncio.gather with partial failure tolerance.
     """
+    # Drop blanks before anything counts them: an empty sub-question reaches
+    # Tavily as an empty query and also skews the per-agent token budget.
+    # Seen live when the Critic emitted a flagged claim with no search text.
+    state.sub_questions = [q.strip() for q in state.sub_questions if q and q.strip()]
+
     log.info(
         "parallel_search_start",
         job_id=state.job_id,
@@ -134,6 +139,11 @@ async def run_parallel_search(state: ResearchState) -> ResearchState:
 
     total_results = sum(len(o.results) for o in search_outputs)
     state.search_outputs = search_outputs
+
+    # Accumulate across rounds so citations survive the re-research loop.
+    for out in search_outputs:
+        for r in out.results:
+            state.all_sources.setdefault(r.url, r)
 
     state.activity_log.append(
         AgentActivityEntry(
