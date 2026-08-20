@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import asyncio
 import time
-from urllib.parse import urlparse
 
 import structlog
 from pydantic import BaseModel
@@ -138,6 +137,7 @@ Assess whether this claim is verified, contradicted, or inconclusive based on th
                 result.confidence.lower(), ConfidenceLevel.INCONCLUSIVE
             ),
             tokens_used=inp + out,
+            cost_usd=cost,
             duration_seconds=duration,
         )
 
@@ -159,6 +159,8 @@ async def run_fact_checking(state: ResearchState) -> ResearchState:
     LangGraph node: Dynamically spawn Fact-Checker agents for all flagged claims.
     Runs in parallel with bounded concurrency.
     """
+    # state.converged is decided by the Critic (it is the only node that knows
+    # whether it still wanted another round when the rounds ran out) — not here.
     if not state.critic_output or not state.critic_output.flagged_claims:
         log.info("fact_checking_skipped_no_flags", job_id=state.job_id)
         state.activity_log.append(
@@ -168,7 +170,6 @@ async def run_fact_checking(state: ResearchState) -> ResearchState:
                 message="No claims flagged by Critic — skipping fact-checking.",
             )
         )
-        state.converged = True
         return state
 
     flagged = state.critic_output.flagged_claims
@@ -193,6 +194,7 @@ async def run_fact_checking(state: ResearchState) -> ResearchState:
 
     results: list[FactCheckResult] = []
     total_tokens = 0
+    total_cost = 0.0
 
     for i, r in enumerate(raw):
         if isinstance(r, Exception):
@@ -209,9 +211,12 @@ async def run_fact_checking(state: ResearchState) -> ResearchState:
         else:
             results.append(r)
             total_tokens += r.tokens_used
+            total_cost += r.cost_usd
 
     state.fact_check_results = results
     state.tokens_used_total += total_tokens
+    # Fact-Checkers are spawned one per flagged claim; their cost was dropped too.
+    state.cost_usd_total += total_cost
     state.tokens_by_agent["fact_checker"] = (
         state.tokens_by_agent.get("fact_checker", 0) + total_tokens
     )
@@ -219,8 +224,6 @@ async def run_fact_checking(state: ResearchState) -> ResearchState:
     verified = sum(1 for r in results if r.verdict == ClaimVerdict.VERIFIED)
     contradicted = sum(1 for r in results if r.verdict == ClaimVerdict.CONTRADICTED)
     inconclusive = sum(1 for r in results if r.verdict == ClaimVerdict.INCONCLUSIVE)
-
-    state.converged = True  # After fact-checking, we always proceed to writing
 
     state.activity_log.append(
         AgentActivityEntry(
@@ -231,6 +234,7 @@ async def run_fact_checking(state: ResearchState) -> ResearchState:
                 f"{contradicted} contradicted, {inconclusive} inconclusive"
             ),
             tokens_used=total_tokens,
+            cost_usd=total_cost,
         )
     )
 

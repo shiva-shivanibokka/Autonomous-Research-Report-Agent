@@ -21,7 +21,6 @@ from agents.schemas import (
     AgentActivityEntry,
     AgentStatus,
     Claim,
-    ConfidenceLevel,
     CriticAgentOutput,
     FlaggedClaim,
     ResearchState,
@@ -78,6 +77,15 @@ async def run_critic_agent(state: ResearchState) -> ResearchState:
             critic_notes="No claims found to review — research pipeline produced no output.",
         )
         state.critic_output = critic_output
+        # An agent that announced RUNNING has to announce an outcome, or the UI
+        # feed shows it spinning forever while the pipeline moves on without it.
+        state.activity_log.append(
+            AgentActivityEntry(
+                agent_name="Critic Agent",
+                status=AgentStatus.COMPLETED,
+                message="No claims were extracted — nothing to review.",
+            )
+        )
         return state
 
     # Build claims summary for the LLM
@@ -138,7 +146,10 @@ Review these findings and:
         )
     except Exception as e:
         log.error("critic_llm_failed", error=str(e))
-        # Fail open — approve everything, don't block the pipeline
+        # Fail open — approve everything, don't block the pipeline. But the
+        # quality gate never actually ran, so this is explicitly not convergence:
+        # the report must not claim a bar it was never measured against.
+        state.converged = False
         state.critic_output = CriticAgentOutput(
             flagged_claims=[],
             approved_claims=all_claims,
@@ -171,21 +182,38 @@ Review these findings and:
                     raw.get("re_search_query", raw.get("suggested_search", ""))
                 ),
             )
+            # A flag with no claim text or no search query is unusable: it
+            # becomes an empty sub-question for the next round and an empty
+            # Tavily query for the Fact-Checker. Observed live when the model
+            # spelled the keys differently.
+            if not fc.claim_text.strip() or not fc.re_search_query.strip():
+                log.warning(
+                    "critic_flag_incomplete",
+                    claim_text=fc.claim_text[:80],
+                    re_search_query=fc.re_search_query[:80],
+                )
+                continue
             if fc.claim_text not in flagged_texts:
                 flagged.append(fc)
                 flagged_texts.add(fc.claim_text)
-        except Exception:
+        except Exception as exc:
+            log.warning("critic_flag_discarded", error=str(exc), raw=str(raw)[:200])
             continue
 
     # Approved = all claims minus those that appear in flagged set
     approved = [c for c in all_claims if c.text not in flagged_texts]
 
     # Enforce max rounds — don't loop forever
-    needs_more = (
-        result.needs_more_research
-        and state.current_round < state.max_rounds - 1
-        and len(flagged) > 0
-    )
+    rounds_left = state.current_round < state.max_rounds - 1
+    needs_more = result.needs_more_research and rounds_left and len(flagged) > 0
+
+    # Converged = the Critic is satisfied, as opposed to the loop running out of
+    # rounds while it still wanted more. Only this node can tell the two apart:
+    # `needs_more` above has already had the round check ANDed into it, so by the
+    # time any later node sees it the distinction is gone. That is why converged
+    # used to be hardcoded True in the Fact-Checker and the "max rounds reached"
+    # note in the Writer was unreachable.
+    state.converged = not (result.needs_more_research and not rounds_left)
 
     critic_output = CriticAgentOutput(
         flagged_claims=flagged,
