@@ -1,5 +1,5 @@
 # Multi-stage Dockerfile for the Autonomous Research Report Agent.
-# Stages: base -> worker, gradio, api. The `api` stage is LAST on purpose so
+# Stages: base -> worker, api. The `api` stage is LAST on purpose so
 # `gcloud run deploy --source .` (which builds the final stage) deploys the API.
 # docker-compose targets each stage by name, so ordering doesn't affect it.
 
@@ -33,13 +33,6 @@ ENV PYTHONUNBUFFERED=1
 # ---------------------------------------------------------------------------
 FROM base AS worker
 CMD ["celery", "-A", "api.worker.celery_app", "worker", "--loglevel=info", "--concurrency=2"]
-
-# ---------------------------------------------------------------------------
-# Gradio UI stage (legacy local UI — the Next.js frontend is the primary UI)
-# ---------------------------------------------------------------------------
-FROM base AS gradio
-EXPOSE 7860
-CMD ["python", "ui/app.py"]
 
 # ---------------------------------------------------------------------------
 # API stage (final stage — what Cloud Run builds and runs)

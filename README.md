@@ -7,7 +7,12 @@ A multi-agent pipeline that autonomously researches the open web and writes **ci
 > - **Hardest problems solved:** orchestrating a stateful multi-agent graph with a conditional re-research loop under a hard token budget; a **provider-agnostic BYOK LLM layer** (Anthropic, OpenAI, Google, Groq) behind one interface; and a two-tier deploy (scale-to-zero backend + static frontend) that keeps a heavy Python+Playwright stack demoable and cheap.
 > - **Stack:** Python · LangGraph · FastAPI · Celery/Redis (or in-process) · Postgres · Playwright · Prometheus/Grafana/OpenTelemetry · **Next.js 14 + TypeScript + Tailwind** frontend on Vercel · backend on Google Cloud Run.
 
-**Live demo:** _deploying — see [Deployment](#deployment)._
+**No hosted demo.** This one needs a long-running server: a report takes several
+minutes, launches headless Chromium, and holds scraped pages in memory — which no
+free tier will carry, and a cold start long enough to matter reads as "broken" to
+anyone clicking a portfolio link. Rather than leave a dead URL here, it is built
+to run locally in **two commands** (below) with no database and no infrastructure.
+Bring your own LLM key; web search needs a free Tavily key.
 
 ---
 
@@ -82,7 +87,7 @@ config/            structured logging + OpenTelemetry setup
 frontend/          Next.js 14 + TS + Tailwind UI (Vercel)
 monitoring/        Prometheus, Grafana, Alertmanager, alert rules
 tests/             unit + integration tests
-Dockerfile         multi-stage: base -> api / worker / gradio
+Dockerfile         multi-stage: base -> api / worker
 docker-compose.yml full local stack (API, worker, Redis, Postgres, observability)
 ```
 
@@ -90,7 +95,35 @@ docker-compose.yml full local stack (API, worker, Redis, Postgres, observability
 
 ## Run it locally
 
-**Full stack (Docker Compose)** — API + Celery worker + Redis + Postgres + Prometheus/Grafana/Jaeger:
+### Quickest path — no database, no Docker
+
+`DATABASE_URL` is optional. Leave it unset and jobs are held in an in-process
+store, which is not an approximation of the database in the default
+`JOB_BACKEND=inline` mode: the pipeline runs as an asyncio task inside the same
+process that serves the status polls, so it is the same single-writer store
+without the network hop. Jobs do not survive a restart, and `/health` reports
+`"job_store": "memory"` so the substitution is never silent.
+
+```bash
+pip install -r requirements.txt
+playwright install chromium              # optional — JS-page fallback
+export TAVILY_API_KEY=tvly-...           # free tier, no card: tavily.com
+uvicorn api.main:app --reload            # → http://localhost:8000/docs
+```
+
+In a second terminal:
+
+```bash
+cd frontend && npm install && npm run dev   # → http://localhost:3000
+```
+
+Open the UI, pick a provider, paste **your own** LLM key, and run a query. The
+key is sent per request and never stored.
+
+### Full stack (Docker Compose)
+
+Adds the durable path and the observability stack — Celery worker, Redis,
+Postgres, Prometheus, Grafana, Jaeger:
 
 ```bash
 cp .env.example .env          # add TAVILY_API_KEY; ANTHROPIC_API_KEY optional (BYOK)
@@ -99,39 +132,47 @@ docker compose up --build
 # Grafana  → http://localhost:3000
 ```
 
-**Frontend** (points at the local API by default):
+### Configuration
 
-```bash
-cd frontend
-cp .env.local.example .env.local
-npm install
-npm run dev                   # → http://localhost:3000
-```
-
-**Backend only, no Redis/Celery** (inline mode — needs just Postgres):
-
-```bash
-JOB_BACKEND=inline DATABASE_URL=postgresql://... TAVILY_API_KEY=... \
-  uvicorn api.main:app --reload
-```
+| Variable | Default | Notes |
+|---|---|---|
+| `TAVILY_API_KEY` | — | **Required.** Web search. Free tier, no card. |
+| `DATABASE_URL` | _(unset)_ | Unset → in-process job store. Set it for durable, multi-instance storage. |
+| `JOB_BACKEND` | `inline` | `inline` runs jobs in-process; `celery` dispatches to the worker (requires `DATABASE_URL` + Redis). |
+| `ANTHROPIC_API_KEY` | _(unset)_ | Optional server-side fallback when a request omits a BYOK key. |
+| `ALLOWED_ORIGINS` | `http://localhost:3000` | Comma-separated CORS allowlist. BYOK keys come from the browser, so this matters in production. |
+| `MAX_INLINE_JOBS` | `4` | Ceiling on concurrent in-process pipelines. |
+| `LOG_LEVEL` | `INFO` | |
 
 ---
 
 ## Testing
 
 ```bash
-pytest tests/unit -v          # pure, no network (cost math, provider routing, formatting, schemas)
-pytest tests/integration      # smoke tests against a running API
+pytest tests/unit          # pure logic: cost math, provider routing, JSON extraction, schemas
+pytest tests/integration   # the API via TestClient — in-process store, no database, no keys
+pytest                     # both (77 tests)
 ```
+
+Neither suite needs a network, a database, or an API key, so CI runs the whole
+thing on every push. `tests/unit/test_regressions.py` pins the specific defects
+listed under [Notable fixes](#notable-fixes) — each one lived on a path that only
+executes with a live model or a second research round, which is exactly why the
+original suite stayed green while they shipped.
 
 ---
 
 ## Deployment
 
-Two-tier, chosen so a heavy Python + Playwright stack stays cheap and demoable:
+There is no public deployment of this project (see the note at the top). If you
+want your own, the two-tier shape it is built for:
 
-- **Backend → Google Cloud Run.** Runs as a single scale-to-zero service in `JOB_BACKEND=inline` mode (no Redis/Celery); the image honors Cloud Run's `$PORT`. Needs a managed Postgres (`DATABASE_URL`, e.g. Neon) and `TAVILY_API_KEY`.
-- **Frontend → Vercel.** The `frontend/` directory deploys as a Next.js app; set `NEXT_PUBLIC_API_URL` to the Cloud Run URL.
+- **Backend → any host that allows multi-minute requests** (Cloud Run, Fly, a VPS).
+  Runs as a single scale-to-zero service in `JOB_BACKEND=inline` mode; the image
+  honours `$PORT`. `DATABASE_URL` is optional but recommended for anything real.
+  Set `ALLOWED_ORIGINS` to your frontend's origin.
+- **Frontend → Vercel.** The `frontend/` directory deploys as a Next.js app; set
+  `NEXT_PUBLIC_API_URL` to the backend URL.
 
 Step-by-step commands are in [`DEPLOY.md`](./DEPLOY.md).
 
@@ -140,6 +181,21 @@ Step-by-step commands are in [`DEPLOY.md`](./DEPLOY.md).
 ## Observability
 
 The full Compose stack ships Prometheus metrics (`/metrics`), Grafana dashboards, OpenTelemetry traces to Jaeger (a span per LLM call with model, tokens, and cost), structured JSON logs with per-request IDs, and Alertmanager rules. On Cloud Run, tracing no-ops (no collector) and logs stream to Cloud Logging.
+
+## Notable fixes
+
+Found by running the pipeline end to end against a live model — none of them were
+visible to the test suite, which was green the whole time.
+
+| What was wrong | Why it mattered |
+|---|---|
+| The Analyst prompt asked for `supporting_sources` as both a list of URLs and a count. Models sent the list; `int(...)` raised inside a bare `except: continue`. | **Every claim was silently discarded.** The pipeline paid for the tokens and produced empty reports. Now 20+ claims per run. |
+| `setup_logging()` paired `stdlib.add_logger_name` with `PrintLoggerFactory`, whose logger has no `.name`. | The first log call after startup raised, so **the API could not finish booting** in any environment. |
+| Both job runners wrote `completed_at` as an ISO **string** to a `TIMESTAMPTZ` column; asyncpg rejects that outright. | **No job could ever be marked complete** — and the error handler failed the same way, leaving jobs on `running` forever. |
+| The activity log was persisted only at the end of a run. | The "live" agent feed stayed **empty for the whole multi-minute job**. It now streams per graph node. |
+| `increment_round()` cleared `search_outputs`, the only source `_build_citations` read. | Round-1 sources vanished from the citation list while the claims citing them stayed in the report. |
+| `converged` was hardcoded `True`, and the Analyst and Fact-Checker discarded their `cost`. | Two headline numbers — the quality metric and the per-report cost — were **wrong by construction**. |
+| The Orchestrator was the only LLM-calling agent with no error handling, and it runs first. | A rejected API key surfaced as an opaque 401 with an empty activity feed. |
 
 ## Limitations & roadmap
 
@@ -150,3 +206,7 @@ The full Compose stack ships Prometheus metrics (`/metrics`), Grafana dashboards
 ## License
 
 [MIT](./LICENSE) © Shivani Bokka
+
+---
+
+Built by **Shivani Bokka** · [github.com/shiva-shivanibokka](https://github.com/shiva-shivanibokka)

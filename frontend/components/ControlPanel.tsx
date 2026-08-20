@@ -94,9 +94,13 @@ export default function ControlPanel({
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         rows={3}
+        maxLength={500}
         placeholder="e.g. What is the competitive landscape for AI coding assistants in 2026?"
         className="input resize-none"
       />
+      <p className="mt-1 text-right font-mono text-[10px] text-text-faint">
+        {query.trim().length}/500
+      </p>
 
       <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>

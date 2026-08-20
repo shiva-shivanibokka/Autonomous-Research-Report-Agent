@@ -8,8 +8,11 @@ URL.
 
 - `gcloud` authenticated (`gcloud auth login`) with a project set.
 - `vercel` CLI authenticated (`vercel login`).
-- A managed Postgres connection string — **`DATABASE_URL`** (e.g. a free
-  [Neon](https://neon.tech) project). Format: `postgresql://user:pass@host/db`.
+- *Optional:* a managed Postgres connection string — **`DATABASE_URL`** (e.g. a
+  free [Neon](https://neon.tech) project), format `postgresql://user:pass@host/db`.
+  Leave it unset and the service uses its in-process job store instead: fine for a
+  single scale-to-zero instance, but jobs are lost when the instance is reclaimed.
+  `/health` reports which store is live.
 - A **`TAVILY_API_KEY`** (web search; [tavily.com](https://tavily.com)).
 
 > LLM keys are **not** needed at deploy time — they're BYOK, entered per request

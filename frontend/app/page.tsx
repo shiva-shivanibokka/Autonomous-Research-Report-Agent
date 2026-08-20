@@ -132,8 +132,19 @@ export default function Home() {
         </section>
       )}
 
-      <footer className="mt-16 border-t border-line pt-6 font-mono text-[11px] text-text-faint">
-        Autonomous Research Report Agent · LangGraph · FastAPI · BYOK
+      <footer className="mt-16 flex flex-wrap items-center justify-between gap-2 border-t border-line pt-6 font-mono text-[11px] text-text-faint">
+        <span>Autonomous Research Report Agent · LangGraph · FastAPI · BYOK</span>
+        <span>
+          Built by{" "}
+          <a
+            href="https://github.com/shiva-shivanibokka"
+            target="_blank"
+            rel="noreferrer"
+            className="text-text-muted underline-offset-2 hover:text-text hover:underline"
+          >
+            Shivani Bokka
+          </a>
+        </span>
       </footer>
     </main>
   );

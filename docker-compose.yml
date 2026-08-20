@@ -137,26 +137,6 @@ services:
     restart: unless-stopped
 
   # ---------------------------------------------------------------------------
-  # Gradio UI
-  # ---------------------------------------------------------------------------
-  gradio:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: gradio
-    command: python ui/app.py
-    ports:
-      - "7860:7860"
-    environment:
-      <<: *common-env
-      API_URL: http://api:8000
-    networks:
-      - research-net
-    depends_on:
-      - api
-    restart: unless-stopped
-
-  # ---------------------------------------------------------------------------
   # Prometheus — metrics collection
   # ---------------------------------------------------------------------------
   prometheus:
