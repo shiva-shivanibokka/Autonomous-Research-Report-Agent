@@ -33,6 +33,94 @@ class RawClaimList(BaseModel):
     analysis_summary: str
 
 
+def _as_count(*candidates: object, fallback: int = 0) -> int:
+    """
+    First candidate that can be read as a count. A list counts as its length.
+
+    The Analyst prompt asks the model both to *list* the supporting source URLs
+    and to *count* them, and models reasonably answer by putting a list of URLs
+    in `supporting_sources` and the number in `supporting_sources_count`. The
+    old code did int(raw["supporting_sources"]) and got a list, which raised
+    inside a bare `except Exception: continue` — so every claim was silently
+    dropped and the pipeline produced empty reports while still paying for the
+    tokens. Accept whichever shape arrives.
+    """
+    for value in candidates:
+        if isinstance(value, bool) or value is None:
+            continue
+        if isinstance(value, (list, tuple, set)):
+            return len(value)
+        if isinstance(value, (int, float)):
+            return int(value)
+        if isinstance(value, str):
+            try:
+                return int(float(value.strip()))
+            except ValueError:
+                continue
+    return fallback
+
+
+def _as_url_list(*candidates: object) -> list[str]:
+    """First candidate that looks like a list of source URLs."""
+    for value in candidates:
+        if isinstance(value, str) and value.strip():
+            return [value.strip()]
+        if isinstance(value, (list, tuple)):
+            urls = [str(v).strip() for v in value if isinstance(v, str) and v.strip()]
+            if urls:
+                return urls
+    return []
+
+
+def _coerce_claim(raw: dict) -> Claim | None:
+    """
+    Turn one raw LLM claim dict into a validated Claim, or None if unusable.
+
+    Field names vary between models and between runs, so every field is read
+    through a list of accepted spellings rather than one exact key.
+    """
+    if not isinstance(raw, dict):
+        return None
+
+    text = str(
+        raw.get("text") or raw.get("claim") or raw.get("claim_text") or ""
+    ).strip()
+    if not text:
+        return None
+
+    urls = _as_url_list(
+        raw.get("source_urls"),
+        raw.get("sources"),
+        raw.get("supporting_urls"),
+        raw.get("supporting_sources"),
+    )
+    supporting = _as_count(
+        raw.get("supporting_sources_count"),
+        raw.get("num_supporting_sources"),
+        raw.get("supporting_sources"),
+        fallback=len(urls) or 1,
+    )
+    contradicting = _as_count(
+        raw.get("contradicting_sources_count"),
+        raw.get("num_contradicting_sources"),
+        raw.get("contradicting_sources"),
+        fallback=0,
+    )
+
+    detail = raw.get("contradiction_detail") or raw.get("contradiction")
+    data_point = raw.get("data_point") or raw.get("data")
+
+    return Claim(
+        text=text,
+        source_urls=urls,
+        confidence=_assign_confidence(supporting, contradicting),
+        supporting_sources=supporting,
+        contradicting_sources=contradicting,
+        data_point=str(data_point) if data_point else None,
+        contradiction_detail=str(detail) if detail else None,
+    )
+
+
 def _assign_confidence(supporting: int, contradicting: int) -> ConfidenceLevel:
     """Source triangulation: confidence based on independent source agreement."""
     if contradicting > 0:
@@ -79,16 +167,23 @@ async def run_analyst_agent(
     for i, page in enumerate(successful_pages, 1):
         content_block += f"\n--- SOURCE {i}: {page.title[:80]} ---\nURL: {page.url}\n{page.content[:3000]}\n"
 
-    system = """You are a research analyst. Your job is to extract key claims from web content 
+    # Field names and types are spelled out because they used to be described in
+    # prose ("List which source URLs support it" / "Count supporting_sources"),
+    # which reads as two instructions for one key — and models answered with a
+    # list of URLs where an integer was expected.
+    system = """You are a research analyst. Your job is to extract key claims from web content
 and assess how many independent sources support each claim.
 
-For each claim:
-1. State the claim clearly and concisely
-2. List which source URLs support it  
-3. Count supporting_sources (how many of the provided sources agree)
-4. Count contradicting_sources (how many sources contradict it)
-5. Note any contradiction_detail if sources disagree
-6. Extract any specific data_point (numbers, statistics, dates) if present
+Each entry in "claims" must be an object with exactly these keys:
+  "text"                  : string  — the claim, stated clearly and concisely
+  "source_urls"           : array of strings — the source URLs backing the claim
+  "supporting_sources"    : integer — HOW MANY of the provided sources agree (a number, not a list)
+  "contradicting_sources" : integer — HOW MANY of the provided sources contradict it (a number, not a list)
+  "contradiction_detail"  : string or null — what the disagreement is, if any
+  "data_point"            : string or null — any specific number, statistic or date in the claim
+
+"supporting_sources" and "contradicting_sources" are counts. Put the URLs in
+"source_urls" and the counts in those two fields — never a list in a count field.
 
 Return ONLY valid JSON matching the schema. Be precise. Do not fabricate claims not present in the sources."""
 
@@ -132,23 +227,25 @@ Return 4-8 key claims maximum. Focus on claims with the strongest evidence."""
     claims: list[Claim] = []
     for raw in result.claims:
         try:
-            supporting = int(raw.get("supporting_sources", 1))
-            contradicting = int(raw.get("contradicting_sources", 0))
-            confidence = _assign_confidence(supporting, contradicting)
-
-            claims.append(
-                Claim(
-                    text=str(raw.get("text", raw.get("claim", ""))),
-                    source_urls=raw.get("source_urls", []),
-                    confidence=confidence,
-                    supporting_sources=supporting,
-                    contradicting_sources=contradicting,
-                    data_point=raw.get("data_point"),
-                    contradiction_detail=raw.get("contradiction_detail"),
-                )
-            )
-        except Exception:
+            claim = _coerce_claim(raw)
+        except Exception as exc:
+            log.warning("analyst_claim_discarded", error=str(exc), raw=str(raw)[:200])
             continue
+        if claim is None:
+            log.warning("analyst_claim_unusable", raw=str(raw)[:200])
+            continue
+        claims.append(claim)
+
+    if result.claims and not claims:
+        # Extracting nothing from a non-empty model response means the shape
+        # changed, not that the sources were empty. Loud, because this exact
+        # failure ran silently and made every report contentless.
+        log.error(
+            "analyst_all_claims_discarded",
+            sub_question=sub_question[:80],
+            received=len(result.claims),
+            sample=str(result.claims[0])[:300],
+        )
 
     # Compute average confidence score
     conf_scores = {
@@ -180,6 +277,7 @@ Return 4-8 key claims maximum. Focus on claims with the strongest evidence."""
         contradictions_found=result.contradictions_found,
         avg_confidence=avg_conf,
         tokens_used=inp + out,
+        cost_usd=cost,
         duration_seconds=duration,
     )
 
@@ -215,6 +313,7 @@ async def run_parallel_analysis(state: ResearchState) -> ResearchState:
 
     analyst_outputs: list[AnalystAgentOutput] = []
     total_tokens = 0
+    total_cost = 0.0
     total_claims = 0
 
     for i, result in enumerate(raw):
@@ -232,10 +331,14 @@ async def run_parallel_analysis(state: ResearchState) -> ResearchState:
         else:
             analyst_outputs.append(result)
             total_tokens += result.tokens_used
+            total_cost += result.cost_usd
             total_claims += len(result.key_claims)
 
     state.analyst_outputs = analyst_outputs
     state.tokens_used_total += total_tokens
+    # The Analysts fan out one call per sub-question, so dropping their cost
+    # understated every report's total — and by the largest share of the calls.
+    state.cost_usd_total += total_cost
     state.tokens_by_agent["analyst"] = (
         state.tokens_by_agent.get("analyst", 0) + total_tokens
     )
@@ -246,6 +349,7 @@ async def run_parallel_analysis(state: ResearchState) -> ResearchState:
             status=AgentStatus.COMPLETED,
             message=f"Extracted {total_claims} claims across {len(analyst_outputs)} sub-questions",
             tokens_used=total_tokens,
+            cost_usd=total_cost,
         )
     )
 
