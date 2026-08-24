@@ -1,0 +1,831 @@
+{
+  "schema_version": "1.0",
+  "recorded_at": "2026-08-24T16:56:15.141383+00:00",
+  "query": "Do AI coding assistants actually make software developers more productive?",
+  "report_mode": "general",
+  "provider": "anthropic",
+  "model": "claude-sonnet-4-5",
+  "duration_seconds": 273.83,
+  "tokens_used": 78591,
+  "cost_usd": 0.485985,
+  "tokens_by_agent": {
+    "orchestrator": 1585,
+    "analyst": 56246,
+    "critic": 9571,
+    "writer": 11189
+  },
+  "rounds_run": 2,
+  "max_rounds": 2,
+  "converged": false,
+  "sources_consulted": 81,
+  "frames": [
+    {
+      "at": 7.89,
+      "entry": {
+        "timestamp": "2026-08-24T16:51:41.363713Z",
+        "agent_name": "Orchestrator",
+        "status": "running",
+        "message": "Round 1: decomposing query into sub-questions...",
+        "tokens_used": 0,
+        "cost_usd": 0.0
+      },
+      "round": 0,
+      "tokens_used": 605,
+      "cost_usd": 0.004911
+    },
+    {
+      "at": 7.89,
+      "entry": {
+        "timestamp": "2026-08-24T16:51:49.203327Z",
+        "agent_name": "Orchestrator",
+        "status": "completed",
+        "message": "Decomposed into 5 sub-questions: What quantitative studies and metrics ex...; What are the reported drawbacks and limi...; How do AI coding assistants impact code ...; What do large-scale developer surveys an...; How does AI coding assistant effectivene...",
+        "tokens_used": 605,
+        "cost_usd": 0.004911
+      },
+      "round": 0,
+      "tokens_used": 605,
+      "cost_usd": 0.004911
+    },
+    {
+      "at": 21.34,
+      "entry": {
+        "timestamp": "2026-08-24T16:51:49.204333Z",
+        "agent_name": "Search Agents",
+        "status": "running",
+        "message": "Launching 5 parallel search agents...",
+        "tokens_used": 0,
+        "cost_usd": 0.0
+      },
+      "round": 0,
+      "tokens_used": 605,
+      "cost_usd": 0.004911
+    },
+    {
+      "at": 21.34,
+      "entry": {
+        "timestamp": "2026-08-24T16:52:02.647739Z",
+        "agent_name": "Search Agents",
+        "status": "completed",
+        "message": "Retrieved 40 sources across 5 sub-questions",
+        "tokens_used": 0,
+        "cost_usd": 0.0
+      },
+      "round": 0,
+      "tokens_used": 605,
+      "cost_usd": 0.004911
+    },
+    {
+      "at": 52.53,
+      "entry": {
+        "timestamp": "2026-08-24T16:52:02.648825Z",
+        "agent_name": "Scraper Agents",
+        "status": "running",
+        "message": "Scraping top 4 sources per sub-question...",
+        "tokens_used": 0,
+        "cost_usd": 0.0
+      },
+      "round": 0,
+      "tokens_used": 605,
+      "cost_usd": 0.004911
+    },
+    {
+      "at": 52.53,
+      "entry": {
+        "timestamp": "2026-08-24T16:52:33.834062Z",
+        "agent_name": "Scraper Agents",
+        "status": "completed",
+        "message": "Scraped 18/20 pages successfully",
+        "tokens_used": 0,
+        "cost_usd": 0.0
+      },
+      "round": 0,
+      "tokens_used": 605,
+      "cost_usd": 0.004911
+    },
+    {
+      "at": 68.47,
+      "entry": {
+        "timestamp": "2026-08-24T16:52:33.836064Z",
+        "agent_name": "Analyst Agents",
+        "status": "running",
+        "message": "Analyzing content across 5 sub-questions in parallel...",
+        "tokens_used": 0,
+        "cost_usd": 0.0
+      },
+      "round": 0,
+      "tokens_used": 21853,
+      "cost_usd": 0.127767
+    },
+    {
+      "at": 68.47,
+      "entry": {
+        "timestamp": "2026-08-24T16:52:49.781926Z",
+        "agent_name": "Analyst Agents",
+        "status": "completed",
+        "message": "Extracted 38 claims across 5 sub-questions",
+        "tokens_used": 21248,
+        "cost_usd": 0.12285599999999999
+      },
+      "round": 0,
+      "tokens_used": 21853,
+      "cost_usd": 0.127767
+    },
+    {
+      "at": 89.09,
+      "entry": {
+        "timestamp": "2026-08-24T16:52:49.782925Z",
+        "agent_name": "Critic Agent",
+        "status": "running",
+        "message": "Reviewing all analyst findings for quality and coverage...",
+        "tokens_used": 0,
+        "cost_usd": 0.0
+      },
+      "round": 0,
+      "tokens_used": 25819,
+      "cost_usd": 0.150189
+    },
+    {
+      "at": 89.09,
+      "entry": {
+        "timestamp": "2026-08-24T16:53:10.403889Z",
+        "agent_name": "Critic Agent",
+        "status": "completed",
+        "message": "Quality score: 0.63 | Coverage: 0.75 | 5 claims flagged → Triggering re-research round 2",
+        "tokens_used": 3966,
+        "cost_usd": 0.022422
+      },
+      "round": 0,
+      "tokens_used": 25819,
+      "cost_usd": 0.150189
+    },
+    {
+      "at": 89.1,
+      "entry": {
+        "timestamp": "2026-08-24T16:53:10.405891Z",
+        "agent_name": "Pipeline",
+        "status": "running",
+        "message": "Starting re-research round 2 of 2...",
+        "tokens_used": 0,
+        "cost_usd": 0.0
+      },
+      "round": 1,
+      "tokens_used": 25819,
+      "cost_usd": 0.150189
+    },
+    {
+      "at": 97.82,
+      "entry": {
+        "timestamp": "2026-08-24T16:53:10.405891Z",
+        "agent_name": "Orchestrator",
+        "status": "running",
+        "message": "Round 2: decomposing query into sub-questions...",
+        "tokens_used": 0,
+        "cost_usd": 0.0
+      },
+      "round": 1,
+      "tokens_used": 26799,
+      "cost_usd": 0.157437
+    },
+    {
+      "at": 97.82,
+      "entry": {
+        "timestamp": "2026-08-24T16:53:19.131871Z",
+        "agent_name": "Orchestrator",
+        "status": "completed",
+        "message": "Decomposed into 8 sub-questions: What do peer-reviewed academic studies a...; What are the measured effects of AI codi...; How has developer sentiment toward AI co...; What metrics and methodologies do organi...; What are the long-term organizational im...; METR 2025 randomized controlled trial AI...; independent peer-reviewed studies AI cod...; technical debt metrics AI coding tools l...",
+        "tokens_used": 980,
+        "cost_usd": 0.007248
+      },
+      "round": 1,
+      "tokens_used": 26799,
+      "cost_usd": 0.157437
+    },
+    {
+      "at": 103.96,
+      "entry": {
+        "timestamp": "2026-08-24T16:53:19.134397Z",
+        "agent_name": "Search Agents",
+        "status": "running",
+        "message": "Launching 8 parallel search agents...",
+        "tokens_used": 0,
+        "cost_usd": 0.0
+      },
+      "round": 1,
+      "tokens_used": 26799,
+      "cost_usd": 0.157437
+    },
+    {
+      "at": 103.96,
+      "entry": {
+        "timestamp": "2026-08-24T16:53:25.265497Z",
+        "agent_name": "Search Agents",
+        "status": "completed",
+        "message": "Retrieved 64 sources across 8 sub-questions",
+        "tokens_used": 0,
+        "cost_usd": 0.0
+      },
+      "round": 1,
+      "tokens_used": 26799,
+      "cost_usd": 0.157437
+    },
+    {
+      "at": 135.45,
+      "entry": {
+        "timestamp": "2026-08-24T16:53:25.266498Z",
+        "agent_name": "Scraper Agents",
+        "status": "running",
+        "message": "Scraping top 4 sources per sub-question...",
+        "tokens_used": 0,
+        "cost_usd": 0.0
+      },
+      "round": 1,
+      "tokens_used": 26799,
+      "cost_usd": 0.157437
+    },
+    {
+      "at": 135.45,
+      "entry": {
+        "timestamp": "2026-08-24T16:53:56.756682Z",
+        "agent_name": "Scraper Agents",
+        "status": "completed",
+        "message": "Scraped 28/32 pages successfully (1 via Playwright)",
+        "tokens_used": 0,
+        "cost_usd": 0.0
+      },
+      "round": 1,
+      "tokens_used": 26799,
+      "cost_usd": 0.157437
+    },
+    {
+      "at": 158.6,
+      "entry": {
+        "timestamp": "2026-08-24T16:53:56.762689Z",
+        "agent_name": "Analyst Agents",
+        "status": "running",
+        "message": "Analyzing content across 8 sub-questions in parallel...",
+        "tokens_used": 0,
+        "cost_usd": 0.0
+      },
+      "round": 1,
+      "tokens_used": 61797,
+      "cost_usd": 0.367635
+    },
+    {
+      "at": 158.6,
+      "entry": {
+        "timestamp": "2026-08-24T16:54:19.904395Z",
+        "agent_name": "Analyst Agents",
+        "status": "completed",
+        "message": "Extracted 60 claims across 8 sub-questions",
+        "tokens_used": 34998,
+        "cost_usd": 0.210198
+      },
+      "round": 1,
+      "tokens_used": 61797,
+      "cost_usd": 0.367635
+    },
+    {
+      "at": 181.16,
+      "entry": {
+        "timestamp": "2026-08-24T16:54:19.908400Z",
+        "agent_name": "Critic Agent",
+        "status": "running",
+        "message": "Reviewing all analyst findings for quality and coverage...",
+        "tokens_used": 0,
+        "cost_usd": 0.0
+      },
+      "round": 1,
+      "tokens_used": 67402,
+      "cost_usd": 0.39597
+    },
+    {
+      "at": 181.16,
+      "entry": {
+        "timestamp": "2026-08-24T16:54:42.462503Z",
+        "agent_name": "Critic Agent",
+        "status": "completed",
+        "message": "Quality score: 0.58 | Coverage: 0.75 | 0 claims flagged",
+        "tokens_used": 5605,
+        "cost_usd": 0.028335
+      },
+      "round": 1,
+      "tokens_used": 67402,
+      "cost_usd": 0.39597
+    },
+    {
+      "at": 181.16,
+      "entry": {
+        "timestamp": "2026-08-24T16:54:42.468523Z",
+        "agent_name": "Fact-Checker Agents",
+        "status": "skipped",
+        "message": "No claims flagged by Critic — skipping fact-checking.",
+        "tokens_used": 0,
+        "cost_usd": 0.0
+      },
+      "round": 1,
+      "tokens_used": 67402,
+      "cost_usd": 0.39597
+    },
+    {
+      "at": 273.83,
+      "entry": {
+        "timestamp": "2026-08-24T16:54:42.474039Z",
+        "agent_name": "Writer Agent",
+        "status": "running",
+        "message": "Writing general report...",
+        "tokens_used": 0,
+        "cost_usd": 0.0
+      },
+      "round": 1,
+      "tokens_used": 78591,
+      "cost_usd": 0.485985
+    },
+    {
+      "at": 273.83,
+      "entry": {
+        "timestamp": "2026-08-24T16:56:15.139384Z",
+        "agent_name": "Writer Agent",
+        "status": "completed",
+        "message": "Report written: 'The Productivity Paradox of AI Coding Assistants: A Comprehensive Analysis of Developer Efficiency, Code Quality, and Organizational Impact' | 81 citations | 0 contradictions mapped",
+        "tokens_used": 11189,
+        "cost_usd": 0.090015
+      },
+      "round": 1,
+      "tokens_used": 78591,
+      "cost_usd": 0.485985
+    }
+  ],
+  "activity_log": [
+    {
+      "timestamp": "2026-08-24T16:51:41.363713Z",
+      "agent_name": "Orchestrator",
+      "status": "running",
+      "message": "Round 1: decomposing query into sub-questions...",
+      "tokens_used": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "timestamp": "2026-08-24T16:51:49.203327Z",
+      "agent_name": "Orchestrator",
+      "status": "completed",
+      "message": "Decomposed into 5 sub-questions: What quantitative studies and metrics ex...; What are the reported drawbacks and limi...; How do AI coding assistants impact code ...; What do large-scale developer surveys an...; How does AI coding assistant effectivene...",
+      "tokens_used": 605,
+      "cost_usd": 0.004911
+    },
+    {
+      "timestamp": "2026-08-24T16:51:49.204333Z",
+      "agent_name": "Search Agents",
+      "status": "running",
+      "message": "Launching 5 parallel search agents...",
+      "tokens_used": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "timestamp": "2026-08-24T16:52:02.647739Z",
+      "agent_name": "Search Agents",
+      "status": "completed",
+      "message": "Retrieved 40 sources across 5 sub-questions",
+      "tokens_used": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "timestamp": "2026-08-24T16:52:02.648825Z",
+      "agent_name": "Scraper Agents",
+      "status": "running",
+      "message": "Scraping top 4 sources per sub-question...",
+      "tokens_used": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "timestamp": "2026-08-24T16:52:33.834062Z",
+      "agent_name": "Scraper Agents",
+      "status": "completed",
+      "message": "Scraped 18/20 pages successfully",
+      "tokens_used": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "timestamp": "2026-08-24T16:52:33.836064Z",
+      "agent_name": "Analyst Agents",
+      "status": "running",
+      "message": "Analyzing content across 5 sub-questions in parallel...",
+      "tokens_used": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "timestamp": "2026-08-24T16:52:49.781926Z",
+      "agent_name": "Analyst Agents",
+      "status": "completed",
+      "message": "Extracted 38 claims across 5 sub-questions",
+      "tokens_used": 21248,
+      "cost_usd": 0.12285599999999999
+    },
+    {
+      "timestamp": "2026-08-24T16:52:49.782925Z",
+      "agent_name": "Critic Agent",
+      "status": "running",
+      "message": "Reviewing all analyst findings for quality and coverage...",
+      "tokens_used": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "timestamp": "2026-08-24T16:53:10.403889Z",
+      "agent_name": "Critic Agent",
+      "status": "completed",
+      "message": "Quality score: 0.63 | Coverage: 0.75 | 5 claims flagged → Triggering re-research round 2",
+      "tokens_used": 3966,
+      "cost_usd": 0.022422
+    },
+    {
+      "timestamp": "2026-08-24T16:53:10.405891Z",
+      "agent_name": "Pipeline",
+      "status": "running",
+      "message": "Starting re-research round 2 of 2...",
+      "tokens_used": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "timestamp": "2026-08-24T16:53:10.405891Z",
+      "agent_name": "Orchestrator",
+      "status": "running",
+      "message": "Round 2: decomposing query into sub-questions...",
+      "tokens_used": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "timestamp": "2026-08-24T16:53:19.131871Z",
+      "agent_name": "Orchestrator",
+      "status": "completed",
+      "message": "Decomposed into 8 sub-questions: What do peer-reviewed academic studies a...; What are the measured effects of AI codi...; How has developer sentiment toward AI co...; What metrics and methodologies do organi...; What are the long-term organizational im...; METR 2025 randomized controlled trial AI...; independent peer-reviewed studies AI cod...; technical debt metrics AI coding tools l...",
+      "tokens_used": 980,
+      "cost_usd": 0.007248
+    },
+    {
+      "timestamp": "2026-08-24T16:53:19.134397Z",
+      "agent_name": "Search Agents",
+      "status": "running",
+      "message": "Launching 8 parallel search agents...",
+      "tokens_used": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "timestamp": "2026-08-24T16:53:25.265497Z",
+      "agent_name": "Search Agents",
+      "status": "completed",
+      "message": "Retrieved 64 sources across 8 sub-questions",
+      "tokens_used": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "timestamp": "2026-08-24T16:53:25.266498Z",
+      "agent_name": "Scraper Agents",
+      "status": "running",
+      "message": "Scraping top 4 sources per sub-question...",
+      "tokens_used": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "timestamp": "2026-08-24T16:53:56.756682Z",
+      "agent_name": "Scraper Agents",
+      "status": "completed",
+      "message": "Scraped 28/32 pages successfully (1 via Playwright)",
+      "tokens_used": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "timestamp": "2026-08-24T16:53:56.762689Z",
+      "agent_name": "Analyst Agents",
+      "status": "running",
+      "message": "Analyzing content across 8 sub-questions in parallel...",
+      "tokens_used": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "timestamp": "2026-08-24T16:54:19.904395Z",
+      "agent_name": "Analyst Agents",
+      "status": "completed",
+      "message": "Extracted 60 claims across 8 sub-questions",
+      "tokens_used": 34998,
+      "cost_usd": 0.210198
+    },
+    {
+      "timestamp": "2026-08-24T16:54:19.908400Z",
+      "agent_name": "Critic Agent",
+      "status": "running",
+      "message": "Reviewing all analyst findings for quality and coverage...",
+      "tokens_used": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "timestamp": "2026-08-24T16:54:42.462503Z",
+      "agent_name": "Critic Agent",
+      "status": "completed",
+      "message": "Quality score: 0.58 | Coverage: 0.75 | 0 claims flagged",
+      "tokens_used": 5605,
+      "cost_usd": 0.028335
+    },
+    {
+      "timestamp": "2026-08-24T16:54:42.468523Z",
+      "agent_name": "Fact-Checker Agents",
+      "status": "skipped",
+      "message": "No claims flagged by Critic — skipping fact-checking.",
+      "tokens_used": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "timestamp": "2026-08-24T16:54:42.474039Z",
+      "agent_name": "Writer Agent",
+      "status": "running",
+      "message": "Writing general report...",
+      "tokens_used": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "timestamp": "2026-08-24T16:56:15.139384Z",
+      "agent_name": "Writer Agent",
+      "status": "completed",
+      "message": "Report written: 'The Productivity Paradox of AI Coding Assistants: A Comprehensive Analysis of Developer Efficiency, Code Quality, and Organizational Impact' | 81 citations | 0 contradictions mapped",
+      "tokens_used": 11189,
+      "cost_usd": 0.090015
+    }
+  ],
+  "report": {
+    "title": "The Productivity Paradox of AI Coding Assistants: A Comprehensive Analysis of Developer Efficiency, Code Quality, and Organizational Impact",
+    "executive_summary": "AI coding assistants have achieved near-universal adoption among software developers, with 84% reporting use in 2025, yet mounting evidence reveals a significant gap between perceived and actual productivity gains. While vendor reports and early studies claimed 20-50% productivity improvements, more rigorous research paints a contradictory picture. The landmark METR randomized controlled trial found that experienced developers using AI tools actually took 19% longer to complete tasks while perceiving a 20% speedup—a 39-point perception gap that highlights fundamental measurement challenges. This productivity paradox extends beyond individual velocity to encompass code quality degradation, with AI-generated code containing 1.7-2.74x more issues than human-written code and security vulnerabilities present in 30-45% of AI-generated output.\n\nThe evidence reveals that AI coding assistants fundamentally transform rather than eliminate developer work, creating what researchers term 'supervisory engineering work'—a shift from creation to verification activities. While 82% of developers report spending less time writing code, time spent on toil tasks remains unchanged at 23-25% of work weeks, and debugging AI-generated code consumes 10-15% more time. Code quality metrics show alarming trends: GitClear's analysis of 211 million lines found refactoring activity declined from 25% to 9.5% between 2021-2024, while code duplication increased from 8.3% to 12.3%. Organizations report technical debt increases of 30-41% within six months of widespread AI adoption, with quality issues surfacing 30-90 days post-implementation.\n\nDeveloper sentiment reflects this growing disillusionment. Trust in AI accuracy plummeted from 40% in 2024 to 29-33% in 2025, while active distrust surged from 31% to 46%. The primary frustration: 66% report AI solutions are 'almost right, but not quite,' and 45% say debugging AI code takes longer than writing from scratch. Individual speed gains rarely translate to company-level delivery improvements without substantial process changes in code review, CI/CD, and QA systems. The research indicates AI coding assistants deliver mixed organizational outcomes—93% cite measurable benefits while 88% report negative impacts—suggesting productivity gains are highly context-dependent and require careful implementation, oversight, and process adaptation to realize genuine efficiency improvements.",
+    "key_findings": [
+      "The METR randomized controlled trial of 16 experienced developers completing 246 real tasks found developers using AI tools took 19% longer while perceiving a 20% speedup, revealing a 39-point perception-reality gap (https://particula.tech/blog/ai-coding-tools-developer-productivity-paradox, https://domenic.me/metr-ai-productivity)",
+      "AI-generated code quality is significantly lower than human-written code, with 1.7-2.74x more issues per pull request, 30-45% containing security vulnerabilities, and 89.1% of 484,606 identified issues classified as code smells across 304,362 verified AI-authored commits (https://blog.exceeds.ai/ai-code-quality, https://arxiv.org/html/2603.28592v1)",
+      "Developer trust in AI coding tools collapsed from 40% in 2024 to 29-33% in 2025, while active distrust increased from 31% to 46%, despite adoption rising to 84%—driven primarily by 66% reporting AI solutions are 'almost right, but not quite' and 45% finding debugging AI code takes longer than writing from scratch (https://byteiota.com/stack-overflow-2025-84-use-ai-29-trust-it)",
+      "GitClear's analysis of 150-211 million lines of code revealed systemic code quality degradation: refactoring activity declined from 25% to 9.5% between 2021-2024, code duplication increased from 8.3% to 12.3%, and organizations experienced 30-41% technical debt increases within six months of widespread AI adoption (https://blog.exceeds.ai/ai-code-quality, https://www.ofashandfire.com/blog/ai-generated-code-quality-crisis)",
+      "AI tools create a fundamental work transformation rather than elimination: while 82% report less time writing code, toil tasks remain unchanged at 23-25% of work weeks, and developers spend 20-35% more time on code review when junior developers heavily use AI assistants (https://arxiv.org/html/2605.23135v1, https://www.ofashandfire.com/blog/ai-generated-code-quality-crisis)",
+      "Individual developer speed gains of 20-50% documented in controlled studies rarely translate to company-level delivery improvements without substantial process changes in code review, CI/CD, and QA systems, as demonstrated by Faros AI's analysis of 10,000+ developers across 1,255 teams (https://www.index.dev/blog/ai-coding-assistants-roi-productivity)"
+    ],
+    "detailed_sections": {
+      "Productivity Measurement and the Perception Gap": "The most rigorous examination of AI coding assistant productivity comes from METR's 2025 randomized controlled trial (February-June), which studied 16 experienced open-source developers completing 246 real tasks on repositories averaging over 1 million lines of code with 22K+ GitHub stars (https://particula.tech/blog/ai-coding-tools-developer-productivity-paradox). Using Cursor Pro with Claude 3.5 Sonnet, the study found developers actually took 19% longer to complete tasks when using AI tools compared to working without them. However, these same developers perceived a 20% speedup, creating a remarkable 39-point perception-reality gap that fundamentally challenges productivity claims (https://domenic.me/metr-ai-productivity).\n\nThis perception gap helps explain the divergence in productivity research. Earlier studies reported substantial gains: McKinsey found 20-50% faster task completion and developers 25-30% more likely to meet complex deadlines (https://fortegrp.com/insights/ai-coding-assistants), while GitHub Copilot studies measured 55% faster completion for simple tasks like writing HTTP servers (https://callsphere.ai/blog/ai-coding-assistants-developer-productivity-studies-2026). DX's Q4 2025 report covering 135,000+ developers found time savings averaging 3.6 hours per week (https://www.getpanto.ai/blog/ai-coding-assistant-statistics). However, these studies often measured narrow task completion rather than end-to-end delivery, and self-reported metrics that don't account for downstream impacts.\n\nFaros AI's Productivity Paradox report, analyzing commit and deployment data from 10,000+ developers across 1,255 teams, revealed that individual speed gains rarely translate to company-level delivery improvements without process changes (https://www.index.dev/blog/ai-coding-assistants-roi-productivity). The McKinsey study of 2,000 developers provides crucial nuance: while coding tasks completed 35-45% faster, time spent understanding and debugging code increased 10-15% (https://callsphere.ai/blog/ai-coding-assistants-developer-productivity-studies-2026). This shift reflects a fundamental transformation in developer work rather than pure acceleration.",
+      "Code Quality Degradation and Technical Debt Accumulation": "Multiple independent analyses document systematic code quality deterioration with AI coding assistant adoption. GitClear's comprehensive analysis of 150-211 million lines of code revealed alarming trends: code duplication increased from 8.3% to 12.3% between 2020-2024, while refactoring activity—essential for maintaining code health—declined precipitously from 25% to 9.5% between 2021-2024 (https://blog.exceeds.ai/ai-code-quality, https://www.ofashandfire.com/blog/ai-generated-code-quality-crisis). This pattern indicates developers increasingly accept AI-generated code with minimal improvement.\n\nSecurity vulnerabilities represent a critical concern. Veracode analysis found 45% of AI-generated code contains security issues, while OWASP studies identified 30-40% containing at least one CWE-class security vulnerability (https://blog.exceeds.ai/ai-code-quality). Veracode 2026 data shows security vulnerabilities occur at 2.74x higher rates in AI-generated versus human-written code (https://blog.exceeds.ai/developer-reliance-on-ai). Pull requests containing AI-assisted code demonstrate 1.7 times more issues than human-written code, with DX studies confirming this 1.7x multiplier (https://www.ofashandfire.com/blog/ai-generated-code-quality-crisis, https://www.getpanto.ai/blog/ai-coding-assistant-statistics).\n\nA large-scale empirical study of 304,362 verified AI-authored commits from 6,275 GitHub repositories identified 484,606 distinct issues, with code smells accounting for 89.1% of problems (https://arxiv.org/html/2603.28592v1). More concerning, 15% of commits from every AI coding assistant introduce at least one issue, and 24.2% of AI-introduced issues persist in the latest repository revision—indicating problems survive code review (https://arxiv.org/html/2603.28592v1). Organizations report technical debt increases of 30-41% within six months of widespread AI tool adoption, with quality issues typically surfacing 30-90 days after initial implementation in production environments (https://www.ofashandfire.com/blog/ai-generated-code-quality-crisis, https://blog.exceeds.ai/best-technical-debt-tools-2026). Teams now spend approximately 20% or more of sprint time on rework and technical debt remediation related to AI-generated code (https://blog.exceeds.ai/best-technical-debt-tools-2026).",
+      "The Transformation of Developer Work and Experience": "AI coding assistants fundamentally transform developer activities rather than simply accelerating existing workflows. Research identifies a shift toward 'supervisory engineering work'—a new category encompassing direction, evaluation, and correction of AI output (https://arxiv.org/html/2605.23135v1, https://www.sonarsource.com/blog/how-ai-is-redefining-technical-debt). While 82% of developers report spending less time on code writing tasks (https://arxiv.org/html/2605.23135v1), time spent on toil tasks remains essentially unchanged at 23-25% of work weeks for both frequent and infrequent AI users, representing what researchers term the 'great toil shift' rather than elimination (https://www.sonarsource.com/blog/how-ai-is-redefining-technical-debt).\n\nDevelopers accept less than 44% of AI-generated code suggestions and spend additional time cleaning up and reviewing the generated code (https://www.linkedin.com/posts/thestevemitchell_measuring-the-impact-of-early-2025-ai-on-activity-7349786687230644225-OqTH). Google's internal data showed AI-generated code required more iterations to pass review despite being accepted at similar rates to human-written code ultimately (https://callsphere.ai/blog/ai-coding-assistants-developer-productivity-studies-2026). Senior engineers report spending 20-35% more time on code review when junior developers heavily use AI assistants (https://www.ofashandfire.com/blog/ai-generated-code-quality-crisis).\n\nDeveloper experience metrics reveal concerning trends. Matched participant studies show the proportion reporting worsened developer experience nearly doubled from 14% to 27% over six months, despite productivity perceptions remaining stable at 84% reporting improvement (https://arxiv.org/html/2605.23135v1). This divergence between productivity perception and experience quality suggests cognitive and emotional costs not captured by velocity metrics. Anthropic's 2026 randomized controlled trial with 52 software engineers found AI-assisted developers scored 17% lower on coding concept quizzes compared to manual coders, raising concerns about skill degradation (https://blog.exceeds.ai/developer-reliance-on-ai). Positive aspects include 57% citing improved documentation quality, particularly helping senior developers navigate poorly documented legacy systems (https://www.sonarsource.com/blog/how-ai-is-redefining-technical-debt).",
+      "Developer Trust Crisis and Adoption Paradox": "The relationship between AI coding tool adoption and developer trust reveals a striking paradox. Stack Overflow's 2025 Developer Survey of 49,000+ developers across 177 countries documented that adoption increased from 76% in 2024 to 84% in 2025, yet trust in AI accuracy simultaneously collapsed from 40% to 29-33% (https://byteiota.com/stack-overflow-2025-84-use-ai-29-trust-it, https://byteiota.com/stack-overflow-2025-survey-ai-trust-hits-all-time-low). Active distrust surged from 31% in 2024 to 46% in 2025—a 15 percentage point increase in a single year (https://byteiota.com/stack-overflow-2025-84-use-ai-29-trust-it). Positive developer sentiment dropped from over 70% in 2023-2024 to 60% in 2025 (https://byteiota.com/stack-overflow-2025-84-use-ai-29-trust-it).\n\nThis growing disillusionment stems from specific frustrations with AI tool limitations. The primary complaint: 66% of developers report AI solutions are 'almost right, but not quite,' creating additional verification and correction work (https://byteiota.com/stack-overflow-2025-84-use-ai-29-trust-it). Nearly half (45%) say debugging AI-generated code takes more time than writing code from scratch (https://byteiota.com/stack-overflow-2025-84-use-ai-29-trust-it). Beyond accuracy, 87% remain concerned about AI accuracy issues broadly, while 81% worry about security and privacy concerns (https://byteiota.com/stack-overflow-2025-84-use-ai-29-trust-it). The trust gap is severe: only 3% of developers highly trust AI-generated code, while 20% of experienced developers highly distrust it (https://byteiota.com/stack-overflow-2025-84-use-ai-29-trust-it).\n\nDespite declining trust, developers continue using AI tools, suggesting adoption is driven by competitive pressure, organizational mandates, or specific use cases where tools provide value despite limitations. A BNY Mellon study with 2,989 developer responses and 11 interviews identified conflicting perspectives on AI tool usefulness, exposing six distinct factors capturing both short-term and long-term productivity dimensions including technical expertise and ownership of work (https://arxiv.org/html/2602.03593v1). The mixed outcomes are evident: 93% cite measurable benefits while 88% report at least one negative impact (https://www.sonarsource.com/blog/how-ai-is-redefining-technical-debt). Additionally, 53% report AI generates code that appears correct but introduces hidden defects and creates false security confidence (https://www.sonarsource.com/blog/how-ai-is-redefining-technical-debt).",
+      "Organizational Implementation and Process Adaptation": "The evidence demonstrates that realizing productivity gains from AI coding assistants requires substantial organizational process adaptation rather than simple tool deployment. Faros AI's analysis of 10,000+ developers across 1,255 teams found individual developer speed increases rarely translate to company-level delivery gains without changes in code review processes, CI/CD pipelines, and QA systems (https://www.index.dev/blog/ai-coding-assistants-roi-productivity). This finding is supported by multiple studies combining quantitative and qualitative data, including MIT-backed randomized controlled trials and McKinsey/METR 2025 studies (https://www.index.dev/blog/ai-coding-assistants-roi-productivity).\n\nThe current state shows AI now generates approximately 41% of code in software development teams, with 22% of merged code being AI-authored according to DX studies (https://blog.exceeds.ai/best-technical-debt-tools-2026, https://www.getpanto.ai/blog/ai-coding-assistant-statistics). However, this volume amplifies quality control challenges. Organizations must strengthen code review processes to catch the 1.7x higher issue rate in AI-generated pull requests, implement enhanced security scanning given the 30-45% vulnerability rate, and establish verification protocols to address the 53% false confidence problem where code appears correct but contains hidden defects.\n\nSuccessful implementation requires balancing speed gains with quality maintenance. The evidence suggests AI tools are most effective for specific use cases: documentation improvement (57% cite as top benefit), simple repetitive tasks (55% faster completion), and navigating legacy systems. Organizations should implement guardrails recognizing that developers accept less than 44% of AI suggestions and need time for verification. The 20% or more of sprint time spent on AI-related rework and technical debt remediation must be factored into capacity planning. Companies should also monitor for skill degradation (17% lower quiz scores for AI-assisted developers) and consider the 20-35% additional senior engineer review time when junior developers heavily use AI tools."
+    },
+    "confidence_assessment": "Confidence in this analysis is HIGH for productivity measurement contradictions, code quality degradation patterns, and trust decline trends, based on multiple large-scale studies including the METR randomized controlled trial (246 tasks, 16 developers), GitClear's analysis (211 million lines of code), Stack Overflow's survey (49,000+ developers), and Faros AI's data (10,000+ developers across 1,255 teams). The METR study provides the most rigorous productivity measurement, though it has not yet undergone peer review. Confidence is MEDIUM for specific quality metrics (1.7x issue rate, 30-45% vulnerability rate) due to variation across studies and measurement methodologies. Confidence is MEDIUM for organizational impact assessments, as long-term effects (30-90 day quality issue emergence, 30-41% technical debt increases) are based on shorter observation windows. The perception-reality gap finding is particularly robust given convergent evidence from multiple independent sources using different methodologies. Lower confidence applies to optimal implementation strategies, as research focuses more on documenting problems than solutions, and context-dependent factors significantly influence outcomes.",
+    "limitations": "This analysis faces several important limitations. First, the research landscape shows high variability in study design, with productivity measurements ranging from narrow task completion to end-to-end delivery, making direct comparisons challenging. The METR study, while rigorous, examined only 16 experienced developers on specific open-source projects and has not yet undergone peer review. Second, the rapidly evolving nature of AI coding tools means findings from 2024-2025 may not reflect current tool capabilities—for example, studies used Claude 3.5 Sonnet and GitHub Copilot, while newer models may perform differently. Third, there is significant publication bias toward documenting problems, with vendor studies reporting positive results and independent research finding negative outcomes. Fourth, most studies measure individual or team productivity but lack long-term organizational impact data beyond six months. Fifth, context dependency is high—productivity impacts vary significantly by developer experience level, task complexity, codebase size, and organizational processes, limiting generalizability. Sixth, the research lacks standardized productivity metrics, with studies using different definitions and measurements (task completion time, lines of code, perceived productivity, delivery velocity). Seventh, quality assessments often rely on automated analysis tools that may not capture all code quality dimensions. Finally, the research provides limited insight into which specific use cases, implementation approaches, or organizational contexts maximize benefits while minimizing drawbacks, making it difficult to provide definitive implementation recommendations beyond general cautions about quality control and process adaptation.",
+    "citations": [
+      {
+        "index": 1,
+        "url": "https://www.index.dev/blog/ai-coding-assistants-roi-productivity",
+        "title": "AI Coding Assistant ROI: Real Productivity Data 2025",
+        "domain": "www.index.dev",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 2,
+        "url": "https://medium.com/@yujiisobe/measuring-developer-productivity-in-the-llm-era-b002cc0b5ab4",
+        "title": "Measuring Developer Productivity in the LLM Era | by Yuji Isobe - Medium",
+        "domain": "medium.com",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 3,
+        "url": "https://arxiv.org/html/2509.20353v2",
+        "title": "Developer Productivity With and Without GitHub Copilot",
+        "domain": "arxiv.org",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 4,
+        "url": "https://www.harness.io/blog/the-impact-of-github-copilot-on-developer-productivity-a-case-study",
+        "title": "The Impact of Github Copilot on Developer Productivity",
+        "domain": "www.harness.io",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 5,
+        "url": "https://www.gitclear.com/recent_ai_developer_productivity_code_quality_research",
+        "title": "Top 11 Cited AI Developer Productivity & Code Quality Research",
+        "domain": "www.gitclear.com",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 6,
+        "url": "https://www.alphaxiv.org/abs/2302.06590",
+        "title": "The Impact of AI on Developer Productivity: Evidence from ...",
+        "domain": "www.alphaxiv.org",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 7,
+        "url": "https://uplevelteam.com/blog/ai-for-developer-productivity",
+        "title": "AI Won't Solve Your Developer Productivity Problems for You",
+        "domain": "uplevelteam.com",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 8,
+        "url": "https://getdx.com/blog/developer-productivity",
+        "title": "How to measure developer productivity: A complete guide ... - DX",
+        "domain": "getdx.com",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 9,
+        "url": "https://www.llinformatics.com/blog/ai-tools-in-software-development",
+        "title": "AI tools in software development: risks and benefits",
+        "domain": "www.llinformatics.com",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 10,
+        "url": "https://blog.codacy.com/ai-assisted-coding-7-pros-and-cons-to-consider",
+        "title": "AI-Assisted Coding: 7 Pros and Cons to Consider",
+        "domain": "blog.codacy.com",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 11,
+        "url": "https://medium.com/@idlerboris/ai-coding-assistants-your-new-pair-programmer-or-a-risky-shortcut-an-engineers-guide-04b08612e70e",
+        "title": "Medium",
+        "domain": "medium.com",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 12,
+        "url": "https://aws.amazon.com/blogs/enterprise-strategy/measuring-the-impact-of-ai-assistants-on-software-development",
+        "title": "Measuring the Impact of AI Assistants on Software Development - AWS",
+        "domain": "aws.amazon.com",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 13,
+        "url": "https://blog.secureflag.com/2024/10/16/the-risks-of-generative-ai-coding-in-software-development",
+        "title": "The risks of generative AI coding in software development | SecureFlag",
+        "domain": "blog.secureflag.com",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 14,
+        "url": "https://spectrum.ieee.org/ai-coding-degrades",
+        "title": "Newer AI Coding Assistants Are Failing in Insidious Ways",
+        "domain": "spectrum.ieee.org",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 15,
+        "url": "https://www.linkedin.com/pulse/developers-still-weighing-pros-cons-ai-coding-agents-fast-company-sipwe",
+        "title": "Developers are still weighing the pros and cons of AI coding agents",
+        "domain": "www.linkedin.com",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 16,
+        "url": "https://www.reddit.com/r/ClaudeAI/comments/1l0033b/what_are_the_biggest_shortcomings_of_todays_ai",
+        "title": "What are the biggest shortcomings of today's AI Coding Assistants? - Reddit",
+        "domain": "www.reddit.com",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 17,
+        "url": "https://arxiv.org/html/2603.28592v2",
+        "title": "A Large-Scale Empirical Study of AI-Generated Code in the Wild - arXiv",
+        "domain": "arxiv.org",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 18,
+        "url": "https://www.softwareseni.com/the-evidence-against-vibe-coding-what-research-reveals-about-ai-code-quality",
+        "title": "The Evidence Against Vibe Coding: What Research Reveals About AI Code Quality - SoftwareSeni",
+        "domain": "www.softwareseni.com",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 19,
+        "url": "https://www.ofashandfire.com/blog/ai-generated-code-quality-crisis",
+        "title": "AI Code Quality Crisis 2026: Engineering Leader Guide",
+        "domain": "www.ofashandfire.com",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 20,
+        "url": "https://www.janeasystems.com/blog/technical-debt-ai-coding-types-impact",
+        "title": "What Is Technical Debt in AI Coding? Types & Impact ...",
+        "domain": "www.janeasystems.com",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 21,
+        "url": "https://cerfacs.fr/coop/hpcsoftware-codemetrics-kpis",
+        "title": "The Impact of AI-Generated Code on Technical Debt and ...",
+        "domain": "cerfacs.fr",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 22,
+        "url": "https://www.sonarsource.com/blog/how-ai-is-redefining-technical-debt",
+        "title": "The great toil shift: How AI is redefining technical debt",
+        "domain": "www.sonarsource.com",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 23,
+        "url": "https://arxiv.org/html/2605.23135v1",
+        "title": "The Impact of AI Coding Assistants on Software Engineering",
+        "domain": "arxiv.org",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 24,
+        "url": "https://redwerk.com/blog/technical-debt-in-ai-coding",
+        "title": "Technical Debt in AI Coding: 7 Strategies to Stop It | Redwerk",
+        "domain": "redwerk.com",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 25,
+        "url": "https://arxiv.org/html/2601.20112v1",
+        "title": "Usage, Effects and Requirements for AI Coding Assistants ...",
+        "domain": "arxiv.org",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 26,
+        "url": "https://uvik.net/blog/ai-coding-assistant-statistics",
+        "title": "AI Coding Assistant Statistics 2026: Adoption & Trust",
+        "domain": "uvik.net",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 27,
+        "url": "https://www.cerbos.dev/blog/productivity-paradox-of-ai-coding-assistants",
+        "title": "The Productivity Paradox of AI Coding Assistants",
+        "domain": "www.cerbos.dev",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 28,
+        "url": "https://www.faros.ai/blog/ai-software-engineering",
+        "title": "The AI Productivity Paradox Research Report",
+        "domain": "www.faros.ai",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 29,
+        "url": "https://leaddev.com/velocity/ai-coding-assistants-arent-really-making-devs-feel-more-productive",
+        "title": "AI coding assistants aren’t really making devs feel more productive - LeadDev",
+        "domain": "leaddev.com",
+        "accessed_date": "2026-08-24"
+      },
+      {
+        "index": 30,
+        "url": "https://www.faros.ai/blog/enterprise-ai-coding-assistant-adoption-scaling-guide",
+        "title": "How to scale AI coding assistants across an enterprise",
+        "domain": "www.faros.ai",
+        "accessed_date": "2026-08-24"
+      }
+    ],
+    "quality": {
+      "schema_version": "1.0",
+      "coverage_score": 0.75,
+      "source_diversity_score": 0.52,
+      "contradiction_rate": 0.12,
+      "overall_quality_score": 0.58,
+      "confidence_distribution": {
+        "high": 6,
+        "medium": 13,
+        "low": 41,
+        "contested": 0,
+        "inconclusive": 0
+      },
+      "re_research_rounds": 2,
+      "total_sources_consulted": 81,
+      "total_claims_extracted": 60,
+      "claims_flagged_by_critic": 0,
+      "claims_verified_by_fact_checker": 0,
+      "converged": false,
+      "convergence_note": "Did not converge: 2 of 2 round(s) used and the Critic's quality bar was not met."
+    },
+    "contradictions": [],
+    "schema_version": "1.0"
+  },
+  "report_markdown": "# The Productivity Paradox of AI Coding Assistants: A Comprehensive Analysis of Developer Efficiency, Code Quality, and Organizational Impact\n\n## Executive Summary\nAI coding assistants have achieved near-universal adoption among software developers, with 84% reporting use in 2025, yet mounting evidence reveals a significant gap between perceived and actual productivity gains. While vendor reports and early studies claimed 20-50% productivity improvements, more rigorous research paints a contradictory picture. The landmark METR randomized controlled trial found that experienced developers using AI tools actually took 19% longer to complete tasks while perceiving a 20% speedup—a 39-point perception gap that highlights fundamental measurement challenges. This productivity paradox extends beyond individual velocity to encompass code quality degradation, with AI-generated code containing 1.7-2.74x more issues than human-written code and security vulnerabilities present in 30-45% of AI-generated output.\n\nThe evidence reveals that AI coding assistants fundamentally transform rather than eliminate developer work, creating what researchers term 'supervisory engineering work'—a shift from creation to verification activities. While 82% of developers report spending less time writing code, time spent on toil tasks remains unchanged at 23-25% of work weeks, and debugging AI-generated code consumes 10-15% more time. Code quality metrics show alarming trends: GitClear's analysis of 211 million lines found refactoring activity declined from 25% to 9.5% between 2021-2024, while code duplication increased from 8.3% to 12.3%. Organizations report technical debt increases of 30-41% within six months of widespread AI adoption, with quality issues surfacing 30-90 days post-implementation.\n\nDeveloper sentiment reflects this growing disillusionment. Trust in AI accuracy plummeted from 40% in 2024 to 29-33% in 2025, while active distrust surged from 31% to 46%. The primary frustration: 66% report AI solutions are 'almost right, but not quite,' and 45% say debugging AI code takes longer than writing from scratch. Individual speed gains rarely translate to company-level delivery improvements without substantial process changes in code review, CI/CD, and QA systems. The research indicates AI coding assistants deliver mixed organizational outcomes—93% cite measurable benefits while 88% report negative impacts—suggesting productivity gains are highly context-dependent and require careful implementation, oversight, and process adaptation to realize genuine efficiency improvements.\n\n## Key Findings\n- The METR randomized controlled trial of 16 experienced developers completing 246 real tasks found developers using AI tools took 19% longer while perceiving a 20% speedup, revealing a 39-point perception-reality gap (https://particula.tech/blog/ai-coding-tools-developer-productivity-paradox, https://domenic.me/metr-ai-productivity)\n- AI-generated code quality is significantly lower than human-written code, with 1.7-2.74x more issues per pull request, 30-45% containing security vulnerabilities, and 89.1% of 484,606 identified issues classified as code smells across 304,362 verified AI-authored commits (https://blog.exceeds.ai/ai-code-quality, https://arxiv.org/html/2603.28592v1)\n- Developer trust in AI coding tools collapsed from 40% in 2024 to 29-33% in 2025, while active distrust increased from 31% to 46%, despite adoption rising to 84%—driven primarily by 66% reporting AI solutions are 'almost right, but not quite' and 45% finding debugging AI code takes longer than writing from scratch (https://byteiota.com/stack-overflow-2025-84-use-ai-29-trust-it)\n- GitClear's analysis of 150-211 million lines of code revealed systemic code quality degradation: refactoring activity declined from 25% to 9.5% between 2021-2024, code duplication increased from 8.3% to 12.3%, and organizations experienced 30-41% technical debt increases within six months of widespread AI adoption (https://blog.exceeds.ai/ai-code-quality, https://www.ofashandfire.com/blog/ai-generated-code-quality-crisis)\n- AI tools create a fundamental work transformation rather than elimination: while 82% report less time writing code, toil tasks remain unchanged at 23-25% of work weeks, and developers spend 20-35% more time on code review when junior developers heavily use AI assistants (https://arxiv.org/html/2605.23135v1, https://www.ofashandfire.com/blog/ai-generated-code-quality-crisis)\n- Individual developer speed gains of 20-50% documented in controlled studies rarely translate to company-level delivery improvements without substantial process changes in code review, CI/CD, and QA systems, as demonstrated by Faros AI's analysis of 10,000+ developers across 1,255 teams (https://www.index.dev/blog/ai-coding-assistants-roi-productivity)\n\n## Productivity Measurement and the Perception Gap\nThe most rigorous examination of AI coding assistant productivity comes from METR's 2025 randomized controlled trial (February-June), which studied 16 experienced open-source developers completing 246 real tasks on repositories averaging over 1 million lines of code with 22K+ GitHub stars (https://particula.tech/blog/ai-coding-tools-developer-productivity-paradox). Using Cursor Pro with Claude 3.5 Sonnet, the study found developers actually took 19% longer to complete tasks when using AI tools compared to working without them. However, these same developers perceived a 20% speedup, creating a remarkable 39-point perception-reality gap that fundamentally challenges productivity claims (https://domenic.me/metr-ai-productivity).\n\nThis perception gap helps explain the divergence in productivity research. Earlier studies reported substantial gains: McKinsey found 20-50% faster task completion and developers 25-30% more likely to meet complex deadlines (https://fortegrp.com/insights/ai-coding-assistants), while GitHub Copilot studies measured 55% faster completion for simple tasks like writing HTTP servers (https://callsphere.ai/blog/ai-coding-assistants-developer-productivity-studies-2026). DX's Q4 2025 report covering 135,000+ developers found time savings averaging 3.6 hours per week (https://www.getpanto.ai/blog/ai-coding-assistant-statistics). However, these studies often measured narrow task completion rather than end-to-end delivery, and self-reported metrics that don't account for downstream impacts.\n\nFaros AI's Productivity Paradox report, analyzing commit and deployment data from 10,000+ developers across 1,255 teams, revealed that individual speed gains rarely translate to company-level delivery improvements without process changes (https://www.index.dev/blog/ai-coding-assistants-roi-productivity). The McKinsey study of 2,000 developers provides crucial nuance: while coding tasks completed 35-45% faster, time spent understanding and debugging code increased 10-15% (https://callsphere.ai/blog/ai-coding-assistants-developer-productivity-studies-2026). This shift reflects a fundamental transformation in developer work rather than pure acceleration.\n\n## Code Quality Degradation and Technical Debt Accumulation\nMultiple independent analyses document systematic code quality deterioration with AI coding assistant adoption. GitClear's comprehensive analysis of 150-211 million lines of code revealed alarming trends: code duplication increased from 8.3% to 12.3% between 2020-2024, while refactoring activity—essential for maintaining code health—declined precipitously from 25% to 9.5% between 2021-2024 (https://blog.exceeds.ai/ai-code-quality, https://www.ofashandfire.com/blog/ai-generated-code-quality-crisis). This pattern indicates developers increasingly accept AI-generated code with minimal improvement.\n\nSecurity vulnerabilities represent a critical concern. Veracode analysis found 45% of AI-generated code contains security issues, while OWASP studies identified 30-40% containing at least one CWE-class security vulnerability (https://blog.exceeds.ai/ai-code-quality). Veracode 2026 data shows security vulnerabilities occur at 2.74x higher rates in AI-generated versus human-written code (https://blog.exceeds.ai/developer-reliance-on-ai). Pull requests containing AI-assisted code demonstrate 1.7 times more issues than human-written code, with DX studies confirming this 1.7x multiplier (https://www.ofashandfire.com/blog/ai-generated-code-quality-crisis, https://www.getpanto.ai/blog/ai-coding-assistant-statistics).\n\nA large-scale empirical study of 304,362 verified AI-authored commits from 6,275 GitHub repositories identified 484,606 distinct issues, with code smells accounting for 89.1% of problems (https://arxiv.org/html/2603.28592v1). More concerning, 15% of commits from every AI coding assistant introduce at least one issue, and 24.2% of AI-introduced issues persist in the latest repository revision—indicating problems survive code review (https://arxiv.org/html/2603.28592v1). Organizations report technical debt increases of 30-41% within six months of widespread AI tool adoption, with quality issues typically surfacing 30-90 days after initial implementation in production environments (https://www.ofashandfire.com/blog/ai-generated-code-quality-crisis, https://blog.exceeds.ai/best-technical-debt-tools-2026). Teams now spend approximately 20% or more of sprint time on rework and technical debt remediation related to AI-generated code (https://blog.exceeds.ai/best-technical-debt-tools-2026).\n\n## The Transformation of Developer Work and Experience\nAI coding assistants fundamentally transform developer activities rather than simply accelerating existing workflows. Research identifies a shift toward 'supervisory engineering work'—a new category encompassing direction, evaluation, and correction of AI output (https://arxiv.org/html/2605.23135v1, https://www.sonarsource.com/blog/how-ai-is-redefining-technical-debt). While 82% of developers report spending less time on code writing tasks (https://arxiv.org/html/2605.23135v1), time spent on toil tasks remains essentially unchanged at 23-25% of work weeks for both frequent and infrequent AI users, representing what researchers term the 'great toil shift' rather than elimination (https://www.sonarsource.com/blog/how-ai-is-redefining-technical-debt).\n\nDevelopers accept less than 44% of AI-generated code suggestions and spend additional time cleaning up and reviewing the generated code (https://www.linkedin.com/posts/thestevemitchell_measuring-the-impact-of-early-2025-ai-on-activity-7349786687230644225-OqTH). Google's internal data showed AI-generated code required more iterations to pass review despite being accepted at similar rates to human-written code ultimately (https://callsphere.ai/blog/ai-coding-assistants-developer-productivity-studies-2026). Senior engineers report spending 20-35% more time on code review when junior developers heavily use AI assistants (https://www.ofashandfire.com/blog/ai-generated-code-quality-crisis).\n\nDeveloper experience metrics reveal concerning trends. Matched participant studies show the proportion reporting worsened developer experience nearly doubled from 14% to 27% over six months, despite productivity perceptions remaining stable at 84% reporting improvement (https://arxiv.org/html/2605.23135v1). This divergence between productivity perception and experience quality suggests cognitive and emotional costs not captured by velocity metrics. Anthropic's 2026 randomized controlled trial with 52 software engineers found AI-assisted developers scored 17% lower on coding concept quizzes compared to manual coders, raising concerns about skill degradation (https://blog.exceeds.ai/developer-reliance-on-ai). Positive aspects include 57% citing improved documentation quality, particularly helping senior developers navigate poorly documented legacy systems (https://www.sonarsource.com/blog/how-ai-is-redefining-technical-debt).\n\n## Developer Trust Crisis and Adoption Paradox\nThe relationship between AI coding tool adoption and developer trust reveals a striking paradox. Stack Overflow's 2025 Developer Survey of 49,000+ developers across 177 countries documented that adoption increased from 76% in 2024 to 84% in 2025, yet trust in AI accuracy simultaneously collapsed from 40% to 29-33% (https://byteiota.com/stack-overflow-2025-84-use-ai-29-trust-it, https://byteiota.com/stack-overflow-2025-survey-ai-trust-hits-all-time-low). Active distrust surged from 31% in 2024 to 46% in 2025—a 15 percentage point increase in a single year (https://byteiota.com/stack-overflow-2025-84-use-ai-29-trust-it). Positive developer sentiment dropped from over 70% in 2023-2024 to 60% in 2025 (https://byteiota.com/stack-overflow-2025-84-use-ai-29-trust-it).\n\nThis growing disillusionment stems from specific frustrations with AI tool limitations. The primary complaint: 66% of developers report AI solutions are 'almost right, but not quite,' creating additional verification and correction work (https://byteiota.com/stack-overflow-2025-84-use-ai-29-trust-it). Nearly half (45%) say debugging AI-generated code takes more time than writing code from scratch (https://byteiota.com/stack-overflow-2025-84-use-ai-29-trust-it). Beyond accuracy, 87% remain concerned about AI accuracy issues broadly, while 81% worry about security and privacy concerns (https://byteiota.com/stack-overflow-2025-84-use-ai-29-trust-it). The trust gap is severe: only 3% of developers highly trust AI-generated code, while 20% of experienced developers highly distrust it (https://byteiota.com/stack-overflow-2025-84-use-ai-29-trust-it).\n\nDespite declining trust, developers continue using AI tools, suggesting adoption is driven by competitive pressure, organizational mandates, or specific use cases where tools provide value despite limitations. A BNY Mellon study with 2,989 developer responses and 11 interviews identified conflicting perspectives on AI tool usefulness, exposing six distinct factors capturing both short-term and long-term productivity dimensions including technical expertise and ownership of work (https://arxiv.org/html/2602.03593v1). The mixed outcomes are evident: 93% cite measurable benefits while 88% report at least one negative impact (https://www.sonarsource.com/blog/how-ai-is-redefining-technical-debt). Additionally, 53% report AI generates code that appears correct but introduces hidden defects and creates false security confidence (https://www.sonarsource.com/blog/how-ai-is-redefining-technical-debt).\n\n## Organizational Implementation and Process Adaptation\nThe evidence demonstrates that realizing productivity gains from AI coding assistants requires substantial organizational process adaptation rather than simple tool deployment. Faros AI's analysis of 10,000+ developers across 1,255 teams found individual developer speed increases rarely translate to company-level delivery gains without changes in code review processes, CI/CD pipelines, and QA systems (https://www.index.dev/blog/ai-coding-assistants-roi-productivity). This finding is supported by multiple studies combining quantitative and qualitative data, including MIT-backed randomized controlled trials and McKinsey/METR 2025 studies (https://www.index.dev/blog/ai-coding-assistants-roi-productivity).\n\nThe current state shows AI now generates approximately 41% of code in software development teams, with 22% of merged code being AI-authored according to DX studies (https://blog.exceeds.ai/best-technical-debt-tools-2026, https://www.getpanto.ai/blog/ai-coding-assistant-statistics). However, this volume amplifies quality control challenges. Organizations must strengthen code review processes to catch the 1.7x higher issue rate in AI-generated pull requests, implement enhanced security scanning given the 30-45% vulnerability rate, and establish verification protocols to address the 53% false confidence problem where code appears correct but contains hidden defects.\n\nSuccessful implementation requires balancing speed gains with quality maintenance. The evidence suggests AI tools are most effective for specific use cases: documentation improvement (57% cite as top benefit), simple repetitive tasks (55% faster completion), and navigating legacy systems. Organizations should implement guardrails recognizing that developers accept less than 44% of AI suggestions and need time for verification. The 20% or more of sprint time spent on AI-related rework and technical debt remediation must be factored into capacity planning. Companies should also monitor for skill degradation (17% lower quiz scores for AI-assisted developers) and consider the 20-35% additional senior engineer review time when junior developers heavily use AI tools.\n\n## Confidence Assessment\nConfidence in this analysis is HIGH for productivity measurement contradictions, code quality degradation patterns, and trust decline trends, based on multiple large-scale studies including the METR randomized controlled trial (246 tasks, 16 developers), GitClear's analysis (211 million lines of code), Stack Overflow's survey (49,000+ developers), and Faros AI's data (10,000+ developers across 1,255 teams). The METR study provides the most rigorous productivity measurement, though it has not yet undergone peer review. Confidence is MEDIUM for specific quality metrics (1.7x issue rate, 30-45% vulnerability rate) due to variation across studies and measurement methodologies. Confidence is MEDIUM for organizational impact assessments, as long-term effects (30-90 day quality issue emergence, 30-41% technical debt increases) are based on shorter observation windows. The perception-reality gap finding is particularly robust given convergent evidence from multiple independent sources using different methodologies. Lower confidence applies to optimal implementation strategies, as research focuses more on documenting problems than solutions, and context-dependent factors significantly influence outcomes.\n\n## Limitations\nThis analysis faces several important limitations. First, the research landscape shows high variability in study design, with productivity measurements ranging from narrow task completion to end-to-end delivery, making direct comparisons challenging. The METR study, while rigorous, examined only 16 experienced developers on specific open-source projects and has not yet undergone peer review. Second, the rapidly evolving nature of AI coding tools means findings from 2024-2025 may not reflect current tool capabilities—for example, studies used Claude 3.5 Sonnet and GitHub Copilot, while newer models may perform differently. Third, there is significant publication bias toward documenting problems, with vendor studies reporting positive results and independent research finding negative outcomes. Fourth, most studies measure individual or team productivity but lack long-term organizational impact data beyond six months. Fifth, context dependency is high—productivity impacts vary significantly by developer experience level, task complexity, codebase size, and organizational processes, limiting generalizability. Sixth, the research lacks standardized productivity metrics, with studies using different definitions and measurements (task completion time, lines of code, perceived productivity, delivery velocity). Seventh, quality assessments often rely on automated analysis tools that may not capture all code quality dimensions. Finally, the research provides limited insight into which specific use cases, implementation approaches, or organizational contexts maximize benefits while minimizing drawbacks, making it difficult to provide definitive implementation recommendations beyond general cautions about quality control and process adaptation.\n\n## Citations (30 sources)\n[1] [AI Coding Assistant ROI: Real Productivity Data 2025](https://www.index.dev/blog/ai-coding-assistants-roi-productivity) — www.index.dev (2026-08-24)\n[2] [Measuring Developer Productivity in the LLM Era | by Yuji Isobe - Medium](https://medium.com/@yujiisobe/measuring-developer-productivity-in-the-llm-era-b002cc0b5ab4) — medium.com (2026-08-24)\n[3] [Developer Productivity With and Without GitHub Copilot](https://arxiv.org/html/2509.20353v2) — arxiv.org (2026-08-24)\n[4] [The Impact of Github Copilot on Developer Productivity](https://www.harness.io/blog/the-impact-of-github-copilot-on-developer-productivity-a-case-study) — www.harness.io (2026-08-24)\n[5] [Top 11 Cited AI Developer Productivity & Code Quality Research](https://www.gitclear.com/recent_ai_developer_productivity_code_quality_research) — www.gitclear.com (2026-08-24)\n[6] [The Impact of AI on Developer Productivity: Evidence from ...](https://www.alphaxiv.org/abs/2302.06590) — www.alphaxiv.org (2026-08-24)\n[7] [AI Won't Solve Your Developer Productivity Problems for You](https://uplevelteam.com/blog/ai-for-developer-productivity) — uplevelteam.com (2026-08-24)\n[8] [How to measure developer productivity: A complete guide ... - DX](https://getdx.com/blog/developer-productivity) — getdx.com (2026-08-24)\n[9] [AI tools in software development: risks and benefits](https://www.llinformatics.com/blog/ai-tools-in-software-development) — www.llinformatics.com (2026-08-24)\n[10] [AI-Assisted Coding: 7 Pros and Cons to Consider](https://blog.codacy.com/ai-assisted-coding-7-pros-and-cons-to-consider) — blog.codacy.com (2026-08-24)\n[11] [Medium](https://medium.com/@idlerboris/ai-coding-assistants-your-new-pair-programmer-or-a-risky-shortcut-an-engineers-guide-04b08612e70e) — medium.com (2026-08-24)\n[12] [Measuring the Impact of AI Assistants on Software Development - AWS](https://aws.amazon.com/blogs/enterprise-strategy/measuring-the-impact-of-ai-assistants-on-software-development) — aws.amazon.com (2026-08-24)\n[13] [The risks of generative AI coding in software development | SecureFlag](https://blog.secureflag.com/2024/10/16/the-risks-of-generative-ai-coding-in-software-development) — blog.secureflag.com (2026-08-24)\n[14] [Newer AI Coding Assistants Are Failing in Insidious Ways](https://spectrum.ieee.org/ai-coding-degrades) — spectrum.ieee.org (2026-08-24)\n[15] [Developers are still weighing the pros and cons of AI coding agents](https://www.linkedin.com/pulse/developers-still-weighing-pros-cons-ai-coding-agents-fast-company-sipwe) — www.linkedin.com (2026-08-24)\n[16] [What are the biggest shortcomings of today's AI Coding Assistants? - Reddit](https://www.reddit.com/r/ClaudeAI/comments/1l0033b/what_are_the_biggest_shortcomings_of_todays_ai) — www.reddit.com (2026-08-24)\n[17] [A Large-Scale Empirical Study of AI-Generated Code in the Wild - arXiv](https://arxiv.org/html/2603.28592v2) — arxiv.org (2026-08-24)\n[18] [The Evidence Against Vibe Coding: What Research Reveals About AI Code Quality - SoftwareSeni](https://www.softwareseni.com/the-evidence-against-vibe-coding-what-research-reveals-about-ai-code-quality) — www.softwareseni.com (2026-08-24)\n[19] [AI Code Quality Crisis 2026: Engineering Leader Guide](https://www.ofashandfire.com/blog/ai-generated-code-quality-crisis) — www.ofashandfire.com (2026-08-24)\n[20] [What Is Technical Debt in AI Coding? Types & Impact ...](https://www.janeasystems.com/blog/technical-debt-ai-coding-types-impact) — www.janeasystems.com (2026-08-24)\n[21] [The Impact of AI-Generated Code on Technical Debt and ...](https://cerfacs.fr/coop/hpcsoftware-codemetrics-kpis) — cerfacs.fr (2026-08-24)\n[22] [The great toil shift: How AI is redefining technical debt](https://www.sonarsource.com/blog/how-ai-is-redefining-technical-debt) — www.sonarsource.com (2026-08-24)\n[23] [The Impact of AI Coding Assistants on Software Engineering](https://arxiv.org/html/2605.23135v1) — arxiv.org (2026-08-24)\n[24] [Technical Debt in AI Coding: 7 Strategies to Stop It | Redwerk](https://redwerk.com/blog/technical-debt-in-ai-coding) — redwerk.com (2026-08-24)\n[25] [Usage, Effects and Requirements for AI Coding Assistants ...](https://arxiv.org/html/2601.20112v1) — arxiv.org (2026-08-24)\n[26] [AI Coding Assistant Statistics 2026: Adoption & Trust](https://uvik.net/blog/ai-coding-assistant-statistics) — uvik.net (2026-08-24)\n[27] [The Productivity Paradox of AI Coding Assistants](https://www.cerbos.dev/blog/productivity-paradox-of-ai-coding-assistants) — www.cerbos.dev (2026-08-24)\n[28] [The AI Productivity Paradox Research Report](https://www.faros.ai/blog/ai-software-engineering) — www.faros.ai (2026-08-24)\n[29] [AI coding assistants aren’t really making devs feel more productive - LeadDev](https://leaddev.com/velocity/ai-coding-assistants-arent-really-making-devs-feel-more-productive) — leaddev.com (2026-08-24)\n[30] [How to scale AI coding assistants across an enterprise](https://www.faros.ai/blog/enterprise-ai-coding-assistant-adoption-scaling-guide) — www.faros.ai (2026-08-24)",
+  "quality": {
+    "schema_version": "1.0",
+    "coverage_score": 0.75,
+    "source_diversity_score": 0.52,
+    "contradiction_rate": 0.12,
+    "overall_quality_score": 0.58,
+    "confidence_distribution": {
+      "high": 6,
+      "medium": 13,
+      "low": 41,
+      "contested": 0,
+      "inconclusive": 0
+    },
+    "re_research_rounds": 2,
+    "total_sources_consulted": 81,
+    "total_claims_extracted": 60,
+    "claims_flagged_by_critic": 0,
+    "claims_verified_by_fact_checker": 0,
+    "converged": false,
+    "convergence_note": "Did not converge: 2 of 2 round(s) used and the Critic's quality bar was not met."
+  }
+}

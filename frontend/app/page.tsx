@@ -5,7 +5,10 @@ import ControlPanel from "@/components/ControlPanel";
 import Pipeline from "@/components/Pipeline";
 import ActivityLog from "@/components/ActivityLog";
 import QualityPanel from "@/components/QualityPanel";
+import ReplayBanner from "@/components/ReplayBanner";
 import ReportView from "@/components/ReportView";
+import { useReplay } from "@/hooks/useReplay";
+import { isReplayMode } from "@/lib/demo";
 import {
   generateReport,
   getReport,
@@ -24,6 +27,12 @@ export default function Home() {
   const [report, setReport] = useState<ReportResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Replay mode is decided on the client: it depends on window.location, and
+  // deciding it during SSR would hydrate the wrong UI. Undefined until mounted.
+  const [replayMode, setReplayMode] = useState<boolean | null>(null);
+  useEffect(() => setReplayMode(isReplayMode()), []);
+  const replay = useReplay();
 
   function stopPolling() {
     if (timer.current) {
@@ -76,9 +85,21 @@ export default function Home() {
     setStatus(null);
     setReport(null);
     setError(null);
+    replay.reset();
   }
 
-  const activity = status?.activity_log ?? [];
+  async function playReplay() {
+    setPhase("running");
+    await replay.start();
+  }
+
+  async function skipReplay() {
+    setPhase("running");
+    await replay.skip();
+  }
+
+  const replaying = replayMode === true && (replay.playing || replay.finished);
+  const activity = replaying ? replay.entries : (status?.activity_log ?? []);
 
   return (
     <main className="mx-auto max-w-6xl px-5 py-10 sm:px-8 sm:py-14">
@@ -107,28 +128,49 @@ export default function Home() {
               <Pipeline activity={[]} round={0} />
             </div>
           </div>
-          <ControlPanel onSubmit={run} running={false} />
+          {replayMode ? (
+            <ReplayInvite onPlay={playReplay} onSkip={skipReplay} />
+          ) : (
+            <ControlPanel onSubmit={run} running={false} />
+          )}
         </section>
       ) : (
         <section className="mt-10 space-y-4">
+          {replaying && replay.run && (
+            <ReplayBanner run={replay.run} playing={replay.playing} />
+          )}
           <RunHeader
             status={status}
             report={report}
             phase={phase}
             onReset={reset}
+            replayQuery={replaying ? replay.run?.query : undefined}
+            replayTokens={replaying ? replay.tokens : undefined}
+            replayCost={replaying ? replay.cost : undefined}
+            replayDone={replay.finished}
+            onSkip={replay.playing ? skipReplay : undefined}
           />
-          <Pipeline activity={activity} round={status?.current_round ?? 0} />
+          <Pipeline
+            activity={activity}
+            round={replaying ? replay.round : (status?.current_round ?? 0)}
+          />
 
           <div className="grid gap-4 lg:grid-cols-2">
             <ActivityLog entries={activity} />
-            {report ? (
+            {replaying && replay.finished && replay.run ? (
+              <QualityPanel quality={replay.run.quality} />
+            ) : report ? (
               <QualityPanel quality={report.quality} />
             ) : (
               <RunningPlaceholder error={phase === "error" ? error : null} />
             )}
           </div>
 
-          {report && <ReportView markdown={report.report_markdown} />}
+          {replaying && replay.finished && replay.run ? (
+            <ReportView markdown={replay.run.report_markdown} />
+          ) : (
+            report && <ReportView markdown={report.report_markdown} />
+          )}
         </section>
       )}
 
@@ -189,20 +231,31 @@ function RunHeader({
   report,
   phase,
   onReset,
+  replayQuery,
+  replayTokens,
+  replayCost,
+  replayDone,
+  onSkip,
 }: {
   status: StatusResponse | null;
   report: ReportResponse | null;
   phase: Phase;
   onReset: () => void;
+  replayQuery?: string;
+  replayTokens?: number;
+  replayCost?: number;
+  replayDone?: boolean;
+  onSkip?: () => void;
 }) {
-  const tokens = report?.tokens_used ?? status?.tokens_used ?? 0;
-  const cost = report?.cost_usd ?? status?.cost_usd ?? 0;
-  const pill =
-    phase === "done"
-      ? { t: "complete", c: "border-verified/50 text-verified bg-verified/10" }
-      : phase === "error"
-        ? { t: "failed", c: "border-alert/50 text-alert bg-alert/10" }
-        : { t: "running", c: "border-signal/50 text-signal bg-signal/10 animate-pulse-signal" };
+  const isReplay = replayQuery !== undefined;
+  const tokens = replayTokens ?? report?.tokens_used ?? status?.tokens_used ?? 0;
+  const cost = replayCost ?? report?.cost_usd ?? status?.cost_usd ?? 0;
+  const complete = phase === "done" || (isReplay && replayDone);
+  const pill = complete
+    ? { t: "complete", c: "border-verified/50 text-verified bg-verified/10" }
+    : phase === "error"
+      ? { t: "failed", c: "border-alert/50 text-alert bg-alert/10" }
+      : { t: "running", c: "border-signal/50 text-signal bg-signal/10 animate-pulse-signal" };
 
   return (
     <div className="panel flex flex-wrap items-start justify-between gap-4 p-5">
@@ -217,20 +270,83 @@ function RunHeader({
             onClick={onReset}
             className="font-mono text-[11px] uppercase tracking-wider text-text-faint underline-offset-2 hover:text-text hover:underline"
           >
-            new research
+            {isReplay ? "back" : "new research"}
           </button>
+          {onSkip && (
+            <button
+              onClick={onSkip}
+              className="font-mono text-[11px] uppercase tracking-wider text-text-faint underline-offset-2 hover:text-text hover:underline"
+            >
+              skip to result
+            </button>
+          )}
         </div>
         <p className="mt-2 truncate pr-4 text-[15px] text-text">
-          {status?.query ?? report?.query}
+          {replayQuery ?? status?.query ?? report?.query}
         </p>
       </div>
       <div className="flex items-center gap-6">
         <Metric label="tokens" value={tokens.toLocaleString()} />
         <Metric label="est. cost" value={`$${cost.toFixed(4)}`} />
-        {report && (
+        {report && !isReplay && (
           <Metric label="duration" value={`${report.duration_seconds.toFixed(0)}s`} />
         )}
       </div>
+    </div>
+  );
+}
+
+function ReplayInvite({
+  onPlay,
+  onSkip,
+}: {
+  onPlay: () => void;
+  onSkip: () => void;
+}) {
+  return (
+    <div className="panel p-5 sm:p-6">
+      <span className="eyebrow">Recorded run</span>
+      <h2 className="mt-3 font-display text-xl font-semibold tracking-tight">
+        Watch the pipeline work
+      </h2>
+      <p className="mt-3 text-[14.5px] leading-7 text-text-muted">
+        This page has no backend to call — a report takes several minutes,
+        launches headless Chromium and holds the scraped pages in memory, which
+        no free host will run. So the pipeline was run for real once and
+        recorded: the agent feed, the citations, the quality scores and the
+        report below are all from that run.
+      </p>
+      <p className="mt-3 text-[14.5px] leading-7 text-text-muted">
+        The question it was given is one where the evidence genuinely conflicts,
+        which is the part worth watching — the critic loop and the contradiction
+        map exist for exactly that case.
+      </p>
+      <div className="mt-6 flex flex-wrap gap-3">
+        <button
+          onClick={onPlay}
+          className="rounded-lg border border-signal/60 bg-signal/15 px-6 py-3 font-display text-sm font-semibold uppercase tracking-[0.14em] text-signal shadow-glow transition hover:bg-signal/25"
+        >
+          Play the recorded run
+        </button>
+        <button
+          onClick={onSkip}
+          className="font-mono text-[12px] uppercase tracking-wider text-text-faint underline-offset-2 hover:text-text hover:underline"
+        >
+          skip to the report
+        </button>
+      </div>
+      <p className="mt-6 border-t border-line pt-4 font-mono text-[11px] leading-5 text-text-faint">
+        To run it live against your own key, see{" "}
+        <a
+          href="https://github.com/shiva-shivanibokka/Autonomous-Research-Report-Agent#run-it-locally"
+          target="_blank"
+          rel="noreferrer"
+          className="underline underline-offset-2 hover:text-text"
+        >
+          Run it locally
+        </a>{" "}
+        — two commands, no database.
+      </p>
     </div>
   );
 }
