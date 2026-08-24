@@ -41,7 +41,6 @@ async def run_search_agent(
         results = await tavily_search(
             query=sub_question,
             max_results=max_results,
-            search_depth="advanced",
         )
         duration = time.perf_counter() - t0
 

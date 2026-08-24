@@ -1,5 +1,5 @@
 """
-Search tool wrapping Tavily's advanced search API.
+Search tool wrapping the Tavily search API.
 Returns ranked SearchResult objects with relevance scores.
 """
 
@@ -36,6 +36,18 @@ def _get_client() -> AsyncTavilyClient:
     return _client
 
 
+# Tavily bills "advanced" at 2 credits per search and "basic" at 1. A two-round
+# run issues 10-15 searches, so the choice is the difference between roughly 26
+# and 13 credits per report — which matters a great deal on a free tier and not
+# at all on a paid one. Default to basic and let anyone who wants the deeper
+# crawl opt in, rather than silently spending double.
+DEFAULT_SEARCH_DEPTH = (
+    "advanced"
+    if os.environ.get("TAVILY_SEARCH_DEPTH", "").strip().lower() == "advanced"
+    else "basic"
+)
+
+
 def _clamp_score(score: object) -> float:
     """Tavily relevance -> the 0.0-1.0 the schema requires. None means unscored."""
     try:
@@ -48,7 +60,7 @@ async def tavily_search(
     query: str,
     *,
     max_results: int = 8,
-    search_depth: str = "advanced",
+    search_depth: str | None = None,
     include_domains: list[str] | None = None,
     exclude_domains: list[str] | None = None,
 ) -> list[SearchResult]:
@@ -58,7 +70,8 @@ async def tavily_search(
     Args:
         query: The search query
         max_results: Number of results to return (max 10)
-        search_depth: "basic" or "advanced" (advanced costs 2 API credits)
+        search_depth: "basic" (1 credit) or "advanced" (2). Defaults to
+            TAVILY_SEARCH_DEPTH, else "basic".
         include_domains: Only return results from these domains
         exclude_domains: Exclude these domains from results
 
@@ -69,6 +82,7 @@ async def tavily_search(
         span.set_attribute("search.query", query)
         span.set_attribute("search.max_results", max_results)
 
+        search_depth = search_depth or DEFAULT_SEARCH_DEPTH
         t0 = time.perf_counter()
         client = _get_client()
 
@@ -111,6 +125,7 @@ async def tavily_search(
             "tavily_search_complete",
             query=query[:100],
             results=len(results),
+            depth=search_depth,
             duration_seconds=round(duration, 3),
         )
 

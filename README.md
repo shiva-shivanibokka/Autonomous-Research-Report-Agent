@@ -137,6 +137,7 @@ docker compose up --build
 | Variable | Default | Notes |
 |---|---|---|
 | `TAVILY_API_KEY` | — | **Required.** Web search. Free tier, no card. |
+| `TAVILY_SEARCH_DEPTH` | `basic` | `basic` costs 1 Tavily credit per search, `advanced` costs 2. A report issues 10-15 searches, so this roughly halves credit use. |
 | `DATABASE_URL` | _(unset)_ | Unset → in-process job store. Set it for durable, multi-instance storage. |
 | `JOB_BACKEND` | `inline` | `inline` runs jobs in-process; `celery` dispatches to the worker (requires `DATABASE_URL` + Redis). |
 | `ANTHROPIC_API_KEY` | _(unset)_ | Optional server-side fallback. Only reachable when the flag below is on. |

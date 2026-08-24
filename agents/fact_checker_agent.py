@@ -50,7 +50,6 @@ async def fact_check_claim(
         search_results = await tavily_search(
             query=flagged.re_search_query,
             max_results=5,
-            search_depth="advanced",
         )
     except Exception as e:
         log.error("fact_check_search_failed", error=str(e))
