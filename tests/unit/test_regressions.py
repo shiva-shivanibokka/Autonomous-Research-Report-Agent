@@ -332,3 +332,40 @@ def test_claim_round_trips_through_state_serialisation():
     restored = ResearchState(**state.model_dump())
     assert restored.all_sources[src.url].url == src.url
     assert restored.critic_output.approved_claims[0].text == "t"
+
+
+# ---------------------------------------------------------------------------
+# Writer output budget
+# ---------------------------------------------------------------------------
+def test_writer_cap_is_large_enough_for_a_whole_report():
+    """
+    The Writer's cap was 4096 tokens. A general report -- executive summary,
+    4-6 key findings, 3-5 detailed sections, confidence assessment, limitations
+    -- does not fit, and a live run hit the cap mid-sentence. Because the
+    response is JSON, truncation loses the *entire* report rather than the tail
+    of it, and it presents as "malformed JSON" rather than "ran out of room".
+
+    The retry must get more room than the attempt that overflowed: a truncated
+    document cannot be reproduced in the space that truncated it.
+    """
+    from agents.writer_agent import WRITER_MAX_TOKENS, WRITER_RETRY_MAX_TOKENS
+
+    assert WRITER_MAX_TOKENS >= 12_000
+    assert WRITER_RETRY_MAX_TOKENS > WRITER_MAX_TOKENS
+
+
+def test_truncated_json_is_not_mistaken_for_malformed_json():
+    """
+    Truncation and malformation need opposite responses -- rewrite versus
+    repair -- so extract_json must reject a cut-off document rather than
+    returning some complete inner fragment it happens to contain.
+    """
+    truncated = (
+        '{"title": "T", "key_findings": ["a", "b"], '
+        '"detailed_sections": {"S": "text that stops mid-sen'
+    )
+    with pytest.raises(ValueError):
+        extract_json(truncated, expect=dict)
+
+    # The inner array is complete and would satisfy a naive scan.
+    assert extract_json(truncated) == ["a", "b"]

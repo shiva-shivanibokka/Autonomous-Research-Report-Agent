@@ -44,8 +44,20 @@ log = structlog.get_logger(__name__)
 # Max chars of claim context passed to the Writer LLM
 MAX_WRITER_CONTEXT = 30_000
 
-# Output cap for the report call and its repair retry.
-WRITER_MAX_TOKENS = 4096
+# Output cap for the report call.
+#
+# 4096 was not enough. A general report carries an executive summary, 4-6 key
+# findings, 3-5 detailed sections and a confidence assessment; a real run hit the
+# cap mid-sentence, and since the response is JSON, truncation means the whole
+# object fails to parse and the entire report is lost. The failure reads as
+# "malformed JSON" while actually being "not enough room", which is what made it
+# worth spelling out here. Sonnet 4.5 allows far more than this; the token budget
+# still bounds the run overall.
+WRITER_MAX_TOKENS = 16_000
+
+# Room for the retry. A truncated document cannot be reproduced in the space that
+# truncated it, so the second attempt gets more, not the same.
+WRITER_RETRY_MAX_TOKENS = 24_000
 
 # Which schema each mode's report should satisfy. schemas.py promises "no raw
 # dicts passed between agents"; the Writer was the one boundary still handing
@@ -325,6 +337,12 @@ Quality context:
 Write a comprehensive, well-structured report based on this research. 
 Cite sources using their URLs. Be factual and precise."""
 
+    # The effective cap, computed the same way call_llm clamps it, so the
+    # truncation check below compares against what the model was actually given
+    # rather than what we asked for. On a nearly-spent budget these differ.
+    writer_budget = state.token_budget - state.tokens_used_total
+    effective_cap = min(WRITER_MAX_TOKENS, max(256, writer_budget))
+
     try:
         text, inp, out, cost = await call_llm(
             system=system,
@@ -333,7 +351,7 @@ Cite sources using their URLs. Be factual and precise."""
             max_tokens=WRITER_MAX_TOKENS,
             temperature=0.3,
             agent_name="writer",
-            token_budget_remaining=state.token_budget - state.tokens_used_total,
+            token_budget_remaining=writer_budget,
         )
     except Exception as e:
         log.error("writer_llm_failed", error=str(e))
@@ -359,31 +377,64 @@ Cite sources using their URLs. Be factual and precise."""
     try:
         report_dict = extract_json(text, expect=dict)
     except ValueError as first_error:
-        # Observed live: the model closed an object with `]`, making the whole
-        # response unparseable. By this point the run has spent minutes and
-        # thousands of tokens gathering the research, so one cheap repair call
-        # is obviously worth it before falling back to raw text.
-        log.warning("writer_json_invalid_attempting_repair", error=str(first_error))
+        # Two different failures land here and they need opposite responses.
+        #
+        # Truncation: the model filled its output budget and stopped mid-token,
+        # so the JSON is incomplete rather than wrong. Asking it to "fix" the
+        # text cannot work — the corrected document is necessarily longer than
+        # the one that already did not fit. Re-write it, with more room and an
+        # instruction to be more economical.
+        #
+        # Malformed: the model closed an object with the wrong bracket or
+        # similar. Here the content is all present and only the syntax is bad,
+        # so a repair pass is both cheaper and more faithful than re-writing.
+        truncated = out >= effective_cap
+        retry_budget = state.token_budget - state.tokens_used_total - (inp + out)
+
+        if truncated:
+            log.warning(
+                "writer_output_truncated_rewriting",
+                job_id=state.job_id,
+                output_tokens=out,
+                cap=effective_cap,
+            )
+            retry_system = (
+                system
+                + "\n\nIMPORTANT: keep the whole response under "
+                + f"{WRITER_RETRY_MAX_TOKENS // 2} tokens. Prefer fewer, tighter "
+                "sections over long prose. The response MUST be complete, valid "
+                "JSON ending with a closing brace — a truncated report is unusable."
+            )
+            retry_user = user
+            retry_label = "writer_retry"
+        else:
+            log.warning("writer_json_invalid_attempting_repair", error=str(first_error))
+            retry_system = (
+                "You fix malformed JSON. Return ONLY the corrected JSON object. "
+                "Preserve all content exactly; change only the syntax. "
+                "Do not add commentary, explanation, or markdown fences."
+            )
+            retry_user = f"This JSON does not parse ({first_error}). Return it corrected:\n\n{text}"
+            retry_label = "writer_repair"
+
         try:
-            repaired, r_inp, r_out, r_cost = await call_llm(
-                system=(
-                    "You fix malformed JSON. Return ONLY the corrected JSON object. "
-                    "Preserve all content exactly; change only the syntax. "
-                    "Do not add commentary, explanation, or markdown fences."
-                ),
-                user=f"This JSON does not parse ({first_error}). Return it corrected:\n\n{text}",
+            retried, r_inp, r_out, r_cost = await call_llm(
+                system=retry_system,
+                user=retry_user,
                 model=REASON_MODEL,
-                max_tokens=WRITER_MAX_TOKENS,
-                agent_name="writer_repair",
-                token_budget_remaining=state.token_budget - state.tokens_used_total,
+                max_tokens=WRITER_RETRY_MAX_TOKENS,
+                agent_name=retry_label,
+                token_budget_remaining=retry_budget,
             )
             inp += r_inp
             out += r_out
             cost += r_cost
-            report_dict = extract_json(repaired, expect=dict)
-            log.info("writer_json_repaired", job_id=state.job_id)
-        except Exception as repair_error:
-            log.warning("writer_json_repair_failed", error=str(repair_error))
+            report_dict = extract_json(retried, expect=dict)
+            log.info("writer_recovered", job_id=state.job_id, via=retry_label)
+        except Exception as retry_error:
+            log.warning(
+                "writer_recovery_failed", via=retry_label, error=str(retry_error)
+            )
             report_dict = None
 
     if not isinstance(report_dict, dict):
