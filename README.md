@@ -7,7 +7,7 @@ A multi-agent pipeline that autonomously researches the open web and writes **ci
 > - **Hardest problems solved:** orchestrating a stateful multi-agent graph with a conditional re-research loop under a hard token budget; a **provider-agnostic BYOK LLM layer** (Anthropic, OpenAI, Google, Groq) behind one interface; and a two-tier deploy (scale-to-zero backend + static frontend) that keeps a heavy Python+Playwright stack demoable and cheap.
 > - **Stack:** Python · LangGraph · FastAPI · Celery/Redis (or in-process) · Postgres · Playwright · Prometheus/Grafana/OpenTelemetry · **Next.js 14 + TypeScript + Tailwind** frontend on Vercel · backend on Google Cloud Run.
 
-**Live demo: a recording of a real run.** _(link added on deploy)_
+**[Live demo →](https://autonomous-research-report-agent-shiv-a.vercel.app)** — a recording of a real run.
 
 This one cannot be hosted the ordinary way: a report takes several minutes,
 launches headless Chromium and holds the scraped pages in memory, which no free

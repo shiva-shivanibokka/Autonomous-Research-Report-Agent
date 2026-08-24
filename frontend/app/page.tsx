@@ -101,6 +101,13 @@ export default function Home() {
   const replaying = replayMode === true && (replay.playing || replay.finished);
   const activity = replaying ? replay.entries : (status?.activity_log ?? []);
 
+  // A failed recording fetch leaves playing and finished both false, so
+  // `replaying` is false while `phase` is still "running" — which rendered the
+  // loading skeleton forever with nothing to explain it. Surface it instead: a
+  // read that cannot be served may degrade, but it may not sit there implying
+  // work is still happening.
+  const shownError = replay.error ?? (phase === "error" ? error : null);
+
   return (
     <main className="mx-auto max-w-6xl px-5 py-10 sm:px-8 sm:py-14">
       <Header />
@@ -142,7 +149,7 @@ export default function Home() {
           <RunHeader
             status={status}
             report={report}
-            phase={phase}
+            phase={replay.error ? "error" : phase}
             onReset={reset}
             replayQuery={replaying ? replay.run?.query : undefined}
             replayTokens={replaying ? replay.tokens : undefined}
@@ -162,7 +169,7 @@ export default function Home() {
             ) : report ? (
               <QualityPanel quality={report.quality} />
             ) : (
-              <RunningPlaceholder error={phase === "error" ? error : null} />
+              <RunningPlaceholder error={shownError} />
             )}
           </div>
 
