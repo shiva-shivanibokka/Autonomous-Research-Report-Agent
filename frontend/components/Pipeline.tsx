@@ -1,5 +1,6 @@
 "use client";
 
+import InfoTip from "@/components/InfoTip";
 import type { ActivityEntry } from "@/lib/types";
 
 // The pipeline IS the product — render it as an instrument panel where each
@@ -44,11 +45,14 @@ export default function Pipeline({
   const states = STAGES.map((s) => stageState(activity, s.match));
 
   return (
-    <div className="panel p-5">
+    <div className="panel p-6">
       <div className="mb-4 flex items-center justify-between">
-        <span className="eyebrow">Agent pipeline</span>
+        <span className="flex items-center">
+          <span className="eyebrow">Agent pipeline</span>
+          <InfoTip text="The seven agents, in the order the graph runs them. A stage lights amber while it is working and turns cyan when it finishes. Critique can send the run back to Orchestrate for another round, which is the self-improving loop; Fact-check is skipped entirely when the Critic flags nothing." />
+        </span>
         {round > 0 && (
-          <span className="font-mono text-[11px] text-text-muted">
+          <span className="font-mono text-[12.5px] text-text-muted">
             re-research round {round + 1}
           </span>
         )}
@@ -86,7 +90,7 @@ export default function Pipeline({
                 )}
               </div>
               <span
-                className={`font-mono text-[11px] uppercase tracking-wider sm:mt-2 ${
+                className={`font-mono text-[12px] uppercase tracking-wider sm:mt-2 ${
                   state === "pending" ? "text-text-faint" : "text-text-muted"
                 }`}
               >

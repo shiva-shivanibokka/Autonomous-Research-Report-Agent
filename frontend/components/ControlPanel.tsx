@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { listModels, type GenerateArgs } from "@/lib/api";
+import InfoTip from "@/components/InfoTip";
 import type { Provider, ReportMode } from "@/lib/types";
 
 const PROVIDERS: { value: Provider; label: string }[] = [
@@ -86,8 +87,9 @@ export default function ControlPanel({
 
   return (
     <div className="panel p-5 sm:p-6">
-      <label className="field-label" htmlFor="q">
+      <label className="field-label flex items-center" htmlFor="q">
         Research question
+        <InfoTip text="Asked as you would ask a colleague. The Orchestrator breaks it into 3-5 independently searchable sub-questions, so a broad question produces broad coverage rather than one shallow search. Questions where sources genuinely disagree show the most: that is what the critic loop and contradiction map are for." />
       </label>
       <textarea
         id="q"

@@ -77,3 +77,55 @@ def test_contradiction_map_rendered_when_present():
     md = render_report_markdown(report, "general")
     assert "Contradiction Map" in md
     assert "Market size" in md
+
+
+def test_citations_render_as_separate_list_items():
+    """
+    Markdown folds consecutive non-blank lines into one paragraph. The citation
+    block used to emit one plain line per source, so all 30 collapsed into a
+    single run-on block that was unreadable as a source list.
+    """
+    report = {
+        "title": "T",
+        "citations": [
+            {
+                "index": 1,
+                "url": "https://a.example/x",
+                "title": "First source",
+                "domain": "a.example",
+                "accessed_date": "2026-08-24",
+            },
+            {
+                "index": 2,
+                "url": "https://b.example/y",
+                "title": "Second source",
+                "domain": "b.example",
+                "accessed_date": "2026-08-24",
+            },
+        ],
+    }
+    md = render_report_markdown(report, "general")
+
+    # A blank line after the heading, and every citation is its own list item.
+    assert "## Citations (2 sources)\n" in md
+    assert (
+        "1. [First source](https://a.example/x) — a.example (accessed 2026-08-24)" in md
+    )
+    assert (
+        "2. [Second source](https://b.example/y) — b.example (accessed 2026-08-24)"
+        in md
+    )
+
+    # No two citations share a line.
+    cite_lines = [ln for ln in md.splitlines() if ln.strip().startswith(("1.", "2."))]
+    assert len(cite_lines) == 2
+
+
+def test_citation_without_domain_or_date_still_renders():
+    report = {
+        "title": "T",
+        "citations": [{"index": 1, "url": "https://a.example", "title": "Bare"}],
+    }
+    md = render_report_markdown(report, "general")
+    assert "1. [Bare](https://a.example)" in md
+    assert "—" not in md.split("## Citations")[1]

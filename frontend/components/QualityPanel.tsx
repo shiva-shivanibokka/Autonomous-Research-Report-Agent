@@ -1,5 +1,6 @@
 "use client";
 
+import InfoTip from "@/components/InfoTip";
 import type { Quality } from "@/lib/types";
 
 function Meter({
@@ -19,7 +20,7 @@ function Meter({
   return (
     <div>
       <div className="mb-1 flex items-baseline justify-between">
-        <span className="font-mono text-[11px] uppercase tracking-wider text-text-muted">
+        <span className="font-mono text-[12px] uppercase tracking-wider text-text-muted">
           {label}
         </span>
         <span className="font-mono text-sm text-text">{pct}%</span>
@@ -38,7 +39,7 @@ function Stat({ label, value }: { label: string; value: number | string }) {
   return (
     <div className="rounded-lg border border-line bg-ink-700/50 px-3 py-2.5">
       <div className="font-display text-xl font-semibold text-text">{value}</div>
-      <div className="mt-0.5 font-mono text-[10px] uppercase tracking-wider text-text-faint">
+      <div className="mt-0.5 font-mono text-[11px] uppercase tracking-wider text-text-faint">
         {label}
       </div>
     </div>
@@ -48,9 +49,12 @@ function Stat({ label, value }: { label: string; value: number | string }) {
 export default function QualityPanel({ quality }: { quality: Quality }) {
   const conf = quality.confidence_distribution || {};
   return (
-    <div className="panel p-5">
+    <div className="panel p-6">
       <div className="mb-4 flex items-center justify-between">
-        <span className="eyebrow">Quality assessment</span>
+        <span className="flex items-center">
+          <span className="eyebrow">Quality assessment</span>
+          <InfoTip text="The Critic's scores for this report, carried in the output as data rather than prose. Coverage is how much of the decomposed question got answered; source diversity is how spread across domains the evidence is; contradiction rate is the share of claims where sources disagree. Low numbers are reported, not hidden — that is the point of scoring a report at all." />
+        </span>
         <span
           className={`font-mono text-[11px] ${
             quality.converged ? "text-verified" : "text-signal"
@@ -78,10 +82,10 @@ export default function QualityPanel({ quality }: { quality: Quality }) {
       </div>
 
       <div className="mt-4">
-        <div className="mb-2 font-mono text-[11px] uppercase tracking-wider text-text-muted">
+        <div className="mb-2 font-mono text-[12px] uppercase tracking-wider text-text-muted">
           Confidence distribution
         </div>
-        <div className="flex flex-wrap gap-1.5 font-mono text-[11px]">
+        <div className="flex flex-wrap gap-1.5 font-mono text-[12px]">
           {(["high", "medium", "low", "contested", "inconclusive"] as const).map(
             (k) =>
               (conf[k] ?? 0) > 0 ? (
@@ -97,7 +101,7 @@ export default function QualityPanel({ quality }: { quality: Quality }) {
       </div>
 
       {quality.convergence_note && (
-        <p className="mt-4 border-t border-line pt-3 text-[13px] leading-6 text-text-muted">
+        <p className="mt-4 border-t border-line pt-3 text-[14px] leading-7 text-text-muted">
           {quality.convergence_note}
         </p>
       )}

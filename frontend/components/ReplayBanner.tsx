@@ -1,5 +1,6 @@
 "use client";
 
+import InfoTip from "@/components/InfoTip";
 import { formatRecordedAt, type DemoRun } from "@/lib/demo";
 
 /**
@@ -25,14 +26,15 @@ export default function ReplayBanner({
   return (
     <div className="panel border-signal/40 bg-signal/[0.04] p-4">
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <span className="rounded-full border border-signal/50 bg-signal/10 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-signal">
+        <span className="rounded-full border border-signal/50 bg-signal/10 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-signal">
           {playing ? "replaying" : "recording"}
         </span>
-        <span className="text-[15px] text-text">
+        <span className="text-[17px] text-text">
           A real run of this pipeline, recorded {recorded && `on ${recorded}`}.
         </span>
+        <InfoTip text="Not a mockup and not live. The pipeline was run once against the real web with a real model, and its output — every agent message, token count, citation and figure — was committed and is replayed here. Playback is time-compressed; nothing else about it is." />
       </div>
-      <p className="mt-2 max-w-3xl text-[13.5px] leading-6 text-text-muted">
+      <p className="mt-3 max-w-4xl text-[16px] leading-8 text-text-muted">
         Every agent message, token count, citation and dollar figure below is
         what actually happened — {run.sources_consulted} sources retrieved from
         live web search across {run.rounds_run} research{" "}
@@ -43,7 +45,7 @@ export default function ReplayBanner({
         compressed to about half a minute, keeping the relative pacing of each
         stage.
       </p>
-      <p className="mt-2 max-w-3xl text-[13px] leading-6 text-text-faint">
+      <p className="mt-3 max-w-4xl text-[14.5px] leading-7 text-text-faint">
         There is no hosted backend: a report needs several minutes, headless
         Chromium and the scraped pages held in memory, which no free tier
         carries. Rather than leave a dead link, the run was recorded.{" "}

@@ -7,6 +7,8 @@ import ActivityLog from "@/components/ActivityLog";
 import QualityPanel from "@/components/QualityPanel";
 import ReplayBanner from "@/components/ReplayBanner";
 import ReportView from "@/components/ReportView";
+import Citations, { type Citation } from "@/components/Citations";
+import InfoTip from "@/components/InfoTip";
 import { useReplay } from "@/hooks/useReplay";
 import { isReplayMode } from "@/lib/demo";
 import {
@@ -109,7 +111,7 @@ export default function Home() {
   const shownError = replay.error ?? (phase === "error" ? error : null);
 
   return (
-    <main className="mx-auto max-w-6xl px-5 py-10 sm:px-8 sm:py-14">
+    <main className="page-shell py-10 sm:py-14">
       <Header />
 
       {phase === "idle" ? (
@@ -121,13 +123,13 @@ export default function Home() {
               <span className="text-signal">cited, quality-scored</span> report —
               autonomously.
             </h1>
-            <p className="mt-5 max-w-xl text-[15px] leading-7 text-text-muted">
+            <p className="mt-5 max-w-2xl text-[17px] leading-8 text-text-muted">
               Seven specialized agents decompose your question, search and scrape
               the open web, triangulate sources, and run a self-improving critic
               loop before a writer synthesizes the findings. Every claim is
               traced to a source and scored for confidence.
             </p>
-            <p className="mt-3 max-w-xl text-[15px] leading-7 text-text-muted">
+            <p className="mt-3 max-w-2xl text-[17px] leading-8 text-text-muted">
               Bring your own key — Anthropic, OpenAI, Google, or Groq. Your key is
               sent per request and never stored.
             </p>
@@ -174,14 +176,30 @@ export default function Home() {
           </div>
 
           {replaying && replay.finished && replay.run ? (
-            <ReportView markdown={replay.run.report_markdown} />
+            <>
+              <ReportView markdown={replay.run.report_markdown} />
+              <Citations
+                citations={
+                  (replay.run.report.citations as Citation[] | undefined) ?? []
+                }
+              />
+            </>
           ) : (
-            report && <ReportView markdown={report.report_markdown} />
+            report && (
+              <>
+                <ReportView markdown={report.report_markdown} />
+                <Citations
+                  citations={
+                    (report.report.citations as Citation[] | undefined) ?? []
+                  }
+                />
+              </>
+            )
           )}
         </section>
       )}
 
-      <footer className="mt-16 flex flex-wrap items-center justify-between gap-2 border-t border-line pt-6 font-mono text-[11px] text-text-faint">
+      <footer className="mt-20 flex flex-wrap items-center justify-between gap-2 border-t border-line pt-6 font-mono text-[12px] text-text-faint">
         <span>Autonomous Research Report Agent · LangGraph · FastAPI · BYOK</span>
         <span>
           Built by{" "}
@@ -222,12 +240,21 @@ function Header() {
   );
 }
 
-function Metric({ label, value }: { label: string; value: string }) {
+function Metric({
+  label,
+  value,
+  tip,
+}: {
+  label: string;
+  value: string;
+  tip?: string;
+}) {
   return (
     <div className="text-right">
-      <div className="font-display text-lg font-semibold text-text">{value}</div>
-      <div className="font-mono text-[10px] uppercase tracking-wider text-text-faint">
+      <div className="font-display text-2xl font-semibold text-text">{value}</div>
+      <div className="flex items-center justify-end font-mono text-[11px] uppercase tracking-wider text-text-faint">
         {label}
+        {tip && <InfoTip text={tip} align="right" />}
       </div>
     </div>
   );
@@ -269,32 +296,40 @@ function RunHeader({
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">
           <span
-            className={`rounded-full border px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider ${pill.c}`}
+            className={`rounded-full border px-3 py-1 font-mono text-[11px] uppercase tracking-wider ${pill.c}`}
           >
             {pill.t}
           </span>
           <button
             onClick={onReset}
-            className="font-mono text-[11px] uppercase tracking-wider text-text-faint underline-offset-2 hover:text-text hover:underline"
+            className="font-mono text-[12px] uppercase tracking-wider text-text-faint underline-offset-2 hover:text-text hover:underline"
           >
             {isReplay ? "back" : "new research"}
           </button>
           {onSkip && (
             <button
               onClick={onSkip}
-              className="font-mono text-[11px] uppercase tracking-wider text-text-faint underline-offset-2 hover:text-text hover:underline"
+              className="font-mono text-[12px] uppercase tracking-wider text-text-faint underline-offset-2 hover:text-text hover:underline"
             >
               skip to result
             </button>
           )}
         </div>
-        <p className="mt-2 truncate pr-4 text-[15px] text-text">
+        <p className="mt-2 pr-4 text-[18px] leading-8 text-text">
           {replayQuery ?? status?.query ?? report?.query}
         </p>
       </div>
-      <div className="flex items-center gap-6">
-        <Metric label="tokens" value={tokens.toLocaleString()} />
-        <Metric label="est. cost" value={`$${cost.toFixed(4)}`} />
+      <div className="flex items-center gap-7">
+        <Metric
+          label="tokens"
+          value={tokens.toLocaleString()}
+          tip="Input plus output tokens across every agent in the run, accumulated live. The budget is enforced per call, so a long run degrades to shorter agent replies rather than overrunning."
+        />
+        <Metric
+          label="est. cost"
+          value={`$${cost.toFixed(4)}`}
+          tip="Estimated from a per-model price table, not billed. With bring-your-own-key the model list is open-ended, so an unrecognised model falls back to a rough default — treat this as a guide, not an invoice."
+        />
         {report && !isReplay && (
           <Metric label="duration" value={`${report.duration_seconds.toFixed(0)}s`} />
         )}
@@ -316,14 +351,14 @@ function ReplayInvite({
       <h2 className="mt-3 font-display text-xl font-semibold tracking-tight">
         Watch the pipeline work
       </h2>
-      <p className="mt-3 text-[14.5px] leading-7 text-text-muted">
+      <p className="mt-3 text-[16.5px] leading-8 text-text-muted">
         This page has no backend to call — a report takes several minutes,
         launches headless Chromium and holds the scraped pages in memory, which
         no free host will run. So the pipeline was run for real once and
         recorded: the agent feed, the citations, the quality scores and the
         report below are all from that run.
       </p>
-      <p className="mt-3 text-[14.5px] leading-7 text-text-muted">
+      <p className="mt-3 text-[16.5px] leading-8 text-text-muted">
         The question it was given is one where the evidence genuinely conflicts,
         which is the part worth watching — the critic loop and the contradiction
         map exist for exactly that case.
@@ -363,7 +398,7 @@ function RunningPlaceholder({ error }: { error: string | null }) {
     return (
       <div className="panel p-5">
         <span className="eyebrow text-alert">Job failed</span>
-        <p className="mt-3 font-mono text-[13px] leading-6 text-text-muted">
+        <p className="mt-3 font-mono text-[14px] leading-7 text-text-muted">
           {error}
         </p>
       </div>
@@ -379,7 +414,7 @@ function RunningPlaceholder({ error }: { error: string | null }) {
           </div>
         ))}
       </div>
-      <p className="mt-4 font-mono text-[11px] text-text-faint">
+      <p className="mt-4 font-mono text-[12.5px] text-text-faint">
         Scores populate once the critic and fact-checker complete.
       </p>
     </div>

@@ -105,15 +105,21 @@ def render_report_markdown(report: dict, mode: str) -> str:
             lines.append(f"- Source B: {c.get('source_b_claim', '')}")
             lines.append(f"- Resolution: *{c.get('resolution', '')}*")
 
-    # Citations — shared across modes
+    # Citations — shared across modes.
+    #
+    # Emitted as a Markdown list. They used to be one plain line each, and
+    # Markdown folds consecutive non-blank lines into a single paragraph — so all
+    # 30 citations rendered as one unreadable run-on block. A list marker makes
+    # each its own item, which is what the source lines already implied.
     citations = report.get("citations", [])
     if citations:
-        lines.append(f"\n## Citations ({len(citations)} sources)")
+        lines.append(f"\n## Citations ({len(citations)} sources)\n")
         for c in citations[:30]:
-            title = c.get("title", c.get("url", ""))
-            lines.append(
-                f"[{c.get('index', '')}] [{title}]({c.get('url', '')}) — "
-                f"{c.get('domain', '')} ({c.get('accessed_date', '')})"
-            )
+            title = c.get("title") or c.get("url", "")
+            domain = c.get("domain", "")
+            accessed = c.get("accessed_date", "")
+            suffix = f" — {domain}" if domain else ""
+            suffix += f" (accessed {accessed})" if accessed else ""
+            lines.append(f"{c.get('index', '')}. [{title}]({c.get('url', '')}){suffix}")
 
     return "\n".join(lines)
