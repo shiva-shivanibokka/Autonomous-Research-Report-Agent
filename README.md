@@ -7,12 +7,22 @@ A multi-agent pipeline that autonomously researches the open web and writes **ci
 > - **Hardest problems solved:** orchestrating a stateful multi-agent graph with a conditional re-research loop under a hard token budget; a **provider-agnostic BYOK LLM layer** (Anthropic, OpenAI, Google, Groq) behind one interface; and a two-tier deploy (scale-to-zero backend + static frontend) that keeps a heavy Python+Playwright stack demoable and cheap.
 > - **Stack:** Python · LangGraph · FastAPI · Celery/Redis (or in-process) · Postgres · Playwright · Prometheus/Grafana/OpenTelemetry · **Next.js 14 + TypeScript + Tailwind** frontend on Vercel · backend on Google Cloud Run.
 
-**No hosted demo.** This one needs a long-running server: a report takes several
-minutes, launches headless Chromium, and holds scraped pages in memory — which no
-free tier will carry, and a cold start long enough to matter reads as "broken" to
-anyone clicking a portfolio link. Rather than leave a dead URL here, it is built
-to run locally in **two commands** (below) with no database and no infrastructure.
-Bring your own LLM key; web search needs a free Tavily key.
+**Live demo: a recording of a real run.** _(link added on deploy)_
+
+This one cannot be hosted the ordinary way: a report takes several minutes,
+launches headless Chromium and holds the scraped pages in memory, which no free
+tier carries — and a cold start that long reads as "broken" to anyone clicking a
+portfolio link. So rather than publish a dead URL or fake the product, the
+pipeline was **run once for real** and its output committed:
+[`frontend/public/demo/run.json`](./frontend/public/demo/run.json).
+
+Everything the demo shows — the agent feed, the token counts, the dollar
+figures, the citations, the quality scores and the report itself — is what
+actually happened on that run. Playback is compressed to about half a minute
+while keeping the relative pacing of each stage, and the page says so.
+
+To run it live against your own key, see [Run it locally](#run-it-locally) —
+two commands, no database.
 
 ---
 
@@ -184,6 +194,41 @@ Step-by-step commands are in [`DEPLOY.md`](./DEPLOY.md).
 
 The full Compose stack ships Prometheus metrics (`/metrics`), Grafana dashboards, OpenTelemetry traces to Jaeger (a span per LLM call with model, tokens, and cost), structured JSON logs with per-request IDs, and Alertmanager rules. On Cloud Run, tracing no-ops (no collector) and logs stream to Cloud Logging.
 
+## The recorded run
+
+The committed recording answers *"Do AI coding assistants actually make software
+developers more productive?"* — chosen because the evidence genuinely conflicts,
+which is the case the critic loop and contradiction map exist for. A question
+every source agrees on would demo nothing this pipeline does that a single search
+could not.
+
+| | |
+|---|---|
+| Duration | 4m 34s |
+| Rounds | 2 of 2 — the critic asked for a second pass |
+| Sources retrieved | 81 |
+| Claims extracted | 60 |
+| Citations in report | 30 |
+| Cost | $0.49 (Sonnet 4.5) |
+| Converged | **No** — the critic's bar was still unmet when the rounds ran out |
+
+That last row is reported rather than hidden. The run found the METR randomized
+controlled trial, in which developers took **19% longer** with AI assistance
+while *perceiving* a 20% speedup, alongside vendor studies claiming 20-50%
+gains — and scored the result accordingly: 58% overall quality, 52% source
+diversity, 41 of 60 claims at low confidence. A tool that reported this as a
+clean success would be lying about its own output.
+
+Re-record with:
+
+```bash
+python scripts/record_demo_run.py --query "your question"
+```
+
+It refuses to write if any key-shaped string appears in the payload, if the
+artifact exceeds its size cap, or if the run produced no claims or citations —
+an unhealthy run should not silently become the demo.
+
 ## Notable fixes
 
 Found by running the pipeline end to end against a live model — none of them were
@@ -198,6 +243,8 @@ visible to the test suite, which was green the whole time.
 | `increment_round()` cleared `search_outputs`, the only source `_build_citations` read. | Round-1 sources vanished from the citation list while the claims citing them stayed in the report. |
 | `converged` was hardcoded `True`, and the Analyst and Fact-Checker discarded their `cost`. | Two headline numbers — the quality metric and the per-report cost — were **wrong by construction**. |
 | The Orchestrator was the only LLM-calling agent with no error handling, and it runs first. | A rejected API key surfaced as an opaque 401 with an empty activity feed. |
+| The Writer's output cap was 4096 tokens — too small for a full report, so a live run truncated mid-sentence. | Since the response is one JSON object, truncation lost **the entire report**, and presented as "malformed JSON" rather than "out of room". The repair retry inherited the same cap, so it could not have worked. |
+| Every Tavily search was hardcoded to `advanced` (2 credits) rather than `basic` (1). | Doubled the credit cost of every run against a free tier, for a depth nothing required. |
 
 ## Limitations & roadmap
 
