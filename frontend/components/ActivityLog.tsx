@@ -28,7 +28,7 @@ export default function ActivityLog({ entries }: { entries: ActivityEntry[] }) {
   }, [entries.length]);
 
   return (
-    <div className="panel flex h-full min-h-[16rem] flex-col p-6">
+    <div className="panel flex max-h-[26rem] flex-col p-6 sm:p-8">
       <span className="mb-3 flex items-center">
         <span className="eyebrow">Telemetry</span>
         <InfoTip text="The live feed each agent writes as it works, with the tokens and cost it spent. This is the pipeline reporting on itself — the same entries are persisted to the job record, so a run that fails still says which agent broke and why." />

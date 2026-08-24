@@ -115,28 +115,33 @@ export default function Home() {
       <Header />
 
       {phase === "idle" ? (
-        <section className="mt-12 grid gap-10 lg:grid-cols-[1.05fr_1fr] lg:items-start">
+        <section className="mt-14 space-y-6">
           <div>
             <p className="eyebrow">Multi-agent research pipeline</p>
-            <h1 className="mt-4 font-display text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl">
+            <h1 className="mt-4 font-display text-4xl font-semibold leading-[1.06] tracking-tight sm:text-5xl xl:text-[3.75rem]">
               From a question to a{" "}
               <span className="text-signal">cited, quality-scored</span> report —
               autonomously.
             </h1>
-            <p className="mt-5 max-w-2xl text-[17px] leading-8 text-text-muted">
-              Seven specialized agents decompose your question, search and scrape
-              the open web, triangulate sources, and run a self-improving critic
-              loop before a writer synthesizes the findings. Every claim is
-              traced to a source and scored for confidence.
-            </p>
-            <p className="mt-3 max-w-2xl text-[17px] leading-8 text-text-muted">
-              Bring your own key — Anthropic, OpenAI, Google, or Groq. Your key is
-              sent per request and never stored.
-            </p>
-            <div className="mt-8">
-              <Pipeline activity={[]} round={0} />
+            <div className="mt-6 grid gap-x-12 gap-y-4 text-[17.5px] leading-8 text-text-muted lg:grid-cols-2">
+              <p>
+                Seven specialized agents decompose your question, search and
+                scrape the open web, triangulate sources, and run a
+                self-improving critic loop before a writer synthesizes the
+                findings. Every claim is traced to a source and scored for
+                confidence.
+              </p>
+              <p>
+                Bring your own key — Anthropic, OpenAI, Google, or Groq. Your key
+                is sent per request and never stored. Nothing here is a
+                simulation: the pipeline reports what it actually found,
+                including when the evidence is thin.
+              </p>
             </div>
           </div>
+
+          <Pipeline activity={[]} round={0} />
+
           {replayMode ? (
             <ReplayInvite onPlay={playReplay} onSkip={skipReplay} />
           ) : (
@@ -164,16 +169,15 @@ export default function Home() {
             round={replaying ? replay.round : (status?.current_round ?? 0)}
           />
 
-          <div className="grid gap-4 lg:grid-cols-2">
-            <ActivityLog entries={activity} />
-            {replaying && replay.finished && replay.run ? (
-              <QualityPanel quality={replay.run.quality} />
-            ) : report ? (
-              <QualityPanel quality={report.quality} />
-            ) : (
-              <RunningPlaceholder error={shownError} />
-            )}
-          </div>
+          <ActivityLog entries={activity} />
+
+          {replaying && replay.finished && replay.run ? (
+            <QualityPanel quality={replay.run.quality} />
+          ) : report ? (
+            <QualityPanel quality={report.quality} />
+          ) : (
+            <RunningPlaceholder error={shownError} />
+          )}
 
           {replaying && replay.finished && replay.run ? (
             <>
@@ -199,19 +203,48 @@ export default function Home() {
         </section>
       )}
 
-      <footer className="mt-20 flex flex-wrap items-center justify-between gap-2 border-t border-line pt-6 font-mono text-[12px] text-text-faint">
-        <span>Autonomous Research Report Agent · LangGraph · FastAPI · BYOK</span>
-        <span>
-          Built by{" "}
-          <a
-            href="https://github.com/shiva-shivanibokka"
-            target="_blank"
-            rel="noreferrer"
-            className="text-text-muted underline-offset-2 hover:text-text hover:underline"
-          >
-            Shivani Bokka
-          </a>
-        </span>
+      <footer className="mt-20 border-t border-line pt-8">
+        <div className="flex flex-wrap items-end justify-between gap-8">
+          <div>
+            <div className="font-display text-[1.15rem] font-semibold tracking-tight text-text-muted">
+              Autonomous Research Report Agent
+            </div>
+            <div className="mt-2 flex flex-wrap gap-x-2.5 gap-y-2 font-mono text-[11.5px] uppercase tracking-wider text-text-faint">
+              {["LangGraph", "FastAPI", "Next.js", "Playwright", "BYOK"].map(
+                (t) => (
+                  <span
+                    key={t}
+                    className="rounded-full border border-line px-2.5 py-1"
+                  >
+                    {t}
+                  </span>
+                ),
+              )}
+            </div>
+          </div>
+
+          <div className="sm:text-right">
+            <div className="font-mono text-[11.5px] uppercase tracking-[0.2em] text-text-faint">
+              Built by
+            </div>
+            <a
+              href="https://github.com/shiva-shivanibokka"
+              target="_blank"
+              rel="noreferrer"
+              className="mt-1 block font-display text-[1.75rem] font-semibold tracking-tight text-text transition hover:text-signal"
+            >
+              Shivani Bokka
+            </a>
+            <a
+              href="https://github.com/shiva-shivanibokka/Autonomous-Research-Report-Agent"
+              target="_blank"
+              rel="noreferrer"
+              className="mt-1.5 inline-block font-mono text-[12.5px] text-text-muted underline decoration-line underline-offset-4 transition hover:text-text hover:decoration-signal"
+            >
+              View the source →
+            </a>
+          </div>
+        </div>
       </footer>
     </main>
   );
@@ -219,23 +252,35 @@ export default function Home() {
 
 function Header() {
   return (
-    <header className="flex items-center justify-between">
-      <div className="flex items-center gap-3">
-        <span className="grid h-9 w-9 place-items-center rounded-lg border border-signal/50 bg-signal/10 font-display text-sm font-bold text-signal">
+    <header className="flex flex-wrap items-center justify-between gap-4 border-b border-line pb-5">
+      <div className="flex items-center gap-4">
+        <span className="relative grid h-12 w-12 place-items-center rounded-xl border border-signal/50 bg-signal/10 font-display text-lg font-bold text-signal shadow-glow">
           R
+          {/* Quiet nod to the seven-agent pipeline the mark stands for. */}
+          <span className="absolute -bottom-1 -right-1 h-2.5 w-2.5 rounded-full border-2 border-ink bg-verified" />
         </span>
-        <div className="leading-none">
-          <div className="font-mono text-[11px] uppercase tracking-[0.24em] text-text-faint">
-            Research
+        <div className="leading-tight">
+          <div className="font-display text-[1.6rem] font-semibold tracking-tight">
+            Research <span className="text-signal">Agent</span>
           </div>
-          <div className="font-display text-lg font-semibold tracking-tight">
-            Agent
+          <div className="mt-0.5 font-mono text-[11.5px] uppercase tracking-[0.2em] text-text-faint">
+            Autonomous · cited · quality-scored
           </div>
         </div>
       </div>
-      <span className="hidden font-mono text-[11px] uppercase tracking-wider text-text-muted sm:inline">
-        BYOK · Anthropic / OpenAI / Google / Groq
-      </span>
+      <div className="flex flex-wrap items-center gap-2 font-mono text-[11.5px] uppercase tracking-wider">
+        <span className="rounded-full border border-line px-3 py-1 text-text-muted">
+          BYOK
+        </span>
+        {["Anthropic", "OpenAI", "Google", "Groq"].map((p) => (
+          <span
+            key={p}
+            className="rounded-full border border-line bg-ink-700/50 px-3 py-1 text-text-faint"
+          >
+            {p}
+          </span>
+        ))}
+      </div>
     </header>
   );
 }
@@ -346,49 +391,56 @@ function ReplayInvite({
   onSkip: () => void;
 }) {
   return (
-    <div className="panel p-5 sm:p-6">
-      <span className="eyebrow">Recorded run</span>
-      <h2 className="mt-3 font-display text-xl font-semibold tracking-tight">
-        Watch the pipeline work
-      </h2>
-      <p className="mt-3 text-[16.5px] leading-8 text-text-muted">
-        This page has no backend to call — a report takes several minutes,
-        launches headless Chromium and holds the scraped pages in memory, which
-        no free host will run. So the pipeline was run for real once and
-        recorded: the agent feed, the citations, the quality scores and the
-        report below are all from that run.
-      </p>
-      <p className="mt-3 text-[16.5px] leading-8 text-text-muted">
-        The question it was given is one where the evidence genuinely conflicts,
-        which is the part worth watching — the critic loop and the contradiction
-        map exist for exactly that case.
-      </p>
-      <div className="mt-6 flex flex-wrap gap-3">
-        <button
-          onClick={onPlay}
-          className="rounded-lg border border-signal/60 bg-signal/15 px-6 py-3 font-display text-sm font-semibold uppercase tracking-[0.14em] text-signal shadow-glow transition hover:bg-signal/25"
-        >
-          Play the recorded run
-        </button>
-        <button
-          onClick={onSkip}
-          className="font-mono text-[12px] uppercase tracking-wider text-text-faint underline-offset-2 hover:text-text hover:underline"
-        >
-          skip to the report
-        </button>
+    <div className="panel p-6 sm:p-8">
+      <div className="grid items-start gap-8 lg:grid-cols-[1.6fr_1fr]">
+        <div>
+          <span className="eyebrow">Recorded run</span>
+          <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight sm:text-[1.75rem]">
+            Watch the pipeline work
+          </h2>
+          <div className="mt-4 grid gap-x-10 gap-y-4 text-[16.5px] leading-8 text-text-muted xl:grid-cols-2">
+            <p>
+              This page has no backend to call — a report takes several minutes,
+              launches headless Chromium and holds the scraped pages in memory,
+              which no free host will run. So the pipeline was run for real once
+              and recorded: the agent feed, the citations, the quality scores and
+              the report below are all from that run.
+            </p>
+            <p>
+              The question it was given is one where the evidence genuinely
+              conflicts, which is the part worth watching — the critic loop and
+              the contradiction map exist for exactly that case.
+            </p>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-4 lg:border-l lg:border-line lg:pl-8">
+          <button
+            onClick={onPlay}
+            className="w-full rounded-lg border border-signal/60 bg-signal/15 px-6 py-4 font-display text-[15px] font-semibold uppercase tracking-[0.14em] text-signal shadow-glow transition hover:bg-signal/25"
+          >
+            Play the recorded run
+          </button>
+          <button
+            onClick={onSkip}
+            className="font-mono text-[12.5px] uppercase tracking-wider text-text-faint underline-offset-2 hover:text-text hover:underline"
+          >
+            skip to the report
+          </button>
+          <p className="mt-1 border-t border-line pt-4 font-mono text-[12px] leading-6 text-text-faint">
+            To run it live against your own key, see{" "}
+            <a
+              href="https://github.com/shiva-shivanibokka/Autonomous-Research-Report-Agent#run-it-locally"
+              target="_blank"
+              rel="noreferrer"
+              className="underline underline-offset-2 hover:text-text"
+            >
+              Run it locally
+            </a>{" "}
+            — two commands, no database.
+          </p>
+        </div>
       </div>
-      <p className="mt-6 border-t border-line pt-4 font-mono text-[11px] leading-5 text-text-faint">
-        To run it live against your own key, see{" "}
-        <a
-          href="https://github.com/shiva-shivanibokka/Autonomous-Research-Report-Agent#run-it-locally"
-          target="_blank"
-          rel="noreferrer"
-          className="underline underline-offset-2 hover:text-text"
-        >
-          Run it locally
-        </a>{" "}
-        — two commands, no database.
-      </p>
     </div>
   );
 }
