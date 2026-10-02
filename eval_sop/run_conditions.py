@@ -24,7 +24,6 @@ import json
 import re
 import time
 import traceback
-from pathlib import Path
 
 from eval_sop import common
 
@@ -247,7 +246,7 @@ async def run_one(cond: str, q: dict, seed: int, patched) -> dict:
         err = None
     except common.CreditCapReached:
         raise
-    except Exception as e:  # noqa: BLE001
+    except Exception:  # noqa: BLE001
         out, err = {}, traceback.format_exc()[-2000:]
     finally:
         common.TELEMETRY.reset(t_tok)
