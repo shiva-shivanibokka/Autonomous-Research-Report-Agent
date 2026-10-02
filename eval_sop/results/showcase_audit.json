@@ -1,0 +1,166 @@
+{
+ "run": {
+  "query": "Do AI coding assistants actually make software developers more productive?",
+  "provider": "anthropic",
+  "model": "claude-sonnet-4-5",
+  "rounds_run": 2,
+  "max_rounds": 2,
+  "converged": false,
+  "tokens_used": 78591,
+  "cost_usd": 0.485985,
+  "duration_seconds": 273.83
+ },
+ "reported_quality_block": {
+  "schema_version": "1.0",
+  "coverage_score": 0.75,
+  "source_diversity_score": 0.52,
+  "contradiction_rate": 0.12,
+  "overall_quality_score": 0.58,
+  "confidence_distribution": {
+   "high": 6,
+   "medium": 13,
+   "low": 41,
+   "contested": 0,
+   "inconclusive": 0
+  },
+  "re_research_rounds": 2,
+  "total_sources_consulted": 81,
+  "total_claims_extracted": 60,
+  "claims_flagged_by_critic": 0,
+  "claims_verified_by_fact_checker": 0,
+  "converged": false,
+  "convergence_note": "Did not converge: 2 of 2 round(s) used and the Critic's quality bar was not met."
+ },
+ "diversity": {
+  "critic_self_reported_source_diversity": 0.52,
+  "sources_consulted_per_quality_block": 81,
+  "listed_citations_in_report": 30,
+  "listed_unique_domains": 25,
+  "listed_unique_domain_ratio": 0.8333333333333334,
+  "listed_top_domains": [
+   [
+    "arxiv.org",
+    4
+   ],
+   [
+    "medium.com",
+    2
+   ],
+   [
+    "faros.ai",
+    2
+   ],
+   [
+    "index.dev",
+    1
+   ],
+   [
+    "harness.io",
+    1
+   ]
+  ],
+  "inline_citations": 49,
+  "inline_unique_urls": 17,
+  "inline_unique_domains": 12,
+  "inline_unique_domain_ratio": 0.7058823529411765,
+  "inline_cited_urls_missing_from_listed_citations": [
+   "https://arxiv.org/html/2602.03593v1",
+   "https://arxiv.org/html/2603.28592v1",
+   "https://blog.exceeds.ai/ai-code-quality",
+   "https://blog.exceeds.ai/best-technical-debt-tools-2026",
+   "https://blog.exceeds.ai/developer-reliance-on-ai",
+   "https://byteiota.com/stack-overflow-2025-84-use-ai-29-trust-it",
+   "https://byteiota.com/stack-overflow-2025-survey-ai-trust-hits-all-time-low",
+   "https://callsphere.ai/blog/ai-coding-assistants-developer-productivity-studies-2026",
+   "https://domenic.me/metr-ai-productivity",
+   "https://fortegrp.com/insights/ai-coding-assistants",
+   "https://particula.tech/blog/ai-coding-tools-developer-productivity-paradox",
+   "https://www.getpanto.ai/blog/ai-coding-assistant-statistics",
+   "https://www.linkedin.com/posts/thestevemitchell_measuring-the-impact-of-early-2025-ai-on-activity-7349786687230644225-OqTH"
+  ]
+ },
+ "consistency": {
+  "critic_contradiction_rate": 0.12,
+  "contested_claims_in_distribution": 0,
+  "computed_contradiction_rate_from_distribution": 0.0,
+  "contradictions_mapped_in_report": 0,
+  "claims_flagged_by_critic_final_round": 0,
+  "claims_verified_by_fact_checker": 0,
+  "round1_flags_in_activity_log": [
+   {
+    "timestamp": "2026-08-24T16:53:10.403889Z",
+    "agent_name": "Critic Agent",
+    "status": "completed",
+    "message": "Quality score: 0.63 | Coverage: 0.75 | 5 claims flagged \u2192 Triggering re-research round 2",
+    "tokens_used": 3966,
+    "cost_usd": 0.022422
+   },
+   {
+    "timestamp": "2026-08-24T16:54:42.462503Z",
+    "agent_name": "Critic Agent",
+    "status": "completed",
+    "message": "Quality score: 0.58 | Coverage: 0.75 | 0 claims flagged",
+    "tokens_used": 5605,
+    "cost_usd": 0.028335
+   },
+   {
+    "timestamp": "2026-08-24T16:54:42.468523Z",
+    "agent_name": "Fact-Checker Agents",
+    "status": "skipped",
+    "message": "No claims flagged by Critic \u2014 skipping fact-checking.",
+    "tokens_used": 0,
+    "cost_usd": 0.0
+   }
+  ]
+ },
+ "citation_support_nli": {
+  "deberta-v3-large": {
+   "n_cited_sentences": 38,
+   "n_sentences_with_fetchable_page": 26,
+   "sentence_supported_by_any_cited_page": {
+    "n": 26,
+    "mean": 0.38461538461538464,
+    "std": 0.49613893835683387,
+    "ci95": [
+     0.19230769230769232,
+     0.5769230769230769
+    ]
+   },
+   "n_sentence_url_pairs_judged": 31,
+   "pair_supported": {
+    "n": 31,
+    "mean": 0.3225806451612903,
+    "std": 0.4751909633114914,
+    "ci95": [
+     0.16129032258064516,
+     0.4838709677419355
+    ]
+   },
+   "pairs_page_missing": 18
+  },
+  "deberta-xlarge-mnli": {
+   "n_cited_sentences": 38,
+   "n_sentences_with_fetchable_page": 26,
+   "sentence_supported_by_any_cited_page": {
+    "n": 26,
+    "mean": 0.6923076923076923,
+    "std": 0.47067872433164165,
+    "ci95": [
+     0.5,
+     0.8461538461538461
+    ]
+   },
+   "n_sentence_url_pairs_judged": 31,
+   "pair_supported": {
+    "n": 31,
+    "mean": 0.6129032258064516,
+    "std": 0.49513764785419084,
+    "ci95": [
+     0.45161290322580644,
+     0.7741935483870968
+    ]
+   },
+   "pairs_page_missing": 18
+  }
+ }
+}
