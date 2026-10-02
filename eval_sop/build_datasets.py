@@ -2,7 +2,6 @@
 Build the two fixed input sets for the evaluation. Run once; outputs are committed.
 
   eval_sop/data/questions.jsonl          FRAMES sample (+ open-ended questions)
-  eval_sop/data/attributionbench_320.jsonl  judge-validation set (human labels)
 
 Provenance
 ----------
@@ -14,10 +13,9 @@ FRAMES: google/frames-benchmark, file test.tsv (824 rows), downloaded from
 Open-ended: five questions with NO reference answer. The first is the query of
   the repo's own showcase run (frontend/public/demo/run.json); the other four
   were written for this evaluation. They are used only for claim-level metrics.
-AttributionBench: osunlp/AttributionBench, config full_data, split test (1610
-  rows, human attribution labels), fetched through the HF datasets-server rows
-  API. We draw 40 items per (src_dataset, label) cell with random.Random(7):
-  4 sources x 2 labels x 40 = 320 items, balanced.
+(An AttributionBench sample was downloaded in an earlier session and then
+removed: it was not an approved download. Judge validation now uses the
+human-labelled RAGTruth copy already on this machine; see nli_validate.py.)
 """
 
 from __future__ import annotations
@@ -34,10 +32,6 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 DATA = HERE / "data"
 FRAMES_URL = "https://huggingface.co/datasets/google/frames-benchmark/resolve/main/test.tsv"
-AB_ROWS = (
-    "https://datasets-server.huggingface.co/rows?dataset=osunlp/AttributionBench"
-    "&config=full_data&split=test&offset={off}&length=100"
-)
 
 OPEN_ENDED = [
     (
@@ -105,38 +99,6 @@ def build_frames() -> list[dict]:
     return out
 
 
-def build_attributionbench() -> list[dict]:
-    rows: list[dict] = []
-    for off in range(0, 1610, 100):
-        rows += [r["row"] for r in json.loads(_get(AB_ROWS.format(off=off)))["rows"]]
-    cells: dict[tuple[str, str], list[dict]] = {}
-    for r in rows:
-        cells.setdefault((r["src_dataset"], r["attribution_label"]), []).append(r)
-    rng = random.Random(7)
-    picked = []
-    for key in sorted(cells):
-        picked += rng.sample(cells[key], 40)
-    out = []
-    for r in picked:
-        refs = r["references"]
-        if isinstance(refs, str):
-            try:
-                refs = json.loads(refs)
-            except json.JSONDecodeError:
-                refs = [refs]
-        out.append(
-            {
-                "id": r["id"],
-                "src_dataset": r["src_dataset"],
-                "question": r["question"],
-                "claim": r["claim"],
-                "evidence": "\n\n".join(str(x) for x in refs),
-                "human_label": r["attribution_label"],
-            }
-        )
-    return out
-
-
 def main() -> None:
     DATA.mkdir(exist_ok=True)
     frames = build_frames()
@@ -156,11 +118,7 @@ def main() -> None:
                 )
                 + "\n"
             )
-    ab = build_attributionbench()
-    with open(DATA / "attributionbench_320.jsonl", "w", encoding="utf-8") as f:
-        for r in ab:
-            f.write(json.dumps(r, ensure_ascii=False) + "\n")
-    print(f"frames={len(frames)} open={len(OPEN_ENDED)} attributionbench={len(ab)}")
+    print(f"frames={len(frames)} open={len(OPEN_ENDED)}")
 
 
 if __name__ == "__main__":
