@@ -28,7 +28,7 @@ from pathlib import Path
 
 from eval_sop import common
 
-RUNS = common.HERE / "runs"
+RUNS = common.OUT_DIR / "runs"
 TOKEN_BUDGET = 80_000  # ReportRequest default — what the deployed API uses
 COND_NAMES = {
     "a": "closed_book",

@@ -34,8 +34,11 @@ import httpx
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parent
-CACHE = HERE / "cache"
-CACHE.mkdir(exist_ok=True)
+# SOP_OUT_DIR redirects caches/runs/results (used by smoke_test.py so a fake run
+# never touches the real caches).
+OUT_DIR = Path(os.environ["SOP_OUT_DIR"]) if os.environ.get("SOP_OUT_DIR") else HERE
+CACHE = OUT_DIR / "cache"
+CACHE.mkdir(parents=True, exist_ok=True)
 
 ORIGINAL_ENV = Path(
     r"<REPOS>\Autonomous-Research-Report-Agent\.env"

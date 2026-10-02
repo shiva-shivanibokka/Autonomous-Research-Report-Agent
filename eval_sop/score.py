@@ -1,13 +1,14 @@
 """
 Score saved runs.
 
-  python -m eval_sop.score judge     # LLM-judge every run (cached; resumable)
+  python -m eval_sop.score judge     # repo venv: LLM correctness judges + fetch cited pages
+  python -m eval_sop.score support   # torch env: NLI citation-support judges
   python -m eval_sop.score analyze   # pure computation -> results/*.json, CSV
 
-All correctness / support labels below are LLM-judge labels (llama3.1:8b and
-gemma2:9b, local), except `strict_match`, which is a deterministic string check.
-The support judges' agreement with human labels is measured separately on
-AttributionBench by validate_judge.py.
+Correctness labels are LLM-judge labels (llama3.1:8b and gemma2:9b, local),
+plus `strict_match`, a deterministic string check. Citation-support labels come
+from two NLI models (eval_sop/nli.py) whose agreement with human labels is
+measured on RAGTruth by nli_validate.py.
 """
 
 from __future__ import annotations
@@ -23,19 +24,20 @@ import sys
 from collections import defaultdict
 
 from eval_sop import common, stats
-from eval_sop.judges import judge_correct, judge_support
+from eval_sop.judges import judge_correct
 from eval_sop.quality_metrics import (
     contradiction_rate,
     domain_diversity,
     structural_coverage,
 )
 
-RUNS = common.HERE / "runs"
-RES = common.HERE / "results"
+RUNS = common.OUT_DIR / "runs"
+RES = common.OUT_DIR / "results"
 JUDGED = RES / "judgments.jsonl"
 CLAIMS_PER_RUN = 6
 URLS_PER_CLAIM = 3
 CONF_ORD = {"high": 3, "medium": 2, "low": 1, "contested": 0, "inconclusive": 0}
+SUPPORT_JUDGES = ("deberta-v3-large", "deberta-xlarge-mnli")  # eval_sop/nli.py MODELS
 SONNET_PRICE = {"input": 3.00, "output": 15.00}  # claude-sonnet-4-5, $/1M tokens
 
 
@@ -99,32 +101,45 @@ async def judge_all():
                     out.flush()
                     done.add(key)
             for c in sample_claims(r):
-                urls = (c.get("source_urls") or [])[:URLS_PER_CLAIM]
-                for u in urls:
-                    key = f"support|{model}|{run_key(r)}|{hashlib.sha1((c['text'] + u).encode()).hexdigest()}"
-                    if key in done:
-                        continue
-                    page = patched.pages.get(u)
-                    if page is None:
+                for u in (c.get("source_urls") or [])[:URLS_PER_CLAIM]:
+                    if patched.pages.get(u) is None:
                         try:
                             await patched.scrape(u, "")
-                        except Exception:  # noqa: BLE001
+                        except Exception:  # noqa: BLE001 - recorded as missing evidence
                             pass
-                        page = patched.pages.get(u)
-                    content = (page or {}).get("content") or ""
-                    if not content.strip():
-                        j = {"raw": None, "supported": None}
-                        missing = True
-                    else:
-                        j = await judge_support(model, c.get("context") or r["question"], c["text"], content)
-                        missing = False
-                    out.write(json.dumps({"key": key, "kind": "support", "judge": model,
-                                          "run": run_key(r), "claim": c["text"], "url": u,
-                                          "evidence_missing": missing, **j}) + "\n")
-                    out.flush()
-                    done.add(key)
             print(f"judged {model} {run_key(r)}", flush=True)
     out.close()
+
+
+def support_nli():
+    """NLI support judgments for every sampled (claim, cited URL) pair."""
+    from eval_sop.nli import MODELS, NLIJudge
+
+    pages = common.KV("pages")
+    done = set()
+    if JUDGED.exists():
+        done = {json.loads(line)["key"] for line in open(JUDGED, encoding="utf-8")}
+    runs = [r for r in load_runs() if not r.get("error")]
+    with open(JUDGED, "a", encoding="utf-8") as out:
+        for name in MODELS:
+            judge = None
+            for r in runs:
+                for c in sample_claims(r):
+                    for u in (c.get("source_urls") or [])[:URLS_PER_CLAIM]:
+                        key = f"support|{name}|{run_key(r)}|{hashlib.sha1((c['text'] + u).encode()).hexdigest()}"
+                        if key in done:
+                            continue
+                        content = ((pages.get(u) or {}).get("content") or "").strip()
+                        if content:
+                            judge = judge or NLIJudge(name)
+                            s = judge.score(content, c["text"])
+                        else:
+                            s = {"p_entail": None, "supported": None, "n_windows": 0}
+                        out.write(json.dumps({"key": key, "kind": "support", "judge": name,
+                                              "run": run_key(r), "claim": c["text"], "url": u,
+                                              "evidence_missing": not content, **s}) + chr(10))
+                        out.flush()
+                        done.add(key)
 
 
 # ---------------------------------------------------------------------------
@@ -165,7 +180,8 @@ def analyze():
             support[j["run"]][j["claim"]].setdefault(j["judge"], []).append(j["supported"])
             missing[j["run"]].setdefault(j["claim"], []).append(j["evidence_missing"])
 
-    J1, J2 = common.JUDGE_MODELS
+    J1, J2 = common.JUDGE_MODELS  # correctness (LLM judges)
+    S1, S2 = SUPPORT_JUDGES  # citation support (NLI)
     conds = ["closed_book", "search1", "pipeline_r1", "pipeline_r2"]
     per_run = []
     claim_rows = []
@@ -182,7 +198,7 @@ def analyze():
                 row["correct_both"] = correct[k][J1] and correct[k][J2]
         # claim support for this run
         provided = set(r.get("provided_urls") or [])
-        sup_by_judge = {J1: [], J2: []}
+        sup_by_judge = {S1: [], S2: []}
         for c in sample_claims(r) if not r.get("error") else []:
             labels = support[k].get(c["text"], {})
             urls = (c.get("source_urls") or [])[:URLS_PER_CLAIM]
@@ -194,7 +210,7 @@ def analyze():
                   "all_urls_were_provided": bool(urls) and all(u in provided for u in urls),
                   "any_evidence_missing": any(missing[k].get(c["text"], [])),
                   "all_evidence_missing": bool(urls) and all(missing[k].get(c["text"], [True]))}
-            for jm in (J1, J2):
+            for jm in (S1, S2):
                 vals = labels.get(jm, [])
                 # Supported if ANY cited page is judged to support it; a claim
                 # with no citation, or no fetchable cited page, is unsupported.
@@ -203,10 +219,10 @@ def analyze():
                     cr[f"supported_{jm}"] = None  # not judged yet
                 if cr[f"supported_{jm}"] is not None:
                     sup_by_judge[jm].append(cr[f"supported_{jm}"])
-            if cr.get(f"supported_{J1}") is not None and cr.get(f"supported_{J2}") is not None:
-                cr["supported_both"] = cr[f"supported_{J1}"] and cr[f"supported_{J2}"]
+            if cr.get(f"supported_{S1}") is not None and cr.get(f"supported_{S2}") is not None:
+                cr["supported_both"] = cr[f"supported_{S1}"] and cr[f"supported_{S2}"]
             claim_rows.append(cr)
-        for jm in (J1, J2):
+        for jm in (S1, S2):
             v = sup_by_judge[jm]
             row[f"support_rate_{jm}"] = sum(v) / len(v) if v else None
         row["n_claims_total"] = len(r.get("claims", []))
@@ -291,7 +307,7 @@ def analyze():
 
     metrics = {
         "strict_match": True, f"correct_{J1}": True, f"correct_{J2}": True, "correct_both": True,
-        f"support_rate_{J1}": False, f"support_rate_{J2}": False,
+        f"support_rate_{S1}": False, f"support_rate_{S2}": False,
         "in_tok": False, "out_tok": False, "llm_seconds": False, "llm_calls": False,
         "tavily_credits": False, "est_cost_sonnet45_usd": False,
     }
@@ -331,7 +347,7 @@ def analyze():
     summary["paired_differences"] = {}
     for a, b in pairs:
         d = {}
-        for m in ["strict_match", f"correct_{J1}", f"correct_{J2}", f"support_rate_{J1}", f"support_rate_{J2}"]:
+        for m in ["strict_match", f"correct_{J1}", f"correct_{J2}", f"support_rate_{S1}", f"support_rate_{S2}"]:
             only_ref = m.startswith("correct") or m == "strict_match"
             d[m] = stats.paired_diff_ci(by_question(a, m, only_ref), by_question(b, m, only_ref))
         summary["paired_differences"][f"{b} minus {a}"] = d
@@ -360,7 +376,7 @@ def analyze():
     # --- Calibration
     cal = {}
     pc = [c for c in claim_rows if c["condition"].startswith("pipeline") and c.get("confidence")]
-    for jm in (J1, J2, "both"):
+    for jm in (S1, S2, "both"):
         key = f"supported_{jm}"
         rows = [c for c in pc if c.get(key) is not None]
         y = [int(c[key]) for c in rows]
@@ -389,21 +405,22 @@ def analyze():
             "auroc": stats.auroc(y, [r["final_critic_coverage"] for r in rows]),
             "auroc_ci95": stats.auroc_ci(y, [r["final_critic_coverage"] for r in rows]),
         }
-        rows2 = [r for r in pr if r.get(f"support_rate_{jm}") is not None]
-        cal[f"critic_quality_vs_support_rate_{jm}"] = stats.spearman(
-            [r["final_critic_quality"] for r in rows2], [r[f"support_rate_{jm}"] for r in rows2])
+    for sm in (S1, S2):
+        rows2 = [r for r in pr if r.get(f"support_rate_{sm}") is not None]
+        cal[f"critic_quality_vs_support_rate_{sm}"] = stats.spearman(
+            [r["final_critic_quality"] for r in rows2], [r[f"support_rate_{sm}"] for r in rows2])
     summary["calibration"] = cal
 
     # --- Judge agreement on this eval's own items
     both_c = [r for r in per_run if r.get(f"correct_{J1}") is not None and r.get(f"correct_{J2}") is not None]
-    both_s = [c for c in claim_rows if c.get(f"supported_{J1}") is not None and c.get(f"supported_{J2}") is not None]
+    both_s = [c for c in claim_rows if c.get(f"supported_{S1}") is not None and c.get(f"supported_{S2}") is not None]
     summary["judge_agreement_on_eval_items"] = {
         "correctness": {"n": len(both_c),
                         "kappa": stats.cohen_kappa([r[f"correct_{J1}"] for r in both_c], [r[f"correct_{J2}"] for r in both_c]) if both_c else None,
                         "kappa_judge1_vs_strict_match": stats.cohen_kappa([r[f"correct_{J1}"] for r in both_c], [r["strict_match"] for r in both_c]) if both_c else None,
                         "kappa_judge2_vs_strict_match": stats.cohen_kappa([r[f"correct_{J2}"] for r in both_c], [r["strict_match"] for r in both_c]) if both_c else None},
         "support": {"n": len(both_s),
-                    "kappa": stats.cohen_kappa([c[f"supported_{J1}"] for c in both_s], [c[f"supported_{J2}"] for c in both_s]) if both_s else None},
+                    "kappa": stats.cohen_kappa([c[f"supported_{S1}"] for c in both_s], [c[f"supported_{S2}"] for c in both_s]) if both_s else None},
     }
     summary["claims"] = {
         cond: {
@@ -428,17 +445,17 @@ def export_csv(claim_rows):
     rng = random.Random(99)
     pool = [c for c in claim_rows if c["urls"]]
     pick = rng.sample(pool, min(100, len(pool)))
-    J1, J2 = common.JUDGE_MODELS
+    S1, S2 = SUPPORT_JUDGES
     with open(RES / "claims_for_optional_human_review.csv", "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(["condition", "qid", "seed", "context", "claim", "cited_url", "page_excerpt_first_600_chars",
-                    f"llm_judge_{J1}", f"llm_judge_{J2}", "pipeline_confidence_label", "human_label (optional, blank)"])
+                    f"nli_judge_{S1}", f"nli_judge_{S2}", "pipeline_confidence_label", "human_label (optional, blank)"])
         for c in pick:
             u = c["urls"][0]
             page = pages.get(u) or {}
             w.writerow([c["condition"], c["qid"], c["seed"], c["context"], c["claim"], u,
                         (page.get("content") or "")[:600].replace("\n", " "),
-                        c.get(f"supported_{J1}"), c.get(f"supported_{J2}"), c.get("confidence"), ""])
+                        c.get(f"supported_{S1}"), c.get(f"supported_{S2}"), c.get("confidence"), ""])
 
 
 def _mean(xs):
@@ -456,5 +473,7 @@ def _count(xs):
 if __name__ == "__main__":
     if sys.argv[1] == "judge":
         asyncio.run(judge_all())
+    elif sys.argv[1] == "support":
+        support_nli()
     else:
         analyze()
