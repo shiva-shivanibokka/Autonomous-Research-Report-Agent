@@ -112,9 +112,7 @@ def _build_quality_report(
     state: ResearchState, citations: list[Citation]
 ) -> QualityReport:
     """Build machine-readable quality metrics for the report."""
-    all_claims: list[Claim] = []
-    for a in state.analyst_outputs:
-        all_claims.extend(a.key_claims)
+    all_claims: list[Claim] = state.collected_claims()
 
     dist = ConfidenceDistribution(
         high=sum(1 for c in all_claims if c.confidence == ConfidenceLevel.HIGH),
@@ -173,22 +171,21 @@ def _build_contradiction_map(state: ResearchState) -> list[ContradictionEntry]:
     entries: list[ContradictionEntry] = []
 
     # From Analyst-detected contradictions
-    for analyst_out in state.analyst_outputs:
-        for claim in analyst_out.key_claims:
-            if claim.contradiction_detail and claim.contradicting_sources > 0:
-                sources = claim.source_urls
-                source_a = sources[0] if sources else "Source A"
-                source_b = sources[1] if len(sources) > 1 else "Source B"
-                entries.append(
-                    ContradictionEntry(
-                        topic=claim.text[:80],
-                        source_a=source_a,
-                        source_a_claim=claim.text,
-                        source_b=source_b,
-                        source_b_claim=claim.contradiction_detail,
-                        resolution="Claim retained with CONTESTED confidence — conflicting evidence noted.",
-                    )
+    for claim in state.collected_claims():
+        if claim.contradiction_detail and claim.contradicting_sources > 0:
+            sources = claim.source_urls
+            source_a = sources[0] if sources else "Source A"
+            source_b = sources[1] if len(sources) > 1 else "Source B"
+            entries.append(
+                ContradictionEntry(
+                    topic=claim.text[:80],
+                    source_a=source_a,
+                    source_a_claim=claim.text,
+                    source_b=source_b,
+                    source_b_claim=claim.contradiction_detail,
+                    resolution="Claim retained with CONTESTED confidence — conflicting evidence noted.",
                 )
+            )
 
     # From Fact-Checker contradictions
     for fc in state.fact_check_results:
@@ -215,7 +212,7 @@ def _build_claims_context(state: ResearchState) -> str:
     if state.critic_output:
         claims = state.critic_output.approved_claims
     else:
-        claims = [c for a in state.analyst_outputs for c in a.key_claims]
+        claims = state.collected_claims()
 
     for i, claim in enumerate(claims, 1):
         conf = claim.confidence.value.upper()

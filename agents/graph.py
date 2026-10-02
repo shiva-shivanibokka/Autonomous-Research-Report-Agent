@@ -47,6 +47,17 @@ async def increment_round(state: ResearchState) -> ResearchState:
     """
     state.current_round += 1
 
+    # Carry the Critic's approved claims forward *before* clearing the round's
+    # outputs. The comment below always promised this, but nothing implemented
+    # it: analyst_outputs was wiped and the next Critic/Writer only ever saw the
+    # final round's claims.
+    if state.critic_output:
+        seen = {c.text for c in state.carried_claims}
+        for claim in state.critic_output.approved_claims:
+            if claim.text not in seen:
+                state.carried_claims.append(claim)
+                seen.add(claim.text)
+
     # Preserve approved claims from the Critic for context, clear raw pipeline outputs
     state.search_outputs = []
     state.scraper_outputs = []

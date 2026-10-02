@@ -370,8 +370,14 @@ class ResearchState(BaseModel):
     # -- scraper layer outputs --
     scraper_outputs: list[ScraperAgentOutput] = Field(default_factory=list)
 
-    # -- analyst layer outputs --
+    # -- analyst layer outputs (current round only — cleared on re-research) --
     analyst_outputs: list[AnalystAgentOutput] = Field(default_factory=list)
+
+    # Claims the Critic approved in earlier rounds. increment_round() clears
+    # analyst_outputs, so without this accumulator every round-1 claim vanished
+    # from the Critic's next review and from the Writer's input, while the
+    # sources backing them stayed in the citation list (via all_sources).
+    carried_claims: list[Claim] = Field(default_factory=list)
 
     # -- critic output --
     critic_output: CriticAgentOutput | None = None
@@ -399,6 +405,17 @@ class ResearchState(BaseModel):
     fatal_error: str | None = None
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
+
+    def collected_claims(self) -> list[Claim]:
+        """Approved claims carried from earlier rounds plus this round's claims."""
+        claims = list(self.carried_claims)
+        seen = {c.text for c in claims}
+        for analyst_out in self.analyst_outputs:
+            for claim in analyst_out.key_claims:
+                if claim.text not in seen:
+                    claims.append(claim)
+                    seen.add(claim.text)
+        return claims
 
 
 # ---------------------------------------------------------------------------

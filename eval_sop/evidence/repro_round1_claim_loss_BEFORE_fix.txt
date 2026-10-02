@@ -1,0 +1,20 @@
+# test_graph_e2e.py run against UNFIXED agents/ (commit c0ae667)
+F..                                                                      [100%]
+================================== FAILURES ===================================
+__________ test_round_one_claims_reach_the_writer_after_re_research ___________
+fake_env = <function fake_env.<locals>.install at 0x00000240369F7420>
+    def test_round_one_claims_reach_the_writer_after_re_research(fake_env):
+        fake = FakeLLM()
+        fake_env(fake)
+        final = _run(max_rounds=2)
+        assert final.fatal_error is None
+        assert final.current_round == 1, "the critic loop should have fired once"
+        assert fake.critic_calls == 2
+        # The round-2 Critic reviews the carried round-1 claim, not only new ones.
+>       assert ROUND1_GOOD in fake.prompts["critic"][1]
+E       AssertionError: assert 'Round-one claim that the critic approves.' in 'Research query: What is the test query about?\nReport mode: general\nResearch round: 2 of 2\n\nSub-questions that sho...or INCONCLUSIVE (max 5 flags)\n2. Score the overall research quality\n3. Decide if another research round is warranted'
+tests\unit\test_graph_e2e.py:166: AssertionError
+---------------------------- Captured stdout call -----------------------------
+=========================== short test summary info ===========================
+FAILED tests/unit/test_graph_e2e.py::test_round_one_claims_reach_the_writer_after_re_research
+1 failed, 2 passed in 25.58s
