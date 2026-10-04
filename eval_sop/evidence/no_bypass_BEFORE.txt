@@ -1,0 +1,4 @@
+# before
+E       AssertionError: the fallback reached anthropic.AsyncAnthropic()
+E       assert [1] == []
+E         

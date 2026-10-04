@@ -451,6 +451,19 @@ def _credit_ledger() -> budget.CreditLedger:
     return _CREDITS[path]
 
 
+class _NoRawAnthropic:
+    def __init__(self, real):
+        self._real = real
+
+    def __getattr__(self, name):
+        if name == "AsyncAnthropic":
+            raise TransportError(
+                "raw anthropic.AsyncAnthropic() fallback blocked: every eval call must go "
+                "through the USD ledger (no per-job creds were set)"
+            )
+        return getattr(self._real, name)
+
+
 def install(
     backend: str = "ollama", env_file: Path | None = None, usd_cap: float | None = None
 ):
@@ -495,6 +508,11 @@ def install(
         )
 
     llm_client._call_openai_chat = _ollama_chat
+    # call_llm builds a raw anthropic.AsyncAnthropic() when no per-job creds are
+    # set — a path around the ledger. Block it: llm_client sees a proxy of the
+    # anthropic module whose AsyncAnthropic refuses (exceptions etc. pass through).
+    if not isinstance(llm_client.anthropic, _NoRawAnthropic):
+        llm_client.anthropic = _NoRawAnthropic(llm_client.anthropic)
 
     def _set_creds(provider, model, api_key=None):
         llm_client._creds_var.set(
