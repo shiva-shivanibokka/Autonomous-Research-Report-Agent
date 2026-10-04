@@ -7,7 +7,7 @@ Hugging Face cache (HF_HUB_OFFLINE=1, nothing is downloaded):
 
 A claim is judged against an evidence text by sliding a window over the
 evidence (the models take 512 tokens) and taking the maximum entailment
-probability over windows. Decision rule, fixed in advance and not tuned:
+probability over windows. Decision rule (not tuned on the validation data):
 SUPPORTED iff entailment is the argmax label in at least one window.
 
 Needs torch + transformers; this repo's requirements do not include them, so

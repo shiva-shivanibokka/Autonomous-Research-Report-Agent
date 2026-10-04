@@ -4,8 +4,12 @@ Branch `sop-eval`, based on `main` @ `c0ae667`. Work done 2026-10-01 → 2026-10
 
 **Status.** The planned comparison (conditions a–d on FRAMES) **has not been
 run yet**, so this file contains **no accuracy number for the pipeline**. No
-model was available to run it: the shared local Ollama server produced no
-completions, and paid APIs were out of scope until a budget was approved.
+model was available to run it, for two reasons:
+- **Local Ollama.** On 2026-10-01 the shared server produced no completions.
+  On 2026-10-04 a single `/api/tags` request returned HTTP 200 in 1.8 s and
+  listed `qwen2.5:7b`, `llama3.1:8b` and `gemma2:9b`. No generation was tested
+  then, and the slot was reserved for another eval.
+- **Paid APIs.** These were out of scope until a budget was approved.
 
 What exists:
 - a judge validated against human labels;
@@ -24,7 +28,7 @@ What exists:
 |---|---|
 | Code under test | `agents/` at `c0ae667` plus the fixes in the Change log |
 | Pipeline run audited | `frontend/public/demo/run.json`. Model `claude-sonnet-4-5`, `max_rounds=2`, recorded 2026-08-24. Query: *"Do AI coding assistants actually make software developers more productive?"* |
-| NLI judges (no LLM) | `cross-encoder/nli-deberta-v3-large` and `microsoft/deberta-xlarge-mnli`. Both were already in the local HF cache and run offline on CPU (`OMP_NUM_THREADS=2`). Evidence is read in 380-token windows, stride 300, max 12 windows. **SUPPORTED iff entailment is the argmax in at least one window.** This rule was written down before any judging and never tuned. |
+| NLI judges (no LLM) | `cross-encoder/nli-deberta-v3-large` and `microsoft/deberta-xlarge-mnli`. Both were already in the local HF cache and run offline on CPU (`OMP_NUM_THREADS=2`). Evidence is read in 380-token windows, stride 300, max 12 windows. **SUPPORTED iff entailment is the argmax in at least one window.** The rule was not tuned on the validation data. |
 | Judge validation data | RAGTruth test split (human span-level hallucination labels), local copy, sha256 `2fc4fb70…3bbd`. 300 balanced sentences from the QA and Summary tasks, 75 per task × label, drawn with `random.Random(2026)`. Construction is in `eval_sop/nli_validate.py`. |
 | Question set (built, not yet run) | FRAMES: Krishna et al., 2024, *Fact, Fetch, and Reason: A Unified Evaluation of Retrieval-Augmented Generation* (arXiv:2409.12941). Hugging Face dataset `google/frames-benchmark`, file `test.tsv`, sha256 `4255093c…69ff`. All 824 rows are kept, in a fixed order from `random.Random(20261001)`; the eval uses a prefix of that order. Plus 5 open-ended questions; provenance is given per row in `eval_sop/data/questions.jsonl`. |
 | Statistics | Percentile bootstrap 95% CI (2,000–10,000 resamples, seed 12345). Cohen's κ, balanced accuracy, AUROC (sklearn). Exact McNemar for paired correctness. Rogan-Gladen correction for judge error. |
@@ -68,11 +72,14 @@ rather than switching to the better one after seeing the results.
 
 The corrected rate adjusts each judge's raw rate using its RAGTruth sensitivity
 and specificity. Its CI resamples the validation items and the showcase
-sentences together. The correction assumes the judges' error rates carry over
-from RAGTruth to these web pages, which I have not tested.
+sentences together. The correction assumes that each judge's sensitivity and,
+above all, its **specificity** transfer from RAGTruth (news and QA passages)
+to long scraped web pages. That assumption is **untested**.
 
-Bottom line: raw judge rates are **roughly 40–70%**, and the corrected point
-estimates are **about 0.68 and 0.80**, with very wide intervals.
+The corrected numbers are reported here only. They are too uncertain for the
+SOP: v3-large's interval is [0.00, 1.00], which says nothing. The usable
+statement is the raw one: **roughly 40–70%** of checkable cited sentences are
+judged supported, depending on the judge.
 
 **Self-reported quality block vs the recorded data.** These are deterministic
 checks; no judge is involved.
@@ -140,8 +147,16 @@ implemented in `score.py analyze`:
   - Haiku 4.5 is not the deployed configuration (Sonnet 4.5).
   - "Seeds" are replicate indices only: the pipeline does not forward
     temperature (`llm_client.py:288` at c0ae667, `:289` on this branch) and the API takes no seed.
-  - Correctness labels come from local LLM judges, plus a deterministic string
-    match.
+  - Correctness labels come from local LLM judges (`llama3.1:8b`,
+    `gemma2:9b`), **which have not been validated against human correctness
+    labels**. A deterministic strict string match is reported beside them.
+    Their agreement with each other and with string match is computed.
+  - **Scraper bias against the pipeline.** Only (c) and (d) fetch pages; (b)
+    uses Tavily snippets and (a) uses nothing. Without Playwright,
+    JavaScript-heavy pages fail for (c)/(d) only, so the missing fallback
+    biases the comparison *against* the pipeline. Failed fetches are not
+    cached across invocations. Within one invocation they are reused, so (c)
+    and (d) see identical inputs.
   - c and d share their round-1 calls through the response cache, so they are
     not independent samples.
 
@@ -157,9 +172,8 @@ implemented in `score.py analyze`:
    off-the-shelf NLI models against RAGTruth's human labels (balanced accuracy
    0.64 and 0.72 on 300 sentences). On the 26 checkable cited sentences of one
    demo report (12 of 38 were excluded because the cited page could not be
-   fetched), the judges found roughly 40–70% supported by the cited page.
-   Corrected for each judge's measured error rates, that is about 0.68 and
-   0.80, with wide confidence intervals."
+   fetched), the two judges found roughly 40–70% of them supported by the page
+   they cite."
 
 Do **not** claim any gain over a baseline until §2c has numbers.
 
@@ -169,17 +183,33 @@ Do **not** claim any gain over a baseline until §2c has numbers.
   `claude-haiku-4-5-20251001` ($1 / $5 per 1M tokens), one model for the whole
   comparison. The transport refuses any other model id; that also keeps
   thinking-only 5.x models out, since thinking is not handled.
-- **Correctness judges.** Local Ollama `llama3.1:8b` and `gemma2:9b` (LLM
+- **Correctness judges.** Local Ollama `llama3.1:8b` and `gemma2:9b` (not
+  human-validated; LLM
   labels, disclosed), plus deterministic strict string match.
 - **Citation support.** The two RAGTruth-validated NLI judges.
 - **Questions.** The first 30 FRAMES questions in the fixed order, 1
   replicate.
-- **Conditions.** Pass 1: (a), (b), (d). Pass 2: (c), only if budget remains.
-  (c) replays d's identical round-1 calls from the cache; a test shows the
-  round-1 orchestrator and analyst calls are not paid twice.
-- **Primary analysis.** Exact McNemar on per-question correctness for d vs b
-  and d vs a, intention-to-treat (an errored run counts as wrong). Also
-  reported: c vs d, the bootstrap CIs, and citation support per condition.
+- **Conditions.** (a), (b), (d) and (c), in **one invocation**, ordered
+  a → b → d → c per question.
+  - (c) replays d's identical round-1 calls from the response cache; a test
+    shows they are not paid twice.
+  - The sharing needs (c) and (d) in the same process. Failed page fetches are
+    retried in later invocations, so a later (c) pass could see different
+    pages than (d) saw.
+- **Scoring policy, fixed before any paid run.** These are separate from the
+  spend controls below.
+  - *Primary analysis:* exact McNemar on per-question correctness, d vs b and
+    d vs a.
+  - A run counts as **wrong** only if it raised, if the pipeline set
+    `fatal_error`, or if a non-pinned model was used.
+  - Runs with non-fatal pipeline `errors` are **scored normally**. Examples
+    are the Writer's "malformed JSON; raw output preserved" and a schema
+    mismatch: the report is still there and still answers. These runs are
+    flagged in `nonfatal_errors`.
+  - *Sensitivity analysis:* a strict intention-to-treat McNemar
+    (`mcnemar_itt_strict`) that also counts those runs as wrong.
+  - Also reported: c vs d, the bootstrap CIs, and citation support per
+    condition.
 - **Tavily.** Capped at 600 credits. Headroom on 2026-10-04 was 1,000 of
   1,000 (`eval_sop/tavily_usage.py`); that key's usage covers every project
   that uses it.
@@ -203,30 +233,52 @@ How the two estimates are built:
 
 **Recommended execution:**
 1. `--canary`: one known-answer question through (a), (b), (d). Worst case
-   about $0.61.
-2. (a, b, d) × 30 with `--admission-control --usd-cap 8`. Runs go question by
-   question, and a run starts only if the remaining budget covers that run's
-   own worst case. So the $8 can never be crossed, and a cut-off design stays
-   paired.
-3. `--conditions c,d` with the same flags, to add (c) from whatever remains.
+   about $0.61. Its output goes to `canary_runs/`, never into the analysis.
+2. `python -m eval_sop.score judge --canary`. This runs the local correctness
+   judges on the canary output alone, checking them end to end after the
+   canary and before the main spend. It needs the Ollama slot.
+3. `--conditions a,b,c,d --n-frames 30 --admission-control --usd-cap 8`, in a
+   single invocation.
+   - A run starts only if the remaining budget covers that run's own worst
+     case, so $8 can never be crossed and a cut-off design stays paired.
+   - Exit codes: 0 done, 1 canary failed, 2 refused, 3 cap or billing stop,
+     4 admission control stopped early.
 
-**Guarantees, all tested** against a fake Anthropic client in
-`eval_sop/tests/test_anthropic_budget.py`, 18 tests in that file:
-- **Ledger.** A persisted USD ledger records actual `usage` after every call.
-- **Pre-call check.** Before every call, the ledger checks that money already
-  spent + worst cases of calls in flight + this call's worst case ≤ the cap.
+**Guarantees, all tested** against fake clients in `eval_sop/tests/`:
+- **Pending-row ledger.** Before every request attempt, a row is inserted with
+  `status='pending'` and cost = that attempt's worst case.
+  - A success updates it to the actual `usage` cost.
+  - A provider-guaranteed unbilled rejection (HTTP-level 429/5xx/4xx) sets it
+    to $0.
+  - Every other exit keeps the worst-case charge: mid-stream errors (including
+    status-200 SSE `overloaded_error`, which is retried), raw
+    `httpx.ReadTimeout` / `RemoteProtocolError`, KeyboardInterrupt,
+    cancellation, a crash.
+  - Fakes raise both on stream open and inside `get_final_message()`.
+- **Pre-call check.** Money already spent, including pending rows, plus this
+  call's worst case must be ≤ the cap. The check and the pending insert happen
+  with no `await` in between. 20 concurrent calls against a $0.05 cap never
+  exceed it.
+- **Worst-case input estimate.** max(characters / 2.5, UTF-8 bytes / 3), so
+  CJK text is not undercounted.
+- **One ledger per project.** It sits at a fixed path (`eval_sop/ledger/`)
+  that `SOP_OUT_DIR` does not move. A different `SOP_LEDGER_PATH` is refused
+  once that ledger exists. The jsonl export is atomic.
+- **Tavily.** Credits are booked before each search's `await`, failed searches
+  count, and `install()` no longer stacks wrappers. That stacking had charged
+  one search 5 credits in tests.
 - **Stops the agents can't swallow.** A cap hit, a billing error, or a
   401/402/403 raises `BudgetStop`. It is a `BaseException`, and a process-wide
   flag backs it up, so the agents' `except Exception` cannot swallow it. The
   run in progress is not saved.
-- **Retries.** The SDK's own retries are off. 429, 5xx and connection errors
-  get at most 2 retries, honouring `retry-after`. Any other 4xx fails at once.
-  A connection error is charged at its worst case, because billing is unknown.
+- **Retries.** The SDK's own retries are off. 429, 5xx, stream errors and
+  connection errors get at most 2 retries, honouring `retry-after`. Any other
+  4xx fails at once.
 - **Crash recovery.** Every response is cached as it arrives, so a crashed run
   resumes without paying twice.
-- **Errored runs are marked.** A run is marked errored if it raised, if
-  `fatal_error` or `errors` is set, or if any call used a model other than the
-  pinned one.
+- **Errored runs are marked.** A run is errored if it raised, if
+  `fatal_error` is set, or if any call used a model other than the pinned one.
+  Non-fatal errors are flagged, and scored as described above.
 
 ## 7. Human labels
 
@@ -242,7 +294,7 @@ An optional `claims_for_optional_human_review.csv` is written by
 ```bash
 # repo deps (Python 3.12): pip install -r requirements.txt -r requirements-dev.txt python-dotenv
 pytest tests -q            # 87 passed (product suite, incl. tests/unit/test_graph_e2e.py)
-pytest eval_sop/tests -q   # 22 passed (harness: fake Anthropic client, caps, stats)
+pytest eval_sop/tests -q   # 40 passed (harness: fake clients, ledger, caps, scoring policy, stats)
 python -m eval_sop.smoke_test
 # NLI (torch + transformers, models in the HF cache):
 OMP_NUM_THREADS=2 python -m eval_sop.nli_validate          # needs eval_sop/cache/ragtruth/test.parquet
@@ -251,7 +303,8 @@ python -m eval_sop.showcase_audit fetch && OMP_NUM_THREADS=2 python -m eval_sop.
 python -m eval_sop.tavily_usage --env-file PATH
 python -m eval_sop.run_conditions --backend anthropic --env-file PATH --conditions a,b,d --n-frames 30 --usd-cap 8 --dry-run
 python -m eval_sop.run_conditions ... --canary
-python -m eval_sop.run_conditions ... --admission-control
+python -m eval_sop.score judge --canary
+python -m eval_sop.run_conditions --backend anthropic --env-file PATH --conditions a,b,c,d --n-frames 30 --usd-cap 8 --admission-control
 python -m eval_sop.score judge && python -m eval_sop.score support && python -m eval_sop.score analyze
 ```
 
@@ -305,6 +358,46 @@ Each entry gives what changed, why, the evidence, and what was preserved.
    `.env` is gone.
 9. Ollama model aliases (`sop-qwen`, `sop-llama`, `sop-gemma`) were briefly
    created on the shared server on day 1, then deleted.
+
+**Round-2 review fixes.** Each one was first reproduced by a test that fails;
+before/after output is in `eval_sop/evidence/`.
+
+10. **Pending-row ledger** (`f4c7186`). Fixes three gaps: mid-stream failures,
+    raw httpx errors, and interrupts were recorded at $0 or not at all. Also
+    adds the fixed per-project ledger path. Evidence:
+    `review2_ledger_*.txt`, 7 failing before.
+11. **Token estimate** max(chars/2.5, bytes/3) (`a7505f4`). `token_estimate_*`.
+12. **Tavily credits booked before the await; failures count; idempotent
+    install** (`dd3ac11`). `tavily_credits_*`.
+13. **Failed page fetches not cached across invocations** (`993a224`).
+    `scrape_cache_*`.
+14. **Scoring policy** (`2a1f71a`). Non-fatal errors are scored; strict ITT is
+    the sensitivity analysis. `scoring_policy_*`.
+15. **Canary output kept apart and judgeable with `score judge --canary`**
+    (`0b2a910`). The conftest now blocks real Tavily clients in tests: one
+    test had reached the network with a fake key. `canary_judging_*`.
+16. **Atomic export; admission STOP exits 4** (`3126752` + `7c4532a`).
+    `3126752` was committed by mistake *before* the fix. A failed in-place
+    edit did not stop the shell chain, so that commit holds only the failing
+    tests and a mislabelled "after" file. `7c4532a` applies the fix and
+    corrects the evidence files. No history was rewritten.
+17. **Docs** (this commit): SOP sentence 2 without the corrected rates, the
+    specificity-transfer caveat, the judge-validation and scraper-bias
+    disclosures, a softened claim about the NLI decision rule, and the
+    scoring policy.
+
+**How strong the "fails before the fix" evidence is.**
+- Behavioural reproductions, where the old code ran and gave the wrong
+  result: `test_graph_e2e.py`, `test_llm_client.py`'s price test,
+  `test_repro_review.py` (cap swallowed, failed run saved as success),
+  `test_review2_ledger.py`, `test_token_estimate.py`,
+  `test_tavily_credits.py`, `test_scrape_cache.py`,
+  `test_scoring_policy.py` and `test_nits.py`.
+- Not behavioural: most tests in `test_anthropic_budget.py` (and the
+  `ledger_path` / `CANARY_RUNS` checks) would fail on pre-fix commits only by
+  ImportError or AttributeError, because the code they exercise did not exist
+  yet. They show the new code works; they do not show an old behaviour was
+  wrong.
 
 ## 10. Proposed, not done
 
