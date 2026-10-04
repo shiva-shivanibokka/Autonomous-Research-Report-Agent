@@ -410,6 +410,7 @@ class CreditCapReached(budget.BudgetStop):  # noqa: N818
     """Tavily credit cap. A BudgetStop, so the agents' `except Exception` can't swallow it."""
 
 
+_ORIGINALS: dict = {}
 CANONICAL_LEDGER = HERE / "ledger" / "usd_ledger.sqlite"
 
 
@@ -480,7 +481,10 @@ def install(
 
     graph.set_llm_creds = _set_creds
 
-    orig_call_llm = llm_client.call_llm
+    # install() may run more than once per process (tests, canary + run); wrap
+    # the ORIGINAL functions every time, never a previous wrapper.
+    orig = _ORIGINALS.setdefault("call_llm", llm_client.call_llm)
+    orig_call_llm = orig
 
     async def _tagged_call_llm(**kw):
         tok = CURRENT_AGENT.set(kw.get("agent_name", "unknown"))
@@ -493,7 +497,7 @@ def install(
     writer_agent.call_llm = _tagged_call_llm
 
     # --- Tavily
-    orig_search = search_tool.tavily_search
+    orig_search = _ORIGINALS.setdefault("tavily_search", search_tool.tavily_search)
 
     async def cached_search(query, *, max_results=8, search_depth=None, **kw):
         depth = search_depth or search_tool.DEFAULT_SEARCH_DEPTH
@@ -507,10 +511,13 @@ def install(
                 msg = f"Tavily credit cap {TAVILY_CREDIT_CAP} reached"
                 budget.STOP["reason"] = msg
                 raise CreditCapReached(msg)
+            # Charge the credits BEFORE awaiting: parallel searches then see each
+            # other's spend, and a failed search still counts (whether Tavily
+            # bills it or not, the conservative answer is yes).
+            _ledger.put("spent", credits_spent() + credits)
             results = await orig_search(
                 query, max_results=max_results, search_depth=depth, **kw
             )
-            _ledger.put("spent", credits_spent() + credits)
             hit = [r.model_dump() for r in results]
             _tavily_cache.put(key, hit)
         tel = TELEMETRY.get()
@@ -523,7 +530,7 @@ def install(
     fact_checker_agent.tavily_search = cached_search
 
     # --- Page fetches (the pipeline's scraper, cached by URL)
-    orig_scrape = scraper_tool.scrape_page
+    orig_scrape = _ORIGINALS.setdefault("scrape_page", scraper_tool.scrape_page)
     page_cache = KV("pages")
 
     async def cached_scrape(url, title=""):
