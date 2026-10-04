@@ -14,6 +14,7 @@ from types import SimpleNamespace
 
 import anthropic
 import httpx
+import httpx2  # the Anthropic SDK 1.x transport: its errors are httpx2.*, not httpx.*
 import pytest
 
 from eval_sop import budget, common
@@ -100,8 +101,9 @@ def test_midstream_overloaded_status_200_is_retried_and_charged(ledger):
     assert rows[1][0] == "ok"
 
 
-def test_midstream_httpx_read_timeout_is_charged_and_bounded(ledger):
-    common.set_anthropic_client(Fake(lambda i: httpx.ReadTimeout("read timed out")))
+@pytest.mark.parametrize("mod", [httpx2, httpx], ids=["httpx2", "httpx"])
+def test_midstream_read_timeout_is_charged_and_bounded(ledger, mod):
+    common.set_anthropic_client(Fake(lambda i: mod.ReadTimeout("read timed out")))
     with pytest.raises(common.TransportError):
         asyncio.run(_call())
     rows = _rows(ledger)
@@ -109,8 +111,9 @@ def test_midstream_httpx_read_timeout_is_charged_and_bounded(ledger):
     assert all(c == pytest.approx(_worst()) for _, c in rows)
 
 
-def test_midstream_remote_protocol_error_is_charged(ledger):
-    common.set_anthropic_client(Fake(lambda i: httpx.RemoteProtocolError("peer closed") if i == 1 else _msg()))
+@pytest.mark.parametrize("mod", [httpx2, httpx], ids=["httpx2", "httpx"])
+def test_midstream_remote_protocol_error_is_charged(ledger, mod):
+    common.set_anthropic_client(Fake(lambda i: mod.RemoteProtocolError("peer closed") if i == 1 else _msg()))
     asyncio.run(_call())
     assert _rows(ledger)[0][1] == pytest.approx(_worst())
 

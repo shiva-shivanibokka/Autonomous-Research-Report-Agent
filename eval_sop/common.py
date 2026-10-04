@@ -195,6 +195,15 @@ class TransportError(Exception):
     are the bounded ones below."""
 
 
+# Raw transport errors that can escape the SDK mid-stream. anthropic 1.x
+# streams over httpx2, whose exceptions do not derive from httpx's.
+try:
+    import httpx2
+
+    _TRANSPORT_ERRORS: tuple[type[BaseException], ...] = (httpx.TransportError, httpx2.TransportError)
+except ImportError:  # older SDKs use httpx only
+    _TRANSPORT_ERRORS = (httpx.TransportError,)
+
 MAX_RETRIES = 2  # per call; only 429 / 5xx / connection errors. Other 4xx fail fast.
 _sleep = asyncio.sleep  # patched in tests
 LEDGER: budget.UsdLedger | None = None
@@ -278,7 +287,7 @@ async def _anthropic_generate(model, messages, max_tokens, temperature, agent):
             else:  # any other 4xx: rejected, not billed, fail fast
                 LEDGER.settle(row, status=str(code), cost_usd=0.0, note=str(e)[:200])
                 raise TransportError(f"Anthropic {code}: {str(e)[:300]}") from e
-        except (anthropic.APIConnectionError, httpx.TransportError) as e:
+        except (anthropic.APIConnectionError, *_TRANSPORT_ERRORS) as e:
             # Timeouts, dropped / reset connections, protocol errors — before or
             # during the stream. Billing unknown: keep the worst-case charge.
             last_exc = e
