@@ -1,0 +1,15 @@
+# before (round-4 items 1 and 2)
+        """nan passed every `cap > 8` / `spent + worst > cap` comparison, disabling the cap."""
+        """nan passed every `cap > 8` / `spent + worst > cap` comparison, disabling the cap."""
+        """nan passed every `cap > 8` / `spent + worst > cap` comparison, disabling the cap."""
+        """nan passed every `cap > 8` / `spent + worst > cap` comparison, disabling the cap."""
+        """nan passed every `cap > 8` / `spent + worst > cap` comparison, disabling the cap."""
+FAILED eval_sop/tests/test_model_reported.py::test_substituted_model_trips_the_stop_flag
+FAILED eval_sop/tests/test_model_reported.py::test_substituted_model_is_charged_at_worst_case_not_pinned_price
+FAILED eval_sop/tests/test_hard_max.py::test_non_finite_or_non_positive_caps_are_refused[nan]
+FAILED eval_sop/tests/test_hard_max.py::test_non_finite_or_non_positive_caps_are_refused[inf]
+FAILED eval_sop/tests/test_hard_max.py::test_non_finite_or_non_positive_caps_are_refused[-inf]
+FAILED eval_sop/tests/test_hard_max.py::test_non_finite_or_non_positive_caps_are_refused[0]
+FAILED eval_sop/tests/test_hard_max.py::test_non_finite_or_non_positive_caps_are_refused[-1]
+FAILED eval_sop/tests/test_hard_max.py::test_cli_nan_cap_is_refused
+8 failed, 4 passed in 2.20s

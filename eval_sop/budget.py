@@ -137,8 +137,7 @@ class UsdLedger:
     """
 
     def __init__(self, path: Path, cap_usd: float):
-        if cap_usd > PROJECT_HARD_MAX_USD:
-            raise ValueError(f"cap ${cap_usd} exceeds this project's hard max ${PROJECT_HARD_MAX_USD}")
+        check_cap(cap_usd)
         self.cap = cap_usd
         self.path = path
         self.db = _connect(path)
@@ -290,5 +289,20 @@ class ProcessLock:
         self.held = False
 
 
+def check_cap(cap_usd) -> float:
+    """
+    A cap must be a finite, positive number no greater than the project max.
+    `nan` is the reason this is a function: it fails EVERY comparison, so a
+    bare `cap > MAX` guard let `--usd-cap nan` through, and every later
+    `spent + worst > cap` was False too — a ledger with no cap at all.
+    """
+    cap_usd = float(cap_usd)  # also used as argparse's `type`, which passes strings
+    if not math.isfinite(cap_usd) or cap_usd <= 0:
+        raise ValueError(f"cap {cap_usd!r} must be a finite positive number of dollars")
+    if cap_usd > PROJECT_HARD_MAX_USD:
+        raise ValueError(f"cap ${cap_usd} exceeds this project's hard max ${PROJECT_HARD_MAX_USD}")
+    return cap_usd
+
+
 def cap_from_env(default: float = 8.0) -> float:
-    return float(os.environ.get("SOP_USD_CAP", default))
+    return check_cap(float(os.environ.get("SOP_USD_CAP", default)))

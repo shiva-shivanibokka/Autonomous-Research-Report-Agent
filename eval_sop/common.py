@@ -299,6 +299,21 @@ async def _anthropic_generate(model, messages, max_tokens, temperature, agent):
                           note=f"charged at worst case: {type(e).__name__}")
             wait = 5.0 * (attempt + 1)
         else:
+            served = getattr(msg, "model", None) or model
+            if served != model:
+                # The provider served a model we did not ask for. Its price is
+                # unknown here (and can be 5x the pinned model's), so this call
+                # is charged at the pinned worst case and the whole evaluation
+                # stops: a mismatch has to be fatal at the transport, because
+                # pricing the response at the REQUESTED model's rate would let
+                # sustained substitution authorise several times the cap.
+                LEDGER.settle(row, status="model_mismatch", cost_usd=worst,
+                              note=f"served {served}, requested {model}; charged at worst case")
+                LEDGER.db.execute("UPDATE calls SET model=? WHERE id=?", (served, row))
+                budget.trip(
+                    f"model mismatch: requested {model}, provider served {served}. "
+                    "Stopping: an unpinned model's price is not known to this ledger."
+                )
             u = msg.usage
             cw = getattr(u, "cache_creation_input_tokens", 0) or 0
             cr = getattr(u, "cache_read_input_tokens", 0) or 0

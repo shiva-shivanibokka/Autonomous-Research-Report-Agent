@@ -457,7 +457,8 @@ def main():
     ap.add_argument("--open", action="store_true")
     ap.add_argument("--only", default="")
     ap.add_argument("--force", action="store_true")
-    ap.add_argument("--usd-cap", type=float, default=8.0)
+    ap.add_argument("--usd-cap", type=budget.check_cap, default=8.0,
+                    help="finite, positive, at most the project hard max")
     ap.add_argument("--tavily-cap", type=int, default=common.TAVILY_CREDIT_CAP)
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--canary", action="store_true")

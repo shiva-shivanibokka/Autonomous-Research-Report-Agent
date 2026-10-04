@@ -27,3 +27,20 @@ def test_cli_usd_cap_12_is_refused(monkeypatch):
     monkeypatch.setattr(common, "LEDGER", None)
     code = asyncio.run(rc.main_async(_args(usd_cap=12.0, n_frames=1)))
     assert code == 2
+
+
+@pytest.mark.parametrize("cap", ["nan", "inf", "-inf", "0", "-1"])
+def test_non_finite_or_non_positive_caps_are_refused(tmp_path, cap, monkeypatch):
+    """nan passed every `cap > 8` / `spent + worst > cap` comparison, disabling the cap."""
+    with pytest.raises(ValueError):
+        budget.UsdLedger(tmp_path / f"l-{cap}.sqlite", float(cap))
+    monkeypatch.setenv("SOP_USD_CAP", cap)
+    with pytest.raises(ValueError):
+        budget.cap_from_env()
+
+
+def test_cli_nan_cap_is_refused(monkeypatch):
+    from eval_sop import run_conditions as rc
+
+    monkeypatch.setattr(common, "LEDGER", None)
+    assert asyncio.run(rc.main_async(_args(usd_cap=float("nan"), n_frames=1))) == 2
