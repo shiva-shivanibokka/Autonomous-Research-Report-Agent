@@ -320,8 +320,8 @@ An optional `claims_for_optional_human_review.csv` is written by
 
 ```bash
 # repo deps (Python 3.12): pip install -r requirements.txt -r requirements-dev.txt python-dotenv
-pytest tests -q            # 87 passed (product suite, incl. tests/unit/test_graph_e2e.py)
-pytest eval_sop/tests -q   # 63 passed (harness: fake clients, ledger, locks, races, runbook, scoring, stats)
+pytest tests -q            # 87 passed  (product suite, incl. tests/unit/test_graph_e2e.py)
+pytest eval_sop/tests -q   # 77 passed  (harness: fake clients, ledger, locks, races, runbook, scoring, stats)
 python -m eval_sop.smoke_test
 # NLI (torch + transformers, models in the HF cache):
 OMP_NUM_THREADS=2 python -m eval_sop.nli_validate          # needs eval_sop/cache/ragtruth/test.parquet
@@ -376,18 +376,20 @@ Each entry gives what changed, why, the evidence, and what was preserved.
      worktree and re-applied my own patch. This happened before the
      no-destructive-git rule was given.
 2. **Tests documenting fact-checker scope** (`befe899`). No code change.
-3. **Price `claude-sonnet-5` at $2/$10** (`2c2c825`).
+3. **Price `claude-sonnet-5` at $2/$10** (`48a6001`).
    - *What/why:* `llm_client.py` listed it at the Sonnet 4.x rate ($3/$15).
    - *Evidence:* `test_compute_cost_sonnet_5_price` fails before and passes
      after (`eval_sop/evidence/price_sonnet5_*.txt`). Sonnet 5.5 is priced via
      the same prefix.
-4. **Eval harness** (`f225e07`, `b01aef8`): datasets, transports, caches,
+4. **Eval harness** (`3b00e9b`, `8a87c8a`): datasets, transports, caches,
    scoring, offline smoke test. No pipeline logic changed.
-5. **Removed an unapproved dataset** (`883f669`). The AttributionBench sample
-   is still in the history of `f225e07`; I did not rewrite history.
-6. **NLI judges + RAGTruth validation** (`4f8e517`). **Showcase audit**
-   (`96292bc`).
-7. **Hard spend controls** (`a4ce714`): the Anthropic transport, USD ledger,
+5. **Removed an unapproved dataset.** The AttributionBench sample was deleted
+   in a follow-up commit, and the blob stayed in this branch's history. It has
+   since been purged: someone else rewrote `sop-eval` (see "History rewrite"
+   below), so that commit no longer exists on the branch.
+6. **NLI judges + RAGTruth validation** (`e5c3571`). **Showcase audit**
+   (`ee98f4f`).
+7. **Hard spend controls** (`fd2bc84`): the Anthropic transport, USD ledger,
    `BudgetStop`, bounded retries, response cache, fail-visibly, dry-run,
    canary and admission control.
    - *Why:* review findings. The Tavily cap was swallowed by
@@ -401,9 +403,9 @@ Each entry gives what changed, why, the evidence, and what was preserved.
      client. The transport now registers as `eval-<backend>`.
    - *Scope:* this is one commit containing several related controls. They
      share files and tests, so I did not split it further.
-8. **McNemar (exact, intention-to-treat)** (`8b6f04c`). **Rogan-Gladen
-   correction** (`86427b2`). **Tavily headroom check and keys via
-   `--env-file`** (`a3016e9`). The hardcoded path to the original repo's
+8. **McNemar (exact, intention-to-treat)** (`d3ce409`). **Rogan-Gladen
+   correction** (`7a3b465`). **Tavily headroom check and keys via
+   `--env-file`** (`12fd64c`). The hardcoded path to the original repo's
    `.env` is gone.
 9. Ollama model aliases (`sop-qwen`, `sop-llama`, `sop-gemma`) were briefly
    created on the shared server on day 1, then deleted.
@@ -411,24 +413,24 @@ Each entry gives what changed, why, the evidence, and what was preserved.
 **Round-2 review fixes.** Each one was first reproduced by a test that fails;
 before/after output is in `eval_sop/evidence/`.
 
-10. **Pending-row ledger** (`f4c7186`). Fixes three gaps: mid-stream failures,
+10. **Pending-row ledger** (`27150e2`). Fixes three gaps: mid-stream failures,
     raw httpx errors, and interrupts were recorded at $0 or not at all. Also
     adds the fixed per-project ledger path. Evidence:
     `review2_ledger_*.txt`, 7 failing before.
-11. **Token estimate** max(chars/2.5, bytes/3) (`a7505f4`). `token_estimate_*`.
+11. **Token estimate** max(chars/2.5, bytes/3) (`a185a90`). `token_estimate_*`.
 12. **Tavily credits booked before the await; failures count; idempotent
-    install** (`dd3ac11`). `tavily_credits_*`.
-13. **Failed page fetches not cached across invocations** (`993a224`).
+    install** (`1b223d8`). `tavily_credits_*`.
+13. **Failed page fetches not cached across invocations** (`8784902`).
     `scrape_cache_*`.
-14. **Scoring policy** (`2a1f71a`). Non-fatal errors are scored; strict ITT is
+14. **Scoring policy** (`f3e6426`). Non-fatal errors are scored; strict ITT is
     the sensitivity analysis. `scoring_policy_*`.
 15. **Canary output kept apart and judgeable with `score judge --canary`**
-    (`0b2a910`). The conftest now blocks real Tavily clients in tests: one
+    (`9e8aaf8`). The conftest now blocks real Tavily clients in tests: one
     test had reached the network with a fake key. `canary_judging_*`.
-16. **Atomic export; admission STOP exits 4** (`3126752` + `7c4532a`).
-    `3126752` was committed by mistake *before* the fix. A failed in-place
+16. **Atomic export; admission STOP exits 4** (`dbf9866` + `facc4bb`).
+    `dbf9866` was committed by mistake *before* the fix. A failed in-place
     edit did not stop the shell chain, so that commit holds only the failing
-    tests and a mislabelled "after" file. `7c4532a` applies the fix and
+    tests and a mislabelled "after" file. `facc4bb` applies the fix and
     corrects the evidence files. No history was rewritten.
 17. **Docs** (this commit): SOP sentence 2 without the corrected rates, the
     specificity-transfer caveat, the judge-validation and scraper-bias
@@ -439,35 +441,92 @@ before/after output is in `eval_sop/evidence/`.
 by the reviewer's scripts (`review3/rr/race.py`, `attack3.py`,
 `httpx2_attack.py`); output is in `eval_sop/evidence/`.
 
-18. **Hard maximum $8** (`059bd76`). `hard_max_*`.
+18. **Hard maximum $8** (`50c8e3b`). `hard_max_*`.
 19. **Per-user state directory, run lock, atomic cross-process caps, and
-    list-of-blocks content in the token estimate** (`a8b7a68`).
+    list-of-blocks content in the token estimate** (`16514ac`).
     `race_BEFORE`, `attack3_BEFORE`, `list_content_BEFORE`,
     `state_lock_AFTER`. This is one commit: the state directory, lock and
     transactions are intertwined. The empty ledger that tests had created
     inside the worktree was deleted.
 20. **Canary skips the design-level check; the runbook is tested verbatim**
-    (`894b577`). `canary_runbook_*`. pytest's temporary directories now stay
+    (`281dc9c`). `canary_runbook_*`. pytest's temporary directories now stay
     out of `%TEMP%`.
-21. **Product CI lint gate kept green** (`90e3235`).
+21. **Product CI lint gate kept green** (`a88f326`).
     - `ruff.toml` excludes `eval_sop/`. This is the only change to product
       configuration.
     - Before it, `ruff check .` reported 144 findings and 24 unformatted
       files, all under `eval_sop/`.
     - `test_lint.py` runs the gate and checks `eval_sop` for pyflakes and
       syntax errors. `ci_lint_*`.
-22. **httpx2 transport errors caught** (`df4d8ca`). `httpx2_*`.
-23. **Model mismatch uses the reported model** (`962bd0b`).
+22. **httpx2 transport errors caught** (`baed3ac`). `httpx2_*`.
+23. **Model mismatch uses the reported model** (`c3aa6c8`).
     `model_reported_*`.
 24. **HTTP-level 5xx/529 labelled `http_<code>`, still charged at worst**
-    (`5827806`). `http529_*`. The "before" test asserted $0 at the time; the
+    (`03e30ec`). `http529_*`. The "before" test asserted $0 at the time; the
     final rule over-counts on purpose.
-25. **Raw-client fallback blocked** (`7be97d2`). `no_bypass_*`.
-26. **User-profile paths scrubbed from the evidence files** (`ea658cc`).
+25. **Raw-client fallback blocked** (`8ab2276`). `no_bypass_*`.
+26. **User-profile paths scrubbed from the evidence files** (`1673f39`).
     `user_paths_*`. While doing this I reverted my own uncommitted first
     scrub of one evidence file with `git checkout --`, because its regex had
     been mangled by shell quoting.
-27. **Docs** (this commit).
+27. **Docs**.
+
+**History rewrite (not my work).** Between round 3 and round 4, `sop-eval`
+was rewritten to purge the AttributionBench blob from its history. The
+pre-rewrite commits are kept on `backup/pre-filter-researchreport`. The trees
+are identical (`git diff 5ce0353 8740dda` is empty) and the subjects unchanged,
+only the hashes after `3b00e9b` differ. The hashes cited above were remapped
+to the rewritten commits by matching subjects.
+
+**Round-4 spend-safety review fixes.** The reviewer confirmed the ledger,
+lock, atomic reservation, crash behaviour and retry accounting hold up, and
+found four defects. Each was reproduced by a failing test first; before/after
+output is in `eval_sop/evidence/`.
+
+28. **A substituted model stopped being priced as the pinned one**
+    (`e4a7ced`).
+    - Cost came from the REQUESTED id, so a response reporting
+      `claude-opus-4-8` ($5/$25) was billed at Haiku's $1/$5 and the run
+      continued; only the finished run was flagged. Sustained substitution
+      could therefore authorise roughly $40 against an $8 ledger.
+    - The transport now settles that call at the pinned worst case, stores the
+      served id, and trips `BudgetStop`, so no further call is made.
+    - The round-3 test only checked the post-run marker; it now asserts the
+      stop. `r4_model_cap_*`.
+29. **`nan` caps disabled the cap entirely** (`e4a7ced`). `nan` fails every
+    comparison, so both the hard-max guard and each per-call check were False;
+    the reviewer settled 201 calls totalling $72.37 with no trip.
+    `budget.check_cap` now requires a finite value in (0, $8] and backs the
+    ledger, `cap_from_env` and argparse. `r4_model_cap_*`.
+30. **The documented test command aborted at collection** (`da6c155`). An
+    unconditional `import httpx2` in a test module broke
+    `pytest eval_sop/tests -q` on an environment built from
+    requirements.txt (anthropic 0.93 on httpx only), so the mid-stream,
+    KeyboardInterrupt and concurrency guarantees went unexercised there and
+    section 8 showed a red suite. The import is now optional and the tests
+    are parametrised over the installed transports;
+    `test_optional_imports.py` guards against a repeat. Production code was
+    never affected. `r4_httpx2_import_*`.
+31. **Unmetered spend outside the ledger** (`17afb22`).
+    `scripts/record_demo_run.py` refuses without
+    `--i-want-to-spend-real-money`, and the runbook says the paid key goes
+    only in `--env-file`. `api/main.py` and `api/worker.py` still honour a
+    server-side key and are not gated — they are servers, not scripts, so I
+    only documented them. `r4_unledgered_*`.
+32. **Exit-code collision** (`17afb22`): a corrupt ledger escaped as exit 1,
+    which the runbook documents as "canary failed". Any failure to start is
+    now 2.
+33. **Docs** (this commit): the test counts above come from an actual run on
+    this branch (87 product, 77 harness).
+
+**Round-4 items I did not take.** Both are unreachable today and the reviewer
+left them optional.
+- `worst_call_cost` ignores `cache_write` pricing. Nothing in the eval sets
+  `cache_control`, so no call can write a cache entry; if one ever does, the
+  worst case would be understated by the $1.25/MTok write premium.
+- `worst_input_tokens` has no per-block floor for non-text content, so a
+  200 KB base64 image block estimates about 50 tokens. The pipeline sends
+  text only.
 
 **How strong the "fails before the fix" evidence is.**
 - Behavioural reproductions, where the old code ran and gave the wrong

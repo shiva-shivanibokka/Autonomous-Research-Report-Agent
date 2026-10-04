@@ -368,6 +368,9 @@ async def _run_canary(args, patched, conds) -> int:
 
 async def main_async(args) -> int:
     try:
+        # Validated here as well as in the ledger, so a bad cap is refused with
+        # its reason and exit 2 even on the local backend (which has no ledger).
+        budget.check_cap(args.usd_cap)
         patched = common.install(args.backend, args.env_file, args.usd_cap)
     # Anything that stops us before the first call is "refused to start" (2):
     # an invalid cap, another live run, or a ledger we cannot read — a corrupt
@@ -462,8 +465,8 @@ def main():
     ap.add_argument("--open", action="store_true")
     ap.add_argument("--only", default="")
     ap.add_argument("--force", action="store_true")
-    ap.add_argument("--usd-cap", type=budget.check_cap, default=8.0,
-                    help="finite, positive, at most the project hard max")
+    ap.add_argument("--usd-cap", type=float, default=8.0,
+                    help=f"finite, positive, at most ${budget.PROJECT_HARD_MAX_USD:g}")
     ap.add_argument("--tavily-cap", type=int, default=common.TAVILY_CREDIT_CAP)
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--canary", action="store_true")
