@@ -535,13 +535,24 @@ def install(
 
     async def cached_scrape(url, title=""):
         hit = page_cache.get(url)
-        if hit is None:
+        # A failed fetch is cached only for the current process (so c and d,
+        # which run in one process, see identical inputs) and marked; any
+        # later invocation retries it instead of inheriting the failure.
+        stale_failure = (
+            hit is not None
+            and (hit.get("scrape_error") or not hit.get("content"))
+            and hit.get("failed_in_pid") != os.getpid()
+        )
+        if hit is None or stale_failure:
             page = await orig_scrape(url, title)
             hit = page.model_dump()
             hit["fetched_at"] = time.strftime("%Y-%m-%dT%H:%M:%S")
+            failed = bool(page.scrape_error) or not page.content
+            hit["failed_in_pid"] = os.getpid() if failed else None
             page_cache.put(url, hit)
         hit = dict(hit)
         hit.pop("fetched_at", None)
+        hit.pop("failed_in_pid", None)
         return ScrapedPage(**hit)
 
     scraper_tool.scrape_page = cached_scrape

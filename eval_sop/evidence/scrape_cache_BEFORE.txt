@@ -1,0 +1,7 @@
+# before
+_______________ test_failed_fetch_is_retried_in_a_later_process _______________
+    def test_failed_fetch_is_retried_in_a_later_process(monkeypatch):
+>           assert patched.pages.get(url)["failed_in_pid"]  # failure is marked, not silent
+E           KeyError: 'failed_in_pid'
+FAILED eval_sop/tests/test_scrape_cache.py::test_failed_fetch_is_retried_in_a_later_process
+1 failed in 5.54s
