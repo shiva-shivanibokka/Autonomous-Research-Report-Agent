@@ -1,0 +1,5 @@
+# before: the round-2 test module imported httpx2 unconditionally
+17:import httpx2  # the Anthropic SDK 1.x transport: its errors are httpx2.*, not httpx.*
+unguarded optional imports in that file: ['httpx2']
+# (the reviewer's env: anthropic 0.93 on httpx only, httpx2 absent ->
+#  1 error, 0 tests collected from pytest eval_sop/tests -q)

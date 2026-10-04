@@ -14,10 +14,20 @@ from types import SimpleNamespace
 
 import anthropic
 import httpx
-import httpx2  # the Anthropic SDK 1.x transport: its errors are httpx2.*, not httpx.*
 import pytest
 
 from eval_sop import budget, common
+
+# The transport modules this SDK build can raise from. anthropic 1.x streams
+# over httpx2; older builds (and an env installed from requirements.txt) have
+# httpx only, so the import is optional exactly as in eval_sop/common.py.
+TRANSPORTS = [httpx]
+try:
+    import httpx2
+
+    TRANSPORTS.append(httpx2)
+except ImportError:  # pragma: no cover - depends on the installed SDK
+    pass
 
 MODEL = "claude-haiku-4-5-20251001"
 REQ = httpx.Request("POST", "https://api.anthropic.com/v1/messages")
@@ -101,7 +111,7 @@ def test_midstream_overloaded_status_200_is_retried_and_charged(ledger):
     assert rows[1][0] == "ok"
 
 
-@pytest.mark.parametrize("mod", [httpx2, httpx], ids=["httpx2", "httpx"])
+@pytest.mark.parametrize("mod", TRANSPORTS, ids=[m.__name__ for m in TRANSPORTS])
 def test_midstream_read_timeout_is_charged_and_bounded(ledger, mod):
     common.set_anthropic_client(Fake(lambda i: mod.ReadTimeout("read timed out")))
     with pytest.raises(common.TransportError):
@@ -111,7 +121,7 @@ def test_midstream_read_timeout_is_charged_and_bounded(ledger, mod):
     assert all(c == pytest.approx(_worst()) for _, c in rows)
 
 
-@pytest.mark.parametrize("mod", [httpx2, httpx], ids=["httpx2", "httpx"])
+@pytest.mark.parametrize("mod", TRANSPORTS, ids=[m.__name__ for m in TRANSPORTS])
 def test_midstream_remote_protocol_error_is_charged(ledger, mod):
     common.set_anthropic_client(Fake(lambda i: mod.RemoteProtocolError("peer closed") if i == 1 else _msg()))
     asyncio.run(_call())
