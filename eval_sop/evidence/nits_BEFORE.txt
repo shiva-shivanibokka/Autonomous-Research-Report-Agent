@@ -1,0 +1,7 @@
+# before
+E       assert '{"id": 1, "t..."note": ""}\n' == 'PREVIOUS EXPORT\n'
+E         
+E         - PREVIOUS EXPORT
+E         + {"id": 1, "ts": "2026-10-04T09:43:23", "run": "r", "agent": "a", "model": "m", "status": "ok", "input_tokens": 0, "output_tokens": 0, "cache_write": 0, "cache_read": 0, "cost_usd": 0.001, "request_id": null, "note": ""}
+E       assert 0 != 0
+2 failed in 5.82s
