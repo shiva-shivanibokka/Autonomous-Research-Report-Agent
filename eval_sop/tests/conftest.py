@@ -37,3 +37,19 @@ def _no_real_tavily(monkeypatch):
 
     monkeypatch.setattr(st, "AsyncTavilyClient", refuse)
     monkeypatch.setattr(st, "_client", None)
+
+
+def pytest_configure(config):
+    """
+    Keep pytest's tmp_path out of %TEMP%. Inside the worktree's gitignored
+    cache by default; when the worktree sits in a scratchpad (…/scratchpad/wt/
+    <repo>), use a short sibling of it instead, because the deep worktree path
+    pushes sqlite files past Windows' 260-character MAX_PATH.
+    """
+    if config.option.basetemp:
+        return
+    here = Path(__file__).resolve()
+    if here.parents[3].name == "wt":
+        config.option.basetemp = str(here.parents[4] / "pt")
+    else:
+        config.option.basetemp = str(_ROOT / "pt")

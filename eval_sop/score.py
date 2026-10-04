@@ -498,17 +498,24 @@ def _count(xs):
     return out
 
 
-if __name__ == "__main__":
-    if "--canary" in sys.argv:
-        # Judge only the canary output (written by run_conditions --canary),
-        # into a separate results folder: checks the local judges end to end
-        # after the canary and before the main paid run.
-        RUNS = common.OUT_DIR / "canary_runs"
-        RES = common.OUT_DIR / "results_canary"
-        JUDGED = RES / "judgments.jsonl"
-    if sys.argv[1] == "judge":
+def main(argv: list[str] | None = None) -> int:
+    """`judge | support | analyze [--canary]`. With --canary, only the canary
+    output (run_conditions --canary) is scored, into results_canary/: this
+    checks the local judges end to end after the canary, before the main run."""
+    global RUNS, RES, JUDGED
+    argv = sys.argv[1:] if argv is None else argv
+    canary = "--canary" in argv
+    RUNS = common.OUT_DIR / ("canary_runs" if canary else "runs")
+    RES = common.OUT_DIR / ("results_canary" if canary else "results")
+    JUDGED = RES / "judgments.jsonl"
+    if argv[0] == "judge":
         asyncio.run(judge_all())
-    elif sys.argv[1] == "support":
+    elif argv[0] == "support":
         support_nli()
     else:
         analyze()
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

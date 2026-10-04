@@ -398,7 +398,9 @@ async def main_async(args) -> int:
             return 2
         print("dry run OK" + (" (with admission control)" if over else ""))
         return 0
-    if paid and not args.admission_control:
+    # The design-level check guards a full run. A canary runs one question, so
+    # it is skipped there; every call's own precheck (reserve) still applies.
+    if paid and not args.admission_control and not args.canary:
         if (table["worst_usd_total"] > common.LEDGER.remaining()
                 or table["worst_tavily_total"] > args.tavily_cap - common.credits_spent()):
             print("REFUSED: worst case exceeds the remaining cap (see --dry-run).")

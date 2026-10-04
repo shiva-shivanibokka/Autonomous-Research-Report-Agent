@@ -1,0 +1,4 @@
+# before
+E       AssertionError: assert 2 == 0
+E        +  where 2 = _run(['python', '-m', 'eval_sop.run_conditions', '--backend', 'anthropic', '--env-file', ...], WindowsPath('<HOME>/AppData/Local/Temp/pytest-of-<user>/pytest-835/test_documented_canary_command0/keys.env'), <_pytest.monkeypatch.MonkeyPatch object at 0x000001E748F7AA80>)
+1 failed, 1 deselected in 7.81s

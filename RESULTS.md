@@ -299,13 +299,25 @@ python -m eval_sop.smoke_test
 # NLI (torch + transformers, models in the HF cache):
 OMP_NUM_THREADS=2 python -m eval_sop.nli_validate          # needs eval_sop/cache/ragtruth/test.parquet
 python -m eval_sop.showcase_audit fetch && OMP_NUM_THREADS=2 python -m eval_sop.showcase_audit judge && python -m eval_sop.showcase_audit analyze
-# Paid run (needs approval + a key in the env file; nothing here prints keys):
+```
+
+**Paid-run runbook.** `eval_sop/tests/test_runbook.py` runs every command in
+the block below exactly as written, with `PATH` set to an env file, a fake
+Anthropic client, fake search and pages, and a fake correctness judge. All of
+them must exit 0. The env file holds `ANTHROPIC_API_KEY` and `TAVILY_API_KEY`;
+nothing here prints keys. Only one evaluation process can run at a time (a
+lock under `%LOCALAPPDATA%\sop_eval\research_report\`).
+
+<!-- runbook -->
+```bash
 python -m eval_sop.tavily_usage --env-file PATH
-python -m eval_sop.run_conditions --backend anthropic --env-file PATH --conditions a,b,d --n-frames 30 --usd-cap 8 --dry-run
-python -m eval_sop.run_conditions ... --canary
+python -m eval_sop.run_conditions --backend anthropic --env-file PATH --conditions a,b,c,d --n-frames 30 --usd-cap 8 --admission-control --dry-run
+python -m eval_sop.run_conditions --backend anthropic --env-file PATH --conditions a,b,d --usd-cap 8 --canary
 python -m eval_sop.score judge --canary
 python -m eval_sop.run_conditions --backend anthropic --env-file PATH --conditions a,b,c,d --n-frames 30 --usd-cap 8 --admission-control
-python -m eval_sop.score judge && python -m eval_sop.score support && python -m eval_sop.score analyze
+python -m eval_sop.score judge
+python -m eval_sop.score support  # torch env (NLI judges); stubbed in the test
+python -m eval_sop.score analyze
 ```
 
 ## 9. Change log
