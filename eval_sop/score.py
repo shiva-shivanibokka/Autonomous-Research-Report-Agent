@@ -2,6 +2,7 @@
 Score saved runs.
 
   python -m eval_sop.score judge     # repo venv: LLM correctness judges + fetch cited pages
+  python -m eval_sop.score judge --canary   # same, on the canary output only
   python -m eval_sop.score support   # torch env: NLI citation-support judges
   python -m eval_sop.score analyze   # pure computation -> results/*.json, CSV
 
@@ -498,6 +499,13 @@ def _count(xs):
 
 
 if __name__ == "__main__":
+    if "--canary" in sys.argv:
+        # Judge only the canary output (written by run_conditions --canary),
+        # into a separate results folder: checks the local judges end to end
+        # after the canary and before the main paid run.
+        RUNS = common.OUT_DIR / "canary_runs"
+        RES = common.OUT_DIR / "results_canary"
+        JUDGED = RES / "judgments.jsonl"
     if sys.argv[1] == "judge":
         asyncio.run(judge_all())
     elif sys.argv[1] == "support":

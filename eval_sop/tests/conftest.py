@@ -19,3 +19,15 @@ def _clean_stop_flag():
     budget.reset_stop()
     yield
     budget.reset_stop()
+
+
+@pytest.fixture(autouse=True)
+def _no_real_tavily(monkeypatch):
+    """Any test that reaches the real Tavily client fails instead of hitting the network."""
+    import agents.tools.search_tool as st
+
+    def refuse(*a, **k):
+        raise AssertionError("test tried to construct a real Tavily client")
+
+    monkeypatch.setattr(st, "AsyncTavilyClient", refuse)
+    monkeypatch.setattr(st, "_client", None)

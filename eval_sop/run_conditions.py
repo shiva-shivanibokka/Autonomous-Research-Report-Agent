@@ -44,6 +44,9 @@ from pathlib import Path
 from eval_sop import budget, common, plan
 
 RUNS = common.OUT_DIR / "runs"
+# Canary output lives apart from the main runs so it can never enter the
+# analysis; `python -m eval_sop.score judge --canary` judges it on its own.
+CANARY_RUNS = common.OUT_DIR / "canary_runs"
 TOKEN_BUDGET = 80_000  # ReportRequest default — what the deployed API uses
 CANARY = {
     "qid": "canary_paris",
@@ -346,7 +349,7 @@ async def _run_canary(args, patched, conds) -> int:
     spent0 = common.LEDGER.spent() if common.LEDGER else 0.0
     for cond in conds:
         rec = await run_one(cond, CANARY, 0, patched)
-        path = RUNS / "canary" / f"{COND_NAMES[cond]}.json"
+        path = CANARY_RUNS / COND_NAMES[cond] / f"{CANARY['qid']}__s0.json"
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(rec, indent=1, ensure_ascii=False, default=str), encoding="utf-8")
         good = (not rec["error"]) and "paris" in (rec.get("final_answer") or "").lower()
