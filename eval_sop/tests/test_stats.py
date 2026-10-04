@@ -13,3 +13,11 @@ def test_mcnemar_exact_counts_and_p():
 
 def test_mcnemar_no_discordant_pairs():
     assert stats.mcnemar_exact({1: 1}, {1: 1})["p_two_sided_exact"] == 1.0
+
+
+def test_rogan_gladen():
+    # perfect judge: unchanged; known example; clipped; undefined when uninformative
+    assert stats.rogan_gladen(0.4, 1.0, 1.0) == pytest.approx(0.4)
+    assert stats.rogan_gladen(0.5, 0.8, 0.9) == pytest.approx((0.5 + 0.9 - 1) / 0.7)
+    assert stats.rogan_gladen(0.05, 0.8, 0.9) == 0.0
+    assert stats.rogan_gladen(0.5, 0.5, 0.5) is None

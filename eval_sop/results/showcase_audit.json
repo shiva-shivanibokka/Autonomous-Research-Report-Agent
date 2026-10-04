@@ -162,5 +162,29 @@
    },
    "pairs_page_missing": 18
   }
+ },
+ "citation_support_corrected": {
+  "deberta-v3-large": {
+   "n_sentences": 26,
+   "raw_rate": 0.38461538461538464,
+   "sensitivity_ragtruth": 0.47333333333333333,
+   "specificity_ragtruth": 0.8066666666666666,
+   "corrected_rate": 0.6831501831501828,
+   "corrected_ci95": [
+    0.0,
+    1.0
+   ]
+  },
+  "deberta-xlarge-mnli": {
+   "n_sentences": 26,
+   "raw_rate": 0.6923076923076923,
+   "sensitivity_ragtruth": 0.78,
+   "specificity_ragtruth": 0.6666666666666666,
+   "corrected_rate": 0.8036739380022961,
+   "corrected_ci95": [
+    0.35853952051549637,
+    1.0
+   ]
+  }
  }
 }

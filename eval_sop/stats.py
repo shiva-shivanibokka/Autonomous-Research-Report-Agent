@@ -129,3 +129,11 @@ def mcnemar_exact(a: dict, b: dict) -> dict:
             "p_two_sided_exact": float(p),
             "acc_a": sum(a[k] for k in keys) / len(keys) if keys else None,
             "acc_b": sum(b[k] for k in keys) / len(keys) if keys else None}
+
+
+def rogan_gladen(p_obs: float, sens: float, spec: float) -> float | None:
+    """Prevalence corrected for a classifier's sensitivity/specificity, clipped to [0, 1]."""
+    denom = sens + spec - 1
+    if denom <= 0:
+        return None
+    return float(min(1.0, max(0.0, (p_obs + spec - 1) / denom)))

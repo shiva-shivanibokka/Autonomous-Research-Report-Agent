@@ -175,9 +175,61 @@ def analyze():
             "pairs_page_missing": sum(1 for r in rows if r["page_missing"]),
         }
     out["citation_support_nli"] = sup
+    out["citation_support_corrected"] = rogan_gladen_block(pairs, raw)
     OUT.parent.mkdir(exist_ok=True)
     OUT.write_text(json.dumps(out, indent=1, default=str), encoding="utf-8")
     print(json.dumps(out, indent=1, default=str)[:5000])
+
+
+def rogan_gladen_block(pairs, raw, boot: int = 2000) -> dict:
+    """
+    Correct each judge's raw sentence-level support rate for its measured
+    sensitivity (recall on human-supported) and specificity (recall on
+    human-unsupported) on RAGTruth (Rogan-Gladen). The CI resamples the
+    RAGTruth validation items and the showcase sentences together. This
+    assumes the judge's error rates transfer from RAGTruth to these web
+    pages, which is not tested.
+    """
+    import numpy as np
+
+    from eval_sop import stats
+    from eval_sop.nli import MODELS
+
+    val = [json.loads(line) for line in open(HERE / "results" / "nli_ragtruth_raw.jsonl", encoding="utf-8")]
+    out = {}
+    rng = np.random.default_rng(12345)
+    for name in MODELS:
+        v = [(r["human_supported"], r["supported"]) for r in val if r["judge"] == name]
+        by_claim = {}
+        for r in raw:
+            if r["judge"] == name and not r["page_missing"]:
+                by_claim.setdefault(r["claim"], []).append(bool(r["supported"]))
+        x = np.array([any(by_claim[p["claim"]]) for p in pairs if p["claim"] in by_claim], float)
+        y = np.array([a for a, _ in v], bool)
+        pr = np.array([b for _, b in v], bool)
+
+        def est(xs, ys, ps):
+            sens = (ps & ys).sum() / max(ys.sum(), 1)
+            spec = (~ps & ~ys).sum() / max((~ys).sum(), 1)
+            return stats.rogan_gladen(xs.mean(), sens, spec), sens, spec
+
+        point, sens, spec = est(x, y, pr)
+        draws = []
+        for _ in range(boot):
+            i = rng.integers(0, len(x), len(x))
+            j = rng.integers(0, len(y), len(y))
+            r_ = est(x[i], y[j], pr[j])[0]
+            if r_ is not None:
+                draws.append(r_)
+        out[name] = {
+            "n_sentences": int(len(x)),
+            "raw_rate": float(x.mean()),
+            "sensitivity_ragtruth": float(sens),
+            "specificity_ragtruth": float(spec),
+            "corrected_rate": point,
+            "corrected_ci95": [float(np.percentile(draws, 2.5)), float(np.percentile(draws, 97.5))],
+        }
+    return out
 
 
 if __name__ == "__main__":
