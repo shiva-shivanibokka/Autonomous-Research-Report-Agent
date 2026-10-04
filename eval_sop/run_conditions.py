@@ -12,9 +12,11 @@ condition naturally would: (a)/(b) are asked for a "Final answer:" line; for
 seed) reads the rendered report and answers the question from it alone. That
 extraction call is eval overhead and is reported separately from pipeline cost.
 
-A run counts as ERRORED (and is reported as such, never as a success) if it
-raised, if the pipeline set fatal_error, if the pipeline recorded any entry in
-`errors`, or if any LLM call used a model other than the pinned generator.
+A run counts as ERRORED (never as a success; wrong in the primary analysis) if
+it raised, if the pipeline set fatal_error, or if any LLM call used a model
+other than the pinned generator. Non-fatal entries in the pipeline's `errors`
+are kept in `nonfatal_errors`; such runs are scored normally, and the strict
+sensitivity analysis (`strict_error`) counts them as wrong as well.
 
 Usage:
   python -m eval_sop.run_conditions --backend anthropic --env-file PATH \
@@ -286,8 +288,10 @@ async def run_one(cond: str, q: dict, seed: int, patched) -> dict:
     pipe = out.get("pipeline") if isinstance(out, dict) else None
     if err is None and pipe and pipe.get("fatal_error"):
         err, err_kind = f"pipeline fatal_error: {pipe['fatal_error'][:500]}", "fatal_error"
-    elif err is None and pipe and pipe.get("errors"):
-        err, err_kind = f"pipeline errors: {'; '.join(pipe['errors'])[:500]}", "pipeline_errors"
+    # Non-fatal pipeline errors (the Writer's "malformed JSON; raw output
+    # preserved", a schema mismatch) leave a usable report: the run is scored
+    # normally and flagged, and the strict sensitivity analysis counts it wrong.
+    nonfatal = [] if err else list((pipe or {}).get("errors") or [])
     used = {c["model"] for c in tel.llm_calls}
     if err is None and used - {common.GEN_MODEL}:
         err, err_kind = f"unexpected model(s) used: {sorted(used - {common.GEN_MODEL})}", "model_mismatch"
@@ -312,6 +316,8 @@ async def run_one(cond: str, q: dict, seed: int, patched) -> dict:
         "telemetry": tsum,
         "error": err,
         "error_kind": err_kind,
+        "nonfatal_errors": nonfatal,
+        "strict_error": bool(err) or bool(nonfatal),
         **out,
     }
 

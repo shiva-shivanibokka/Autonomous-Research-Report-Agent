@@ -188,7 +188,8 @@ def analyze():
     for r in runs:
         k = run_key(r)
         row = {"run": k, "condition": r["condition"], "qid": r["qid"], "seed": r["seed"],
-               "error": bool(r.get("error")), "has_ref": bool(r.get("reference"))}
+               "error": bool(r.get("error")), "has_ref": bool(r.get("reference")),
+               "strict_error": bool(r.get("strict_error", r.get("error")))}
         if r.get("reference") and not r.get("error"):
             row["strict_match"] = strict_match(r["reference"], r.get("final_answer", ""))
             for jm in (J1, J2):
@@ -354,22 +355,29 @@ def analyze():
 
     # --- Primary test: exact McNemar on per-question correctness, single
     # replicate (seed 1), intention-to-treat: an errored run counts as wrong.
-    def itt(cond, field, seed=1):
+    def itt(cond, field, seed=1, err_key="error"):
         out = {}
         for row in per_run:
             if row["condition"] != cond or not row["has_ref"] or row["seed"] != seed:
                 continue
-            out[row["qid"]] = 0 if row["error"] else int(bool(row.get(field)))
+            out[row["qid"]] = 0 if row[err_key] else int(bool(row.get(field)))
         return out
 
+    ms = [f"correct_{J1}", f"correct_{J2}", "strict_match"]
     summary["mcnemar_itt"] = {
-        f"{b} vs {a}": {m: stats.mcnemar_exact(itt(a, m), itt(b, m))
-                        for m in [f"correct_{J1}", f"correct_{J2}", "strict_match"]}
+        f"{b} vs {a}": {m: stats.mcnemar_exact(itt(a, m), itt(b, m)) for m in ms}
+        for a, b in pairs
+    }
+    summary["mcnemar_itt_strict"] = {
+        f"{b} vs {a}": {m: stats.mcnemar_exact(itt(a, m, err_key="strict_error"),
+                                               itt(b, m, err_key="strict_error")) for m in ms}
         for a, b in pairs
     }
     summary["mcnemar_itt_note"] = (
-        "errored runs count as incorrect (intention-to-treat); correctness labels are "
-        "local LLM-judge labels except strict_match")
+        "PRIMARY: a run counts as wrong only if it raised, set fatal_error, or used a "
+        "non-pinned model; runs with non-fatal pipeline errors are scored normally. "
+        "STRICT (sensitivity): those runs also count as wrong. Correctness labels are "
+        "local LLM-judge labels except strict_match (deterministic).")
 
     # --- Critic self-report vs computed
     crit = [dict(c, condition=r["condition"], run=r["run"]) for r in per_run for c in r.get("critic_calls", [])]

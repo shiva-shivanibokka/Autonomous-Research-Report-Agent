@@ -1,0 +1,5 @@
+# before
+E       AssertionError: assert ('pipeline errors: Writer returned malformed JSON; raw output preserved.' is None)
+2026-10-04 09:40:00 [warning  ] writer_recovery_failed         error='no JSON dict found in response' via=writer_repair
+E       KeyError: 'mcnemar_itt_strict'
+2 failed in 6.67s
