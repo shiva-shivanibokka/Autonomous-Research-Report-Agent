@@ -35,7 +35,7 @@ PRICES = {
     },
 }
 # Hard ceiling for this project regardless of what --usd-cap says.
-PROJECT_HARD_MAX_USD = 12.0
+PROJECT_HARD_MAX_USD = 8.0
 # Worst-case input estimate: 2.5 chars/token over-counts English for Claude's
 # tokenizer (~3.5-4 chars/token), so the pre-call check errs on the safe side.
 WORST_CHARS_PER_TOKEN = 2.5

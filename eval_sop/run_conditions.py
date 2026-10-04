@@ -366,7 +366,11 @@ async def _run_canary(args, patched, conds) -> int:
 
 
 async def main_async(args) -> int:
-    patched = common.install(args.backend, args.env_file, args.usd_cap)
+    try:
+        patched = common.install(args.backend, args.env_file, args.usd_cap)
+    except ValueError as e:  # e.g. a cap above the project's hard maximum
+        print(f"REFUSED: {e}")
+        return 2
     common.TAVILY_CREDIT_CAP = args.tavily_cap
     conds = _ordered(args.conditions.split(","))
     seeds = [int(s) for s in args.seeds.split(",")]
