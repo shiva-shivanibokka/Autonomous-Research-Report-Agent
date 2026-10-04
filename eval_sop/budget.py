@@ -62,8 +62,13 @@ def reset_stop() -> None:  # tests only
 
 
 def worst_input_tokens(messages: list[dict]) -> int:
-    chars = sum(len(m.get("content") or "") for m in messages)
-    return math.ceil(chars / WORST_CHARS_PER_TOKEN) + 50
+    """max(chars/2.5, UTF-8 bytes/3): the byte term keeps CJK and other
+    multi-byte text (roughly one token per character or more) from being
+    undercounted by the character term, which is tuned for English."""
+    texts = [m.get("content") or "" for m in messages]
+    chars = sum(len(t) for t in texts)
+    nbytes = sum(len(t.encode("utf-8")) for t in texts)
+    return math.ceil(max(chars / WORST_CHARS_PER_TOKEN, nbytes / 3)) + 50
 
 
 def price_of(model: str) -> dict:
