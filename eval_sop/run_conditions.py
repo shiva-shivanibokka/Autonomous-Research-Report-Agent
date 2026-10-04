@@ -38,6 +38,7 @@ import argparse
 import asyncio
 import json
 import re
+import sqlite3
 import time
 import sys
 import traceback
@@ -368,7 +369,11 @@ async def _run_canary(args, patched, conds) -> int:
 async def main_async(args) -> int:
     try:
         patched = common.install(args.backend, args.env_file, args.usd_cap)
-    except (ValueError, budget.EvalLocked) as e:  # cap above the hard max; another run active
+    # Anything that stops us before the first call is "refused to start" (2):
+    # an invalid cap, another live run, or a ledger we cannot read — a corrupt
+    # ledger used to escape as exit 1, which the runbook documents as "canary
+    # failed".
+    except (ValueError, budget.EvalLocked, sqlite3.DatabaseError, OSError) as e:
         print(f"REFUSED: {e}")
         return 2
     common.TAVILY_CREDIT_CAP = args.tavily_cap

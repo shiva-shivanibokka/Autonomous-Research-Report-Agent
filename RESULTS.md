@@ -241,9 +241,10 @@ How the two estimates are built:
    single invocation.
    - A run starts only if the remaining budget covers that run's own worst
      case, so $8 can never be crossed and a cut-off design stays paired.
-   - Exit codes: 0 done, 1 canary failed, 2 refused (design over the cap, a
-    cap above $8, or another evaluation process holds the lock), 3 cap or
-    billing stop, 4 admission control stopped early.
+   - Exit codes: 0 done, 1 canary failed, 2 refused to start (design over
+    the cap, an invalid cap, a corrupt ledger, or another evaluation process
+    holds the lock), 3 cap or billing stop, 4 admission control stopped
+    early.
   - The canary skips the design-level check (it is one question); every
     call's own check still applies.
 
@@ -251,6 +252,10 @@ How the two estimates are built:
 - **Pending-row ledger.** Before every request attempt, a row is inserted with
   `status='pending'` and cost = that attempt's worst case.
   - A success updates it to the actual `usage` cost.
+  - A model the provider substituted for the pinned one settles at the
+    pinned worst case and stops the whole evaluation: its real price is not
+    known here, and pricing it at the pinned rate would have let repeated
+    substitution authorise several times the cap.
   - An HTTP-level 429 or 4xx rejection sets it to $0.
   - Every other exit keeps the worst-case charge, deliberately over-counting:
     - HTTP-level 5xx/529, labelled `http_<code>` and retried;
@@ -266,8 +271,10 @@ How the two estimates are built:
     committed before the request is sent.
   - 20 concurrent calls against a $0.05 cap, and 4 processes against a $0.50
     cap, never exceed it.
-  - The cap itself can never be above **$8**: `--usd-cap 12` and
-    `SOP_USD_CAP=12` are refused.
+  - The cap must be a finite number in (0, **$8**]. `--usd-cap 12`,
+    `SOP_USD_CAP=12`, `nan`, `inf` and non-positive values are all refused.
+    `nan` previously slipped through every comparison, including each
+    per-call check, which disabled the cap altogether.
 - **Worst-case input estimate.** max(characters / 2.5, UTF-8 bytes / 3), so
   CJK text is not undercounted.
 - **One ledger and one process per project.**
@@ -324,8 +331,18 @@ python -m eval_sop.showcase_audit fetch && OMP_NUM_THREADS=2 python -m eval_sop.
 **Paid-run runbook.** `eval_sop/tests/test_runbook.py` runs every command in
 the block below exactly as written, with `PATH` set to an env file, a fake
 Anthropic client, fake search and pages, and a fake correctness judge. All of
-them must exit 0. The env file holds `ANTHROPIC_API_KEY` and `TAVILY_API_KEY`;
-nothing here prints keys. Only one evaluation process can run at a time (a
+them must exit 0.
+
+**Where the paid key goes.** Only in the file passed as `--env-file`, which
+sits outside the repository. Never in the repo's `.env`, and never exported
+into the environment. Nothing here prints keys. The reason is that other code
+in this repository spends without any ledger, cap or lock:
+`scripts/record_demo_run.py` runs the real pipeline on `claude-sonnet-4-5`
+($3/$15), and `api/main.py` / `api/worker.py` fall back to a server-side
+`ANTHROPIC_API_KEY`. Only `eval_sop/` meters spending. `record_demo_run.py`
+now refuses to start without `--i-want-to-spend-real-money`, so an exported
+key cannot be spent by simply running it, but the API server has no such
+guard. Only one evaluation process can run at a time (a
 lock under `%LOCALAPPDATA%\sop_eval\research_report\`).
 
 <!-- runbook -->

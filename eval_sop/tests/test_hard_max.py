@@ -44,3 +44,15 @@ def test_cli_nan_cap_is_refused(monkeypatch):
 
     monkeypatch.setattr(common, "LEDGER", None)
     assert asyncio.run(rc.main_async(_args(usd_cap=float("nan"), n_frames=1))) == 2
+
+
+def test_corrupt_ledger_exits_2_not_1(tmp_path, monkeypatch):
+    """Exit 1 is documented as 'canary failed'; a ledger we cannot read is 'refused'."""
+    from eval_sop import run_conditions as rc
+
+    state = tmp_path / "state"
+    state.mkdir()
+    (state / "usd_ledger.sqlite").write_bytes(b"this is not a database" * 100)
+    monkeypatch.setattr(common, "STATE_DIR", state)
+    monkeypatch.setattr(common, "LEDGER", None)
+    assert asyncio.run(rc.main_async(_args(n_frames=1))) == 2
