@@ -1,0 +1,9 @@
+# eval_sop/tests/test_repro_review.py against eval_sop at d9c756d/2c2c825 (before the budget fixes)
+E       AssertionError: cap was swallowed; agent returned error='Tavily credit cap 0 reached'
+E       assert None is not None
+2026-10-04 08:31:32 [error    ] search_agent_failed            error='Tavily credit cap 0 reached' job_id=t sub_question='a fresh query'
+E       AssertionError: a run whose pipeline set fatal_error was recorded as a success
+E       assert None
+2026-10-04 08:31:33 [error    ] writer_llm_failed              error='injected failure in writer'
+2026-10-04 08:31:33 [warning  ] pipeline_halted_by_node        error='Writer failed: injected failure in writer' job_id=589f2f1b-ae3c-4229-a3cf-fd75a416fb59
+2 failed in 7.21s

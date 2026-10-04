@@ -12,8 +12,20 @@ condition naturally would: (a)/(b) are asked for a "Final answer:" line; for
 seed) reads the rendered report and answers the question from it alone. That
 extraction call is eval overhead and is reported separately from pipeline cost.
 
+A run counts as ERRORED (and is reported as such, never as a success) if it
+raised, if the pipeline set fatal_error, if the pipeline recorded any entry in
+`errors`, or if any LLM call used a model other than the pinned generator.
+
 Usage:
-  python -m eval_sop.run_conditions --conditions a,b,c,d --seeds 1 --n-frames 30 --open
+  python -m eval_sop.run_conditions --backend anthropic --env-file PATH \
+      --conditions a,b,d --n-frames 30 --usd-cap 8 --dry-run
+  python -m eval_sop.run_conditions ... --canary          # one known-answer question first
+  python -m eval_sop.run_conditions ... --admission-control
+
+Without --admission-control a design whose worst case exceeds the USD cap (or
+the Tavily cap) is refused. With it, runs go question by question and a run
+starts only if the remaining budget covers that run's own worst case, so the
+cap can never be crossed and a partially completed design stays paired.
 """
 
 from __future__ import annotations
@@ -23,12 +35,20 @@ import asyncio
 import json
 import re
 import time
+import sys
 import traceback
+from pathlib import Path
 
-from eval_sop import common
+from eval_sop import budget, common, plan
 
 RUNS = common.OUT_DIR / "runs"
 TOKEN_BUDGET = 80_000  # ReportRequest default — what the deployed API uses
+CANARY = {
+    "qid": "canary_paris",
+    "question": "What is the capital city of France?",
+    "reference": "Paris",
+    "source": "built-in canary (not part of any benchmark)",
+}
 COND_NAMES = {
     "a": "closed_book",
     "b": "search1",
@@ -141,7 +161,12 @@ async def run_pipeline_condition(q: dict, max_rounds: int) -> dict:
     from agents.report_format import render_report_markdown
     from agents.schemas import ResearchState
 
-    state = ResearchState(query=q["question"], max_rounds=max_rounds, token_budget=TOKEN_BUDGET)
+    # model= is recorded on the state for logging; the call itself uses the
+    # pinned generator from the per-job creds that common.install() sets.
+    state = ResearchState(
+        query=q["question"], max_rounds=max_rounds, token_budget=TOKEN_BUDGET,
+        model=common.GEN_MODEL,
+    )
     rounds: dict[int, dict] = {}
 
     async def on_progress(s: ResearchState):
@@ -230,9 +255,11 @@ async def run_pipeline_condition(q: dict, max_rounds: int) -> dict:
 
 
 async def run_one(cond: str, q: dict, seed: int, patched) -> dict:
+    budget.check_stop()
     tel = common.Telemetry()
     t_tok = common.TELEMETRY.set(tel)
     s_tok = common.SEED.set(seed)
+    r_tok = common.RUN_KEY.set(f"{COND_NAMES[cond]}|{q['qid']}|{seed}")
     t0 = time.perf_counter()
     try:
         if cond == "a":
@@ -243,14 +270,27 @@ async def run_one(cond: str, q: dict, seed: int, patched) -> dict:
             out = await run_pipeline_condition(q, 1)
         else:
             out = await run_pipeline_condition(q, 2)
-        err = None
-    except common.CreditCapReached:
+        err, err_kind = None, None
+    except budget.BudgetStop:
         raise
     except Exception:  # noqa: BLE001
-        out, err = {}, traceback.format_exc()[-2000:]
+        out, err, err_kind = {}, traceback.format_exc()[-2000:], "exception"
     finally:
         common.TELEMETRY.reset(t_tok)
         common.SEED.reset(s_tok)
+        common.RUN_KEY.reset(r_tok)
+    # A cap tripped inside the pipeline may have been turned into a value by
+    # asyncio.gather(return_exceptions=True); the flag is authoritative. The
+    # run is not returned (so not saved): it was cut short, not completed.
+    budget.check_stop()
+    pipe = out.get("pipeline") if isinstance(out, dict) else None
+    if err is None and pipe and pipe.get("fatal_error"):
+        err, err_kind = f"pipeline fatal_error: {pipe['fatal_error'][:500]}", "fatal_error"
+    elif err is None and pipe and pipe.get("errors"):
+        err, err_kind = f"pipeline errors: {'; '.join(pipe['errors'])[:500]}", "pipeline_errors"
+    used = {c["model"] for c in tel.llm_calls}
+    if err is None and used - {common.GEN_MODEL}:
+        err, err_kind = f"unexpected model(s) used: {sorted(used - {common.GEN_MODEL})}", "model_mismatch"
     wall = time.perf_counter() - t0
     tsum = tel.summary()
     pipe_calls = [c for c in tel.llm_calls if c["agent"] != "eval_answer_extraction"]
@@ -271,50 +311,141 @@ async def run_one(cond: str, q: dict, seed: int, patched) -> dict:
         "wall_seconds_this_invocation": round(wall, 2),
         "telemetry": tsum,
         "error": err,
+        "error_kind": err_kind,
         **out,
     }
 
 
-async def main_async(args):
-    patched = common.install()
+def _ordered(conds: list[str]) -> list[str]:
+    """(d) runs before (c) so (c) can replay d's identical round-1 calls from the cache."""
+    order = {"a": 0, "b": 1, "d": 2, "c": 3}
+    return sorted(conds, key=order.__getitem__)
+
+
+def _print_plan(table: dict, usd_cap: float, tavily_cap: int, n_q: int, n_seeds: int) -> None:
+    print(f"Design: {n_q} questions x {n_seeds} replicate(s), generator {table['model']}")
+    for r in table["rows"]:
+        print(f"  ({r['condition']}) runs={r['runs']:3d}  worst ${r['worst_usd_per_run']:.4f}/run"
+              f"  expected ${r['expected_usd_per_run']:.4f}/run  tavily worst {r['worst_tavily_per_run']}"
+              f" expected {r['expected_tavily_per_run']}"
+              + ("  (round 1 replayed from d)" if r["shares_round1_with_d"] else ""))
+    print(f"  WORST-CASE total ${table['worst_usd_total']:.2f}  (cap ${usd_cap:.2f})")
+    print(f"  expected total   ${table['expected_usd_total']:.2f}  (estimate, see eval_sop/plan.py)")
+    print(f"  Tavily worst {table['worst_tavily_total']}  expected {table['expected_tavily_total']}"
+          f"  (cap {tavily_cap})")
+
+
+async def _run_canary(args, patched, conds) -> int:
+    ok = True
+    spent0 = common.LEDGER.spent() if common.LEDGER else 0.0
+    for cond in conds:
+        rec = await run_one(cond, CANARY, 0, patched)
+        path = RUNS / "canary" / f"{COND_NAMES[cond]}.json"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(rec, indent=1, ensure_ascii=False, default=str), encoding="utf-8")
+        good = (not rec["error"]) and "paris" in (rec.get("final_answer") or "").lower()
+        ok &= good
+        print(f"canary ({cond}) {'OK' if good else 'FAIL'} answer={rec.get('final_answer', '')[:60]!r} "
+              f"error={rec['error_kind']} models={rec['telemetry']['models']} "
+              f"usd={rec['telemetry']['usd_spent_now']}")
+    if common.LEDGER:
+        delta = common.LEDGER.spent() - spent0
+        print(f"canary ledger delta ${delta:.4f} (0 is expected only if every call replayed from cache)")
+    return 0 if ok else 1
+
+
+async def main_async(args) -> int:
+    patched = common.install(args.backend, args.env_file, args.usd_cap)
+    common.TAVILY_CREDIT_CAP = args.tavily_cap
+    conds = _ordered(args.conditions.split(","))
+    seeds = [int(s) for s in args.seeds.split(",")]
     qs = load_questions(args.n_frames, args.open)
     if args.only:
         keep = set(args.only.split(","))
         qs = [q for q in qs if q["qid"] in keep]
-    conds = args.conditions.split(",")
-    seeds = [int(s) for s in args.seeds.split(",")]
-    for seed in seeds:
-        for q in qs:
-            for cond in conds:
-                path = RUNS / COND_NAMES[cond] / f"{q['qid']}__s{seed}.json"
-                if path.exists() and not args.force:
-                    prev = json.loads(path.read_text(encoding="utf-8"))
-                    if not prev.get("error"):
-                        continue  # done; errored runs are retried
-                path.parent.mkdir(parents=True, exist_ok=True)
-                print(f"[{time.strftime('%H:%M:%S')}] {COND_NAMES[cond]} {q['qid']} seed={seed} "
-                      f"credits_spent={common.credits_spent()}", flush=True)
-                try:
+
+    model = common.GEN_MODEL
+    paid = args.backend == "anthropic"
+    table = plan.design_table(conds, len(qs), len(seeds), model) if paid else None
+    if paid:
+        _print_plan(table, args.usd_cap, args.tavily_cap, len(qs), len(seeds))
+        print(f"  ledger already holds ${common.LEDGER.spent():.4f}; "
+              f"Tavily credits already spent by this eval: {common.credits_spent()}")
+    if args.dry_run:
+        if not paid:
+            print("dry run: local backend, no USD cost")
+            return 0
+        over = (table["worst_usd_total"] > common.LEDGER.remaining()
+                or table["worst_tavily_total"] > args.tavily_cap - common.credits_spent())
+        if over and not args.admission_control:
+            print("REFUSED: worst case exceeds the remaining cap. Shrink the design, or pass "
+                  "--admission-control to run question by question within the cap.")
+            return 2
+        print("dry run OK" + (" (with admission control)" if over else ""))
+        return 0
+    if paid and not args.admission_control:
+        if (table["worst_usd_total"] > common.LEDGER.remaining()
+                or table["worst_tavily_total"] > args.tavily_cap - common.credits_spent()):
+            print("REFUSED: worst case exceeds the remaining cap (see --dry-run).")
+            return 2
+
+    try:
+        if args.canary:
+            return await _run_canary(args, patched, conds)
+        for seed in seeds:
+            for q in qs:
+                for cond in conds:
+                    path = RUNS / COND_NAMES[cond] / f"{q['qid']}__s{seed}.json"
+                    if path.exists() and not args.force:
+                        prev = json.loads(path.read_text(encoding="utf-8"))
+                        if not prev.get("error"):
+                            continue  # done; errored runs are retried (cached calls replay free)
+                    if paid:
+                        shared = cond == "c" and "d" in conds
+                        need = plan.worst_usd(cond, model, shared)
+                        need_t = plan.worst_tavily(cond, shared)
+                        if (common.LEDGER.remaining() - common.LEDGER.reserved < need
+                                or args.tavily_cap - common.credits_spent() < need_t):
+                            print(f"STOP (admission): next run ({cond}) {q['qid']} worst case "
+                                  f"${need:.3f} / {need_t} credits does not fit the remaining budget")
+                            return 0
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                    print(f"[{time.strftime('%H:%M:%S')}] {COND_NAMES[cond]} {q['qid']} seed={seed} "
+                          f"usd_spent={common.LEDGER.spent() if paid else 0:.4f} "
+                          f"credits_spent={common.credits_spent()}", flush=True)
                     rec = await run_one(cond, q, seed, patched)
-                except common.CreditCapReached as e:
-                    print(f"STOP: {e}", flush=True)
-                    return
-                path.write_text(json.dumps(rec, indent=1, ensure_ascii=False, default=str), encoding="utf-8")
-                t = rec["telemetry"]
-                print(f"    -> answer={rec.get('final_answer', '')[:80]!r} err={bool(rec['error'])} "
-                      f"llm_s={t['llm_seconds']} wall={rec['wall_seconds_this_invocation']} "
-                      f"credits_now={t['tavily_credits_spent_now']}", flush=True)
+                    path.write_text(json.dumps(rec, indent=1, ensure_ascii=False, default=str),
+                                    encoding="utf-8")
+                    t = rec["telemetry"]
+                    print(f"    -> answer={rec.get('final_answer', '')[:80]!r} err={rec['error_kind']} "
+                          f"usd={t['usd_spent_now']} credits_now={t['tavily_credits_spent_now']}",
+                          flush=True)
+    except budget.BudgetStop as e:
+        print(f"STOP: {e}", flush=True)
+        return 3
+    finally:
+        if common.LEDGER:
+            common.LEDGER.export_jsonl(common.LEDGER.path.with_suffix(".jsonl"))
+    return 0
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--conditions", default="a,b,c,d")
-    ap.add_argument("--seeds", default="1")
+    ap.add_argument("--backend", choices=sorted(common.GEN_MODELS), default="ollama")
+    ap.add_argument("--env-file", type=Path, default=None,
+                    help="file holding TAVILY_API_KEY / ANTHROPIC_API_KEY (read in-process, never printed)")
+    ap.add_argument("--conditions", default="a,b,d")
+    ap.add_argument("--seeds", default="1", help="replicate indices; not sampling seeds on Anthropic")
     ap.add_argument("--n-frames", type=int, default=30)
     ap.add_argument("--open", action="store_true")
     ap.add_argument("--only", default="")
     ap.add_argument("--force", action="store_true")
-    asyncio.run(main_async(ap.parse_args()))
+    ap.add_argument("--usd-cap", type=float, default=8.0)
+    ap.add_argument("--tavily-cap", type=int, default=common.TAVILY_CREDIT_CAP)
+    ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--canary", action="store_true")
+    ap.add_argument("--admission-control", action="store_true")
+    sys.exit(asyncio.run(main_async(ap.parse_args())))
 
 
 if __name__ == "__main__":

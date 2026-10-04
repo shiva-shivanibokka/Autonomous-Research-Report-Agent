@@ -82,10 +82,12 @@ def main():
     sa.tavily_search = fca.tavily_search = fake_search
     st.scrape_page = fake_scrape
     patched.search = fake_search
-    rc.common.install = lambda: patched
+    rc.common.install = lambda *a, **k: patched
 
     class A:
         conditions, seeds, n_frames, open, only, force = "a,b,c,d", "1", 2, False, "", False
+        backend, env_file, usd_cap, tavily_cap = "ollama", None, 8.0, 600
+        dry_run, canary, admission_control = False, False, False
     asyncio.run(rc.main_async(A))
     recs = {p.parent.name: json.loads(p.read_text(encoding="utf-8")) for p in (rc.RUNS).glob("*/*.json")}
     assert set(recs) == {"closed_book", "search1", "pipeline_r1", "pipeline_r2"}, recs.keys()
