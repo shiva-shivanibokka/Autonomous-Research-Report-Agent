@@ -1,0 +1,7 @@
+# tests/unit/test_llm_client.py::test_compute_cost_sonnet_5_price BEFORE the price fix
+E       assert 18.0 == 12.0 ± 1.2e-05
+E         
+E         comparison failed
+E         Obtained: 18.0
+E         Expected: 12.0 ± 1.2e-05
+1 failed, 10 passed in 6.43s
