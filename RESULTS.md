@@ -177,7 +177,7 @@ implemented in `score.py analyze`:
 
 Do **not** claim any gain over a baseline until §2c has numbers.
 
-## 6. Paid run design (≤ $8 target, $12 hard cap) — prepared, not run
+## 6. Paid run design ($8 hard cap) — prepared, not run
 
 - **Model.** Every pipeline agent and every baseline uses
   `claude-haiku-4-5-20251001` ($1 / $5 per 1M tokens), one model for the whole
@@ -241,32 +241,52 @@ How the two estimates are built:
    single invocation.
    - A run starts only if the remaining budget covers that run's own worst
      case, so $8 can never be crossed and a cut-off design stays paired.
-   - Exit codes: 0 done, 1 canary failed, 2 refused, 3 cap or billing stop,
-     4 admission control stopped early.
+   - Exit codes: 0 done, 1 canary failed, 2 refused (design over the cap, a
+    cap above $8, or another evaluation process holds the lock), 3 cap or
+    billing stop, 4 admission control stopped early.
+  - The canary skips the design-level check (it is one question); every
+    call's own check still applies.
 
 **Guarantees, all tested** against fake clients in `eval_sop/tests/`:
 - **Pending-row ledger.** Before every request attempt, a row is inserted with
   `status='pending'` and cost = that attempt's worst case.
   - A success updates it to the actual `usage` cost.
-  - A provider-guaranteed unbilled rejection (HTTP-level 429/5xx/4xx) sets it
-    to $0.
-  - Every other exit keeps the worst-case charge: mid-stream errors (including
-    status-200 SSE `overloaded_error`, which is retried), raw
-    `httpx.ReadTimeout` / `RemoteProtocolError`, KeyboardInterrupt,
-    cancellation, a crash.
+  - An HTTP-level 429 or 4xx rejection sets it to $0.
+  - Every other exit keeps the worst-case charge, deliberately over-counting:
+    - HTTP-level 5xx/529, labelled `http_<code>` and retried;
+    - mid-stream errors, labelled `stream_error:<type>` and retried; this
+      includes a status-200 SSE `overloaded_error`;
+    - raw transport errors from `httpx` or from `httpx2`, which the SDK uses,
+      such as `ReadTimeout` and `RemoteProtocolError`;
+    - KeyboardInterrupt, cancellation, a crash.
   - Fakes raise both on stream open and inside `get_final_message()`.
 - **Pre-call check.** Money already spent, including pending rows, plus this
-  call's worst case must be ≤ the cap. The check and the pending insert happen
-  with no `await` in between. 20 concurrent calls against a $0.05 cap never
-  exceed it.
+  call's worst case must be ≤ the cap.
+  - The check and the pending insert are one `BEGIN IMMEDIATE` transaction,
+    committed before the request is sent.
+  - 20 concurrent calls against a $0.05 cap, and 4 processes against a $0.50
+    cap, never exceed it.
+  - The cap itself can never be above **$8**: `--usd-cap 12` and
+    `SOP_USD_CAP=12` are refused.
 - **Worst-case input estimate.** max(characters / 2.5, UTF-8 bytes / 3), so
   CJK text is not undercounted.
-- **One ledger per project.** It sits at a fixed path (`eval_sop/ledger/`)
-  that `SOP_OUT_DIR` does not move. A different `SOP_LEDGER_PATH` is refused
-  once that ledger exists. The jsonl export is atomic.
-- **Tavily.** Credits are booked before each search's `await`, failed searches
-  count, and `install()` no longer stacks wrappers. That stacking had charged
-  one search 5 credits in tests.
+- **One ledger and one process per project.**
+  - The USD ledger, the Tavily credit ledger and a run lock live in
+    `%LOCALAPPDATA%\sop_eval\research_report\`, outside every checkout. So
+    the worktree and the main checkout share one ledger, and no setting can
+    point the spend at a fresh file. `SOP_LEDGER_PATH` is gone.
+  - `install()` takes an exclusive lock file for the life of the process. It
+    is released on exit and on Ctrl-C. A second process is refused. A stale
+    lock's error message says how to recover.
+  - The jsonl export is atomic.
+- **Tavily.** Credits are booked atomically (`UPDATE … v=v+?` inside
+  `BEGIN IMMEDIATE`) before each search starts. Failed searches count.
+  `install()` no longer stacks wrappers, which had charged one search 5
+  credits in tests. 4 processes against a cap of 200 book exactly 200; before
+  this fix the round-3 reviewer's script recorded 303 searches.
+- **No bypass.** After `install()`, `llm_client.call_llm`'s raw
+  `anthropic.AsyncAnthropic()` fallback refuses. The model-mismatch check
+  uses the model id the API reports back.
 - **Stops the agents can't swallow.** A cap hit, a billing error, or a
   401/402/403 raises `BudgetStop`. It is a `BaseException`, and a process-wide
   flag backs it up, so the agents' `except Exception` cannot swallow it. The
@@ -294,7 +314,7 @@ An optional `claims_for_optional_human_review.csv` is written by
 ```bash
 # repo deps (Python 3.12): pip install -r requirements.txt -r requirements-dev.txt python-dotenv
 pytest tests -q            # 87 passed (product suite, incl. tests/unit/test_graph_e2e.py)
-pytest eval_sop/tests -q   # 40 passed (harness: fake clients, ledger, caps, scoring policy, stats)
+pytest eval_sop/tests -q   # 63 passed (harness: fake clients, ledger, locks, races, runbook, scoring, stats)
 python -m eval_sop.smoke_test
 # NLI (torch + transformers, models in the HF cache):
 OMP_NUM_THREADS=2 python -m eval_sop.nli_validate          # needs eval_sop/cache/ragtruth/test.parquet
@@ -397,6 +417,40 @@ before/after output is in `eval_sop/evidence/`.
     specificity-transfer caveat, the judge-validation and scraper-bias
     disclosures, a softened claim about the NLI decision rule, and the
     scoring policy.
+
+**Round-3 review fixes.** Each one was first reproduced by a failing test or
+by the reviewer's scripts (`review3/rr/race.py`, `attack3.py`,
+`httpx2_attack.py`); output is in `eval_sop/evidence/`.
+
+18. **Hard maximum $8** (`059bd76`). `hard_max_*`.
+19. **Per-user state directory, run lock, atomic cross-process caps, and
+    list-of-blocks content in the token estimate** (`a8b7a68`).
+    `race_BEFORE`, `attack3_BEFORE`, `list_content_BEFORE`,
+    `state_lock_AFTER`. This is one commit: the state directory, lock and
+    transactions are intertwined. The empty ledger that tests had created
+    inside the worktree was deleted.
+20. **Canary skips the design-level check; the runbook is tested verbatim**
+    (`894b577`). `canary_runbook_*`. pytest's temporary directories now stay
+    out of `%TEMP%`.
+21. **Product CI lint gate kept green** (`90e3235`).
+    - `ruff.toml` excludes `eval_sop/`. This is the only change to product
+      configuration.
+    - Before it, `ruff check .` reported 144 findings and 24 unformatted
+      files, all under `eval_sop/`.
+    - `test_lint.py` runs the gate and checks `eval_sop` for pyflakes and
+      syntax errors. `ci_lint_*`.
+22. **httpx2 transport errors caught** (`df4d8ca`). `httpx2_*`.
+23. **Model mismatch uses the reported model** (`962bd0b`).
+    `model_reported_*`.
+24. **HTTP-level 5xx/529 labelled `http_<code>`, still charged at worst**
+    (`5827806`). `http529_*`. The "before" test asserted $0 at the time; the
+    final rule over-counts on purpose.
+25. **Raw-client fallback blocked** (`7be97d2`). `no_bypass_*`.
+26. **User-profile paths scrubbed from the evidence files** (`ea658cc`).
+    `user_paths_*`. While doing this I reverted my own uncommitted first
+    scrub of one evidence file with `git checkout --`, because its regex had
+    been mangled by shell quoting.
+27. **Docs** (this commit).
 
 **How strong the "fails before the fix" evidence is.**
 - Behavioural reproductions, where the old code ran and gave the wrong
