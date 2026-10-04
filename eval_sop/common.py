@@ -244,50 +244,56 @@ async def _anthropic_generate(model, messages, max_tokens, temperature, agent):
     run = RUN_KEY.get()
     last_exc = None
     for attempt in range(MAX_RETRIES + 1):
+        # precheck + begin run with no await in between, so on one event loop
+        # no other call can slip in; the pending row then holds the worst case.
         worst = LEDGER.precheck(model, messages, max_tokens)
-        LEDGER.reserved += worst
+        row = LEDGER.begin(run=run, agent=agent, model=model, worst=worst)
         t0 = time.perf_counter()
         try:
             # Streaming: the SDK refuses non-streaming requests whose max_tokens
             # implies a >10-minute response (the Writer's retry asks for 24k).
             async with client.messages.stream(**kwargs) as stream:
                 msg = await stream.get_final_message()
-        except anthropic.RateLimitError as e:  # 429: not billed
+        except anthropic.RateLimitError as e:  # HTTP 429 before generation: not billed
             last_exc = e
-            LEDGER.record(run=run, agent=agent, model=model, status="429", cost_usd=0.0)
+            LEDGER.settle(row, status="429", cost_usd=0.0)
             wait = _retry_after(e) or 5.0 * (attempt + 1)
-        except anthropic.APIConnectionError as e:  # incl. timeouts: may have been billed
-            last_exc = e
-            LEDGER.record(
-                run=run, agent=agent, model=model, status="connection_error",
-                cost_usd=worst, note="charged at worst case: billing unknown",
-            )
-            wait = 5.0 * (attempt + 1)
         except anthropic.APIStatusError as e:
             code = getattr(e, "status_code", None)
             etype = getattr(e, "type", None)
             if code in (401, 402, 403) or etype == "billing_error":
-                LEDGER.record(run=run, agent=agent, model=model, status=str(code),
-                              cost_usd=0.0, note=str(etype))
+                LEDGER.settle(row, status=str(code), cost_usd=0.0, note=str(etype))
                 budget.trip(f"Anthropic {code} {etype}: stopping all paid calls")
-            if code is not None and code >= 500:
+            if code == 200 or etype in ("overloaded_error", "api_error"):
+                # An error event inside an accepted stream (HTTP 200), or an
+                # overload / API error: retryable, and possibly billed.
                 last_exc = e
-                LEDGER.record(run=run, agent=agent, model=model, status=str(code), cost_usd=0.0)
+                LEDGER.settle(row, status=f"stream_error:{etype}", cost_usd=worst,
+                              note="charged at worst case: billing unknown")
                 wait = _retry_after(e) or 5.0 * (attempt + 1)
-            else:  # any other 4xx: fail fast
-                LEDGER.record(run=run, agent=agent, model=model, status=str(code),
-                              cost_usd=0.0, note=str(e)[:200])
+            elif code is not None and code >= 500:  # HTTP-level rejection: not billed
+                last_exc = e
+                LEDGER.settle(row, status=str(code), cost_usd=0.0)
+                wait = _retry_after(e) or 5.0 * (attempt + 1)
+            else:  # any other 4xx: rejected, not billed, fail fast
+                LEDGER.settle(row, status=str(code), cost_usd=0.0, note=str(e)[:200])
                 raise TransportError(f"Anthropic {code}: {str(e)[:300]}") from e
+        except (anthropic.APIConnectionError, httpx.TransportError) as e:
+            # Timeouts, dropped / reset connections, protocol errors — before or
+            # during the stream. Billing unknown: keep the worst-case charge.
+            last_exc = e
+            LEDGER.settle(row, status="connection_error", cost_usd=worst,
+                          note=f"charged at worst case: {type(e).__name__}")
+            wait = 5.0 * (attempt + 1)
         else:
             u = msg.usage
             cw = getattr(u, "cache_creation_input_tokens", 0) or 0
             cr = getattr(u, "cache_read_input_tokens", 0) or 0
             cost = budget.call_cost(model, u.input_tokens, u.output_tokens, cw, cr)
-            LEDGER.record(
-                run=run, agent=agent, model=model, status="ok",
+            LEDGER.settle(
+                row, status="ok", cost_usd=cost,
                 input_tokens=u.input_tokens, output_tokens=u.output_tokens,
-                cache_write=cw, cache_read=cr, cost_usd=cost,
-                request_id=getattr(msg, "id", None),
+                cache_write=cw, cache_read=cr, request_id=getattr(msg, "id", None),
             )
             text = "".join(b.text for b in msg.content if getattr(b, "type", None) == "text")
             return {
@@ -299,8 +305,8 @@ async def _anthropic_generate(model, messages, max_tokens, temperature, agent):
                 "finish_reason": "length" if msg.stop_reason == "max_tokens" else msg.stop_reason,
                 "model_reported": getattr(msg, "model", model),
             }
-        finally:
-            LEDGER.reserved -= worst
+        # Anything else (KeyboardInterrupt, CancelledError, an unexpected
+        # exception) propagates with the row still 'pending' at worst case.
         if attempt < MAX_RETRIES:
             await _sleep(wait)
     raise TransportError(f"gave up after {MAX_RETRIES} retries: {str(last_exc)[:300]}")
@@ -404,6 +410,27 @@ class CreditCapReached(budget.BudgetStop):  # noqa: N818
     """Tavily credit cap. A BudgetStop, so the agents' `except Exception` can't swallow it."""
 
 
+CANONICAL_LEDGER = HERE / "ledger" / "usd_ledger.sqlite"
+
+
+def ledger_path() -> Path:
+    """
+    One USD ledger per project, at a fixed path that SOP_OUT_DIR does not move,
+    so pointing the outputs somewhere fresh can never silently reset the spend.
+    SOP_LEDGER_PATH may name another file only while the canonical one does
+    not exist yet.
+    """
+    alt = os.environ.get("SOP_LEDGER_PATH")
+    if not alt or Path(alt).resolve() == CANONICAL_LEDGER.resolve():
+        return CANONICAL_LEDGER
+    if CANONICAL_LEDGER.exists():
+        raise RuntimeError(
+            f"refusing SOP_LEDGER_PATH={alt}: this project's ledger already exists at "
+            f"{CANONICAL_LEDGER}; using another file would reset the recorded spend"
+        )
+    return Path(alt)
+
+
 def install(
     backend: str = "ollama", env_file: Path | None = None, usd_cap: float | None = None
 ):
@@ -415,7 +442,7 @@ def install(
     load_keys(env_file)
     if backend == "anthropic" and LEDGER is None:
         cap = usd_cap if usd_cap is not None else budget.cap_from_env()
-        LEDGER = budget.UsdLedger(OUT_DIR / "ledger" / "usd_ledger.sqlite", cap)
+        LEDGER = budget.UsdLedger(ledger_path(), cap)
     import logging
 
     import structlog

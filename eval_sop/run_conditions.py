@@ -404,7 +404,7 @@ async def main_async(args) -> int:
                         shared = cond == "c" and "d" in conds
                         need = plan.worst_usd(cond, model, shared)
                         need_t = plan.worst_tavily(cond, shared)
-                        if (common.LEDGER.remaining() - common.LEDGER.reserved < need
+                        if (common.LEDGER.remaining() < need
                                 or args.tavily_cap - common.credits_spent() < need_t):
                             print(f"STOP (admission): next run ({cond}) {q['qid']} worst case "
                                   f"${need:.3f} / {need_t} credits does not fit the remaining budget")

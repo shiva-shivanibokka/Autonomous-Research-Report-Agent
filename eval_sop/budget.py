@@ -84,16 +84,23 @@ def worst_call_cost(model: str, messages: list[dict], max_tokens: int) -> float:
 
 
 class UsdLedger:
-    """Append-only sqlite ledger of every paid call (and every uncertain one)."""
+    """
+    sqlite ledger of every paid request, written BEFORE the request is sent.
+
+    Each attempt first inserts a row with status 'pending' and cost = its worst
+    case. Only a successful response UPDATEs the row to the actual cost; an
+    error the provider guarantees is unbilled (HTTP-level 429 / 5xx / 4xx
+    rejection) UPDATEs it to 0. Every other way out — a mid-stream error, a
+    timeout, a dropped connection, KeyboardInterrupt, task cancellation, a
+    crash — leaves the worst-case charge in place. Because pending rows count
+    in spent(), parallel calls also see each other's worst cases.
+    """
 
     def __init__(self, path: Path, cap_usd: float):
         if cap_usd > PROJECT_HARD_MAX_USD:
             raise ValueError(f"cap ${cap_usd} exceeds this project's hard max ${PROJECT_HARD_MAX_USD}")
         self.cap = cap_usd
         self.path = path
-        # Worst case of calls in flight (agents fan out in parallel), so that
-        # concurrent prechecks cannot jointly overshoot the cap.
-        self.reserved = 0.0
         path.parent.mkdir(parents=True, exist_ok=True)
         self.db = sqlite3.connect(path, check_same_thread=False)
         self.db.execute(
@@ -113,12 +120,34 @@ class UsdLedger:
         """Refuse (and trip the stop flag) if the call's worst case could cross the cap."""
         check_stop()
         worst = worst_call_cost(model, messages, max_tokens)
-        if self.spent() + self.reserved + worst > self.cap:
+        if self.spent() + worst > self.cap:
             trip(
-                f"USD cap ${self.cap:.2f} would be exceeded: spent ${self.spent():.4f} + "
-                f"in flight ${self.reserved:.4f} + worst case ${worst:.4f} for the next call"
+                f"USD cap ${self.cap:.2f} would be exceeded: spent incl. pending "
+                f"${self.spent():.4f} + worst case ${worst:.4f} for the next call"
             )
         return worst
+
+    def begin(self, *, run: str, agent: str, model: str, worst: float) -> int:
+        """Insert the pending worst-case row for one request attempt; returns its id."""
+        cur = self.db.execute(
+            "INSERT INTO calls (ts, run, agent, model, status, input_tokens, output_tokens,"
+            " cache_write, cache_read, cost_usd, request_id, note)"
+            " VALUES (?,?,?,?, 'pending', 0, 0, 0, 0, ?, NULL, 'charged at worst case until settled')",
+            (time.strftime("%Y-%m-%dT%H:%M:%S"), run, agent, model, worst),
+        )
+        self.db.commit()
+        return cur.lastrowid
+
+    def settle(self, row_id: int, *, status: str, cost_usd: float, input_tokens: int = 0,
+               output_tokens: int = 0, cache_write: int = 0, cache_read: int = 0,
+               request_id: str | None = None, note: str = "") -> None:
+        self.db.execute(
+            "UPDATE calls SET status=?, cost_usd=?, input_tokens=?, output_tokens=?, cache_write=?,"
+            " cache_read=?, request_id=?, note=? WHERE id=?",
+            (status, cost_usd, input_tokens, output_tokens, cache_write, cache_read, request_id,
+             note, row_id),
+        )
+        self.db.commit()
 
     def record(self, *, run: str, agent: str, model: str, status: str, input_tokens: int = 0,
                output_tokens: int = 0, cache_write: int = 0, cache_read: int = 0,
