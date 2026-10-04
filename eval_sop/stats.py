@@ -111,3 +111,21 @@ def _isnan(x) -> bool:
         return math.isnan(x)
     except TypeError:
         return False
+
+
+def mcnemar_exact(a: dict, b: dict) -> dict:
+    """
+    Exact (binomial) McNemar test on paired binary outcomes keyed by unit.
+    a[k], b[k] in {0, 1}. Returns the discordant counts and a two-sided p.
+    """
+    from scipy.stats import binomtest
+
+    keys = sorted(set(a) & set(b))
+    only_b = sum(1 for k in keys if b[k] and not a[k])  # b right, a wrong
+    only_a = sum(1 for k in keys if a[k] and not b[k])
+    n_disc = only_a + only_b
+    p = binomtest(only_b, n_disc, 0.5).pvalue if n_disc else 1.0
+    return {"n_pairs": len(keys), "b_right_a_wrong": only_b, "a_right_b_wrong": only_a,
+            "p_two_sided_exact": float(p),
+            "acc_a": sum(a[k] for k in keys) / len(keys) if keys else None,
+            "acc_b": sum(b[k] for k in keys) / len(keys) if keys else None}

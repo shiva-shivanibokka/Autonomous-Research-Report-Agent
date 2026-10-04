@@ -352,6 +352,25 @@ def analyze():
             d[m] = stats.paired_diff_ci(by_question(a, m, only_ref), by_question(b, m, only_ref))
         summary["paired_differences"][f"{b} minus {a}"] = d
 
+    # --- Primary test: exact McNemar on per-question correctness, single
+    # replicate (seed 1), intention-to-treat: an errored run counts as wrong.
+    def itt(cond, field, seed=1):
+        out = {}
+        for row in per_run:
+            if row["condition"] != cond or not row["has_ref"] or row["seed"] != seed:
+                continue
+            out[row["qid"]] = 0 if row["error"] else int(bool(row.get(field)))
+        return out
+
+    summary["mcnemar_itt"] = {
+        f"{b} vs {a}": {m: stats.mcnemar_exact(itt(a, m), itt(b, m))
+                        for m in [f"correct_{J1}", f"correct_{J2}", "strict_match"]}
+        for a, b in pairs
+    }
+    summary["mcnemar_itt_note"] = (
+        "errored runs count as incorrect (intention-to-treat); correctness labels are "
+        "local LLM-judge labels except strict_match")
+
     # --- Critic self-report vs computed
     crit = [dict(c, condition=r["condition"], run=r["run"]) for r in per_run for c in r.get("critic_calls", [])]
     def _pair(xk, yk):

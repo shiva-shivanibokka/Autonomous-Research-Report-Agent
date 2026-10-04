@@ -101,6 +101,7 @@ def main():
     assert any(c.get("round") == 0 for c in r2["claims"]), r2["claims"]
     score.analyze()
     summ = json.loads((score.RES / "summary.json").read_text(encoding="utf-8"))
+    assert "mcnemar_itt" in summ
     cv = summ["critic_vs_computed"]
     assert cv["n_critic_calls"] >= 3, cv
     print("SMOKE OK", TMP)
