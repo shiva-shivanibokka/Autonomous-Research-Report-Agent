@@ -273,16 +273,20 @@ async def _anthropic_generate(model, messages, max_tokens, temperature, agent):
             if code in (401, 402, 403) or etype == "billing_error":
                 LEDGER.settle(row, status=str(code), cost_usd=0.0, note=str(etype))
                 budget.trip(f"Anthropic {code} {etype}: stopping all paid calls")
-            if code == 200 or etype in ("overloaded_error", "api_error"):
-                # An error event inside an accepted stream (HTTP 200), or an
-                # overload / API error: retryable, and possibly billed.
+            if code == 200 or code is None:
+                # An error event inside an accepted stream (HTTP 200), e.g. an
+                # SSE overloaded_error / api_error: retryable, possibly billed.
                 last_exc = e
                 LEDGER.settle(row, status=f"stream_error:{etype}", cost_usd=worst,
                               note="charged at worst case: billing unknown")
                 wait = _retry_after(e) or 5.0 * (attempt + 1)
-            elif code is not None and code >= 500:  # HTTP-level rejection: not billed
+            elif code >= 500:
+                # HTTP-level 500/529 etc.: labelled as such (not as a stream
+                # error). Normally rejected before generation, but still charged
+                # at worst case: over-counting is the safe side of a hard cap.
                 last_exc = e
-                LEDGER.settle(row, status=str(code), cost_usd=0.0)
+                LEDGER.settle(row, status=f"http_{code}", cost_usd=worst,
+                              note=f"{etype}; charged at worst case (conservative)")
                 wait = _retry_after(e) or 5.0 * (attempt + 1)
             else:  # any other 4xx: rejected, not billed, fail fast
                 LEDGER.settle(row, status=str(code), cost_usd=0.0, note=str(e)[:200])

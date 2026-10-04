@@ -155,3 +155,26 @@ def test_resetting_out_dir_cannot_reset_spend(tmp_path, monkeypatch):
     p1 = common.ledger_path()
     monkeypatch.setattr(common, "OUT_DIR", tmp_path / "elsewhere")
     assert common.ledger_path() == p1
+
+
+def test_http_level_529_is_classified_as_an_http_rejection(ledger):
+    """attack3 #4: an HTTP 529 (not a stream event) is a rejection before generation."""
+    err = anthropic.APIStatusError("overloaded", response=httpx.Response(529, request=REQ),
+                                   body={"type": "error", "error": {"type": "overloaded_error"}})
+
+    class Open:  # raised when the stream is opened, as an HTTP-level error is
+        def __init__(self):
+            self.n = 0
+            self.messages = SimpleNamespace(stream=self._stream)
+
+        def _stream(self, **kw):
+            self.n += 1
+            if self.n == 1:
+                raise err
+            return _MidStream(_msg())
+
+    common.set_anthropic_client(Open())
+    asyncio.run(_call())
+    rows = _rows(ledger)
+    assert rows[0][0] == "http_529" and rows[1][0] == "ok"
+    assert rows[0][1] == pytest.approx(_worst())  # over-counted on purpose (hard cap)
