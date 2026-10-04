@@ -392,7 +392,10 @@ async def chat(
         tel.llm_calls.append(
             {
                 "agent": agent,
-                "model": model,
+                # What the provider says it served (Anthropic echoes the model
+                # id); the run's model-mismatch check compares this.
+                "model": hit.get("model_reported") or model,
+                "model_requested": model,
                 "input_tokens": hit["input_tokens"],
                 "output_tokens": hit["output_tokens"],
                 "seconds": hit["seconds"],
