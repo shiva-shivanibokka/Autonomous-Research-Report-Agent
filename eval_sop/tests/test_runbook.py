@@ -7,7 +7,6 @@ search/pages and a fake correctness judge. No network, no key.
 
 from __future__ import annotations
 
-import re
 import shlex
 import sys
 from pathlib import Path
@@ -33,9 +32,6 @@ def runbook_commands() -> list[list[str]]:
 
 @pytest.fixture
 def fake_world(tmp_path, monkeypatch):
-    import agents.fact_checker_agent as fca
-    import agents.search_agent as sa
-    import agents.tools.scraper_tool as st
     from agents.schemas import ScrapedPage, SearchResult
 
     env = tmp_path / "keys.env"

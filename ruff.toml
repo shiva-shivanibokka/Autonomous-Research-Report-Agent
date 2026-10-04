@@ -6,6 +6,10 @@
 
 target-version = "py311"
 line-length = 88
+# Evaluation tooling (SOP eval branch) is not product code and is not held to
+# the product style gate; eval_sop/tests/test_lint.py keeps it free of real
+# errors (pyflakes / syntax) instead.
+extend-exclude = ["eval_sop"]
 
 [lint]
 select = [
