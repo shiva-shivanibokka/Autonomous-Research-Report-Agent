@@ -1,0 +1,5 @@
+# review3/rr/race.py run at 059bd76 (before the state-dir/lock/atomic fixes)
+USD nproc=1 cap=0.5 spent=0.49518 rows=98 pending=0 overshoot=-0.00482 
+USD nproc=4 cap=0.5 spent=0.50021 rows=99 pending=0 overshoot=+0.00021 
+TAVILY nproc=1 cap=200 recorded=200 actual_searches=200 
+TAVILY nproc=4 cap=200 recorded=200 actual_searches=303 

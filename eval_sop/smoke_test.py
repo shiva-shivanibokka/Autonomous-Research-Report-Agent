@@ -25,6 +25,8 @@ os.environ["SOP_OUT_DIR"] = TMP
 
 from eval_sop import common  # noqa: E402
 
+common.STATE_DIR = Path(TMP) / "state"  # never the real per-user ledgers or lock
+
 CRITIC_CALLS = [0]
 
 

@@ -368,7 +368,7 @@ async def _run_canary(args, patched, conds) -> int:
 async def main_async(args) -> int:
     try:
         patched = common.install(args.backend, args.env_file, args.usd_cap)
-    except ValueError as e:  # e.g. a cap above the project's hard maximum
+    except (ValueError, budget.EvalLocked) as e:  # cap above the hard max; another run active
         print(f"REFUSED: {e}")
         return 2
     common.TAVILY_CREDIT_CAP = args.tavily_cap
@@ -440,7 +440,7 @@ async def main_async(args) -> int:
         return 3
     finally:
         if common.LEDGER:
-            common.LEDGER.export_jsonl(common.LEDGER.path.with_suffix(".jsonl"))
+            common.LEDGER.export_jsonl(common.OUT_DIR / "results" / "usd_ledger.jsonl")
     return 0
 
 

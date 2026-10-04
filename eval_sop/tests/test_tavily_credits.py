@@ -20,12 +20,12 @@ class SlowTavily:
 
 
 @pytest.fixture
-def tavily(monkeypatch):
+def tavily(monkeypatch, tmp_path):
+    monkeypatch.setattr(common, "STATE_DIR", tmp_path / "state")  # fresh credit ledger
     patched = common.install()
     import agents.tools.search_tool as st
 
     common._tavily_cache.db.execute("DELETE FROM kv")
-    common._ledger.put("spent", 0)
     monkeypatch.setattr(common, "TAVILY_CREDIT_CAP", 2)
     return patched, st, monkeypatch
 

@@ -244,10 +244,10 @@ async def _anthropic_generate(model, messages, max_tokens, temperature, agent):
     run = RUN_KEY.get()
     last_exc = None
     for attempt in range(MAX_RETRIES + 1):
-        # precheck + begin run with no await in between, so on one event loop
-        # no other call can slip in; the pending row then holds the worst case.
-        worst = LEDGER.precheck(model, messages, max_tokens)
-        row = LEDGER.begin(run=run, agent=agent, model=model, worst=worst)
+        # Cap check + pending worst-case row in one transaction, committed
+        # before the request is sent (see budget.UsdLedger.reserve).
+        worst, row = LEDGER.reserve(model=model, messages=messages, max_tokens=max_tokens,
+                                    run=run, agent=agent)
         t0 = time.perf_counter()
         try:
             # Streaming: the SDK refuses non-streaming requests whose max_tokens
@@ -399,11 +399,10 @@ async def chat(
 # Tavily with cache + hard credit cap
 # ---------------------------------------------------------------------------
 _tavily_cache = KV("tavily")
-_ledger = KV("tavily_ledger")
 
 
 def credits_spent() -> int:
-    return _ledger.get("spent") or 0
+    return _credit_ledger().spent()
 
 
 class CreditCapReached(budget.BudgetStop):  # noqa: N818
@@ -411,25 +410,29 @@ class CreditCapReached(budget.BudgetStop):  # noqa: N818
 
 
 _ORIGINALS: dict = {}
-CANONICAL_LEDGER = HERE / "ledger" / "usd_ledger.sqlite"
+STATE_DIR = budget.default_state_dir()  # tests monkeypatch this
+_LOCKS: dict[Path, budget.ProcessLock] = {}
+_CREDITS: dict[Path, budget.CreditLedger] = {}
 
 
 def ledger_path() -> Path:
-    """
-    One USD ledger per project, at a fixed path that SOP_OUT_DIR does not move,
-    so pointing the outputs somewhere fresh can never silently reset the spend.
-    SOP_LEDGER_PATH may name another file only while the canonical one does
-    not exist yet.
-    """
-    alt = os.environ.get("SOP_LEDGER_PATH")
-    if not alt or Path(alt).resolve() == CANONICAL_LEDGER.resolve():
-        return CANONICAL_LEDGER
-    if CANONICAL_LEDGER.exists():
-        raise RuntimeError(
-            f"refusing SOP_LEDGER_PATH={alt}: this project's ledger already exists at "
-            f"{CANONICAL_LEDGER}; using another file would reset the recorded spend"
-        )
-    return Path(alt)
+    """The project's one USD ledger, outside any checkout (see budget.default_state_dir)."""
+    return STATE_DIR / "usd_ledger.sqlite"
+
+
+def tavily_ledger_path() -> Path:
+    return STATE_DIR / "tavily_credits.sqlite"
+
+
+def lock_path() -> Path:
+    return STATE_DIR / "run.lock"
+
+
+def _credit_ledger() -> budget.CreditLedger:
+    path = tavily_ledger_path()
+    if path not in _CREDITS:
+        _CREDITS[path] = budget.CreditLedger(path)
+    return _CREDITS[path]
 
 
 def install(
@@ -440,6 +443,12 @@ def install(
     if backend not in GEN_MODELS:
         raise ValueError(f"backend must be one of {sorted(GEN_MODELS)}")
     BACKEND, GEN_MODEL = backend, GEN_MODELS[backend]
+    # One spending process per project at a time (USD and Tavily ledgers are
+    # shared by every checkout); held until this process exits.
+    lp = lock_path()
+    if lp not in _LOCKS:
+        _LOCKS[lp] = budget.ProcessLock(lp)
+    _LOCKS[lp].acquire()
     load_keys(env_file)
     if backend == "anthropic" and LEDGER is None:
         cap = usd_cap if usd_cap is not None else budget.cap_from_env()
@@ -507,14 +516,13 @@ def install(
         cached = hit is not None
         if not cached:
             budget.check_stop()
-            if credits_spent() + credits > TAVILY_CREDIT_CAP:
+            # Book the credits atomically (one BEGIN IMMEDIATE transaction, so
+            # parallel searches and other processes see each other) and BEFORE
+            # awaiting; a failed search still counts (conservative).
+            if not _credit_ledger().reserve(credits, TAVILY_CREDIT_CAP):
                 msg = f"Tavily credit cap {TAVILY_CREDIT_CAP} reached"
                 budget.STOP["reason"] = msg
                 raise CreditCapReached(msg)
-            # Charge the credits BEFORE awaiting: parallel searches then see each
-            # other's spend, and a failed search still counts (whether Tavily
-            # bills it or not, the conservative answer is yes).
-            _ledger.put("spent", credits_spent() + credits)
             results = await orig_search(
                 query, max_results=max_results, search_depth=depth, **kw
             )

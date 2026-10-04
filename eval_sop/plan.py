@@ -12,7 +12,7 @@ these stated assumptions, which the code does not enforce:
 Input characters are converted at 2.5 chars/token (Claude averages ~3.5-4 on
 English), and every call is assumed to use its full max_tokens. Even if an
 assumption is broken at run time, the USD ledger still refuses any call whose
-own worst case would cross the cap (budget.UsdLedger.precheck).
+own worst case would cross the cap (budget.UsdLedger.reserve).
 
 EXPECTED is a rough estimate: the repo's recorded showcase run (2 rounds,
 78,591 tokens; tokens_by_agent from frontend/public/demo/run.json) repriced at

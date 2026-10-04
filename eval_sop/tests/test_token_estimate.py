@@ -8,3 +8,9 @@ def test_cjk_input_is_not_undercounted():
 
 def test_english_estimate_unchanged():
     assert budget.worst_input_tokens([{"content": "a" * 2500}]) == 1000 + 50
+
+
+def test_list_content_blocks_are_counted():
+    """attack3 #9: content given as a list of blocks used to crash the estimate."""
+    w = budget.worst_input_tokens([{"role": "user", "content": [{"type": "text", "text": "a" * 1000}]}])
+    assert w == 400 + 50

@@ -9,6 +9,12 @@ _ROOT.mkdir(parents=True, exist_ok=True)
 os.environ["SOP_OUT_DIR"] = tempfile.mkdtemp(prefix="t_", dir=_ROOT)
 os.environ.setdefault("TAVILY_API_KEY", "tvly-test-not-a-real-key")
 
+# The real state directory (ledgers + run lock) lives under %LOCALAPPDATA%;
+# tests must never touch it.
+from eval_sop import common  # noqa: E402
+
+common.STATE_DIR = Path(os.environ["SOP_OUT_DIR"]) / "state"
+
 import pytest  # noqa: E402
 
 

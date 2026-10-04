@@ -11,7 +11,9 @@ from eval_sop.tests.test_anthropic_budget import FakeAnthropic, _args, paid  # n
 def test_export_jsonl_is_atomic(tmp_path, monkeypatch):
     led = budget.UsdLedger(tmp_path / "l.sqlite", 1.0)
     for i in range(3):
-        led.settle(led.begin(run="r", agent="a", model="m", worst=0.001), status="ok", cost_usd=0.001)
+        _, row = led.reserve(model="claude-haiku-4-5-20251001", messages=[{"role": "user", "content": "x"}],
+                             max_tokens=10, run="r", agent="a")
+        led.settle(row, status="ok", cost_usd=0.001)
     out = tmp_path / "l.jsonl"
     out.write_text("PREVIOUS EXPORT\n", encoding="utf-8")
     calls = {"n": 0}
