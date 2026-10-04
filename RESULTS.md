@@ -321,7 +321,7 @@ An optional `claims_for_optional_human_review.csv` is written by
 ```bash
 # repo deps (Python 3.12): pip install -r requirements.txt -r requirements-dev.txt python-dotenv
 pytest tests -q            # 87 passed  (product suite, incl. tests/unit/test_graph_e2e.py)
-pytest eval_sop/tests -q   # 77 passed  (harness: fake clients, ledger, locks, races, runbook, scoring, stats)
+pytest eval_sop/tests -q   # 75 passed (77 with anthropic 1.x / httpx2 installed)
 python -m eval_sop.smoke_test
 # NLI (torch + transformers, models in the HF cache):
 OMP_NUM_THREADS=2 python -m eval_sop.nli_validate          # needs eval_sop/cache/ragtruth/test.parquet
@@ -338,12 +338,20 @@ sits outside the repository. Never in the repo's `.env`, and never exported
 into the environment. Nothing here prints keys. The reason is that other code
 in this repository spends without any ledger, cap or lock:
 `scripts/record_demo_run.py` runs the real pipeline on `claude-sonnet-4-5`
-($3/$15), and `api/main.py` / `api/worker.py` fall back to a server-side
-`ANTHROPIC_API_KEY`. Only `eval_sop/` meters spending. `record_demo_run.py`
-now refuses to start without `--i-want-to-spend-real-money`, so an exported
-key cannot be spent by simply running it, but the API server has no such
-guard. Only one evaluation process can run at a time (a
-lock under `%LOCALAPPDATA%\sop_eval\research_report\`).
+($3/$15), and a job that reaches `api/worker.py` without a key lets the
+pipeline's own client read `ANTHROPIC_API_KEY` from the environment. Only
+`eval_sop/` meters spending.
+
+Both paths are gated by default, so spending an exported key takes two
+deliberate acts:
+- `record_demo_run.py` refuses without `--i-want-to-spend-real-money`.
+- The API rejects a keyless request with HTTP 400 unless
+  `ALLOW_SERVER_KEY_FALLBACK` is explicitly set (`api/main.py:83`, enforced at
+  `api/main.py:236`); it is off when unset. The residual risk is exporting the
+  key *and* opting in — or enqueuing a Celery job directly, bypassing the API.
+  No further guard is needed.
+
+Only one evaluation process can run at a time (a lock under `%LOCALAPPDATA%\sop_eval\research_report\`).
 
 <!-- runbook -->
 ```bash
@@ -516,8 +524,16 @@ output is in `eval_sop/evidence/`.
 32. **Exit-code collision** (`17afb22`): a corrupt ledger escaped as exit 1,
     which the runbook documents as "canary failed". Any failure to start is
     now 2.
-33. **Docs** (this commit): the test counts above come from an actual run on
-    this branch (87 product, 77 harness).
+33. **Docs**: the test counts in section 8 come from an actual run on this
+    branch — 87 product, and 75 harness (77 where anthropic 1.x brings
+    `httpx2`, which adds the two `[httpx2]` parametrisations of the
+    mid-stream tests).
+34. **Docs** (this commit), after re-verifying both on this machine:
+    - the harness count, which had been reported from an environment that has
+      `httpx2`, contradicting entry 30's reference environment;
+    - the claim that the API server was ungated. It is gated by default:
+      `ALLOW_SERVER_KEY_FALLBACK` is off unless set, and a keyless request is
+      refused with HTTP 400.
 
 **Round-4 items I did not take.** Both are unreachable today and the reviewer
 left them optional.
