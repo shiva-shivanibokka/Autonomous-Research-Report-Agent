@@ -86,3 +86,16 @@ def test_run_with_fatal_pipeline_error_is_marked_errored(monkeypatch):
     rec = asyncio.run(rc.run_one("d", q, 1, patched))
     assert rec["pipeline"]["fatal_error"], "precondition: writer failure is fatal"
     assert rec["error"], "a run whose pipeline set fatal_error was recorded as a success"
+
+
+def test_keys_come_from_the_env_file_given_on_the_command_line(tmp_path, monkeypatch):
+    f = tmp_path / "keys.env"
+    f.write_text("ANTHROPIC_API_KEY=sk-ant-test-123\nTAVILY_API_KEY=tvly-from-file\n", encoding="utf-8")
+    monkeypatch.delenv("TAVILY_API_KEY", raising=False)
+    monkeypatch.setattr(common, "_ANTHROPIC_KEY", None)
+    common.load_keys(f)
+    import os
+
+    assert os.environ["TAVILY_API_KEY"] == "tvly-from-file"
+    assert common._ANTHROPIC_KEY == "sk-ant-test-123"
+    assert not hasattr(common, "ORIGINAL_ENV")  # no hardcoded path to another repo's .env
