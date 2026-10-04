@@ -28,6 +28,8 @@ Without --admission-control a design whose worst case exceeds the USD cap (or
 the Tavily cap) is refused. With it, runs go question by question and a run
 starts only if the remaining budget covers that run's own worst case, so the
 cap can never be crossed and a partially completed design stays paired.
+Exit codes: 0 done, 1 canary failed, 2 refused by the dry-run check,
+3 a hard cap or billing stop fired, 4 admission control stopped the design early.
 """
 
 from __future__ import annotations
@@ -417,7 +419,7 @@ async def main_async(args) -> int:
                                 or args.tavily_cap - common.credits_spent() < need_t):
                             print(f"STOP (admission): next run ({cond}) {q['qid']} worst case "
                                   f"${need:.3f} / {need_t} credits does not fit the remaining budget")
-                            return 0
+                            return 4  # non-zero: the planned design did not complete
                     path.parent.mkdir(parents=True, exist_ok=True)
                     print(f"[{time.strftime('%H:%M:%S')}] {COND_NAMES[cond]} {q['qid']} seed={seed} "
                           f"usd_spent={common.LEDGER.spent() if paid else 0:.4f} "

@@ -166,10 +166,17 @@ class UsdLedger:
         self.db.commit()
 
     def export_jsonl(self, out: Path) -> None:
+        """Write to a temp file, then os.replace: the export is never half-written."""
         cols = [d[0] for d in self.db.execute("SELECT * FROM calls LIMIT 0").description]
-        with open(out, "w", encoding="utf-8") as f:
-            for row in self.db.execute("SELECT * FROM calls ORDER BY id"):
-                f.write(json.dumps(dict(zip(cols, row))) + "\n")
+        tmp = out.with_name(out.name + ".tmp")
+        try:
+            with open(tmp, "w", encoding="utf-8") as f:
+                for row in self.db.execute("SELECT * FROM calls ORDER BY id"):
+                    f.write(json.dumps(dict(zip(cols, row))) + "\n")
+            os.replace(tmp, out)
+        finally:
+            if tmp.exists():
+                tmp.unlink()
 
 
 def cap_from_env(default: float = 8.0) -> float:

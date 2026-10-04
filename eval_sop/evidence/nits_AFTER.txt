@@ -1,9 +1,2 @@
-# after
-E       assert '{"id": 1, "t..."note": ""}\n' == 'PREVIOUS EXPORT\n'
-E         
-E         - PREVIOUS EXPORT
-E         + {"id": 1, "ts": "2026-10-04T09:43:52", "run": "r", "agent": "a", "model": "m", "status": "ok", "input_tokens": 0, "output_tokens": 0, "cache_write": 0, "cache_read": 0, "cost_usd": 0.001, "request_id": null, "note": ""}
-E       assert 0 != 0
-FAILED eval_sop/tests/test_nits.py::test_export_jsonl_is_atomic - assert '{"i...
-FAILED eval_sop/tests/test_nits.py::test_admission_stop_exits_non_zero - asse...
-2 failed, 125 passed, 4 warnings in 13.61s
+# after (fix commit following 3126752)
+2 passed in 4.92s
