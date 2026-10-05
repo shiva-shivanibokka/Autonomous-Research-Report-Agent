@@ -236,10 +236,15 @@ docker compose up --build
 
 ## Testing
 
+`requirements.txt` alone does not contain `pytest`. Install the dev file too, or
+nothing below will run:
+
 ```bash
+pip install -r requirements.txt -r requirements-dev.txt
 pytest tests/unit          # pure logic: cost math, provider routing, JSON extraction, schemas
 pytest tests/integration   # the API via TestClient — in-process store, no database, no keys
 pytest                     # both (87 tests)
+pytest eval_sop/tests      # the evaluation harness (102 tests, or 104 if the optional httpx2 is installed)
 ```
 
 Neither suite needs a network, a database or an API key, so CI runs the whole

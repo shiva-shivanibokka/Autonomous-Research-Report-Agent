@@ -113,7 +113,13 @@ def default_state_dir() -> Path:
     routinely set per-process, and moving it moved both the ledger — a fresh $0
     total, so the canary's spend was forgotten and the next run got the whole
     cap again — and the run lock beside it, letting two paid runs overlap.
-    There is deliberately no environment-variable override.
+    There is deliberately no override variable of our own. One caveat, stated
+    rather than glossed: `Path.home()` on Windows reads `USERPROFILE`, so that
+    one variable does still move this path. It is not the hole `LOCALAPPDATA`
+    was -- the OS sets `USERPROFILE` at logon and redirecting it breaks the whole
+    session, whereas tools set `LOCALAPPDATA` per process as a matter of course.
+    Verified: `LOCALAPPDATA`, `APPDATA`, `XDG_STATE_HOME`, `HOME`, `HOMEDRIVE`,
+    `HOMEPATH`, `TEMP` and `TMP` all leave it unmoved, individually and together.
     """
     return Path.home() / ".sop_eval" / "research_report"
 

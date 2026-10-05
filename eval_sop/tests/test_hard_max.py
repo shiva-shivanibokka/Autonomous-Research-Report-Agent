@@ -56,3 +56,44 @@ def test_corrupt_ledger_exits_2_not_1(tmp_path, monkeypatch):
     monkeypatch.setattr(common, "STATE_DIR", state)
     monkeypatch.setattr(common, "LEDGER", None)
     assert asyncio.run(rc.main_async(_args(n_frames=1))) == 2
+
+
+# --------------------------------------------------------------- round-5: the credit cap needs the same hard max
+#
+# The USD cap is hardened at four layers. The Tavily credit cap had none: it was
+# `int(os.environ.get("SOP_TAVILY_CAP", "600"))`, so the environment could raise
+# it without limit, and `--tavily-cap` took any int argparse would parse --
+# including negative values, which make every headroom comparison nonsense.
+# Credits are a paid resource on a shared key, so an unbounded cap is a real
+# spend risk, not a tidiness issue.
+def test_credit_cap_hard_max_exists_and_600_is_the_default():
+    assert common.PROJECT_HARD_MAX_CREDITS == 600
+    assert common.TAVILY_CREDIT_CAP <= common.PROJECT_HARD_MAX_CREDITS
+
+
+@pytest.mark.parametrize("bad", ["601", "999999", "0", "-5", "-1", "nan", "inf", "", "abc", "1e9"])
+def test_env_credit_cap_above_the_max_or_not_a_positive_int_is_refused(bad, monkeypatch):
+    monkeypatch.setenv("SOP_TAVILY_CAP", bad)
+    with pytest.raises(ValueError):
+        common.credit_cap_from_env()
+
+
+@pytest.mark.parametrize("good,expected", [("600", 600), ("1", 1), ("599", 599)])
+def test_env_credit_cap_may_only_lower_it(good, expected, monkeypatch):
+    monkeypatch.setenv("SOP_TAVILY_CAP", good)
+    assert common.credit_cap_from_env() == expected
+
+
+@pytest.mark.parametrize("bad", [601, 999999, 0, -5, float("nan"), float("inf")])
+def test_check_credit_cap_refuses_bad_values(bad):
+    with pytest.raises(ValueError):
+        common.check_credit_cap(bad)
+
+
+@pytest.mark.parametrize("bad", [601, 999999, 0, -5])
+def test_cli_tavily_cap_above_the_max_is_refused_before_anything_installs(bad, monkeypatch):
+    from eval_sop import run_conditions as rc
+
+    monkeypatch.setattr(common, "LEDGER", None)
+    code = asyncio.run(rc.main_async(_args(tavily_cap=bad, n_frames=1)))
+    assert code == 2

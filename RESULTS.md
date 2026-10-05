@@ -229,9 +229,13 @@ unconditional worst case of **$27.16** against a **$8** cap (and 810 Tavily
 credits against 600). Admission control does not shrink that number; it only
 refuses to start a question whose own worst case would cross the remaining
 headroom. So the guarantee is one-sided: **$8 is never exceeded, but the run is
-not guaranteed to finish.** If calls bill near their worst case throughout, the
-run stops partway and exits 4 with a partial, still-paired result set, and the
-remaining questions are simply not run. Completing all four conditions × 30
+not guaranteed to finish.** Which of the two safe things happens depends on the
+flag, and an earlier version of this paragraph named only the less likely one.
+**Without** `--admission-control` the design check refuses to start at all: exit
+**2**, nothing spent — measured, `REFUSED` on both the $27.16 and the 810-credit
+bound. **With** it, the run starts and stops partway if calls bill near their
+worst case throughout, exiting **4** with a partial, still-paired result set, and
+the remaining questions are simply not run. Completing all four conditions × 30
 questions depends on actual billing coming in near the expected **$5.71**, as
 it did in the showcase run; it is an expectation, not a bound. Budget for
 re-running the remainder under a second cap rather than treating exit 4 as a
@@ -682,8 +686,11 @@ code blocker was reproduced by a failing test first.
     `tests/unit` + 17 in `tests/integration`, counted on this branch).
 40. **The `$8` cap bounds spend, not completion.** Section 6 now states
     plainly that the documented `(a, b, c, d) × 30` design is $27.16 worst
-    case (and 810 Tavily credits against 600), so at worst case the run exits
-    4 partway instead of finishing; expected cost is $5.71.
+    case (and 810 Tavily credits against 600), so it cannot be guaranteed to
+    finish; expected cost is $5.71. An independent check corrected the exit
+    code: without `--admission-control` the design is refused before anything
+    is spent (**exit 2**), and only with it does the run stop partway (**exit
+    4**). Both are safe; the original text named only the second.
 41. **Smaller corrections.**
     - `budget.check_cap`'s docstring claimed it was used as argparse's
       `type`. It is not: the CLI uses plain `float`
@@ -700,6 +707,38 @@ code blocker was reproduced by a failing test first.
       what a deployer should do instead. Entry 31 above predates entry 34's
       correction that `api/main.py` *is* gated by default; only the worker is
       not.
+
+42. **The Tavily credit cap is now a project hard maximum too — a spend hole an
+    independent check found after the round-5 state-dir work.** The USD cap was
+    hardened at four layers; the credit cap had none. `TAVILY_CREDIT_CAP` was a
+    bare `int(os.environ.get("SOP_TAVILY_CAP", "600"))`, so **`SOP_TAVILY_CAP`
+    could raise it without limit** (measured: 999999 accepted, and
+    `--tavily-cap 999999` printed `dry run OK`), and `--tavily-cap -5` was
+    accepted unvalidated, which makes every headroom comparison meaningless.
+    Credits are a paid resource on a key that may be shared with other
+    projects, so this is a real exposure, not untidiness. `common.check_credit_cap`
+    and `common.credit_cap_from_env` now mirror `budget.check_cap` /
+    `cap_from_env` exactly, with `PROJECT_HARD_MAX_CREDITS = 600`; the env var
+    and `--tavily-cap` may only **lower** it, and `run_conditions.py` validates
+    the parsed value *before* `common.install`, so a bad cap is exit 2 with its
+    reason. An empty `SOP_TAVILY_CAP` is refused rather than silently treated as
+    600, matching the USD path. Failing tests first: 22 new cases in
+    `test_hard_max.py` across `check_credit_cap`, `credit_cap_from_env` and a
+    CLI run, covering 601, 999999, 0, -5, -1, nan, inf, the empty string, `abc`
+    and `1e9`. `eval_sop/tests` 80 → 102.
+43. **`default_state_dir`'s docstring was overstated.** It said "There is
+    deliberately no environment-variable override." `Path.home()` on Windows
+    reads `USERPROFILE`, so that one variable does move the path. Stated
+    explicitly now rather than glossed, with the honest judgement that it is not
+    the hole `LOCALAPPDATA` was: the OS sets `USERPROFILE` at logon and
+    redirecting it breaks the whole session, whereas tools set `LOCALAPPDATA`
+    per process routinely. Eight other variables were measured as leaving the
+    path unmoved, individually and all at once. The substance of the round-5 fix
+    holds; the absolute wording did not.
+44. **README's install line was insufficient.** The Testing section documented
+    `pip install -r requirements.txt`, which does not contain `pytest`, so the
+    documented route could not run the documented tests. It now installs
+    `requirements-dev.txt` as well and names the harness suite's count.
 
 **Round-4 items I did not take.** Both are unreachable today and the reviewer
 left them optional.

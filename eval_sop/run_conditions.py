@@ -371,6 +371,10 @@ async def main_async(args) -> int:
         # Validated here as well as in the ledger, so a bad cap is refused with
         # its reason and exit 2 even on the local backend (which has no ledger).
         budget.check_cap(args.usd_cap)
+        # Same for the credit cap: 600 is a hard max, and --tavily-cap may only
+        # lower it. Checked before install() so a bad value is exit 2 with its
+        # reason, not an unbounded cap assigned a few lines below.
+        args.tavily_cap = common.check_credit_cap(args.tavily_cap)
         patched = common.install(args.backend, args.env_file, args.usd_cap)
     # Anything that stops us before the first call is "refused to start" (2):
     # an invalid cap, another live run, or a ledger we cannot read — a corrupt

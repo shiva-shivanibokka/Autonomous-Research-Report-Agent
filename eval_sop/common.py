@@ -32,6 +32,7 @@ import asyncio
 import contextvars
 import hashlib
 import json
+import math
 import os
 import sqlite3
 import time
@@ -68,7 +69,41 @@ JUDGE_NUM_CTX = 8192
 # Hard ceiling on Tavily credits this evaluation may spend. The free tier is
 # 1000/month and may be shared with other projects using the same key, so this
 # stays well below it; check headroom first with eval_sop/tavily_usage.py.
-TAVILY_CREDIT_CAP = int(os.environ.get("SOP_TAVILY_CAP", "600"))
+#
+# 600 is a project hard maximum, not a default: SOP_TAVILY_CAP and --tavily-cap
+# may only LOWER it. This used to be a bare `int(os.environ.get(...))`, so the
+# environment could raise the cap without limit and `--tavily-cap -5` was
+# accepted unvalidated, which makes every headroom comparison meaningless.
+# Credits are a paid resource on a key that may be shared with other projects,
+# so the credit cap gets the same four-layer treatment as the USD cap.
+PROJECT_HARD_MAX_CREDITS = 600
+
+
+def check_credit_cap(cap_credits) -> int:
+    """
+    A credit cap must be a positive whole number no greater than the project max.
+    Mirrors budget.check_cap, and is a function for the same reason: `nan` fails
+    every comparison, so a bare `cap > MAX` guard would let it through and then
+    every later `spent + need > cap` would be False too -- no cap at all.
+    """
+    value = float(cap_credits)
+    if not math.isfinite(value) or value <= 0 or value != int(value):
+        raise ValueError(f"credit cap {cap_credits!r} must be a positive whole number of credits")
+    value = int(value)
+    if value > PROJECT_HARD_MAX_CREDITS:
+        raise ValueError(
+            f"credit cap {value} exceeds this project's hard max {PROJECT_HARD_MAX_CREDITS}")
+    return value
+
+
+def credit_cap_from_env(default: int = PROJECT_HARD_MAX_CREDITS) -> int:
+    # `get(name, default)`, not `get(name) or default`: an empty SOP_TAVILY_CAP is
+    # a scripting mistake, and it is refused rather than silently treated as 600.
+    # budget.cap_from_env behaves the same way for SOP_USD_CAP.
+    return check_credit_cap(os.environ.get("SOP_TAVILY_CAP", default))
+
+
+TAVILY_CREDIT_CAP = credit_cap_from_env()
 
 _ANTHROPIC_KEY: str | None = None
 
