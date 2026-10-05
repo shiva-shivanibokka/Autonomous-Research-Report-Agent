@@ -725,7 +725,18 @@ code blocker was reproduced by a failing test first.
     600, matching the USD path. Failing tests first: 22 new cases in
     `test_hard_max.py` across `check_credit_cap`, `credit_cap_from_env` and a
     CLI run, covering 601, 999999, 0, -5, -1, nan, inf, the empty string, `abc`
-    and `1e9`. `eval_sop/tests` 80 → 102.
+    and `1e9`. `eval_sop/tests` 80 → **104** (24 new cases, not the 22 first
+    claimed). Two of them, the CLI `0` and `-5` cases, originally asserted only
+    `code == 2` and **passed on the unfixed code as well** -- the old path also
+    returned 2, from the downstream headroom check: the right exit for the wrong
+    reason. An independent check caught it. They now spy on `common.install` to
+    assert it is never reached and match the refusal message, and all four CLI
+    cases fail on the reverted code. `httpx2` is a hard transitive dependency of
+    `anthropic`, `openai` and `langsmith`, so the two `[httpx2]` parametrisations
+    always collect, so **104** is what the documented install produces. An
+    intermediate claim of "102, or 104 with optional httpx2" had it backwards.
+    A pre-existing environment without `httpx2` reports 102; that is the only
+    way to see that number, and it is not the documented route.
 43. **`default_state_dir`'s docstring was overstated.** It said "There is
     deliberately no environment-variable override." `Path.home()` on Windows
     reads `USERPROFILE`, so that one variable does move the path. Stated

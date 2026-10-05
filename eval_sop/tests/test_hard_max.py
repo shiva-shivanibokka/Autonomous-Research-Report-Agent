@@ -91,9 +91,18 @@ def test_check_credit_cap_refuses_bad_values(bad):
 
 
 @pytest.mark.parametrize("bad", [601, 999999, 0, -5])
-def test_cli_tavily_cap_above_the_max_is_refused_before_anything_installs(bad, monkeypatch):
+def test_cli_tavily_cap_above_the_max_is_refused_before_anything_installs(bad, monkeypatch, capsys):
     from eval_sop import run_conditions as rc
 
     monkeypatch.setattr(common, "LEDGER", None)
+    # `install` must never be reached: the cap is validated before it. Spying on
+    # it is what makes this test discriminate. Asserting only `code == 2` did
+    # not: for 0 and -5 the OLD code also returned 2, but from the downstream
+    # headroom check ("worst case exceeds the remaining cap") -- the right exit
+    # for the wrong reason, which an independent check caught.
+    monkeypatch.setattr(common, "install",
+                        lambda *a, **k: pytest.fail("install() reached with an unvalidated credit cap"))
     code = asyncio.run(rc.main_async(_args(tavily_cap=bad, n_frames=1)))
     assert code == 2
+    assert "credit cap" in capsys.readouterr().out
+    assert common.TAVILY_CREDIT_CAP <= common.PROJECT_HARD_MAX_CREDITS
