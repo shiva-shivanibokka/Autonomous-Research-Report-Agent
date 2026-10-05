@@ -239,7 +239,7 @@ docker compose up --build
 ```bash
 pytest tests/unit          # pure logic: cost math, provider routing, JSON extraction, schemas
 pytest tests/integration   # the API via TestClient — in-process store, no database, no keys
-pytest                     # both (83 tests)
+pytest                     # both (87 tests)
 ```
 
 Neither suite needs a network, a database or an API key, so CI runs the whole

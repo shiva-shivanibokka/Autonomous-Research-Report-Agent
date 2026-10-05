@@ -223,6 +223,20 @@ Do **not** claim any gain over a baseline until §2c has numbers.
 | (a, b, c, d) × 30 with `--admission-control` | never exceeds the cap ($8) | $5.71 | ≤ 600 / 480 |
 | (a, b, d) × 12 | $7.36 (accepted) | $1.86 | 264 / 168 |
 
+**The cap bounds the spend, not the completion.** The design the runbook
+actually documents — `(a, b, c, d) × 30` with `--admission-control` — has an
+unconditional worst case of **$27.16** against a **$8** cap (and 810 Tavily
+credits against 600). Admission control does not shrink that number; it only
+refuses to start a question whose own worst case would cross the remaining
+headroom. So the guarantee is one-sided: **$8 is never exceeded, but the run is
+not guaranteed to finish.** If calls bill near their worst case throughout, the
+run stops partway and exits 4 with a partial, still-paired result set, and the
+remaining questions are simply not run. Completing all four conditions × 30
+questions depends on actual billing coming in near the expected **$5.71**, as
+it did in the showcase run; it is an expectation, not a bound. Budget for
+re-running the remainder under a second cap rather than treating exit 4 as a
+failure.
+
 How the two estimates are built:
 - **Worst case** assumes every call uses its full `max_tokens` (including the
   Writer's 16k-token draft plus its 24k-token retry), at most 8 sub-questions
@@ -279,9 +293,19 @@ How the two estimates are built:
   CJK text is not undercounted.
 - **One ledger and one process per project.**
   - The USD ledger, the Tavily credit ledger and a run lock live in
-    `%LOCALAPPDATA%\sop_eval\research_report\`, outside every checkout. So
-    the worktree and the main checkout share one ledger, and no setting can
-    point the spend at a fresh file. `SOP_LEDGER_PATH` is gone.
+    `~/.sop_eval/research_report/`, outside every checkout. The directory is
+    derived from `Path.home()` on every platform, with no environment-variable
+    override, so the worktree and the main checkout share one ledger and no
+    setting can point the spend at a fresh file. `SOP_LEDGER_PATH` is gone.
+    Earlier rounds resolved this directory from `%LOCALAPPDATA%`, which a
+    reviewer defeated: a shell with that variable pointed elsewhere saw an
+    empty ledger — a fresh cap's worth of headroom, the canary's spend
+    forgotten — and the run lock moved with it, so two paid runs could
+    overlap. Fixed in round 5; asserted by `eval_sop/tests/test_state_lock.py`
+    (the path is under `Path.home()`; it does not move when that variable is
+    changed and both modules are reloaded; the lock resolves beside the
+    ledger). The old location held 0 ledger rows and $0.0000 spent, and
+    0 Tavily credits, so nothing was migrated — see §9.
   - `install()` takes an exclusive lock file for the life of the process. It
     is released on exit and on Ctrl-C. A second process is refused. A stale
     lock's error message says how to recover.
@@ -319,9 +343,13 @@ An optional `claims_for_optional_human_review.csv` is written by
 ## 8. Reproduce
 
 ```bash
-# repo deps (Python 3.12): pip install -r requirements.txt -r requirements-dev.txt python-dotenv
+# repo deps (Python 3.12): pip install -r requirements.txt -r requirements-dev.txt
+# (requirements-dev.txt now also carries the eval harness's own imports —
+#  numpy, scipy, scikit-learn, python-dotenv. Before round 5 they were
+#  undeclared, so a venv built from this line alone could not even collect
+#  eval_sop/tests.)
 pytest tests -q            # 87 passed  (product suite, incl. tests/unit/test_graph_e2e.py)
-pytest eval_sop/tests -q   # 75 passed (77 with anthropic 1.x / httpx2 installed)
+pytest eval_sop/tests -q   # 78 passed (80 with anthropic 1.x / httpx2 installed)
 python -m eval_sop.smoke_test
 # NLI (torch + transformers, models in the HF cache):
 OMP_NUM_THREADS=2 python -m eval_sop.nli_validate          # needs eval_sop/cache/ragtruth/test.parquet
@@ -348,10 +376,23 @@ deliberate acts:
 - The API rejects a keyless request with HTTP 400 unless
   `ALLOW_SERVER_KEY_FALLBACK` is explicitly set (`api/main.py:83`, enforced at
   `api/main.py:236`); it is off when unset. The residual risk is exporting the
-  key *and* opting in — or enqueuing a Celery job directly, bypassing the API.
-  No further guard is needed.
+  key *and* opting in.
 
-Only one evaluation process can run at a time (a lock under `%LOCALAPPDATA%\sop_eval\research_report\`).
+**Accepted residual: the Celery task itself is ungated.** The keyless check
+above lives only in the HTTP layer. `api/worker.py`'s task signature is
+`api_key: str | None = None` (`api/worker.py:65`) with no gate of its own, and
+it passes that value straight into the pipeline state (`api/worker.py:97`);
+when it is `None` the pipeline's own client falls back to `ANTHROPIC_API_KEY`
+from the worker process's environment. So anything that can publish to the
+broker — not just the API — can start a spend that `eval_sop/`'s ledger, cap
+and lock never see. This is *accepted, not fixed*: reaching it requires broker
+access, which already implies the ability to run arbitrary tasks, and the paid
+evaluation key is never exported into any environment (above), so the fallback
+has nothing to find on this machine. Anyone deploying the worker with a key in
+its environment should re-gate it at `api/worker.py` rather than rely on
+`api/main.py:236`.
+
+Only one evaluation process can run at a time (a lock under `~/.sop_eval/research_report/`).
 
 <!-- runbook -->
 ```bash
@@ -384,20 +425,20 @@ Each entry gives what changed, why, the evidence, and what was preserved.
      worktree and re-applied my own patch. This happened before the
      no-destructive-git rule was given.
 2. **Tests documenting fact-checker scope** (`befe899`). No code change.
-3. **Price `claude-sonnet-5` at $2/$10** (`48a6001`).
+3. **Price `claude-sonnet-5` at $2/$10** (`5af8be4`).
    - *What/why:* `llm_client.py` listed it at the Sonnet 4.x rate ($3/$15).
    - *Evidence:* `test_compute_cost_sonnet_5_price` fails before and passes
      after (`eval_sop/evidence/price_sonnet5_*.txt`). Sonnet 5.5 is priced via
      the same prefix.
-4. **Eval harness** (`3b00e9b`, `8a87c8a`): datasets, transports, caches,
+4. **Eval harness** (`f75bf36`, `49fb4f8`): datasets, transports, caches,
    scoring, offline smoke test. No pipeline logic changed.
 5. **Removed an unapproved dataset.** The AttributionBench sample was deleted
    in a follow-up commit, and the blob stayed in this branch's history. It has
    since been purged: someone else rewrote `sop-eval` (see "History rewrite"
    below), so that commit no longer exists on the branch.
-6. **NLI judges + RAGTruth validation** (`e5c3571`). **Showcase audit**
-   (`ee98f4f`).
-7. **Hard spend controls** (`fd2bc84`): the Anthropic transport, USD ledger,
+6. **NLI judges + RAGTruth validation** (`169ac83`). **Showcase audit**
+   (`48a7a73`).
+7. **Hard spend controls** (`41903a3`): the Anthropic transport, USD ledger,
    `BudgetStop`, bounded retries, response cache, fail-visibly, dry-run,
    canary and admission control.
    - *Why:* review findings. The Tavily cap was swallowed by
@@ -411,9 +452,9 @@ Each entry gives what changed, why, the evidence, and what was preserved.
      client. The transport now registers as `eval-<backend>`.
    - *Scope:* this is one commit containing several related controls. They
      share files and tests, so I did not split it further.
-8. **McNemar (exact, intention-to-treat)** (`d3ce409`). **Rogan-Gladen
-   correction** (`7a3b465`). **Tavily headroom check and keys via
-   `--env-file`** (`12fd64c`). The hardcoded path to the original repo's
+8. **McNemar (exact, intention-to-treat)** (`8d1cc00`). **Rogan-Gladen
+   correction** (`659d65c`). **Tavily headroom check and keys via
+   `--env-file`** (`ab80a2a`). The hardcoded path to the original repo's
    `.env` is gone.
 9. Ollama model aliases (`sop-qwen`, `sop-llama`, `sop-gemma`) were briefly
    created on the shared server on day 1, then deleted.
@@ -421,24 +462,24 @@ Each entry gives what changed, why, the evidence, and what was preserved.
 **Round-2 review fixes.** Each one was first reproduced by a test that fails;
 before/after output is in `eval_sop/evidence/`.
 
-10. **Pending-row ledger** (`27150e2`). Fixes three gaps: mid-stream failures,
+10. **Pending-row ledger** (`2e2d6c9`). Fixes three gaps: mid-stream failures,
     raw httpx errors, and interrupts were recorded at $0 or not at all. Also
     adds the fixed per-project ledger path. Evidence:
     `review2_ledger_*.txt`, 7 failing before.
-11. **Token estimate** max(chars/2.5, bytes/3) (`a185a90`). `token_estimate_*`.
+11. **Token estimate** max(chars/2.5, bytes/3) (`fe80e56`). `token_estimate_*`.
 12. **Tavily credits booked before the await; failures count; idempotent
-    install** (`1b223d8`). `tavily_credits_*`.
-13. **Failed page fetches not cached across invocations** (`8784902`).
+    install** (`c0bf255`). `tavily_credits_*`.
+13. **Failed page fetches not cached across invocations** (`bcff526`).
     `scrape_cache_*`.
-14. **Scoring policy** (`f3e6426`). Non-fatal errors are scored; strict ITT is
+14. **Scoring policy** (`5dfd630`). Non-fatal errors are scored; strict ITT is
     the sensitivity analysis. `scoring_policy_*`.
 15. **Canary output kept apart and judgeable with `score judge --canary`**
-    (`9e8aaf8`). The conftest now blocks real Tavily clients in tests: one
+    (`a454d3e`). The conftest now blocks real Tavily clients in tests: one
     test had reached the network with a fake key. `canary_judging_*`.
-16. **Atomic export; admission STOP exits 4** (`dbf9866` + `facc4bb`).
-    `dbf9866` was committed by mistake *before* the fix. A failed in-place
+16. **Atomic export; admission STOP exits 4** (`7da7a01` + `2e54dbf`).
+    `7da7a01` was committed by mistake *before* the fix. A failed in-place
     edit did not stop the shell chain, so that commit holds only the failing
-    tests and a mislabelled "after" file. `facc4bb` applies the fix and
+    tests and a mislabelled "after" file. `2e54dbf` applies the fix and
     corrects the evidence files. No history was rewritten.
 17. **Docs** (this commit): SOP sentence 2 without the corrected rates, the
     specificity-transfer caveat, the judge-validation and scraper-bias
@@ -449,42 +490,88 @@ before/after output is in `eval_sop/evidence/`.
 by the reviewer's scripts (`review3/rr/race.py`, `attack3.py`,
 `httpx2_attack.py`); output is in `eval_sop/evidence/`.
 
-18. **Hard maximum $8** (`50c8e3b`). `hard_max_*`.
+18. **Hard maximum $8** (`8ac010d`). `hard_max_*`.
 19. **Per-user state directory, run lock, atomic cross-process caps, and
-    list-of-blocks content in the token estimate** (`16514ac`).
+    list-of-blocks content in the token estimate** (`eb4e3a6`).
     `race_BEFORE`, `attack3_BEFORE`, `list_content_BEFORE`,
     `state_lock_AFTER`. This is one commit: the state directory, lock and
     transactions are intertwined. The empty ledger that tests had created
     inside the worktree was deleted.
 20. **Canary skips the design-level check; the runbook is tested verbatim**
-    (`281dc9c`). `canary_runbook_*`. pytest's temporary directories now stay
+    (`69bee6a`). `canary_runbook_*`. pytest's temporary directories now stay
     out of `%TEMP%`.
-21. **Product CI lint gate kept green** (`a88f326`).
+21. **Product CI lint gate kept green** (`0336164`).
     - `ruff.toml` excludes `eval_sop/`. This is the only change to product
       configuration.
     - Before it, `ruff check .` reported 144 findings and 24 unformatted
       files, all under `eval_sop/`.
     - `test_lint.py` runs the gate and checks `eval_sop` for pyflakes and
       syntax errors. `ci_lint_*`.
-22. **httpx2 transport errors caught** (`baed3ac`). `httpx2_*`.
-23. **Model mismatch uses the reported model** (`c3aa6c8`).
+22. **httpx2 transport errors caught** (`0c04033`). `httpx2_*`.
+23. **Model mismatch uses the reported model** (`c797561`).
     `model_reported_*`.
 24. **HTTP-level 5xx/529 labelled `http_<code>`, still charged at worst**
-    (`03e30ec`). `http529_*`. The "before" test asserted $0 at the time; the
+    (`7119f93`). `http529_*`. The "before" test asserted $0 at the time; the
     final rule over-counts on purpose.
-25. **Raw-client fallback blocked** (`8ab2276`). `no_bypass_*`.
-26. **User-profile paths scrubbed from the evidence files** (`1673f39`).
-    `user_paths_*`. While doing this I reverted my own uncommitted first
-    scrub of one evidence file with `git checkout --`, because its regex had
-    been mangled by shell quoting.
+25. **Raw-client fallback blocked** (`1449ce7`). `no_bypass_*`.
+26. **User-profile paths scrubbed from the evidence files** (`4f3380e`).
+    `user_paths_*`. That commit changed only the working tree going forward:
+    the account-name string stayed in 19 earlier commits of this branch, so
+    the scrub was not yet a history property. It became one in round 5 — see
+    "History rewrite" below. While doing the original scrub I reverted my own
+    uncommitted first attempt on one evidence file with `git checkout --`,
+    because its regex had been mangled by shell quoting.
 27. **Docs**.
 
-**History rewrite (not my work).** Between round 3 and round 4, `sop-eval`
-was rewritten to purge the AttributionBench blob from its history. The
-pre-rewrite commits are kept on `backup/pre-filter-researchreport`. The trees
-are identical (`git diff 5ce0353 8740dda` is empty) and the subjects unchanged,
-only the hashes after `3b00e9b` differ. The hashes cited above were remapped
-to the rewritten commits by matching subjects.
+**History rewrite (not my work).** `sop-eval` has been rewritten twice, and
+neither rewrite was mine.
+
+1. Between round 3 and round 4, to purge the AttributionBench blob. The
+   pre-rewrite commits are kept on `backup/pre-filter-researchreport`, which
+   is the only place that blob's path still appears.
+2. Before round 5, to remove the local account name from the history itself.
+   The round-4 scrub (item 26) had only fixed the tree at its own tip, so the
+   string survived in 19 earlier commits: 7 of them in a hardcoded absolute
+   env-file path inside `eval_sop/common.py`, the rest inside the committed
+   "before" evidence transcripts. The pre-rewrite commits are kept on
+   `backup/pre-filter-researchreport2`.
+
+Neither backup branch is ever pushed. Both rewrites preserved every subject
+and the final tree, so only the hashes changed; every hash cited in this
+document was re-derived against the current history by matching subjects
+(1:1, no subject appears twice).
+
+**Round-5 verification of the second rewrite.** Checked per commit, not just
+at the tip, with the backup branch used as a positive control so the search
+was proven able to find the strings on the pre-rewrite side before the
+post-rewrite side was called clean. Searching case-insensitively for the
+account name, for absolute-path prefixes under the Windows user directory and
+for the cloud-sync folder name:
+
+- `backup/pre-filter-researchreport2`: 19 of its 38 commits carry the account
+  name in tracked content (the control fires).
+- `sop-eval`: 0 of its 38 commits carry it, and none match the path-prefix or
+  sync-folder patterns either.
+- Commit messages, author and committer identity: the account name appears in
+  none of the 38 on either side, so that part of the claim was already true
+  before the rewrite rather than a result of it.
+- The AttributionBench path appears in no tree of any of the 38 commits
+  (`git ls-tree -r`); the remaining textual mentions are prose in
+  `RESULTS.md`, `eval_sop/build_datasets.py`, `eval_sop/score.py` and
+  `eval_sop/validate_judge.py`, which is intended.
+- Final trees byte-identical: `git diff sop-eval backup/pre-filter-researchreport2`
+  is empty.
+
+Ancestry was re-checked with `git merge-base --is-ancestor`, not
+`git cat-file -e`: the backup branches keep the superseded objects reachable,
+so `cat-file` succeeds for a hash that is no longer on the branch and would
+have hidden the stale citations. All hashes cited above are now ancestors of
+`sop-eval`. The round-4 pass had instead cited the hashes produced by the
+*first* rewrite, 29 of which the second rewrite had already superseded; all 29
+are remapped here. The one comparison that intentionally spans a rewrite
+boundary is the byte-identity check above, and it is now written as a
+branch-to-branch diff rather than as a pair of hashes, so it cannot go stale
+the next time history moves.
 
 **Round-4 spend-safety review fixes.** The reviewer confirmed the ledger,
 lock, atomic reservation, crash behaviour and retry accounting hold up, and
@@ -492,7 +579,7 @@ found four defects. Each was reproduced by a failing test first; before/after
 output is in `eval_sop/evidence/`.
 
 28. **A substituted model stopped being priced as the pinned one**
-    (`e4a7ced`).
+    (`2695bd8`).
     - Cost came from the REQUESTED id, so a response reporting
       `claude-opus-4-8` ($5/$25) was billed at Haiku's $1/$5 and the run
       continued; only the finished run was flagged. Sustained substitution
@@ -501,12 +588,12 @@ output is in `eval_sop/evidence/`.
       served id, and trips `BudgetStop`, so no further call is made.
     - The round-3 test only checked the post-run marker; it now asserts the
       stop. `r4_model_cap_*`.
-29. **`nan` caps disabled the cap entirely** (`e4a7ced`). `nan` fails every
+29. **`nan` caps disabled the cap entirely** (`2695bd8`). `nan` fails every
     comparison, so both the hard-max guard and each per-call check were False;
     the reviewer settled 201 calls totalling $72.37 with no trip.
     `budget.check_cap` now requires a finite value in (0, $8] and backs the
     ledger, `cap_from_env` and argparse. `r4_model_cap_*`.
-30. **The documented test command aborted at collection** (`da6c155`). An
+30. **The documented test command aborted at collection** (`a97b079`). An
     unconditional `import httpx2` in a test module broke
     `pytest eval_sop/tests -q` on an environment built from
     requirements.txt (anthropic 0.93 on httpx only), so the mid-stream,
@@ -515,13 +602,13 @@ output is in `eval_sop/evidence/`.
     are parametrised over the installed transports;
     `test_optional_imports.py` guards against a repeat. Production code was
     never affected. `r4_httpx2_import_*`.
-31. **Unmetered spend outside the ledger** (`17afb22`).
+31. **Unmetered spend outside the ledger** (`13f0cb2`).
     `scripts/record_demo_run.py` refuses without
     `--i-want-to-spend-real-money`, and the runbook says the paid key goes
     only in `--env-file`. `api/main.py` and `api/worker.py` still honour a
     server-side key and are not gated — they are servers, not scripts, so I
     only documented them. `r4_unledgered_*`.
-32. **Exit-code collision** (`17afb22`): a corrupt ledger escaped as exit 1,
+32. **Exit-code collision** (`13f0cb2`): a corrupt ledger escaped as exit 1,
     which the runbook documents as "canary failed". Any failure to start is
     now 2.
 33. **Docs**: the test counts in section 8 come from an actual run on this
@@ -534,6 +621,85 @@ output is in `eval_sop/evidence/`.
     - the claim that the API server was ungated. It is gated by default:
       `ALLOW_SERVER_KEY_FALLBACK` is off unless set, and a keyless request is
       refused with HTTP 400.
+
+**Round-5 merge-gate fixes.** Two blockers and five smaller corrections. The
+code blocker was reproduced by a failing test first.
+
+35. **The ledger and the run lock moved with `%LOCALAPPDATA%`** — the gate
+    failure, and the one behavioural defect in this round.
+    `budget.default_state_dir()` resolved its base from that environment
+    variable, so a shell with it set elsewhere got an empty ledger (a fresh
+    $8 of headroom, the canary's spend forgotten) and a relocated `run.lock`,
+    which let two paid runs overlap. The directory is now
+    `Path.home() / ".sop_eval" / "research_report"` on every platform, with no
+    environment override, following the sibling CodePilot-SWE project's
+    `_ledger_home()` (`codepilot/llm.py`) and keeping a project-specific
+    subdirectory name.
+    - Failing test first: three cases in `test_state_lock.py` —
+      `test_state_dir_is_under_the_home_directory`,
+      `test_state_dir_ignores_localappdata_in_a_fresh_process` (resolves the
+      paths in a child process with both modules reloaded, which is what a new
+      shell does) and `test_lock_sits_beside_the_ledger`. The first two fail on
+      the pre-fix `default_state_dir` and pass after; verified both ways by
+      reverting the one function. `r5_state_dir_*`. (The pre-existing
+      `test_state_lives_outside_the_checkout_and_out_dir_cannot_move_it` also
+      fails before, because it now asserts the new directory name.)
+    - **Migration: nothing to migrate, and nothing was copied.** The old
+      location was read before the change: `usd_ledger.sqlite` held **0 rows**
+      in `calls` and **$0.0000** total, and `tavily_credits.sqlite` held
+      `spent = 0`. Both files are left in place, untouched; no stale ledger was
+      copied over the new one. The new directory starts empty, which is the
+      same state. If a ledger with real rows is ever found at the old path, it
+      must be moved deliberately and said so here — a silent copy would make
+      the spend history unauditable.
+    - Section 6 and section 8 previously presented the `%LOCALAPPDATA%` path
+      as the guarantee; both are corrected.
+36. **`eval_sop/stats.py`'s dependencies were undeclared.** It imports
+    `numpy`, `scipy` and `scikit-learn`, none of which appeared in
+    `requirements.txt`, `requirements-dev.txt` or the install line in section
+    8, so a venv built exactly as documented aborted collection of
+    `eval_sop/tests` with `ModuleNotFoundError: numpy` — zero tests run.
+    `python-dotenv` was in the same state, carried only as a loose extra on
+    the documented `pip install` line. All four are now declared in
+    `requirements-dev.txt` with lower bounds, matching that file's existing
+    style, and the install line no longer needs an extra. Verified by building
+    a fresh venv in a short temp directory from the documented line alone:
+    `eval_sop/tests` collected and **80 passed**, and `tests` 87 passed. That
+    venv resolves `httpx2`, so 80 is the with-`httpx2` variant; without it the
+    harness suite is 78.
+37. **Every commit hash cited in this document was stale.** The round-4 pass
+    had remapped them onto the *first* history rewrite; the second rewrite
+    superseded 29 of those. Re-derived with
+    `git merge-base --is-ancestor` — `git cat-file -e` is useless here, since
+    the backup branches keep the superseded objects reachable and it succeeds
+    for a hash that is no longer on the branch. See "History rewrite" above
+    for the per-commit verification and the positive control.
+38. **Item 26 overstated what it had done**, and the "History rewrite"
+    paragraph described only the AttributionBench rewrite. Item 26's commit
+    changed the working tree only; the account name survived in 19 earlier
+    commits until the second rewrite. Both passages are corrected.
+39. **`README.md` said the product suite is 83 tests.** It is 87 (70 in
+    `tests/unit` + 17 in `tests/integration`, counted on this branch).
+40. **The `$8` cap bounds spend, not completion.** Section 6 now states
+    plainly that the documented `(a, b, c, d) × 30` design is $27.16 worst
+    case (and 810 Tavily credits against 600), so at worst case the run exits
+    4 partway instead of finishing; expected cost is $5.71.
+41. **Smaller corrections.**
+    - `budget.check_cap`'s docstring claimed it was used as argparse's
+      `type`. It is not: the CLI uses plain `float`
+      (`run_conditions.py:468`) and validates separately at
+      `run_conditions.py:373`. Docstring corrected rather than rewiring the
+      CLI, which would change the message and exit path the runbook tests
+      assert.
+    - `eval_sop/data/questions.jsonl` redistributes 824 FRAMES rows with
+      per-row provenance and a paper citation but carried no licence notice.
+      FRAMES is Apache-2.0; `eval_sop/data/NOTICE.md` now carries the notice,
+      the disclaimer and the citation, and `build_datasets.py` points at it.
+    - The ungated Celery task (`api/worker.py:65`) is now documented as an
+      **accepted residual** in section 8, with the reason it is accepted and
+      what a deployer should do instead. Entry 31 above predates entry 34's
+      correction that `api/main.py` *is* gated by default; only the worker is
+      not.
 
 **Round-4 items I did not take.** Both are unreachable today and the reviewer
 left them optional.

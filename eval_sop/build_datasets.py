@@ -10,6 +10,8 @@ FRAMES: google/frames-benchmark, file test.tsv (824 rows), downloaded from
   We shuffle the row indices with random.Random(20261001) and keep that order;
   the evaluation uses a prefix of it, so shrinking n never changes which
   questions come first. Reference answers are FRAMES' human-written "Answer".
+  FRAMES is Apache-2.0; the notice and citation are in eval_sop/data/NOTICE.md,
+  which must stay with questions.jsonl wherever it is redistributed.
 Open-ended: five questions with NO reference answer. The first is the query of
   the repo's own showcase run (frontend/public/demo/run.json); the other four
   were written for this evaluation. They are used only for claim-level metrics.
