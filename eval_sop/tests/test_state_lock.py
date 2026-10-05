@@ -25,12 +25,60 @@ M = [{"role": "user", "content": "hi"}]
 
 def test_state_lives_outside_the_checkout_and_out_dir_cannot_move_it(monkeypatch, tmp_path):
     d = budget.default_state_dir()
-    assert d.parts[-2:] == ("sop_eval", "research_report")
+    assert d.parts[-2:] == (".sop_eval", "research_report")
     assert WT not in d.parents
     monkeypatch.setenv("SOP_LEDGER_PATH", str(tmp_path / "elsewhere.sqlite"))  # no longer honoured
     monkeypatch.setattr(common, "OUT_DIR", tmp_path / "fresh")
     assert common.ledger_path() == common.STATE_DIR / "usd_ledger.sqlite"
     assert common.tavily_ledger_path().parent == common.lock_path().parent == common.STATE_DIR
+
+
+def test_state_dir_is_under_the_home_directory():
+    """Round-5: the path is derived from Path.home(), so no variable can move it."""
+    d = budget.default_state_dir()
+    assert Path.home() in d.parents
+    assert d.parts[-2:] == (".sop_eval", "research_report")
+
+
+_RESOLVE = (
+    "import sys, json, importlib;"
+    f" sys.path.insert(0, r'{WT}');"
+    " import eval_sop.budget as b, eval_sop.common as c;"
+    " importlib.reload(b); importlib.reload(c);"
+    " print(json.dumps([str(b.default_state_dir()), str(c.ledger_path()),"
+    " str(c.lock_path()), str(c.tavily_ledger_path())]))"
+)
+
+
+def _resolve_in_child(env=None):
+    e = dict(os.environ, TAVILY_API_KEY="x")
+    e.update(env or {})
+    r = subprocess.run([sys.executable, "-c", _RESOLVE], capture_output=True, text=True, env=e)
+    assert r.returncode == 0, r.stderr
+    return json.loads(r.stdout)
+
+
+def test_state_dir_ignores_localappdata_in_a_fresh_process(tmp_path):
+    """
+    The gate failure: with LOCALAPPDATA redirected, a dry run reported an empty
+    ledger — a fresh cap's worth of headroom, the canary's spend forgotten —
+    and the run lock moved with it, so two paid runs could overlap. Resolved in
+    a child process (and with both modules reloaded there), because an import-
+    time constant is exactly what a new shell re-evaluates.
+    """
+    redirected = tmp_path / "redirected"
+    before = _resolve_in_child()
+    after = _resolve_in_child({"LOCALAPPDATA": str(redirected)})
+    assert after == before
+    assert not any(str(redirected) in p for p in after)
+    assert all(str(Path.home()) in p for p in after)
+
+
+def test_lock_sits_beside_the_ledger(monkeypatch):
+    """A lock that can move without the ledger lets two runs share one cap."""
+    monkeypatch.setattr(common, "STATE_DIR", budget.default_state_dir())
+    assert common.lock_path().parent == common.ledger_path().parent == budget.default_state_dir()
+    assert common.tavily_ledger_path().parent == budget.default_state_dir()
 
 
 def test_two_handles_cannot_both_pass_the_check(tmp_path):
