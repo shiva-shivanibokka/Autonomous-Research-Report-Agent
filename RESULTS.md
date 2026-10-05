@@ -2,21 +2,36 @@
 
 Branch `sop-eval`, based on `main` @ `c0ae667`. Work done 2026-10-01 → 2026-10-04.
 
-**Status.** The planned comparison (conditions a–d on FRAMES) **has not been
-run yet**, so this file contains **no accuracy number for the pipeline**. No
-model was available to run it, for two reasons:
-- **Local Ollama.** On 2026-10-01 the shared server produced no completions.
-  On 2026-10-04 a single `/api/tags` request returned HTTP 200 in 1.8 s and
-  listed `qwen2.5:7b`, `llama3.1:8b` and `gemma2:9b`. No generation was tested
-  then, and the slot was reserved for another eval.
-- **Paid APIs.** These were out of scope until a budget was approved.
+**Status.** The comparison **was run on 2026-10-05** on the paid Anthropic
+backend: conditions (a), (b) and (d) over 12 FRAMES questions, 36 runs,
+**$0.9256** against the $8 hard cap and 50 free Tavily credits. Condition (c)
+was not run. Results and all three deviations from the planned design are in
+§2c.
 
-What exists:
-- a judge validated against human labels;
-- an audit of the one real end-to-end run in the repo;
+**Read §2c before quoting any accuracy number.** The headline is that at n = 12
+the three conditions are not distinguishable (smallest exact McNemar p = 0.375),
+and the run's two useful findings are about measurement rather than accuracy:
+
+- **The local correctness judges are invalid and biased.** They mark explicit
+  refusals as correct — 6 of 9 and 8 of 9 respectively — and refusals occur in
+  4/12 closed-book and 5/12 search runs but 0/12 pipeline runs, so the judges
+  inflate exactly the baselines. The two judges even disagree on the *sign* of
+  the main comparison. `strict_match`, which is deterministic, is the primary
+  metric; judge-based accuracy for this project should not be quoted. §2c(ii).
+- **A scrape fallback failure silently destroyed a third of the pipeline's
+  evidence, and the eval could not see it.** A Playwright version mismatch
+  produced an error message that could not be encoded to a cp1252 console; the
+  scraper caught the resulting exception and substituted empty pages, discarding
+  every page for that sub-question. Fixing it took extracted claims from 104 to
+  158 across 8 of 12 questions. Every run recorded `errors: []` throughout, so
+  the STRICT sensitivity analysis flagged 0 of 36. §2c(iii).
+
+Also in this file:
+- a citation-support judge validated against human labels (§2a);
+- an audit of the one real end-to-end run in the repo (§2b);
 - two pipeline fixes, each reproduced by a failing test first;
-- a paid-run harness with hard spend controls, tested only against a fake
-  client.
+- a paid-run harness with hard spend controls — now exercised against the real
+  API, not only a fake client, and its refusals observed in practice (§2c(i)).
 
 §6 describes the run, which is designed to stay under **$8**.
 
@@ -93,10 +108,169 @@ checks; no judge is involved.
 | Citations | `total_sources_consulted = 81` | The report lists 30 (`citations[:30]`, `writer_agent.py:463`). **13 of the 17 URLs cited in the text are missing from that list.** | New finding. Not fixed; see §10. |
 | Token budget | 80,000 | Used 78,591 | Under budget in this run. The code does not enforce a hard budget: `call_llm` only clamps each call's *output* to `max(256, remaining)` (`llm_client.py:301` at c0ae667, `:302` on this branch). |
 
-### 2c. Conditions (a) closed-book, (b) search + summarise, (c) pipeline r=1, (d) pipeline r=2
+### 2c. Conditions (a) closed-book, (b) search + summarise, (d) pipeline r=2
 
-**Not run.** The harness exists, is described in §6, and has only been tested
-offline.
+**Run 2026-10-05** on the paid Anthropic backend. 12 FRAMES questions × 3
+conditions = 36 runs, `claude-haiku-4-5-20251001`, one pass, seed index 1.
+Cost **$0.9256** against the $8 hard cap; **50 Tavily credits** of the free
+plan's 1,000 (that plan has no pay-as-you-go limit set, so Tavily could not
+bill). Condition (c) (pipeline r=1) was **not** run — see the deviations below.
+
+**Headline: at n = 12 this design cannot distinguish the three conditions.**
+Every exact McNemar test is non-significant (smallest p = 0.375), so nothing
+here supports a ranking claim. What the run *did* produce is two measurement
+findings that matter more than the accuracy numbers, in §2c(ii) and §2c(iii).
+
+| condition | n | `strict_match` (deterministic) | llama3.1:8b judge | gemma2:9b judge |
+|---|---|---|---|---|
+| (a) closed book, no search | 12 | 0.167 [0.00, 0.42] | 0.750 | 0.750 |
+| (b) one search + summarise | 12 | 0.083 [0.00, 0.25] | 0.750 | 0.833 |
+| (d) full pipeline, 2 rounds | 12 | **0.250** [0.00, 0.50] | 0.917 | 0.583 |
+
+Exact McNemar, paired over the same 12 questions:
+
+| comparison | metric | discordant | p (two-sided) |
+|---|---|---|---|
+| (d) vs (b) | `strict_match` | 2–0 for (d) | 0.500 |
+| (d) vs (a) | `strict_match` | 1–0 for (d) | 1.000 |
+| (b) vs (a) | `strict_match` | 0–1 for (a) | 1.000 |
+
+**The defensible statement.** On `strict_match` the full pipeline leads
+(0.250 vs 0.083 and 0.167) and never lost a question the baselines won, but
+with 12 questions and at most 2 discordant pairs this is a direction, not a
+result. A 2–0 split cannot go below p = 0.5, so this design could not have
+produced significance however well the pipeline performed.
+
+#### 2c(i). Three deviations from the §6 design, and why
+
+1. **12 questions, not 30.** The §6 design's worst case is $18.41 against the
+   $8 cap, so the harness refuses it up front (exit 2, nothing spent). 13 was the
+   largest design whose *worst case* fits; the canary's $0.0255 then left $7.974
+   and pushed 13 (worst $7.98) half a cent over, so it refused that too and the
+   run is 12. The alternative, `--admission-control`, admits questions one at a
+   time and stops when the next one's worst case would not fit — which risks a
+   truncated, lopsided design. That is the exact flaw that cost real money to
+   repair in the sibling Competitor project, so it was declined deliberately.
+2. **Condition (c) (pipeline r=1) not run.** The default `--conditions a,b,d`.
+   Running (c) as well would have cost another ~$0.3 and the r=1 vs r=2
+   comparison is the one question (d) alone cannot answer, but at n = 12 it
+   could not have reached significance either.
+3. **The 12 questions are a fixed prefix, not a random sample.**
+   `load_questions` takes `frames[:n]` after sorting by `rank`, so this is the
+   12 top-ranked FRAMES questions every time. Reproducible, but **not** a random
+   draw, so these rates do not estimate FRAMES-wide accuracy.
+
+#### 2c(ii). The correctness judges are invalid as an accuracy metric: they mark refusals correct
+
+§4 already warned that the local correctness judges were never validated
+against human correctness labels. This run turned that caveat into a measured
+defect, and the defect has a direction.
+
+**9 of the 36 answers are explicit refusals** ("I cannot reliably determine…",
+"I do not have…"). Of those 9:
+
+| judge | refusals marked CORRECT |
+|---|---|
+| llama3.1:8b | **6 of 9** |
+| gemma2:9b | **8 of 9** |
+
+Examples, all closed-book and passed by **both** judges:
+
+| reference answer | the model's answer |
+|---|---|
+| Deltaherpeton, first described… | "I cannot reliably determine the most recently described genus of Colosteidae…" |
+| Shane Gillis | "I cannot reliably answer this question as it requires information from August 2024…" |
+| Robert E Pattison | "James A. Beaver served as Governor of Pennsylvania in 1886-1887…" (the wrong person) |
+
+**Why this biases the comparison rather than just adding noise.** Refusals are
+not spread evenly: 4 of 12 in closed-book, 5 of 12 in search1, **0 of 12 in the
+full pipeline**. The judges therefore award free credit almost exclusively to
+the two baselines, which inflates them and *understates* the pipeline. Using
+judge accuracy would have been wrong in the direction that flatters the
+weaker conditions.
+
+**The judges also disagree on the sign of the main comparison.** For (d) vs (b),
+on the same 12 answer pairs: llama 0.750 → 0.917 (pipeline better), gemma
+0.833 → 0.583 (pipeline worse). Agreement between them is κ = 0.31, and against
+`strict_match` κ = 0.09 and 0.06 — essentially unrelated to the deterministic
+check.
+
+**Consequence, applied here.** `strict_match` is the primary metric in the table
+above and the judge columns are reported only to document that they fail.
+Judge-based accuracy for this project should not be quoted anywhere. A usable
+LLM judge would need, at minimum, an explicit "abstention is not a correct
+answer" instruction and validation against the reference answers before use.
+
+#### 2c(iii). A pipeline defect that silently destroyed evidence, and the error channel that hid it
+
+**What happened.** The run was done twice for condition (d). In the first pass,
+pages that the plain httpx fetch could not retrieve went to a Playwright
+fallback, and that fallback could not start: Playwright wanted
+`chromium_headless_shell-1243` and only 1208/1217 were installed. Its error
+message is wrapped in a box drawn with `═` (U+2550), which cannot be encoded to
+this machine's cp1252 console, so handling that failure raised
+`UnicodeEncodeError`. `agents/scraper_agent.py:93-101` catches any exception
+per sub-question and substitutes **`pages=[]`** — so one un-encodable log line
+discarded *every* page for that sub-question, including pages that had
+downloaded successfully.
+
+**Measured impact**, from the saved run records rather than the logs (the full
+before/after records are in `eval_sop/evidence/playwright_degraded/`):
+
+| | before fix | after fix |
+|---|---|---|
+| questions affected | 8 of 12 | — |
+| extracted claims, total | 104 | **158** |
+| report text, total chars | 139,838 | 145,356 |
+| citations, total | 251 | 251 (identical per question) |
+
+Citations are unchanged because the Tavily *search* results were cached, so both
+passes cited the same URLs; what changed is how much of those pages was actually
+read. The 4 unaffected questions replayed entirely from the response cache
+(`llm_calls_from_cache` 0 → 7, wall time ~45 s → 0.01 s, 0 new Tavily credits),
+which is why re-running (d) cost only $0.3263: it paid solely for the 8
+questions whose scraped content changed.
+
+**The part that matters for the eval, not just the product: none of this was
+recorded.** All 36 runs stored `errors: []`, `fatal_error: null` and
+`strict_error: false`, before *and* after the fix, because the scraper logs the
+exception without appending to the pipeline's `errors` list. The STRICT
+sensitivity analysis described in §3 exists precisely to count runs with
+non-fatal errors as wrong — and it flagged **0 of 36**. For this class of
+failure the strict analysis is vacuous, and nothing in the saved data would have
+revealed that a third of the pipeline's claims were missing.
+
+**Honest limits on this diagnosis.** The browser version mismatch is reproduced
+directly (the full box message is captured), the 62-character un-encodable span
+matches the observed error exactly and recurred identically, and installing the
+matching browser removes the failures and recovers the claims. The one link
+*not* isolated in a controlled rerun is that the logging call specifically is
+what raised: triggering it needs the httpx fetch to fail first, which is
+network-dependent and did not recur on demand. It is a strong inference, not a
+reproduction.
+
+**Also:** the before/after error counts I first derived from the run logs are
+unusable, because both logs had been truncated by `tail` to 92 and 62 lines.
+The table above uses the complete run records instead. The "10 scraper
+exceptions" visible in the truncated log is a floor, not a count.
+
+#### 2c(iv). Two fixes applied to the environment, neither to product code
+
+- **`playwright install chromium`** (195.6 MiB + 114.6 MiB from
+  `cdn.playwright.dev`) so the fallback can run at all.
+- **`PYTHONIOENCODING=utf-8`** for the re-run, which makes an un-encodable log
+  message harmless. `agents/scraper_agent.py` was **not** changed: the real fix
+  is for it to record the exception in `state.errors` instead of silently
+  substituting empty pages, and that belongs on `main` with its own test. Logged
+  in §10.
+
+### 2d. Calibration of the Critic's scores and the per-claim confidence labels
+
+**Computed but not reportable at this n.** `score.py analyze` produced the
+calibration block from the 12 (d) runs, but with 12 runs and 3 strict-match
+successes the AUROCs rest on a handful of points. Not quoted here; the raw
+figures are in `results/summary.json` under `calibration` and
+`critic_vs_computed` for anyone who wants to look.
 
 ### 2d. Calibration of the Critic's scores and the per-claim confidence labels
 
@@ -118,9 +292,27 @@ implemented in `score.py analyze`:
 - An off-the-shelf NLI judge, checked against human attribution labels, reaches
   balanced accuracy 0.64–0.72 on RAGTruth sentences.
 
+- **The local correctness judges cannot be used as an accuracy metric.** They
+  mark explicit refusals correct (6/9 and 8/9), the two disagree on the sign of
+  the main comparison, and κ against the deterministic check is 0.09 and 0.06.
+  Measured, with examples, in §2c(ii).
+- **A caught-and-swallowed scraper exception can remove every page for a
+  sub-question**, and the pipeline reports no error when it does. Fixing the
+  underlying fallback moved extracted claims from 104 to 158 over 8 of 12
+  questions (§2c(iii)).
+
 **Not supported:**
-- Any accuracy, citation, or calibration advantage of the pipeline over a
-  baseline. That comparison has not been run.
+- **Any accuracy advantage of the pipeline over a baseline.** The comparison
+  has now been run, and at n = 12 it is non-significant on every metric
+  (smallest exact McNemar p = 0.375). The direction favours the pipeline on
+  `strict_match` (0.250 vs 0.083 and 0.167, never losing a question a baseline
+  won), but a 2–0 discordant split cannot go below p = 0.5, so this design could
+  not have shown significance at any effect size.
+- **Any FRAMES-wide accuracy estimate.** The 12 questions are the top-ranked
+  prefix of the set, not a random sample (§2c(i)).
+- **Any r=1 vs r=2 claim.** Condition (c) was not run.
+- **That the STRICT sensitivity analysis means anything for scrape failures.**
+  It flagged 0 of 36 runs while a third of the pipeline's claims were missing.
 - Generalising the showcase support rates beyond one query.
 
 ## 4. Threats to validity
@@ -175,9 +367,35 @@ implemented in `score.py analyze`:
    fetched), the two judges found roughly 40–70% of them supported by the page
    they cite."
 
-Do **not** claim any gain over a baseline until §2c has numbers.
+3. "Running the comparison on a paid API under a hard spend cap, I found my own
+   LLM-judge metric was invalid: both local judges marked explicit refusals
+   ('I cannot reliably determine...') as correct answers — 6 of 9 and 8 of 9 —
+   and because refusals occurred in 4 of 12 closed-book and 5 of 12
+   single-search runs but none of the 12 full-pipeline runs, the metric
+   systematically inflated the baselines it was meant to compare against. The
+   two judges disagreed even on the sign of the main comparison. I caught it by
+   auditing judged answers against the reference answers, reported the
+   deterministic metric instead, and documented the judge metric as unusable."
+4. "The same run exposed a failure mode that the evaluation itself could not
+   see: a browser-fallback version mismatch produced an error message that could
+   not be encoded to the Windows console, and the scraper's per-sub-question
+   exception handler replaced the whole page set with an empty list. Fixing it
+   raised the pipeline's extracted claims from 104 to 158 across 8 of 12
+   questions, while every run — before and after — recorded no error at all, so
+   the 'strict' sensitivity analysis that counts degraded runs as wrong flagged 0
+   of 36. I now treat an error channel as unverified until something known-broken
+   shows up in it."
+5. "I designed the run so its *worst-case* cost fit the cap rather than its
+   expected cost, which meant the sample was 12 questions instead of 30 but
+   removed any chance of the run stopping part-way and leaving conditions with
+   unequal n. Actual spend was $0.93 against a $7.36 worst case."
 
-## 6. Paid run design ($8 hard cap) — prepared, not run
+**Wording limits.** Do not claim any accuracy gain over a baseline: at n = 12
+every test is non-significant and the design could not have produced
+significance (§3). Do not quote judge-based accuracy at all. Do not describe the
+12 questions as a sample of FRAMES — they are its top-ranked prefix.
+
+## 6. Paid run design ($8 hard cap) — as planned beforehand; see §2c for what ran
 
 - **Model.** Every pipeline agent and every baseline uses
   `claude-haiku-4-5-20251001` ($1 / $5 per 1M tokens), one model for the whole
@@ -775,6 +993,32 @@ left them optional.
 
 ## 10. Proposed, not done
 
+- **Record swallowed scraper exceptions in `state.errors`.**
+  `agents/scraper_agent.py:93-101` catches a per-sub-question exception, logs it
+  and substitutes `pages=[]`, without touching the pipeline's error list. So the
+  pipeline reports a clean run while having thrown away every page for that
+  sub-question, and the eval's STRICT sensitivity analysis — whose whole purpose
+  is to count degraded runs as wrong — flagged 0 of 36 runs while a third of the
+  claims were missing (§2c(iii)). The fix is one append plus a test that asserts
+  a forced scraper exception reaches `errors`. Not done here because it changes
+  product behaviour mid-comparison; the 12 before/after run records in
+  `eval_sop/evidence/playwright_degraded/` are the fixtures.
+- **Make an un-encodable log message unable to break a run.** The trigger was a
+  Playwright error containing `═` on a cp1252 console. Configure the structlog
+  renderer with `errors="replace"` (or set `PYTHONIOENCODING=utf-8` in the
+  documented runbook) so logging a failure can never itself raise. Worth doing
+  independently of the scraper fix, since any non-ASCII text in any logged error
+  has the same effect.
+- **Pin or check the Playwright browser revision.** `requirements.txt` pins the
+  `playwright` package but nothing ensures the matching browser build is present,
+  and a mismatch disables the fallback silently. A start-up check that calls
+  `playwright install --dry-run`, or a documented install step, would turn a
+  silent degradation into a clear error.
+- **Give the correctness judge an abstention rule and validate it.** See
+  §2c(ii): both judges score "I cannot reliably determine…" as correct. At
+  minimum the prompt must state that a refusal is not a correct answer, and the
+  judge must be checked against the reference answers on a held-out slice before
+  any number it produces is reported.
 - Compute `contradiction_rate` and `source_diversity_score` in code
   (implementations are in `eval_sop/quality_metrics.py`), and label the
   Critic's four scores as self-reported in `QualityReport`. This changes a

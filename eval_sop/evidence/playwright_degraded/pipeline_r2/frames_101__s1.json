@@ -1,0 +1,493 @@
+{
+ "condition": "pipeline_r2",
+ "qid": "frames_101",
+ "question": "In the first movie that Emma Stone won an Academy Award for Best Actress in, did her costar win an Academy Award for Best Actor?",
+ "reference": "Ryan Gosling was nominated for an Academy Award for Best Actor in La La Land, but didn't win.",
+ "seed": 1,
+ "generator": "claude-haiku-4-5-20251001",
+ "wall_seconds_this_invocation": 44.3,
+ "telemetry": {
+  "llm_calls": 7,
+  "llm_calls_from_cache": 0,
+  "input_tokens": 11296,
+  "output_tokens": 4788,
+  "llm_seconds": 41.59,
+  "usd_spent_now": 0.035236,
+  "usd_if_uncached": 0.035236,
+  "models": [
+   "claude-haiku-4-5-20251001"
+  ],
+  "tavily_searches": 3,
+  "tavily_credits_if_uncached": 3,
+  "tavily_credits_spent_now": 3,
+  "llm_calls_by_agent": {
+   "orchestrator": 1,
+   "analyst": 2,
+   "critic": 1,
+   "writer": 1,
+   "writer_repair": 1,
+   "eval_answer_extraction": 1
+  },
+  "tokens_by_agent": {
+   "orchestrator": 515,
+   "analyst": 5461,
+   "critic": 2067,
+   "writer": 2907,
+   "writer_repair": 2369,
+   "eval_answer_extraction": 2765
+  },
+  "pipeline_only": {
+   "input_tokens": 8827,
+   "output_tokens": 4492,
+   "llm_seconds": 37.7,
+   "llm_calls": 6,
+   "truncated_calls": 0
+  }
+ },
+ "error": null,
+ "error_kind": null,
+ "nonfatal_errors": [],
+ "strict_error": false,
+ "output_text": "# Emma Stone's First Academy Award for Best Actress and Her Co-Star's Oscar Status\n\n## Executive Summary\nEmma Stone won her first Academy Award for Best Actress for her role in La La Land at the 89th Oscars ceremony in 2017. Her primary co-star in La La Land was Ryan Gosling, who played the male lead role opposite her character. However, based on available research data, Ryan Gosling did not win an Academy Award for Best Actor for his performance in La La Land or any other film to date. While Bradley Cooper appeared with Emma Stone in an 'Actors on Actors' segment, he was not her co-star in La La Land.\n\nThe research indicates that Emma Stone has since won a second Academy Award for Best Actress for Poor Things at the 96th Oscars in 2024, but the query specifically addresses her first Oscar win. The available data does not provide comprehensive information about all of Ryan Gosling's Oscar nominations or wins, creating a limitation in definitively confirming his complete Oscar history.\n\n## Key Findings\n- Emma Stone won her first Academy Award for Best Actress for La La Land at the 89th Oscars ceremony in 2017, as confirmed by multiple high-confidence sources\n- Ryan Gosling was Emma Stone's primary co-star in La La Land, playing the male lead role alongside her character\n- No evidence from the approved research claims indicates that Ryan Gosling won an Academy Award for Best Actor for La La Land\n- Emma Stone has won two Academy Awards for Best Actress total—first for La La Land (2017) and second for Poor Things (2024)\n- The research dataset does not contain comprehensive information about Ryan Gosling's complete Academy Award history, limiting definitive confirmation\n- Bradley Cooper, who appeared with Emma Stone in promotional 'Actors on Actors' content, was not her co-star in La La Land\n\n## Emma Stone's First Best Actress Win\nEmma Stone won the Academy Award for Best Actress for her role in La La Land. This award was presented at the 89th Oscars ceremony in 2017. According to the Wikipedia sources documenting her awards and nominations, this represents her first Academy Award in this category. The achievement is corroborated by multiple sources including biography databases and official Oscar ceremony records.\n\n## La La Land Co-Star Identification\nIn La La Land (2016), Emma Stone's principal co-star was Ryan Gosling, who played the male lead role in this romantic musical drama film. The two actors shared significant screen time and carried the central narrative together. While the approved research claims mention Bradley Cooper in connection with Emma Stone through an 'Actors on Actors' segment, this does not indicate he was her co-star in La La Land itself.\n\n## Ryan Gosling's Academy Award Status\nThe approved research claims provided do not contain evidence that Ryan Gosling won an Academy Award for Best Actor for La La Land or any other film. A search of the available citations reveals no mention of Ryan Gosling winning a Best Actor Oscar. The research data focuses primarily on Emma Stone's achievements and does not comprehensively document her co-star's Oscar history. To definitively answer whether Ryan Gosling has won a Best Actor Oscar would require additional research beyond the current dataset.\n\n## Emma Stone's Complete Oscar Record\nEmma Stone has won two Academy Awards for Best Actress. Her first win occurred at the 89th Oscars (2017) for La La Land. Her second win occurred at the 96th Oscars (2024) for Poor Things. Both wins are documented in high-confidence sources and represent significant recognition of her acting abilities across different roles and genres.\n\n## Confidence Assessment\nModerate to High confidence regarding the core question. The research conclusively establishes that Emma Stone won her first Best Actress award for La La Land at the 89th Oscars in 2017 (HIGH confidence, supported by multiple sources). However, confidence is reduced to MODERATE regarding the specific answer to whether her co-star won a Best Actor award, because the available research data does not comprehensively document Ryan Gosling's Academy Award history. The absence of evidence in the provided claims is not definitive proof that he did not win, but rather reflects limitations in the research dataset. A complete answer would require additional research specifically examining Ryan Gosling's Oscar history.\n\n## Limitations\nThe primary limitation of this research is incomplete coverage of Ryan Gosling's Academy Award history. While the approved research claims establish Emma Stone's Oscar wins with high confidence, they do not provide comprehensive data about her La La Land co-star's Academy Award record. The coverage score of 0.40 indicates that less than half of potentially relevant information has been captured. Additionally, the research dataset focuses heavily on Emma Stone rather than on her co-stars, which constrains the ability to answer co-star-focused questions. To provide a definitive answer to whether Ryan Gosling won a Best Actor award, research would need to specifically examine his nominations and wins across all Academy Award ceremonies in which he was eligible.\n\n## Citations (20 sources)\n\n1. [List of awards and nominations received by Emma Stone - Wikipedia](https://en.wikipedia.org/wiki/List_of_awards_and_nominations_received_by_Emma_Stone) — en.wikipedia.org (accessed 2026-10-05)\n2. [Emma Stone - Wikipedia](https://en.wikipedia.org/wiki/Emma_Stone) — en.wikipedia.org (accessed 2026-10-05)\n3. [Emma Stone wins Best Actress | 89th Oscars (2017)](https://www.youtube.com/watch?v=D3sotAxZSG8) — www.youtube.com (accessed 2026-10-05)\n4. [Emma Stone Wins Best Actress for 'Poor Things' | 96th Oscars (2024)](https://www.youtube.com/watch?v=XDYBUnCqsyw) — www.youtube.com (accessed 2026-10-05)\n5. [Emma Stone Oscars 2024: How many Oscars has Emma Stone won? Stone wins for best actress for Poor Things, now has 2 Acade](https://abc7ny.com/post/emma-stone-oscars-win-poor-things-actress-in-a-leading-role/14491216) — abc7ny.com (accessed 2026-10-05)\n6. [Emma Stone Just Broke Oscar Nominations Records](https://www.hollywoodreporter.com/movies/movie-news/emma-stone-oscar-nominations-records-1236480529) — www.hollywoodreporter.com (accessed 2026-10-05)\n7. [Both times Emma Stone won, she nearly swept all awards ...](https://www.reddit.com/r/Oscars/comments/1ctgwnj/both_times_emma_stone_won_she_nearly_swept_all) — www.reddit.com (accessed 2026-10-05)\n8. [Emma Stone - Awards](https://www.imdb.com/name/nm1297015/awards) — www.imdb.com (accessed 2026-10-05)\n9. [Emma Stone & Bradley Cooper | Actors on Actors : r/oscarrace](https://www.reddit.com/r/oscarrace/comments/18dq4dt/emma_stone_bradley_cooper_actors_on_actors) — www.reddit.com (accessed 2026-10-05)\n10. [Emma Stone: Biography, Actor, 2024 Oscar Winner](https://www.biography.com/actors/emma-stone) — www.biography.com (accessed 2026-10-05)\n11. [Best Actress winner Emma Stone reveals fun fact about her ...](https://www.goodmorningamerica.com/culture/story/2-time-best-actress-winner-emma-stone-hails-108000983) — www.goodmorningamerica.com (accessed 2026-10-05)\n12. [Emma Stone, nominated for Best Lead Actress in \"Bugonia ...](https://www.facebook.com/ABC7NY/videos/emma-stone-nominated-for-best-lead-actress-in-bugonia-looks-flawless-on-the-osca/1898476124107158) — www.facebook.com (accessed 2026-10-05)\n13. [Every Academy Award for Best Supporting Actor: A Complete History of the Winners | Vanity Fair](https://www.vanityfair.com/hollywood/story/academy-award-best-supporting-actor) — www.vanityfair.com (accessed 2026-10-05)\n14. [Academy Award for Best Actor - Wikipedia](https://en.wikipedia.org/wiki/Academy_Award_for_Best_Actor) — en.wikipedia.org (accessed 2026-10-05)\n15. [Instagram](https://www.instagram.com/reel/DV7NVxvspu4?hl=en) — www.instagram.com (accessed 2026-10-05)\n16. [The New York Times](https://www.facebook.com/nytimes/posts/michael-b-jordan-won-the-academy-award-for-best-actor-as-the-twins-smoke-and-sta/1321643606484766) — www.facebook.com (accessed 2026-10-05)\n17. [Oscar winners who beat actors nominated in the same ...](https://www.imdb.com/list/ls505885899) — www.imdb.com (accessed 2026-10-05)\n18. [Academy Award for Best Supporting Actor - Wikipedia](https://en.wikipedia.org/wiki/Academy_Award_for_Best_Supporting_Actor) — en.wikipedia.org (accessed 2026-10-05)\n19. [Michael B. Jordan wins Oscar for best actor for 'Sinners'](https://www.youtube.com/watch?v=5vaKPbwCfrQ) — www.youtube.com (accessed 2026-10-05)\n20. [Michael B. Jordan is the 6th Black Man to Win Best Actor](https://www.reddit.com/r/oscarrace/comments/1rwba31/michael_b_jordan_is_the_6th_black_man_to_win_best) — www.reddit.com (accessed 2026-10-05)",
+ "extraction_text": "Based on the report provided:\n\nThe report establishes that Emma Stone won her first Academy Award for Best Actress for La La Land at the 89th Oscars in 2017, and that Ryan Gosling was her primary co-star in that film. However, the report explicitly states: \"No evidence from the approved research claims indicates that Ryan Gosling won an Academy Award for Best Actor for La La Land\" and notes that \"The research data focuses primarily on Emma Stone's achievements and does not comprehensively document her co-star's Oscar history.\"\n\nThe report acknowledges this as a limitation, stating that \"the absence of evidence in the provided claims is not definitive proof that he did not win, but rather reflects limitations in the research dataset.\" The report assigns only MODERATE confidence to answering whether the co-star won a Best Actor award, specifically because the available research does not comprehensively cover Ryan Gosling's Academy Award history.\n\nGiven what the report contains, there is no evidence presented that Ryan Gosling won an Academy Award for Best Actor.\n\nFinal answer: Based on the report, there is no evidence that Ryan Gosling, Emma Stone's co-star in La La Land, won an Academy Award for Best Actor. However, the report acknowledges that its research data does not comprehensively document his complete Oscar history, so this cannot be stated with certainty.",
+ "final_answer": "Based on the report, there is no evidence that Ryan Gosling, Emma Stone's co-star in La La Land, won an Academy Award for Best Actor. However, the report acknowledges that its research data does not comprehensively document his complete Oscar history, so this cannot be stated with certainty.",
+ "claims": [
+  {
+   "text": "Emma Stone won the Academy Award for Best Actress for her role in La La Land",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/List_of_awards_and_nominations_received_by_Emma_Stone",
+    "https://en.wikipedia.org/wiki/Emma_Stone",
+    "https://www.youtube.com/watch?v=D3sotAxZSG8"
+   ],
+   "confidence": "high",
+   "supporting_sources": 3,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "Which Emma Stone movie won her an Academy Award for Best Actress and in what year?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Emma Stone won the Academy Award for Best Actress for her role in Poor Things",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/List_of_awards_and_nominations_received_by_Emma_Stone",
+    "https://en.wikipedia.org/wiki/Emma_Stone",
+    "https://www.youtube.com/watch?v=XDYBUnCqsyw"
+   ],
+   "confidence": "high",
+   "supporting_sources": 3,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "Which Emma Stone movie won her an Academy Award for Best Actress and in what year?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Emma Stone won the Academy Award for Best Actress at the 89th Oscars ceremony for La La Land",
+   "source_urls": [
+    "https://www.youtube.com/watch?v=D3sotAxZSG8"
+   ],
+   "confidence": "low",
+   "supporting_sources": 1,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "Which Emma Stone movie won her an Academy Award for Best Actress and in what year?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Emma Stone won the Academy Award for Best Actress at the 96th Oscars ceremony for Poor Things",
+   "source_urls": [
+    "https://www.youtube.com/watch?v=XDYBUnCqsyw"
+   ],
+   "confidence": "low",
+   "supporting_sources": 1,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "Which Emma Stone movie won her an Academy Award for Best Actress and in what year?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Emma Stone has won two Academy Awards for Best Actress",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/List_of_awards_and_nominations_received_by_Emma_Stone",
+    "https://en.wikipedia.org/wiki/Emma_Stone"
+   ],
+   "confidence": "medium",
+   "supporting_sources": 2,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "Which Emma Stone movie won her an Academy Award for Best Actress and in what year?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Emma Stone won Best Actress at the 96th Academy Awards for Poor Things",
+   "source_urls": [
+    "https://www.biography.com/actors/emma-stone"
+   ],
+   "confidence": "low",
+   "supporting_sources": 1,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "Who was the male lead costar in that Emma Stone Best Actress winning film?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Emma Stone won Best Actress at the 89th Oscars in 2017",
+   "source_urls": [
+    "https://www.youtube.com/watch?v=D3sotAxZSG8"
+   ],
+   "confidence": "low",
+   "supporting_sources": 1,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "Who was the male lead costar in that Emma Stone Best Actress winning film?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Emma Stone won Best Actress for La La Land in 2016",
+   "source_urls": [
+    "https://www.biography.com/actors/emma-stone"
+   ],
+   "confidence": "low",
+   "supporting_sources": 1,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "Who was the male lead costar in that Emma Stone Best Actress winning film?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Bradley Cooper appeared with Emma Stone in an 'Actors on Actors' segment",
+   "source_urls": [
+    "https://www.reddit.com/r/oscarrace/comments/18dq4dt/emma_stone_bradley_cooper_actors_on_actors"
+   ],
+   "confidence": "low",
+   "supporting_sources": 1,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "Who was the male lead costar in that Emma Stone Best Actress winning film?",
+   "round": 0,
+   "stage": "final"
+  }
+ ],
+ "rounds": {
+  "0": {
+   "sub_questions": [
+    "Which Emma Stone movie won her an Academy Award for Best Actress and in what year?",
+    "Who was the male lead costar in that Emma Stone Best Actress winning film?",
+    "Did that male costar win an Academy Award for Best Actor for that same film or any other film?"
+   ],
+   "search_urls": [
+    [
+     "https://en.wikipedia.org/wiki/List_of_awards_and_nominations_received_by_Emma_Stone",
+     "https://en.wikipedia.org/wiki/Emma_Stone",
+     "https://www.youtube.com/watch?v=D3sotAxZSG8",
+     "https://www.youtube.com/watch?v=XDYBUnCqsyw",
+     "https://abc7ny.com/post/emma-stone-oscars-win-poor-things-actress-in-a-leading-role/14491216",
+     "https://www.hollywoodreporter.com/movies/movie-news/emma-stone-oscar-nominations-records-1236480529",
+     "https://www.reddit.com/r/Oscars/comments/1ctgwnj/both_times_emma_stone_won_she_nearly_swept_all",
+     "https://www.imdb.com/name/nm1297015/awards"
+    ],
+    [
+     "https://www.imdb.com/name/nm1297015/awards",
+     "https://www.reddit.com/r/oscarrace/comments/18dq4dt/emma_stone_bradley_cooper_actors_on_actors",
+     "https://www.youtube.com/watch?v=D3sotAxZSG8",
+     "https://www.biography.com/actors/emma-stone",
+     "https://en.wikipedia.org/wiki/Emma_Stone",
+     "https://www.goodmorningamerica.com/culture/story/2-time-best-actress-winner-emma-stone-hails-108000983",
+     "https://abc7ny.com/post/emma-stone-oscars-win-poor-things-actress-in-a-leading-role/14491216",
+     "https://www.facebook.com/ABC7NY/videos/emma-stone-nominated-for-best-lead-actress-in-bugonia-looks-flawless-on-the-osca/1898476124107158"
+    ],
+    [
+     "https://www.vanityfair.com/hollywood/story/academy-award-best-supporting-actor",
+     "https://en.wikipedia.org/wiki/Academy_Award_for_Best_Actor",
+     "https://www.instagram.com/reel/DV7NVxvspu4?hl=en",
+     "https://www.facebook.com/nytimes/posts/michael-b-jordan-won-the-academy-award-for-best-actor-as-the-twins-smoke-and-sta/1321643606484766",
+     "https://www.imdb.com/list/ls505885899",
+     "https://en.wikipedia.org/wiki/Academy_Award_for_Best_Supporting_Actor",
+     "https://www.youtube.com/watch?v=5vaKPbwCfrQ",
+     "https://www.reddit.com/r/oscarrace/comments/1rwba31/michael_b_jordan_is_the_6th_black_man_to_win_best"
+    ]
+   ],
+   "scraped": [
+    {
+     "sub_question": "Which Emma Stone movie won her an Academy Award for Best Actress and in what year?",
+     "pages": [
+      {
+       "url": "https://en.wikipedia.org/wiki/List_of_awards_and_nominations_received_by_Emma_Stone",
+       "ok": true,
+       "chars": 8000
+      },
+      {
+       "url": "https://en.wikipedia.org/wiki/Emma_Stone",
+       "ok": true,
+       "chars": 8000
+      },
+      {
+       "url": "https://www.youtube.com/watch?v=D3sotAxZSG8",
+       "ok": true,
+       "chars": 224
+      },
+      {
+       "url": "https://www.youtube.com/watch?v=XDYBUnCqsyw",
+       "ok": true,
+       "chars": 242
+      }
+     ]
+    },
+    {
+     "sub_question": "Who was the male lead costar in that Emma Stone Best Actress winning film?",
+     "pages": [
+      {
+       "url": "https://www.imdb.com/name/nm1297015/awards",
+       "ok": false,
+       "chars": 0
+      },
+      {
+       "url": "https://www.reddit.com/r/oscarrace/comments/18dq4dt/emma_stone_bradley_cooper_actors_on_actors",
+       "ok": true,
+       "chars": 6
+      },
+      {
+       "url": "https://www.youtube.com/watch?v=D3sotAxZSG8",
+       "ok": true,
+       "chars": 224
+      },
+      {
+       "url": "https://www.biography.com/actors/emma-stone",
+       "ok": true,
+       "chars": 8000
+      }
+     ]
+    },
+    {
+     "sub_question": "Did that male costar win an Academy Award for Best Actor for that same film or any other film?",
+     "pages": []
+    }
+   ],
+   "analyst": [
+    {
+     "sub_question": "Which Emma Stone movie won her an Academy Award for Best Actress and in what year?",
+     "error": null,
+     "contradictions_found": 0,
+     "claims": [
+      {
+       "text": "Emma Stone won the Academy Award for Best Actress for her role in La La Land",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/List_of_awards_and_nominations_received_by_Emma_Stone",
+        "https://en.wikipedia.org/wiki/Emma_Stone",
+        "https://www.youtube.com/watch?v=D3sotAxZSG8"
+       ],
+       "confidence": "high",
+       "supporting_sources": 3,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "Which Emma Stone movie won her an Academy Award for Best Actress and in what year?",
+       "round": 0
+      },
+      {
+       "text": "Emma Stone won the Academy Award for Best Actress for her role in Poor Things",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/List_of_awards_and_nominations_received_by_Emma_Stone",
+        "https://en.wikipedia.org/wiki/Emma_Stone",
+        "https://www.youtube.com/watch?v=XDYBUnCqsyw"
+       ],
+       "confidence": "high",
+       "supporting_sources": 3,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "Which Emma Stone movie won her an Academy Award for Best Actress and in what year?",
+       "round": 0
+      },
+      {
+       "text": "Emma Stone won the Academy Award for Best Actress at the 89th Oscars ceremony for La La Land",
+       "source_urls": [
+        "https://www.youtube.com/watch?v=D3sotAxZSG8"
+       ],
+       "confidence": "low",
+       "supporting_sources": 1,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "Which Emma Stone movie won her an Academy Award for Best Actress and in what year?",
+       "round": 0
+      },
+      {
+       "text": "Emma Stone won the Academy Award for Best Actress at the 96th Oscars ceremony for Poor Things",
+       "source_urls": [
+        "https://www.youtube.com/watch?v=XDYBUnCqsyw"
+       ],
+       "confidence": "low",
+       "supporting_sources": 1,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "Which Emma Stone movie won her an Academy Award for Best Actress and in what year?",
+       "round": 0
+      },
+      {
+       "text": "Emma Stone has won two Academy Awards for Best Actress",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/List_of_awards_and_nominations_received_by_Emma_Stone",
+        "https://en.wikipedia.org/wiki/Emma_Stone"
+       ],
+       "confidence": "medium",
+       "supporting_sources": 2,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "Which Emma Stone movie won her an Academy Award for Best Actress and in what year?",
+       "round": 0
+      }
+     ]
+    },
+    {
+     "sub_question": "Who was the male lead costar in that Emma Stone Best Actress winning film?",
+     "error": null,
+     "contradictions_found": 1,
+     "claims": [
+      {
+       "text": "Emma Stone won Best Actress at the 96th Academy Awards for Poor Things",
+       "source_urls": [
+        "https://www.biography.com/actors/emma-stone"
+       ],
+       "confidence": "low",
+       "supporting_sources": 1,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "Who was the male lead costar in that Emma Stone Best Actress winning film?",
+       "round": 0
+      },
+      {
+       "text": "Emma Stone won Best Actress at the 89th Oscars in 2017",
+       "source_urls": [
+        "https://www.youtube.com/watch?v=D3sotAxZSG8"
+       ],
+       "confidence": "low",
+       "supporting_sources": 1,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "Who was the male lead costar in that Emma Stone Best Actress winning film?",
+       "round": 0
+      },
+      {
+       "text": "Emma Stone won Best Actress for La La Land in 2016",
+       "source_urls": [
+        "https://www.biography.com/actors/emma-stone"
+       ],
+       "confidence": "low",
+       "supporting_sources": 1,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "Who was the male lead costar in that Emma Stone Best Actress winning film?",
+       "round": 0
+      },
+      {
+       "text": "Bradley Cooper appeared with Emma Stone in an 'Actors on Actors' segment",
+       "source_urls": [
+        "https://www.reddit.com/r/oscarrace/comments/18dq4dt/emma_stone_bradley_cooper_actors_on_actors"
+       ],
+       "confidence": "low",
+       "supporting_sources": 1,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "Who was the male lead costar in that Emma Stone Best Actress winning film?",
+       "round": 0
+      }
+     ]
+    },
+    {
+     "sub_question": "Did that male costar win an Academy Award for Best Actor for that same film or any other film?",
+     "error": "No content available to analyze",
+     "contradictions_found": 0,
+     "claims": []
+    }
+   ],
+   "critic": {
+    "schema_version": "1.0",
+    "flagged_claims": [],
+    "overall_quality_score": 0.52,
+    "coverage_score": 0.4,
+    "source_diversity_score": 0.65,
+    "contradiction_rate": 0.0,
+    "needs_more_research": false,
+    "critic_notes": "Critical gap: The research identifies that Emma Stone won Best Actress for La La Land (her first win chronologically based on claims 7-8), but COMPLETELY FAILS to identify her male costar in that film or answer the core question about whether he won Best Actor. The research does not mention Ryan Gosling at all, nor does it address whether he won an Oscar. Claims 3-4, 6-8 are single-sourced and concerning. The claim about 'Actors on Actors' (claim 9) is irrelevant to the research question. Coverage is critically incomplete - 2 out of 3 sub-questions are inadequately addressed. A second research round is essential to identify the La La Land costar and verify Academy Award wins.",
+    "tokens_used": 2067,
+    "duration_seconds": 7.052303000004031,
+    "approved_texts": [
+     "Emma Stone won the Academy Award for Best Actress for her role in La La Land",
+     "Emma Stone won the Academy Award for Best Actress for her role in Poor Things",
+     "Emma Stone won the Academy Award for Best Actress at the 89th Oscars ceremony for La La Land",
+     "Emma Stone won the Academy Award for Best Actress at the 96th Oscars ceremony for Poor Things",
+     "Emma Stone has won two Academy Awards for Best Actress",
+     "Emma Stone won Best Actress at the 96th Academy Awards for Poor Things",
+     "Emma Stone won Best Actress at the 89th Oscars in 2017",
+     "Emma Stone won Best Actress for La La Land in 2016",
+     "Bradley Cooper appeared with Emma Stone in an 'Actors on Actors' segment"
+    ]
+   },
+   "critic_round_converged": true
+  }
+ },
+ "provided_urls": [
+  "https://en.wikipedia.org/wiki/Emma_Stone",
+  "https://en.wikipedia.org/wiki/List_of_awards_and_nominations_received_by_Emma_Stone",
+  "https://www.biography.com/actors/emma-stone",
+  "https://www.reddit.com/r/oscarrace/comments/18dq4dt/emma_stone_bradley_cooper_actors_on_actors",
+  "https://www.youtube.com/watch?v=D3sotAxZSG8",
+  "https://www.youtube.com/watch?v=XDYBUnCqsyw"
+ ],
+ "pipeline": {
+  "rounds_run": 1,
+  "converged": true,
+  "fatal_error": null,
+  "errors": [],
+  "tokens_used_total_pipeline_accounting": 13319,
+  "tokens_by_agent": {
+   "orchestrator": 515,
+   "analyst": 5461,
+   "critic": 2067,
+   "writer": 5276
+  },
+  "fact_check_results": [],
+  "quality": {
+   "schema_version": "1.0",
+   "coverage_score": 0.4,
+   "source_diversity_score": 0.65,
+   "contradiction_rate": 0.0,
+   "overall_quality_score": 0.52,
+   "confidence_distribution": {
+    "high": 2,
+    "medium": 1,
+    "low": 6,
+    "contested": 0,
+    "inconclusive": 0
+   },
+   "re_research_rounds": 1,
+   "total_sources_consulted": 20,
+   "total_claims_extracted": 9,
+   "claims_flagged_by_critic": 0,
+   "claims_verified_by_fact_checker": 0,
+   "converged": true,
+   "convergence_note": "Report converged after 1 research round(s)."
+  },
+  "n_citations": 20,
+  "activity": [
+   "Orchestrator: Round 1: decomposing query into sub-questions...",
+   "Orchestrator: Decomposed into 3 sub-questions: Which Emma Stone movie won her an Academ...; Who was the male lead costar in that Emm...; Did that male costar win an Academy Awar...",
+   "Search Agents: Launching 3 parallel search agents...",
+   "Search Agents: Retrieved 24 sources across 3 sub-questions",
+   "Scraper Agents: Scraping top 4 sources per sub-question...",
+   "Scraper Agents: Scraped 7/8 pages successfully",
+   "Analyst Agents: Analyzing content across 3 sub-questions in parallel...",
+   "Analyst Agents: Extracted 9 claims across 3 sub-questions",
+   "Critic Agent: Reviewing all analyst findings for quality and coverage...",
+   "Critic Agent: Quality score: 0.52 | Coverage: 0.40 | 0 claims flagged",
+   "Fact-Checker Agents: No claims flagged by Critic — skipping fact-checking.",
+   "Writer Agent: Writing general report...",
+   "Writer Agent: Report written: 'Emma Stone's First Academy Award for Best Actress and Her Co-Star's Oscar Status' | 20 citations | 0 contradictions mapped"
+  ]
+ }
+}

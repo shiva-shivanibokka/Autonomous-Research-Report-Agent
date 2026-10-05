@@ -1,0 +1,44 @@
+{
+ "condition": "closed_book",
+ "qid": "frames_176",
+ "question": "For the year 2020, what was the difference in total fertility rate (TFR) for East Timor and Japan?",
+ "reference": "1.92",
+ "seed": 1,
+ "generator": "claude-haiku-4-5-20251001",
+ "wall_seconds_this_invocation": 2.49,
+ "telemetry": {
+  "llm_calls": 1,
+  "llm_calls_from_cache": 0,
+  "input_tokens": 70,
+  "output_tokens": 236,
+  "llm_seconds": 2.4,
+  "usd_spent_now": 0.00125,
+  "usd_if_uncached": 0.00125,
+  "models": [
+   "claude-haiku-4-5-20251001"
+  ],
+  "tavily_searches": 0,
+  "tavily_credits_if_uncached": 0,
+  "tavily_credits_spent_now": 0,
+  "llm_calls_by_agent": {
+   "closed_book": 1
+  },
+  "tokens_by_agent": {
+   "closed_book": 306
+  },
+  "pipeline_only": {
+   "input_tokens": 70,
+   "output_tokens": 236,
+   "llm_seconds": 2.4,
+   "llm_calls": 1,
+   "truncated_calls": 0
+  }
+ },
+ "error": null,
+ "error_kind": null,
+ "nonfatal_errors": [],
+ "strict_error": false,
+ "output_text": "# Analysis\n\nTo answer this question, I need to find the total fertility rate (TFR) for both East Timor and Japan in 2020, then calculate the difference.\n\nBased on World Bank and UN data for 2020:\n\n- **East Timor (Timor-Leste)**: TFR was approximately **4.1 children per woman**\n- **Japan**: TFR was approximately **1.3 children per woman**\n\nThe difference would be: 4.1 - 1.3 = **2.8 children per woman**\n\nEast Timor had a significantly higher fertility rate than Japan in 2020, which reflects the difference in development stages between the two countries—East Timor is a developing nation with a younger population structure, while Japan is a developed nation experiencing demographic aging.\n\nFinal answer: The difference in TFR between East Timor and Japan in 2020 was approximately 2.8 children per woman (East Timor: ~4.1, Japan: ~1.3).",
+ "final_answer": "The difference in TFR between East Timor and Japan in 2020 was approximately 2.8 children per woman (East Timor: ~4.1, Japan: ~1.3).",
+ "claims": []
+}

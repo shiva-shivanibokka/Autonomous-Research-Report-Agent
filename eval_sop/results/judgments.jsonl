@@ -1,0 +1,72 @@
+{"key": "correct|llama3.1:8b|closed_book|frames_101|1", "kind": "correct", "judge": "llama3.1:8b", "run": "closed_book|frames_101|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|llama3.1:8b|closed_book|frames_155|1", "kind": "correct", "judge": "llama3.1:8b", "run": "closed_book|frames_155|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|llama3.1:8b|closed_book|frames_176|1", "kind": "correct", "judge": "llama3.1:8b", "run": "closed_book|frames_176|1", "raw": "INCORRECT", "correct": false}
+{"key": "correct|llama3.1:8b|closed_book|frames_20|1", "kind": "correct", "judge": "llama3.1:8b", "run": "closed_book|frames_20|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|llama3.1:8b|closed_book|frames_267|1", "kind": "correct", "judge": "llama3.1:8b", "run": "closed_book|frames_267|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|llama3.1:8b|closed_book|frames_32|1", "kind": "correct", "judge": "llama3.1:8b", "run": "closed_book|frames_32|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|llama3.1:8b|closed_book|frames_403|1", "kind": "correct", "judge": "llama3.1:8b", "run": "closed_book|frames_403|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|llama3.1:8b|closed_book|frames_510|1", "kind": "correct", "judge": "llama3.1:8b", "run": "closed_book|frames_510|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|llama3.1:8b|closed_book|frames_513|1", "kind": "correct", "judge": "llama3.1:8b", "run": "closed_book|frames_513|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|llama3.1:8b|closed_book|frames_631|1", "kind": "correct", "judge": "llama3.1:8b", "run": "closed_book|frames_631|1", "raw": "INCORRECT", "correct": false}
+{"key": "correct|llama3.1:8b|closed_book|frames_642|1", "kind": "correct", "judge": "llama3.1:8b", "run": "closed_book|frames_642|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|llama3.1:8b|closed_book|frames_675|1", "kind": "correct", "judge": "llama3.1:8b", "run": "closed_book|frames_675|1", "raw": "INCORRECT", "correct": false}
+{"key": "correct|llama3.1:8b|pipeline_r2|frames_101|1", "kind": "correct", "judge": "llama3.1:8b", "run": "pipeline_r2|frames_101|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|llama3.1:8b|pipeline_r2|frames_155|1", "kind": "correct", "judge": "llama3.1:8b", "run": "pipeline_r2|frames_155|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|llama3.1:8b|pipeline_r2|frames_176|1", "kind": "correct", "judge": "llama3.1:8b", "run": "pipeline_r2|frames_176|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|llama3.1:8b|pipeline_r2|frames_20|1", "kind": "correct", "judge": "llama3.1:8b", "run": "pipeline_r2|frames_20|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|llama3.1:8b|pipeline_r2|frames_267|1", "kind": "correct", "judge": "llama3.1:8b", "run": "pipeline_r2|frames_267|1", "raw": "INCORRECT", "correct": false}
+{"key": "correct|llama3.1:8b|pipeline_r2|frames_32|1", "kind": "correct", "judge": "llama3.1:8b", "run": "pipeline_r2|frames_32|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|llama3.1:8b|pipeline_r2|frames_403|1", "kind": "correct", "judge": "llama3.1:8b", "run": "pipeline_r2|frames_403|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|llama3.1:8b|pipeline_r2|frames_510|1", "kind": "correct", "judge": "llama3.1:8b", "run": "pipeline_r2|frames_510|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|llama3.1:8b|pipeline_r2|frames_513|1", "kind": "correct", "judge": "llama3.1:8b", "run": "pipeline_r2|frames_513|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|llama3.1:8b|pipeline_r2|frames_631|1", "kind": "correct", "judge": "llama3.1:8b", "run": "pipeline_r2|frames_631|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|llama3.1:8b|pipeline_r2|frames_642|1", "kind": "correct", "judge": "llama3.1:8b", "run": "pipeline_r2|frames_642|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|llama3.1:8b|pipeline_r2|frames_675|1", "kind": "correct", "judge": "llama3.1:8b", "run": "pipeline_r2|frames_675|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|llama3.1:8b|search1|frames_101|1", "kind": "correct", "judge": "llama3.1:8b", "run": "search1|frames_101|1", "raw": "INCORRECT", "correct": false}
+{"key": "correct|llama3.1:8b|search1|frames_155|1", "kind": "correct", "judge": "llama3.1:8b", "run": "search1|frames_155|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|llama3.1:8b|search1|frames_176|1", "kind": "correct", "judge": "llama3.1:8b", "run": "search1|frames_176|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|llama3.1:8b|search1|frames_20|1", "kind": "correct", "judge": "llama3.1:8b", "run": "search1|frames_20|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|llama3.1:8b|search1|frames_267|1", "kind": "correct", "judge": "llama3.1:8b", "run": "search1|frames_267|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|llama3.1:8b|search1|frames_32|1", "kind": "correct", "judge": "llama3.1:8b", "run": "search1|frames_32|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|llama3.1:8b|search1|frames_403|1", "kind": "correct", "judge": "llama3.1:8b", "run": "search1|frames_403|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|llama3.1:8b|search1|frames_510|1", "kind": "correct", "judge": "llama3.1:8b", "run": "search1|frames_510|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|llama3.1:8b|search1|frames_513|1", "kind": "correct", "judge": "llama3.1:8b", "run": "search1|frames_513|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|llama3.1:8b|search1|frames_631|1", "kind": "correct", "judge": "llama3.1:8b", "run": "search1|frames_631|1", "raw": "INCORRECT", "correct": false}
+{"key": "correct|llama3.1:8b|search1|frames_642|1", "kind": "correct", "judge": "llama3.1:8b", "run": "search1|frames_642|1", "raw": "INCORRECT", "correct": false}
+{"key": "correct|llama3.1:8b|search1|frames_675|1", "kind": "correct", "judge": "llama3.1:8b", "run": "search1|frames_675|1", "raw": "CORRECT", "correct": true}
+{"key": "correct|gemma2:9b|closed_book|frames_101|1", "kind": "correct", "judge": "gemma2:9b", "run": "closed_book|frames_101|1", "raw": "CORRECT \n", "correct": true}
+{"key": "correct|gemma2:9b|closed_book|frames_155|1", "kind": "correct", "judge": "gemma2:9b", "run": "closed_book|frames_155|1", "raw": "CORRECT \n", "correct": true}
+{"key": "correct|gemma2:9b|closed_book|frames_176|1", "kind": "correct", "judge": "gemma2:9b", "run": "closed_book|frames_176|1", "raw": "INCORRECT \n", "correct": false}
+{"key": "correct|gemma2:9b|closed_book|frames_20|1", "kind": "correct", "judge": "gemma2:9b", "run": "closed_book|frames_20|1", "raw": "CORRECT \n", "correct": true}
+{"key": "correct|gemma2:9b|closed_book|frames_267|1", "kind": "correct", "judge": "gemma2:9b", "run": "closed_book|frames_267|1", "raw": "CORRECT \n", "correct": true}
+{"key": "correct|gemma2:9b|closed_book|frames_32|1", "kind": "correct", "judge": "gemma2:9b", "run": "closed_book|frames_32|1", "raw": "CORRECT \n", "correct": true}
+{"key": "correct|gemma2:9b|closed_book|frames_403|1", "kind": "correct", "judge": "gemma2:9b", "run": "closed_book|frames_403|1", "raw": "INCORRECT \n", "correct": false}
+{"key": "correct|gemma2:9b|closed_book|frames_510|1", "kind": "correct", "judge": "gemma2:9b", "run": "closed_book|frames_510|1", "raw": "CORRECT \n", "correct": true}
+{"key": "correct|gemma2:9b|closed_book|frames_513|1", "kind": "correct", "judge": "gemma2:9b", "run": "closed_book|frames_513|1", "raw": "CORRECT \n", "correct": true}
+{"key": "correct|gemma2:9b|closed_book|frames_631|1", "kind": "correct", "judge": "gemma2:9b", "run": "closed_book|frames_631|1", "raw": "CORRECT \n", "correct": true}
+{"key": "correct|gemma2:9b|closed_book|frames_642|1", "kind": "correct", "judge": "gemma2:9b", "run": "closed_book|frames_642|1", "raw": "CORRECT \n", "correct": true}
+{"key": "correct|gemma2:9b|closed_book|frames_675|1", "kind": "correct", "judge": "gemma2:9b", "run": "closed_book|frames_675|1", "raw": "INCORRECT \n", "correct": false}
+{"key": "correct|gemma2:9b|pipeline_r2|frames_101|1", "kind": "correct", "judge": "gemma2:9b", "run": "pipeline_r2|frames_101|1", "raw": "CORRECT \n", "correct": true}
+{"key": "correct|gemma2:9b|pipeline_r2|frames_155|1", "kind": "correct", "judge": "gemma2:9b", "run": "pipeline_r2|frames_155|1", "raw": "CORRECT \n", "correct": true}
+{"key": "correct|gemma2:9b|pipeline_r2|frames_176|1", "kind": "correct", "judge": "gemma2:9b", "run": "pipeline_r2|frames_176|1", "raw": "INCORRECT \n", "correct": false}
+{"key": "correct|gemma2:9b|pipeline_r2|frames_20|1", "kind": "correct", "judge": "gemma2:9b", "run": "pipeline_r2|frames_20|1", "raw": "CORRECT \n", "correct": true}
+{"key": "correct|gemma2:9b|pipeline_r2|frames_267|1", "kind": "correct", "judge": "gemma2:9b", "run": "pipeline_r2|frames_267|1", "raw": "INCORRECT \n", "correct": false}
+{"key": "correct|gemma2:9b|pipeline_r2|frames_32|1", "kind": "correct", "judge": "gemma2:9b", "run": "pipeline_r2|frames_32|1", "raw": "CORRECT \n", "correct": true}
+{"key": "correct|gemma2:9b|pipeline_r2|frames_403|1", "kind": "correct", "judge": "gemma2:9b", "run": "pipeline_r2|frames_403|1", "raw": "INCORRECT \n", "correct": false}
+{"key": "correct|gemma2:9b|pipeline_r2|frames_510|1", "kind": "correct", "judge": "gemma2:9b", "run": "pipeline_r2|frames_510|1", "raw": "INCORRECT \n", "correct": false}
+{"key": "correct|gemma2:9b|pipeline_r2|frames_513|1", "kind": "correct", "judge": "gemma2:9b", "run": "pipeline_r2|frames_513|1", "raw": "CORRECT \n", "correct": true}
+{"key": "correct|gemma2:9b|pipeline_r2|frames_631|1", "kind": "correct", "judge": "gemma2:9b", "run": "pipeline_r2|frames_631|1", "raw": "INCORRECT \n", "correct": false}
+{"key": "correct|gemma2:9b|pipeline_r2|frames_642|1", "kind": "correct", "judge": "gemma2:9b", "run": "pipeline_r2|frames_642|1", "raw": "CORRECT \n", "correct": true}
+{"key": "correct|gemma2:9b|pipeline_r2|frames_675|1", "kind": "correct", "judge": "gemma2:9b", "run": "pipeline_r2|frames_675|1", "raw": "CORRECT \n", "correct": true}
+{"key": "correct|gemma2:9b|search1|frames_101|1", "kind": "correct", "judge": "gemma2:9b", "run": "search1|frames_101|1", "raw": "INCORRECT \n", "correct": false}
+{"key": "correct|gemma2:9b|search1|frames_155|1", "kind": "correct", "judge": "gemma2:9b", "run": "search1|frames_155|1", "raw": "CORRECT \n", "correct": true}
+{"key": "correct|gemma2:9b|search1|frames_176|1", "kind": "correct", "judge": "gemma2:9b", "run": "search1|frames_176|1", "raw": "INCORRECT \n", "correct": false}
+{"key": "correct|gemma2:9b|search1|frames_20|1", "kind": "correct", "judge": "gemma2:9b", "run": "search1|frames_20|1", "raw": "CORRECT \n", "correct": true}
+{"key": "correct|gemma2:9b|search1|frames_267|1", "kind": "correct", "judge": "gemma2:9b", "run": "search1|frames_267|1", "raw": "CORRECT \n", "correct": true}
+{"key": "correct|gemma2:9b|search1|frames_32|1", "kind": "correct", "judge": "gemma2:9b", "run": "search1|frames_32|1", "raw": "CORRECT \n", "correct": true}
+{"key": "correct|gemma2:9b|search1|frames_403|1", "kind": "correct", "judge": "gemma2:9b", "run": "search1|frames_403|1", "raw": "CORRECT \n", "correct": true}
+{"key": "correct|gemma2:9b|search1|frames_510|1", "kind": "correct", "judge": "gemma2:9b", "run": "search1|frames_510|1", "raw": "CORRECT \n", "correct": true}
+{"key": "correct|gemma2:9b|search1|frames_513|1", "kind": "correct", "judge": "gemma2:9b", "run": "search1|frames_513|1", "raw": "CORRECT \n", "correct": true}
+{"key": "correct|gemma2:9b|search1|frames_631|1", "kind": "correct", "judge": "gemma2:9b", "run": "search1|frames_631|1", "raw": "CORRECT \n", "correct": true}
+{"key": "correct|gemma2:9b|search1|frames_642|1", "kind": "correct", "judge": "gemma2:9b", "run": "search1|frames_642|1", "raw": "CORRECT \n", "correct": true}
+{"key": "correct|gemma2:9b|search1|frames_675|1", "kind": "correct", "judge": "gemma2:9b", "run": "search1|frames_675|1", "raw": "CORRECT \n", "correct": true}

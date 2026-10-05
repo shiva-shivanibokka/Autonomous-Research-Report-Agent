@@ -1,0 +1,44 @@
+{
+ "condition": "closed_book",
+ "qid": "canary_paris",
+ "question": "What is the capital city of France?",
+ "reference": "Paris",
+ "seed": 0,
+ "generator": "claude-haiku-4-5-20251001",
+ "wall_seconds_this_invocation": 1.67,
+ "telemetry": {
+  "llm_calls": 1,
+  "llm_calls_from_cache": 0,
+  "input_tokens": 50,
+  "output_tokens": 83,
+  "llm_seconds": 1.59,
+  "usd_spent_now": 0.000465,
+  "usd_if_uncached": 0.000465,
+  "models": [
+   "claude-haiku-4-5-20251001"
+  ],
+  "tavily_searches": 0,
+  "tavily_credits_if_uncached": 0,
+  "tavily_credits_spent_now": 0,
+  "llm_calls_by_agent": {
+   "closed_book": 1
+  },
+  "tokens_by_agent": {
+   "closed_book": 133
+  },
+  "pipeline_only": {
+   "input_tokens": 50,
+   "output_tokens": 83,
+   "llm_seconds": 1.59,
+   "llm_calls": 1,
+   "truncated_calls": 0
+  }
+ },
+ "error": null,
+ "error_kind": null,
+ "nonfatal_errors": [],
+ "strict_error": false,
+ "output_text": "# Answer to Question About France's Capital\n\n**Reasoning:**\nFrance is a country in Western Europe. The capital city is the political and administrative center of the country, where the national government is located. France's capital has been Paris since the 12th century, and it remains the largest city in the country and one of the most important cities in Europe.\n\n**Final answer:** Paris",
+ "final_answer": "Paris",
+ "claims": []
+}

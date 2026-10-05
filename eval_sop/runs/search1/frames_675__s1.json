@@ -1,0 +1,212 @@
+{
+ "condition": "search1",
+ "qid": "frames_675",
+ "question": "In physics, when speaking of classical mechanics, there is an infamous problem that involves taking the initial positions and velocities of three point masses that orbit each other and attempting to calculate their trajectories. There is no general closed-form solution for this infamous problem. French mathematicians in the 18th century focused on solving this problem in regards to astronomical motion, specifically how the Moon rotates on its apsides. Their work led to a solution using Newton's laws of physics and the Discrete Fourier Transformation (DFT), which ultimately changed how sailors were able to determine longitude at sea. The inventor of the device that would revolutionize naval navigation using these new principles and proofs spent how many years testing and perfecting his work?",
+ "reference": "31 years (1730-1761)",
+ "seed": 1,
+ "generator": "claude-haiku-4-5-20251001",
+ "wall_seconds_this_invocation": 10.59,
+ "telemetry": {
+  "llm_calls": 1,
+  "llm_calls_from_cache": 0,
+  "input_tokens": 3977,
+  "output_tokens": 371,
+  "llm_seconds": 3.97,
+  "usd_spent_now": 0.005832,
+  "usd_if_uncached": 0.005832,
+  "models": [
+   "claude-haiku-4-5-20251001"
+  ],
+  "tavily_searches": 1,
+  "tavily_credits_if_uncached": 1,
+  "tavily_credits_spent_now": 1,
+  "llm_calls_by_agent": {
+   "search1": 1
+  },
+  "tokens_by_agent": {
+   "search1": 4348
+  },
+  "pipeline_only": {
+   "input_tokens": 3977,
+   "output_tokens": 371,
+   "llm_seconds": 3.97,
+   "llm_calls": 1,
+   "truncated_calls": 0
+  }
+ },
+ "error": null,
+ "error_kind": null,
+ "nonfatal_errors": [],
+ "strict_error": false,
+ "output_text": "Based on my careful review of the provided sources, I must note that the question contains several claims that cannot be verified or are contradicted by the sources:\n\n• The three-body problem has no general closed-form analytic solution, and involves calculating trajectories of three point masses orbiting each other using Newton's laws [1, 2, 3, 6, 7]\n\n• Historically, the first specific three-body problem to receive extended study involved the Earth, the Moon, and the Sun [1, 2, 3, 4]\n\n• The sources mention that solutions to the three-body problem would apply to navigation and longitude determination at sea, and reference John Harrison's invention of the marine chronometer [6, 7]\n\n• The sources do NOT mention the Discrete Fourier Transformation (DFT) in connection with solving the three-body problem or lunar motion [1, 2, 3, 6, 7]\n\n• The sources do NOT provide information about French mathematicians in the 18th century focusing on the Moon's apsides, nor do they specify how many years any inventor spent testing a device [1, 2, 3, 6, 7]\n\n• The sources mention John Harrison's marine chronometer but do not specify how many years he spent testing and perfecting it [6, 7]\n\nFinal answer: I cannot answer this question based on the provided sources. While the sources confirm John Harrison invented the marine chronometer for navigation and longitude determination, they do not specify how many years he spent testing and perfecting it. Additionally, the sources do not support the claims about French mathematicians, the DFT, or lunar apsides work mentioned in the question.",
+ "final_answer": "I cannot answer this question based on the provided sources. While the sources confirm John Harrison invented the marine chronometer for navigation and longitude determination, they do not specify how many years he spent testing and perfecting it. Additionally, the sources do not support the claims about French mathematicians, the DFT, or lunar apsides work mentioned in the question.",
+ "claims": [
+  {
+   "text": "The three-body problem has no general closed-form analytic solution, and involves calculating trajectories of three point masses orbiting each other using Newton's laws",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Three-Body_Problem",
+    "https://en.wikipedia.org/wiki/3-body_problem",
+    "https://handwiki.org/wiki/Physics:Three-body_problem",
+    "https://en.wikipedia.org/wiki/Three-body_problem",
+    "http://en.wikipedia.org/wiki/Three-body_problem"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "In physics, when speaking of classical mechanics, there is an infamous problem that involves taking the initial positions and velocities of three point masses that orbit each other and attempting to calculate their trajectories. There is no general closed-form solution for this infamous problem. French mathematicians in the 18th century focused on solving this problem in regards to astronomical motion, specifically how the Moon rotates on its apsides. Their work led to a solution using Newton's laws of physics and the Discrete Fourier Transformation (DFT), which ultimately changed how sailors were able to determine longitude at sea. The inventor of the device that would revolutionize naval navigation using these new principles and proofs spent how many years testing and perfecting his work?",
+   "stage": "final"
+  },
+  {
+   "text": "Historically, the first specific three-body problem to receive extended study involved the Earth, the Moon, and the Sun",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Three-Body_Problem",
+    "https://en.wikipedia.org/wiki/3-body_problem",
+    "https://handwiki.org/wiki/Physics:Three-body_problem",
+    "https://iidb.org/threads/the-three-body-problem.28276"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "In physics, when speaking of classical mechanics, there is an infamous problem that involves taking the initial positions and velocities of three point masses that orbit each other and attempting to calculate their trajectories. There is no general closed-form solution for this infamous problem. French mathematicians in the 18th century focused on solving this problem in regards to astronomical motion, specifically how the Moon rotates on its apsides. Their work led to a solution using Newton's laws of physics and the Discrete Fourier Transformation (DFT), which ultimately changed how sailors were able to determine longitude at sea. The inventor of the device that would revolutionize naval navigation using these new principles and proofs spent how many years testing and perfecting his work?",
+   "stage": "final"
+  },
+  {
+   "text": "The sources mention that solutions to the three-body problem would apply to navigation and longitude determination at sea, and reference John Harrison's invention of the marine chronometer",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Three-body_problem",
+    "http://en.wikipedia.org/wiki/Three-body_problem"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "In physics, when speaking of classical mechanics, there is an infamous problem that involves taking the initial positions and velocities of three point masses that orbit each other and attempting to calculate their trajectories. There is no general closed-form solution for this infamous problem. French mathematicians in the 18th century focused on solving this problem in regards to astronomical motion, specifically how the Moon rotates on its apsides. Their work led to a solution using Newton's laws of physics and the Discrete Fourier Transformation (DFT), which ultimately changed how sailors were able to determine longitude at sea. The inventor of the device that would revolutionize naval navigation using these new principles and proofs spent how many years testing and perfecting his work?",
+   "stage": "final"
+  },
+  {
+   "text": "The sources do NOT mention the Discrete Fourier Transformation (DFT) in connection with solving the three-body problem or lunar motion",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Three-Body_Problem",
+    "https://en.wikipedia.org/wiki/3-body_problem",
+    "https://handwiki.org/wiki/Physics:Three-body_problem",
+    "https://en.wikipedia.org/wiki/Three-body_problem",
+    "http://en.wikipedia.org/wiki/Three-body_problem"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "In physics, when speaking of classical mechanics, there is an infamous problem that involves taking the initial positions and velocities of three point masses that orbit each other and attempting to calculate their trajectories. There is no general closed-form solution for this infamous problem. French mathematicians in the 18th century focused on solving this problem in regards to astronomical motion, specifically how the Moon rotates on its apsides. Their work led to a solution using Newton's laws of physics and the Discrete Fourier Transformation (DFT), which ultimately changed how sailors were able to determine longitude at sea. The inventor of the device that would revolutionize naval navigation using these new principles and proofs spent how many years testing and perfecting his work?",
+   "stage": "final"
+  },
+  {
+   "text": "The sources do NOT provide information about French mathematicians in the 18th century focusing on the Moon's apsides, nor do they specify how many years any inventor spent testing a device",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Three-Body_Problem",
+    "https://en.wikipedia.org/wiki/3-body_problem",
+    "https://handwiki.org/wiki/Physics:Three-body_problem",
+    "https://en.wikipedia.org/wiki/Three-body_problem",
+    "http://en.wikipedia.org/wiki/Three-body_problem"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "In physics, when speaking of classical mechanics, there is an infamous problem that involves taking the initial positions and velocities of three point masses that orbit each other and attempting to calculate their trajectories. There is no general closed-form solution for this infamous problem. French mathematicians in the 18th century focused on solving this problem in regards to astronomical motion, specifically how the Moon rotates on its apsides. Their work led to a solution using Newton's laws of physics and the Discrete Fourier Transformation (DFT), which ultimately changed how sailors were able to determine longitude at sea. The inventor of the device that would revolutionize naval navigation using these new principles and proofs spent how many years testing and perfecting his work?",
+   "stage": "final"
+  },
+  {
+   "text": "The sources mention John Harrison's marine chronometer but do not specify how many years he spent testing and perfecting it",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Three-body_problem",
+    "http://en.wikipedia.org/wiki/Three-body_problem"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "In physics, when speaking of classical mechanics, there is an infamous problem that involves taking the initial positions and velocities of three point masses that orbit each other and attempting to calculate their trajectories. There is no general closed-form solution for this infamous problem. French mathematicians in the 18th century focused on solving this problem in regards to astronomical motion, specifically how the Moon rotates on its apsides. Their work led to a solution using Newton's laws of physics and the Discrete Fourier Transformation (DFT), which ultimately changed how sailors were able to determine longitude at sea. The inventor of the device that would revolutionize naval navigation using these new principles and proofs spent how many years testing and perfecting his work?",
+   "stage": "final"
+  }
+ ],
+ "sources": [
+  {
+   "schema_version": "1.0",
+   "url": "https://en.wikipedia.org/wiki/Three-Body_Problem",
+   "title": "Three-body problem - Wikipedia",
+   "snippet": "Title: Three-body problem - Wikipedia\n+ 1.1 Restricted three-body problem. # Three-body problem. Physics problem related to laws of motion and gravity. For the book, see The Three-Body Problem (novel) \"The Three-Body Problem (novel)\"). For other uses, see Three-body problem (disambiguation) \"Three-body problem (disambiguation)\"). Approximate trajectories of three identical bodies located at the vertices of a scalene triangle and having zero initial velocities. The center of mass, in accordance with the law of conservation of momentum, remains in place. In physics, specifically classical mechanics, the **three-body problem** is to take the initial positions and velocities (or momenta) of three point masses orbiting each other in space and then to calculate their subsequent trajectories using Newton's laws of motion and Newton's law of universal gravitation. Unlike the two-body problem, the three-body problem has no general closed-form analytic solution. The differential equations that govern the motions of three gravitating bodies are not integrable and cannot be solved to give explicit formulas for the positions of the bodies as a function of time. For most initial conditions, the dynamical system for three orbiting bodies is chaotic, and the only way to predict their motions is to estimate them using numerical methods. The three-body problem is a special case of the n-body problem. Historically, the first specific three-body problem to receive extended study was the one involving the Earth, the Moon, and the Sun. In an extended modern sense, a three-body problem is any problem in classical mechanics or quantum mechanics that models the motion of three particles. The circular restricted three-body problem. In the *restricted three-body problem* formulation, in the description of Barrow-Green,: 11–14. Therefore, since the dimension of the phase space is larger than the number of constants of motion, the system is *not* exactly solvable; in fact, it is chaotic. There is no general closed-form solution to the three-body problem. However, in 1912 the Finnish mathematician Karl Fritiof Sundman proved that there exists an analytic solution to the three-body problem in the form of a Puiseux series, specifically a power series in terms of powers of *t*1/3.",
+   "relevance_score": 0.80844593,
+   "published_date": null,
+   "source_domain": "en.wikipedia.org"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://en.wikipedia.org/wiki/3-body_problem",
+   "title": "Three-body problem - Wikipedia",
+   "snippet": "Title: Three-body problem - Wikipedia\n+ 1.1 Restricted three-body problem. # Three-body problem. Physics problem related to laws of motion and gravity. For the book, see The Three-Body Problem (novel) \"The Three-Body Problem (novel)\"). For other uses, see Three-body problem (disambiguation) \"Three-body problem (disambiguation)\"). Approximate trajectories of three identical bodies located at the vertices of a scalene triangle and having zero initial velocities. The center of mass, in accordance with the law of conservation of momentum, remains in place. In physics, specifically classical mechanics, the **three-body problem** is to take the initial positions and velocities (or momenta) of three point masses orbiting each other in space and then to calculate their subsequent trajectories using Newton's laws of motion and Newton's law of universal gravitation. Unlike the two-body problem, the three-body problem has no general closed-form analytic solution. The differential equations that govern the motions of three gravitating bodies are not integrable and cannot be solved to give explicit formulas for the positions of the bodies as a function of time. For most initial conditions, the dynamical system for three orbiting bodies is chaotic, and the only way to predict their motions is to estimate them using numerical methods. The three-body problem is a special case of the n-body problem. Historically, the first specific three-body problem to receive extended study was the one involving the Earth, the Moon, and the Sun. In an extended modern sense, a three-body problem is any problem in classical mechanics or quantum mechanics that models the motion of three particles. The circular restricted three-body problem. In the *restricted three-body problem* formulation, in the description of Barrow-Green,: 11–14. Therefore, since the dimension of the phase space is larger than the number of constants of motion, the system is *not* exactly solvable; in fact, it is chaotic. There is no general closed-form solution to the three-body problem. However, in 1912 the Finnish mathematician Karl Fritiof Sundman proved that there exists an analytic solution to the three-body problem in the form of a Puiseux series, specifically a power series in terms of powers of *t*1/3.",
+   "relevance_score": 0.80844593,
+   "published_date": null,
+   "source_domain": "en.wikipedia.org"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://handwiki.org/wiki/Physics:Three-body_problem",
+   "title": "Physics:Three-body problem - HandWiki",
+   "snippet": "Title: Physics:Three-body problem - HandWiki\n# Physics:Three-body problem. **Short description**: Physics problem related to laws of motion and gravity. Approximate trajectories of three identical bodies located at the vertices of a scalene triangle and having zero initial velocities. In physics, specifically classical mechanics, the **three-body problem** is to take the initial positions and velocities (or momenta) of three point masses orbiting each other in space and then to calculate their subsequent trajectories using Newton's laws of motion and Newton's law of universal gravitation. Unlike the two-body problem, the three-body problem has no general closed-form analytic solution. The differential equations that govern the motions of three gravitating bodies are not integrable and cannot be solved to give explicit formulas for the positions of the bodies as a function of time. For most initial conditions, the dynamical system for three orbiting bodies is chaotic, and the only way to predict their motions is to estimate them using numerical methods. The three-body problem is a special case of the n-body problem\"). Historically, the first specific three-body problem to receive extended study was the one involving the Earth, the Moon, and the Sun. In an extended modern sense, a three-body problem is any problem in classical mechanics or quantum mechanics that models the motion of three particles. + 1.1 Restricted three-body problem. The mathematical statement of the three-body problem can be given in terms of the Newtonian equations of motion for vector positions of three gravitationally interacting bodies with masses : where is the gravitational constant. the problem is described by nine second-order differential equations.: 8 The problem can also be stated equivalently in the Hamiltonian formalism, in which case it is described by a set of 18 first-order differential equations, one for each component of the positions and momenta :*[citation needed*] where is the Hamiltonian:*[citation needed*]. In the *restricted three-body problem* formulation, in the description of Barrow-Green,: 11–14. There is no general closed-form solution to the three-body problem. However, in 1912 the Finnish mathematician Karl Fritiof Sundman proved that there exists an analytic solution to the three-body problem in the form of a Puiseux series, specifically a power series in terms of powers of *t*1/3.",
+   "relevance_score": 0.78846955,
+   "published_date": null,
+   "source_domain": "handwiki.org"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://iidb.org/threads/the-three-body-problem.28276",
+   "title": "The Three Body Problem | Internet Infidels Discussion Board",
+   "snippet": "# The Three Body Problem. Despite centuries of advances in mathematics a direct general solution to the problem of three bodies orbiting each other has yet to be solved. We have found numerous solutions to particular periodic orbits, but not generally in terms of all possible orbits. But some differential equations cannot be analytically solved, only numerically. ### Three-body problem - Wikipedia. > In physics, specifically classical mechanics, the three-body problem involves taking the initial positions and velocities (or momenta) of three point masses and calculating their subsequent trajectories using Newton's laws of motion and Newton's law of universal gravitation.[1] It has no general closed-form solution, unlike two-body problems.[1] When three bodies orbit each other, the resulting dynamical system is chaotic for most initial conditions, and the only way to predict the motions of the bodies is to calculate them using numerical methods. > The three-body problem is a special case of the n-body problem. Historically, the first specific three-body problem to receive extended study was the one involving the Moon, Earth, and the Sun.[2] In an extended modern sense, a three-body problem is any problem in classical mechanics or quantum mechanics that models the motion of three particles. Not the same problem, but another that is unlovable by a set of basic Newtonian equations, the solution is a work around. Three-body problem - a series solution does exist, but it has unusably slow convergence. That's treating an orbit like a two-body orbit and expanding in powers of small parameters like a mass ratio. Using orbit elements often makes it possible to integrate over orbits, thus getting equations of motion for long-term effects. And OP himself summarizes the answer in OP: \"But some differential equations cannot be analytically solved, only numerically.\". An example of a three-body problem is an object traveling with the Earth but at one of the Lagrange points. Even if such a solution exists it is likely to be at an **unstable** equilibrium, and thus as lpetrich implies, one might still prefer a numeric approach. Let's now consider the two-body problem, ignoring outside influences. Numerical or analytical the problem in practice for observation of solar scale objects in motion is the initial conditions.",
+   "relevance_score": 0.7795405,
+   "published_date": null,
+   "source_domain": "iidb.org"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.scribd.com/document/888512170/Three-body-problem",
+   "title": "New Insights on the Three-Body Problem | PDF | Classical Mechanics | Hamiltonian Mechanics",
+   "snippet": "Title: New Insights on the Three-Body Problem | PDF | Classical Mechanics | Hamiltonian Mechanics\n0 ratings0% found this document useful (0 votes). New Insights on the Three-Body Problem. The three-body problem in physics involves calculating the trajectories of three point masses that orbit each other under Newton's laws, but it lacks a general closed-form solution due to it…. ## Uploaded by. 0 ratings0% found this document useful (0 votes). # New Insights on the Three-Body Problem. The three-body problem in physics involves calculating the trajectories of three point masses that orbit each other under Newton's laws, but it lacks a general closed-form solution due to its chaotic nature. The problem can be approached through numerical methods and has historical significance dating back to Newton's work in the 17th century. Various special-case solutions and restricted three-body problems have been studied, leading to significant developments in understanding gravitational interactions among celestial bodies. 0 ratings0% found this document useful (0 votes). New Insights on the Three-Body Problem. The three-body problem in physics involves calculating the trajectories of three point masses that orbit each other under Newton's laws, but it lacks a general closed-form solution due to it…. ## Uploaded by. You are on page 1. ## Share this document. * Share on Facebook, opens a new window. * Share on LinkedIn, opens a new window. * Share with Email, opens mail client. Millions of documents at your fingertips, ad-free Subscribe with a free trial.",
+   "relevance_score": 0.6944897,
+   "published_date": null,
+   "source_domain": "www.scribd.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://en.wikipedia.org/wiki/Three-body_problem",
+   "title": "Three-body problem - Wikipedia",
+   "snippet": "solution would apply to navigation, specifically for the determination of longitude at sea, solved in practice by John Harrison's invention of the marine chronometer. However, the accuracy of the lunar theory was low, due to the perturbing effect of the Sun and planets on the motion of the Moon around Earth. [...] This article is about the physics concept. For the book, see The Three-Body Problem (novel) \"The Three-Body Problem (novel)\"). For other uses, see Three-body problem (disambiguation) \"Three-body problem (disambiguation)\").\n\n of three point masses orbiting each other in space and then to calculate their subsequent trajectories using Newton's laws of motion and Newton's law of universal gravitation. [...] Unlike the two-body problem, the three-body problem has no general closed-form analytic solution. The differential equations that govern the motions of three gravitating bodies are not integrable and cannot be solved to give explicit formulas for the positions of the bodies as a function of time. For most initial conditions, the dynamical system for three orbiting bodies is chaotic, and the only way to predict their motions is to estimate them using numerical methods.",
+   "relevance_score": 0.6580885,
+   "published_date": null,
+   "source_domain": "en.wikipedia.org"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "http://en.wikipedia.org/wiki/Three-body_problem",
+   "title": "Three-body problem - Wikipedia",
+   "snippet": "solution would apply to navigation, specifically for the determination of longitude at sea, solved in practice by John Harrison's invention of the marine chronometer. However, the accuracy of the lunar theory was low, due to the perturbing effect of the Sun and planets on the motion of the Moon around Earth. [...] This article is about the physics concept. For the book, see The Three-Body Problem (novel) \"The Three-Body Problem (novel)\"). For other uses, see Three-body problem (disambiguation) \"Three-body problem (disambiguation)\").\n\n of three point masses orbiting each other in space and then to calculate their subsequent trajectories using Newton's laws of motion and Newton's law of universal gravitation. [...] Unlike the two-body problem, the three-body problem has no general closed-form analytic solution. The differential equations that govern the motions of three gravitating bodies are not integrable and cannot be solved to give explicit formulas for the positions of the bodies as a function of time. For most initial conditions, the dynamical system for three orbiting bodies is chaotic, and the only way to predict their motions is to estimate them using numerical methods.",
+   "relevance_score": 0.6580885,
+   "published_date": null,
+   "source_domain": "en.wikipedia.org"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.facebook.com/groups/526106304119328/posts/2659947677401836",
+   "title": "* Quantum Mechanics & Theoretical Physics | In physics and classical mechanics, the three-body problem is the problem of taking the initial positions and velocities (or momenta) of three point m... | Facebook",
+   "snippet": "Title: * Quantum Mechanics & Theoretical Physics | In physics and classical mechanics, the three-body problem is the problem of taking the initial positions and velocities (or momenta) of three point m... | Facebook\nImage 1 ## # * Quantum Mechanics & Theoretical Physics | In physics and classical mechanics, the three-body problem is the problem of taking the initial positions and velocities (or momenta) of three point m... ## * Quantum Mechanics & Theoretical Physics ·. In physics and classical mechanics, the three-body problem is the problem of taking the initial positions and velocities (or momenta) of three point masses and solving for their subsequent motion according to Newton's laws of motion and Newton's law of universal gravitation. The three-body problem is a special case of the n-body problem. Unlike two-body problems, no general closed-form solution exists, as the resulting dynamical system is chaotic for most initial conditions, and numerical methods are generally required. Historically, the first specific three-body problem to receive extended study was the one involving the Moon, the Earth, and the Sun. In an extended modern sense, a three-body problem is any problem in classical mechanics or quantum mechanics that models the motion of three particles. Currently, the solution for a given initialization can only be found by performing laborious iterative calculations that have unpredictable and potentially infinite computational cost, due to the system’s chaotic nature. Researchers show that an ensemble of solutions obtained using an arbitrarily precise numerical integrator can be used to train a deep artificial neural network (ANN) that, over a bounded time interval, provides accurate solutions at fixed computational cost and up to 100 million times faster than a state-of-the-art solver. These provide evidence that, for computationally challenging regions of phase-space, a trained ANN can replace existing numerical solvers, enabling fast and scalable simulations of many-body systems to shed light on outstanding phenomena such as the formation of black-hole binary systems or the origin of the core collapse in dense star clusters. https://arxiv.org/pdf/1910.07291.pdf. Image 2: A neural net solves the three-body problem 100 million times faster. technologyreview.com A neural net solves the three-body problem 100 million times faster. https://arxiv.org/abs/1304.2089. Image 7: Chaotic motion of three-body problem : an origin of macroscopic randomness of the universe. Chaotic motion of three-body problem : an origin of macroscopic randomness of the universe.",
+   "relevance_score": 0.6366926,
+   "published_date": null,
+   "source_domain": "www.facebook.com"
+  }
+ ],
+ "provided_urls": [
+  "https://en.wikipedia.org/wiki/Three-Body_Problem",
+  "https://en.wikipedia.org/wiki/3-body_problem",
+  "https://handwiki.org/wiki/Physics:Three-body_problem",
+  "https://iidb.org/threads/the-three-body-problem.28276",
+  "https://www.scribd.com/document/888512170/Three-body-problem",
+  "https://en.wikipedia.org/wiki/Three-body_problem",
+  "http://en.wikipedia.org/wiki/Three-body_problem",
+  "https://www.facebook.com/groups/526106304119328/posts/2659947677401836"
+ ]
+}

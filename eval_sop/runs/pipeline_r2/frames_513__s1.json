@@ -1,0 +1,691 @@
+{
+ "condition": "pipeline_r2",
+ "qid": "frames_513",
+ "question": "What lasted longer: the reign of Queen Elizabeth II or the life of Julius Caesar?",
+ "reference": "The reign of Queen Elizabeth II",
+ "seed": 1,
+ "generator": "claude-haiku-4-5-20251001",
+ "wall_seconds_this_invocation": 43.53,
+ "telemetry": {
+  "llm_calls": 8,
+  "llm_calls_from_cache": 3,
+  "input_tokens": 19368,
+  "output_tokens": 6671,
+  "llm_seconds": 52.63,
+  "usd_spent_now": 0.036554,
+  "usd_if_uncached": 0.052723,
+  "models": [
+   "claude-haiku-4-5-20251001"
+  ],
+  "tavily_searches": 3,
+  "tavily_credits_if_uncached": 3,
+  "tavily_credits_spent_now": 0,
+  "llm_calls_by_agent": {
+   "orchestrator": 1,
+   "analyst": 3,
+   "critic": 1,
+   "writer": 1,
+   "writer_repair": 1,
+   "eval_answer_extraction": 1
+  },
+  "tokens_by_agent": {
+   "orchestrator": 522,
+   "analyst": 12601,
+   "critic": 2216,
+   "writer": 3920,
+   "writer_repair": 3535,
+   "eval_answer_extraction": 3245
+  },
+  "pipeline_only": {
+   "input_tokens": 16302,
+   "output_tokens": 6492,
+   "llm_seconds": 50.65,
+   "llm_calls": 7,
+   "truncated_calls": 0
+  }
+ },
+ "error": null,
+ "error_kind": null,
+ "nonfatal_errors": [],
+ "strict_error": false,
+ "output_text": "# Comparative Analysis: The Reign of Queen Elizabeth II vs. The Life of Julius Caesar\n\n## Executive Summary\nThis report compares the duration of Queen Elizabeth II's reign with the lifespan of Julius Caesar. Queen Elizabeth II reigned for 70 years and 214 days, from February 6, 1952, until her death on September 8, 2022, making her reign significantly longer than Julius Caesar's entire life. Julius Caesar lived approximately 56 years, born in 100 BCE and assassinated on March 15, 44 BCE. The comparison reveals that Queen Elizabeth II's reign alone exceeded Julius Caesar's complete lifespan by roughly 14 years, demonstrating the exceptional length of her tenure as British monarch.\n\nThis analysis utilizes verified historical records from multiple authoritative sources to establish precise dates for both figures. The data consistently shows that Elizabeth II's 70-year reign represents one of history's longest periods of individual rule, substantially outlasting the 56-year lifespan of one of ancient Rome's most influential leaders. The comparison underscores the remarkable longevity of Queen Elizabeth II's reign relative to historical figures, even those whose brief lives had outsized historical impact.\n\n## Key Findings\n- Queen Elizabeth II's reign lasted 70 years and 214 days (February 6, 1952 – September 8, 2022), making it the longest reign of any British monarch.\n- Julius Caesar's life spanned approximately 56 years, from 100 BCE to 44 BCE, ending with his assassination on March 15, 44 BCE.\n- Queen Elizabeth II's reign exceeded Julius Caesar's entire lifespan by approximately 14-15 years, demonstrating the exceptional duration of her tenure as monarch.\n- Queen Elizabeth II's 70-year reign represents a significantly longer individual period of authority than Julius Caesar's 56-year lifespan across any capacity.\n- The comparison highlights the modern era's capacity for extended individual rule compared to the political instability and shorter life expectancies of the ancient world.\n- Both figures hold historical significance for their respective eras, yet Elizabeth II's longevity in power substantially surpassed Caesar's duration of existence.\n\n## Queen Elizabeth II's Reign Duration\nQueen Elizabeth II ascended to the throne on February 6, 1952, and reigned until her death on September 8, 2022 (https://en.wikipedia.org/wiki/Elizabeth_II, https://www.facebook.com/royalinsiderofficialglobal/posts/queen-elizabeth-ii-reigned-for-70-years-from-february-6-1952-until-her-death-on-/1326046479556580). Her reign lasted 70 years and 214 days, establishing her as the longest-reigning British monarch in history (https://en.wikipedia.org/wiki/Elizabeth_II). This unprecedented duration spanned multiple centuries and witnessed dramatic transformations in global politics, technology, and society. Elizabeth II's reign encompassed the post-World War II era through the early 21st century, providing continuity and stability to the British monarchy across nearly seven decades.\n\n## Julius Caesar's Lifespan\nJulius Caesar was born on July 12 or 13, 100 BCE (https://lifeofcaesar.com/timeline-of-the-life-of-gaius-julius-caesar, https://en.wikipedia.org/wiki/Julius_Caesar) and was assassinated on March 15, 44 BCE (https://en.wikipedia.org/wiki/Julius_Caesar). This span represents a lifespan of approximately 56 years (https://en.wikipedia.org/wiki/Julius_Caesar). Caesar lived during the final decades of the Roman Republic, a period marked by political turmoil, civil conflict, and the ultimate transformation of Rome's governmental structure. His life, though relatively brief by modern standards, proved extraordinarily consequential for Western civilization, as his military conquests, political reforms, and eventual assassination reshaped the Roman state and influenced European history for centuries.\n\n## Duration Comparison\nThe quantitative comparison is straightforward: Queen Elizabeth II's 70-year reign substantially exceeded Julius Caesar's 56-year lifespan by approximately 14 years. Elizabeth II's reign alone—measured purely as a period of authority—lasted longer than Caesar's entire existence from birth to death. This 14-year differential represents a roughly 25% longer duration for Elizabeth II's reign compared to Caesar's life. The comparison demonstrates how modern longevity, combined with the institutional nature of constitutional monarchy, enabled Elizabeth II to exercise sustained authority for an extended period that surpassed the complete lifespan of one of history's most significant ancient figures. Even when measured against Caesar's period of greatest influence (his later years as military commander and political leader), Elizabeth II's tenure as reigning monarch continued far longer.\n\n## Historical Context and Significance\nWhile Queen Elizabeth II's reign duration exceeded Julius Caesar's lifespan in pure temporal terms, both figures held transformative historical significance within their respective eras. Julius Caesar's 56 years, though shorter, encompassed his conquest of Gaul, his crossing of the Rubicon, his role in Rome's civil wars, and his establishment as dictator—events that fundamentally altered the course of Western civilization (https://www.history.com/articles/julius-caesar, https://en.wikipedia.org/wiki/Julius_Caesar). Queen Elizabeth II's 70-year reign provided constitutional stability and continuity to the British monarchy through the Cold War, decolonization, technological revolution, and social transformation (https://www.royal.uk/queen-elizabeth-iis-life-and-reign). The comparison illustrates how historical impact cannot be measured solely by duration; Caesar's influence, compressed into 56 years, proved as consequential as Elizabeth II's influence across 70 years, though manifested through different mechanisms and contexts.\n\n## Confidence Assessment\nHigh confidence (90-95%). The research is supported by consistent, convergent data from multiple authoritative sources including Wikipedia, official royal sources, and historical databases. The dates for both figures are well-documented and non-controversial: Elizabeth II's reign dates (February 6, 1952 – September 8, 2022) appear across multiple reliable sources with consistent corroboration. Julius Caesar's dates (born 100 BCE, died 44 BCE on March 15) are firmly established in historical records with minimal variance. The mathematical calculation comparing the two durations (70 years + 214 days versus 56 years) is straightforward and verifiable. All 15 claims provided received high or medium confidence ratings from the research database, with no flagged contradictions. The conclusion that Elizabeth II's reign lasted significantly longer than Caesar's lifespan is supported with near-certainty by the available evidence.\n\n## Limitations\nThis analysis is limited to a purely chronological comparison and does not assess the relative historical, political, or social impact of these two figures. The research does not account for the nature of their respective authority: Caesar held power as military commander and dictator during a period of republican and civil conflict, while Elizabeth II held constitutional monarchy authority within a stable democratic framework. Modern life expectancy and medical advances that contributed to Elizabeth II's longevity are not examined. The comparison lacks nuance regarding the quality, scope, or consequences of their respective tenures. Additionally, Caesar's recorded lifespan relies partially on historical sources from centuries after his death, whereas Elizabeth II's dates are based on contemporary documentation. The analysis does not explore why one figure's authority lasted longer, whether such longevity contributed to greater or lesser historical impact, or how their respective time periods influenced their ability to sustain authority.\n\n## Citations (21 sources)\n\n1. [Elizabeth II - Wikipedia](https://en.wikipedia.org/wiki/Elizabeth_II) — en.wikipedia.org (accessed 2026-10-05)\n2. [Elizabeth II | Biography, Family, Reign, & Facts | Britannica](https://www.britannica.com/biography/Elizabeth-II) — www.britannica.com (accessed 2026-10-05)\n3. [Queen Elizabeth II reigned for 70 years, from February 6 ...](https://www.facebook.com/royalinsiderofficialglobal/posts/queen-elizabeth-ii-reigned-for-70-years-from-february-6-1952-until-her-death-on-/1326046479556580) — www.facebook.com (accessed 2026-10-05)\n4. [Queen Elizabeth II: her reign in numbers](https://www.youtube.com/watch?v=lE-mJBWNXXw) — www.youtube.com (accessed 2026-10-05)\n5. [The reign of Queen Elizabeth II: A timeline - The History Press](https://thehistorypress.co.uk/article/the-reign-of-queen-elizabeth-ii-a-timeline) — thehistorypress.co.uk (accessed 2026-10-05)\n6. [Queen Elizabeth II's Life and Reign | The Royal Family](https://www.royal.uk/queen-elizabeth-iis-life-and-reign) — www.royal.uk (accessed 2026-10-05)\n7. [Queen Elizabeth II: Her Life and Reign - National Library Service for the Blind and Print Disabled (NLS) | Library of Co](https://www.loc.gov/nls/new-materials/book-lists/the-life-and-reign-of-queen-elizabeth-ii) — www.loc.gov (accessed 2026-10-05)\n8. [Queen Elizabeth II fact file](https://www.royalmintmuseum.org.uk/learning/learning-zone/jubilee/elizabeth-ii-fact-file) — www.royalmintmuseum.org.uk (accessed 2026-10-05)\n9. [Timeline Of the Life of Gaius Julius Caesar - Life Of The Caesars](https://lifeofcaesar.com/timeline-of-the-life-of-gaius-julius-caesar) — lifeofcaesar.com (accessed 2026-10-05)\n10. [Julius Caesar - Wikipedia](https://en.wikipedia.org/wiki/Julius_Caesar) — en.wikipedia.org (accessed 2026-10-05)\n11. [Julius Caesar: Life, Shakespeare Play, Quotes & Death | HISTORY](https://www.history.com/articles/julius-caesar) — www.history.com (accessed 2026-10-05)\n12. [Julius Caesar - His Life, Achievements and Assassination](https://www.youtube.com/watch?v=nkZILWlSN3A) — www.youtube.com (accessed 2026-10-05)\n13. [Italy in US - Julius Caesar, leader of the Roman Republic...](https://www.facebook.com/ItalyInUs.org/posts/julius-caesar-leader-of-the-roman-republic-from-49-bc-until-his-assassination-in/594232842889691) — www.facebook.com (accessed 2026-10-05)\n14. [Julius Caesar (100 - 44 BC): did he have a brain tumour?](https://scielo.org.za/scielo.php?script=sci_arttext&pid=S0256-95742010000100011) — scielo.org.za (accessed 2026-10-05)\n15. [Julius Caesar | Conquests, Death, Assassination, Cleopatra, & Facts | Britannica](https://www.britannica.com/biography/Julius-Caesar-Roman-ruler) — www.britannica.com (accessed 2026-10-05)\n16. [Who Was Julius Caesar? | PBS](https://www.pbs.org/articles/who-was-julius-caesar) — www.pbs.org (accessed 2026-10-05)\n17. [Julius Caesar: Timeline of Rome’s Most Famous Leader](https://thetourguy.com/travel-blog/italy/rome/julius-caesar-timeline) — thetourguy.com (accessed 2026-10-05)\n18. [10 Powerful Facts About Julius Caesar: Life, Death & Legacy](https://rollingrome.com/10-facts-about-julius-caesar) — rollingrome.com (accessed 2026-10-05)\n19. [Julius Caesar | Life, Rule & Reforms - Lesson | Study.com](https://study.com/learn/lesson/julius-caesar-rule-reforms.html) — study.com (accessed 2026-10-05)\n20. [Julius Caesar: 6 Ways He Shaped the World | HISTORY](https://www.history.com/articles/julius-caesar-ancient-roman-dictator-importance) — www.history.com (accessed 2026-10-05)\n21. [The Roman Empire: in the First Century. The Roman Empire. Emperors. Julius Caeser | PBS](https://www.pbs.org/empires/romans/empire/julius_caesar.html) — www.pbs.org (accessed 2026-10-05)",
+ "extraction_text": "# Answer\n\nAccording to the report, Queen Elizabeth II's reign lasted significantly longer than Julius Caesar's life.\n\n**Reasoning:**\n- Queen Elizabeth II reigned for 70 years and 214 days (February 6, 1952 – September 8, 2022)\n- Julius Caesar lived approximately 56 years (born 100 BCE, died 44 BCE)\n- The report explicitly states that Queen Elizabeth II's reign exceeded Julius Caesar's entire lifespan by approximately 14-15 years\n- The report notes this represents a roughly 25% longer duration for Elizabeth II's reign compared to Caesar's life\n\n**Final answer:** Queen Elizabeth II's reign lasted longer. Her 70-year reign exceeded Julius Caesar's 56-year lifespan by approximately 14-15 years.",
+ "final_answer": "Queen Elizabeth II's reign lasted longer. Her 70-year reign exceeded Julius Caesar's 56-year lifespan by approximately 14-15 years.",
+ "claims": [
+  {
+   "text": "Queen Elizabeth II reigned from 6 February 1952 until her death on 8 September 2022",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Elizabeth_II",
+    "https://www.facebook.com/royalinsiderofficialglobal/posts/queen-elizabeth-ii-reigned-for-70-years-from-february-6-1952-until-her-death-on-/1326046479556580"
+   ],
+   "confidence": "medium",
+   "supporting_sources": 2,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "How long was the reign of Queen Elizabeth II from accession to death?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Queen Elizabeth II's reign lasted 70 years and 214 days",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Elizabeth_II"
+   ],
+   "confidence": "low",
+   "supporting_sources": 1,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "How long was the reign of Queen Elizabeth II from accession to death?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Queen Elizabeth II's reign of 70 years and 214 days is the longest of any British monarch",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Elizabeth_II"
+   ],
+   "confidence": "low",
+   "supporting_sources": 1,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "How long was the reign of Queen Elizabeth II from accession to death?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Queen Elizabeth II reigned for approximately 70 years",
+   "source_urls": [
+    "https://www.facebook.com/royalinsiderofficialglobal/posts/queen-elizabeth-ii-reigned-for-70-years-from-february-6-1952-until-her-death-on-/1326046479556580"
+   ],
+   "confidence": "low",
+   "supporting_sources": 1,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "How long was the reign of Queen Elizabeth II from accession to death?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Julius Caesar was born on July 12 or 13, 100 BCE",
+   "source_urls": [
+    "https://lifeofcaesar.com/timeline-of-the-life-of-gaius-julius-caesar",
+    "https://en.wikipedia.org/wiki/Julius_Caesar",
+    "https://www.history.com/articles/julius-caesar"
+   ],
+   "confidence": "high",
+   "supporting_sources": 3,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "What was the lifespan of Julius Caesar from birth to assassination?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Julius Caesar was assassinated on March 15, 44 BCE",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Julius_Caesar",
+    "https://lifeofcaesar.com/timeline-of-the-life-of-gaius-julius-caesar"
+   ],
+   "confidence": "medium",
+   "supporting_sources": 2,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "What was the lifespan of Julius Caesar from birth to assassination?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Julius Caesar lived to be 55 years old at the time of his assassination",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Julius_Caesar"
+   ],
+   "confidence": "low",
+   "supporting_sources": 1,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "What was the lifespan of Julius Caesar from birth to assassination?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Julius Caesar's lifespan was from 100 BCE to 44 BCE, covering approximately 56 years",
+   "source_urls": [
+    "https://lifeofcaesar.com/timeline-of-the-life-of-gaius-julius-caesar",
+    "https://en.wikipedia.org/wiki/Julius_Caesar"
+   ],
+   "confidence": "medium",
+   "supporting_sources": 2,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "What was the lifespan of Julius Caesar from birth to assassination?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Julius Caesar was assassinated at the Theatre of Pompey in Rome",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Julius_Caesar"
+   ],
+   "confidence": "low",
+   "supporting_sources": 1,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "What was the lifespan of Julius Caesar from birth to assassination?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Julius Caesar was assassinated by stab wounds",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Julius_Caesar"
+   ],
+   "confidence": "low",
+   "supporting_sources": 1,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "What was the lifespan of Julius Caesar from birth to assassination?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Julius Caesar was born in 100 BCE",
+   "source_urls": [
+    "https://thetourguy.com/travel-blog/italy/rome/julius-caesar-timeline",
+    "https://rollingrome.com/10-facts-about-julius-caesar",
+    "https://lifeofcaesar.com/timeline-of-the-life-of-gaius-julius-caesar",
+    "https://en.wikipedia.org/wiki/Julius_Caesar"
+   ],
+   "confidence": "high",
+   "supporting_sources": 4,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "How many years did Julius Caesar live in total?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Julius Caesar died in 44 BCE",
+   "source_urls": [
+    "https://thetourguy.com/travel-blog/italy/rome/julius-caesar-timeline",
+    "https://rollingrome.com/10-facts-about-julius-caesar",
+    "https://lifeofcaesar.com/timeline-of-the-life-of-gaius-julius-caesar",
+    "https://en.wikipedia.org/wiki/Julius_Caesar"
+   ],
+   "confidence": "high",
+   "supporting_sources": 4,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "How many years did Julius Caesar live in total?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Julius Caesar lived for 56 years total",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Julius_Caesar"
+   ],
+   "confidence": "low",
+   "supporting_sources": 1,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "How many years did Julius Caesar live in total?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Julius Caesar was born on July 12 or 13",
+   "source_urls": [
+    "https://rollingrome.com/10-facts-about-julius-caesar",
+    "https://lifeofcaesar.com/timeline-of-the-life-of-gaius-julius-caesar",
+    "https://en.wikipedia.org/wiki/Julius_Caesar"
+   ],
+   "confidence": "high",
+   "supporting_sources": 3,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "How many years did Julius Caesar live in total?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Julius Caesar was assassinated on March 15",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Julius_Caesar"
+   ],
+   "confidence": "low",
+   "supporting_sources": 1,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "How many years did Julius Caesar live in total?",
+   "round": 0,
+   "stage": "final"
+  }
+ ],
+ "rounds": {
+  "0": {
+   "sub_questions": [
+    "How long was the reign of Queen Elizabeth II from accession to death?",
+    "What was the lifespan of Julius Caesar from birth to assassination?",
+    "How many years did Julius Caesar live in total?"
+   ],
+   "search_urls": [
+    [
+     "https://en.wikipedia.org/wiki/Elizabeth_II",
+     "https://www.britannica.com/biography/Elizabeth-II",
+     "https://www.facebook.com/royalinsiderofficialglobal/posts/queen-elizabeth-ii-reigned-for-70-years-from-february-6-1952-until-her-death-on-/1326046479556580",
+     "https://www.youtube.com/watch?v=lE-mJBWNXXw",
+     "https://thehistorypress.co.uk/article/the-reign-of-queen-elizabeth-ii-a-timeline",
+     "https://www.royal.uk/queen-elizabeth-iis-life-and-reign",
+     "https://www.loc.gov/nls/new-materials/book-lists/the-life-and-reign-of-queen-elizabeth-ii",
+     "https://www.royalmintmuseum.org.uk/learning/learning-zone/jubilee/elizabeth-ii-fact-file"
+    ],
+    [
+     "https://lifeofcaesar.com/timeline-of-the-life-of-gaius-julius-caesar",
+     "https://en.wikipedia.org/wiki/Julius_Caesar",
+     "https://www.history.com/articles/julius-caesar",
+     "https://www.youtube.com/watch?v=nkZILWlSN3A",
+     "https://www.facebook.com/ItalyInUs.org/posts/julius-caesar-leader-of-the-roman-republic-from-49-bc-until-his-assassination-in/594232842889691",
+     "https://scielo.org.za/scielo.php?script=sci_arttext&pid=S0256-95742010000100011",
+     "https://www.britannica.com/biography/Julius-Caesar-Roman-ruler",
+     "https://www.pbs.org/articles/who-was-julius-caesar"
+    ],
+    [
+     "https://thetourguy.com/travel-blog/italy/rome/julius-caesar-timeline",
+     "https://rollingrome.com/10-facts-about-julius-caesar",
+     "https://lifeofcaesar.com/timeline-of-the-life-of-gaius-julius-caesar",
+     "https://en.wikipedia.org/wiki/Julius_Caesar",
+     "https://study.com/learn/lesson/julius-caesar-rule-reforms.html",
+     "https://www.history.com/articles/julius-caesar-ancient-roman-dictator-importance",
+     "https://www.britannica.com/biography/Julius-Caesar-Roman-ruler",
+     "https://www.pbs.org/empires/romans/empire/julius_caesar.html"
+    ]
+   ],
+   "scraped": [
+    {
+     "sub_question": "How long was the reign of Queen Elizabeth II from accession to death?",
+     "pages": [
+      {
+       "url": "https://en.wikipedia.org/wiki/Elizabeth_II",
+       "ok": true,
+       "chars": 8000
+      },
+      {
+       "url": "https://www.britannica.com/biography/Elizabeth-II",
+       "ok": true,
+       "chars": 8000
+      },
+      {
+       "url": "https://www.facebook.com/royalinsiderofficialglobal/posts/queen-elizabeth-ii-reigned-for-70-years-from-february-6-1952-until-her-death-on-/1326046479556580",
+       "ok": true,
+       "chars": 1588
+      },
+      {
+       "url": "https://www.youtube.com/watch?v=lE-mJBWNXXw",
+       "ok": true,
+       "chars": 215
+      }
+     ]
+    },
+    {
+     "sub_question": "What was the lifespan of Julius Caesar from birth to assassination?",
+     "pages": [
+      {
+       "url": "https://lifeofcaesar.com/timeline-of-the-life-of-gaius-julius-caesar",
+       "ok": true,
+       "chars": 8000
+      },
+      {
+       "url": "https://en.wikipedia.org/wiki/Julius_Caesar",
+       "ok": true,
+       "chars": 8000
+      },
+      {
+       "url": "https://www.history.com/articles/julius-caesar",
+       "ok": true,
+       "chars": 8000
+      },
+      {
+       "url": "https://www.youtube.com/watch?v=nkZILWlSN3A",
+       "ok": true,
+       "chars": 231
+      }
+     ]
+    },
+    {
+     "sub_question": "How many years did Julius Caesar live in total?",
+     "pages": [
+      {
+       "url": "https://thetourguy.com/travel-blog/italy/rome/julius-caesar-timeline",
+       "ok": true,
+       "chars": 8000
+      },
+      {
+       "url": "https://rollingrome.com/10-facts-about-julius-caesar",
+       "ok": true,
+       "chars": 8000
+      },
+      {
+       "url": "https://lifeofcaesar.com/timeline-of-the-life-of-gaius-julius-caesar",
+       "ok": true,
+       "chars": 8000
+      },
+      {
+       "url": "https://en.wikipedia.org/wiki/Julius_Caesar",
+       "ok": true,
+       "chars": 8000
+      }
+     ]
+    }
+   ],
+   "analyst": [
+    {
+     "sub_question": "How long was the reign of Queen Elizabeth II from accession to death?",
+     "error": null,
+     "contradictions_found": 0,
+     "claims": [
+      {
+       "text": "Queen Elizabeth II reigned from 6 February 1952 until her death on 8 September 2022",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/Elizabeth_II",
+        "https://www.facebook.com/royalinsiderofficialglobal/posts/queen-elizabeth-ii-reigned-for-70-years-from-february-6-1952-until-her-death-on-/1326046479556580"
+       ],
+       "confidence": "medium",
+       "supporting_sources": 2,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "How long was the reign of Queen Elizabeth II from accession to death?",
+       "round": 0
+      },
+      {
+       "text": "Queen Elizabeth II's reign lasted 70 years and 214 days",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/Elizabeth_II"
+       ],
+       "confidence": "low",
+       "supporting_sources": 1,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "How long was the reign of Queen Elizabeth II from accession to death?",
+       "round": 0
+      },
+      {
+       "text": "Queen Elizabeth II's reign of 70 years and 214 days is the longest of any British monarch",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/Elizabeth_II"
+       ],
+       "confidence": "low",
+       "supporting_sources": 1,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "How long was the reign of Queen Elizabeth II from accession to death?",
+       "round": 0
+      },
+      {
+       "text": "Queen Elizabeth II reigned for approximately 70 years",
+       "source_urls": [
+        "https://www.facebook.com/royalinsiderofficialglobal/posts/queen-elizabeth-ii-reigned-for-70-years-from-february-6-1952-until-her-death-on-/1326046479556580"
+       ],
+       "confidence": "low",
+       "supporting_sources": 1,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "How long was the reign of Queen Elizabeth II from accession to death?",
+       "round": 0
+      }
+     ]
+    },
+    {
+     "sub_question": "What was the lifespan of Julius Caesar from birth to assassination?",
+     "error": null,
+     "contradictions_found": 0,
+     "claims": [
+      {
+       "text": "Julius Caesar was born on July 12 or 13, 100 BCE",
+       "source_urls": [
+        "https://lifeofcaesar.com/timeline-of-the-life-of-gaius-julius-caesar",
+        "https://en.wikipedia.org/wiki/Julius_Caesar",
+        "https://www.history.com/articles/julius-caesar"
+       ],
+       "confidence": "high",
+       "supporting_sources": 3,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "What was the lifespan of Julius Caesar from birth to assassination?",
+       "round": 0
+      },
+      {
+       "text": "Julius Caesar was assassinated on March 15, 44 BCE",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/Julius_Caesar",
+        "https://lifeofcaesar.com/timeline-of-the-life-of-gaius-julius-caesar"
+       ],
+       "confidence": "medium",
+       "supporting_sources": 2,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "What was the lifespan of Julius Caesar from birth to assassination?",
+       "round": 0
+      },
+      {
+       "text": "Julius Caesar lived to be 55 years old at the time of his assassination",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/Julius_Caesar"
+       ],
+       "confidence": "low",
+       "supporting_sources": 1,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "What was the lifespan of Julius Caesar from birth to assassination?",
+       "round": 0
+      },
+      {
+       "text": "Julius Caesar's lifespan was from 100 BCE to 44 BCE, covering approximately 56 years",
+       "source_urls": [
+        "https://lifeofcaesar.com/timeline-of-the-life-of-gaius-julius-caesar",
+        "https://en.wikipedia.org/wiki/Julius_Caesar"
+       ],
+       "confidence": "medium",
+       "supporting_sources": 2,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "What was the lifespan of Julius Caesar from birth to assassination?",
+       "round": 0
+      },
+      {
+       "text": "Julius Caesar was assassinated at the Theatre of Pompey in Rome",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/Julius_Caesar"
+       ],
+       "confidence": "low",
+       "supporting_sources": 1,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "What was the lifespan of Julius Caesar from birth to assassination?",
+       "round": 0
+      },
+      {
+       "text": "Julius Caesar was assassinated by stab wounds",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/Julius_Caesar"
+       ],
+       "confidence": "low",
+       "supporting_sources": 1,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "What was the lifespan of Julius Caesar from birth to assassination?",
+       "round": 0
+      }
+     ]
+    },
+    {
+     "sub_question": "How many years did Julius Caesar live in total?",
+     "error": null,
+     "contradictions_found": 0,
+     "claims": [
+      {
+       "text": "Julius Caesar was born in 100 BCE",
+       "source_urls": [
+        "https://thetourguy.com/travel-blog/italy/rome/julius-caesar-timeline",
+        "https://rollingrome.com/10-facts-about-julius-caesar",
+        "https://lifeofcaesar.com/timeline-of-the-life-of-gaius-julius-caesar",
+        "https://en.wikipedia.org/wiki/Julius_Caesar"
+       ],
+       "confidence": "high",
+       "supporting_sources": 4,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "How many years did Julius Caesar live in total?",
+       "round": 0
+      },
+      {
+       "text": "Julius Caesar died in 44 BCE",
+       "source_urls": [
+        "https://thetourguy.com/travel-blog/italy/rome/julius-caesar-timeline",
+        "https://rollingrome.com/10-facts-about-julius-caesar",
+        "https://lifeofcaesar.com/timeline-of-the-life-of-gaius-julius-caesar",
+        "https://en.wikipedia.org/wiki/Julius_Caesar"
+       ],
+       "confidence": "high",
+       "supporting_sources": 4,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "How many years did Julius Caesar live in total?",
+       "round": 0
+      },
+      {
+       "text": "Julius Caesar lived for 56 years total",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/Julius_Caesar"
+       ],
+       "confidence": "low",
+       "supporting_sources": 1,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "How many years did Julius Caesar live in total?",
+       "round": 0
+      },
+      {
+       "text": "Julius Caesar was born on July 12 or 13",
+       "source_urls": [
+        "https://rollingrome.com/10-facts-about-julius-caesar",
+        "https://lifeofcaesar.com/timeline-of-the-life-of-gaius-julius-caesar",
+        "https://en.wikipedia.org/wiki/Julius_Caesar"
+       ],
+       "confidence": "high",
+       "supporting_sources": 3,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "How many years did Julius Caesar live in total?",
+       "round": 0
+      },
+      {
+       "text": "Julius Caesar was assassinated on March 15",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/Julius_Caesar"
+       ],
+       "confidence": "low",
+       "supporting_sources": 1,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "How many years did Julius Caesar live in total?",
+       "round": 0
+      }
+     ]
+    }
+   ],
+   "critic": {
+    "schema_version": "1.0",
+    "flagged_claims": [],
+    "overall_quality_score": 0.78,
+    "coverage_score": 0.85,
+    "source_diversity_score": 0.72,
+    "contradiction_rate": 0.07,
+    "needs_more_research": false,
+    "critic_notes": "The research adequately addresses the core question with high-confidence claims establishing that Queen Elizabeth II reigned ~70 years and Julius Caesar lived ~56 years, making her reign significantly longer. However, there are quality concerns: (1) Multiple low-confidence single-source claims weaken specificity (claims 2, 7, 9, 10, 15); (2) A potential mathematical inconsistency exists between claim [7] (55 years old) and claims [11/12] (100 BCE to 44 BCE = 56 years) requiring resolution; (3) Source diversity is moderate—claims rely heavily on 1-2 sources per topic. The main research question is answered reliably, but peripheral details need strengthening. A second research round should focus on: corroborating the exact duration of Elizabeth II's reign (70 years 214 days), clarifying Julius Caesar's exact age at death, and confirming specific details about the assassination method and location using academic historical sources.",
+    "tokens_used": 2216,
+    "duration_seconds": 6.946856599999592,
+    "approved_texts": [
+     "Queen Elizabeth II reigned from 6 February 1952 until her death on 8 September 2022",
+     "Queen Elizabeth II's reign lasted 70 years and 214 days",
+     "Queen Elizabeth II's reign of 70 years and 214 days is the longest of any British monarch",
+     "Queen Elizabeth II reigned for approximately 70 years",
+     "Julius Caesar was born on July 12 or 13, 100 BCE",
+     "Julius Caesar was assassinated on March 15, 44 BCE",
+     "Julius Caesar lived to be 55 years old at the time of his assassination",
+     "Julius Caesar's lifespan was from 100 BCE to 44 BCE, covering approximately 56 years",
+     "Julius Caesar was assassinated at the Theatre of Pompey in Rome",
+     "Julius Caesar was assassinated by stab wounds",
+     "Julius Caesar was born in 100 BCE",
+     "Julius Caesar died in 44 BCE",
+     "Julius Caesar lived for 56 years total",
+     "Julius Caesar was born on July 12 or 13",
+     "Julius Caesar was assassinated on March 15"
+    ]
+   },
+   "critic_round_converged": true
+  }
+ },
+ "provided_urls": [
+  "https://en.wikipedia.org/wiki/Elizabeth_II",
+  "https://en.wikipedia.org/wiki/Julius_Caesar",
+  "https://lifeofcaesar.com/timeline-of-the-life-of-gaius-julius-caesar",
+  "https://rollingrome.com/10-facts-about-julius-caesar",
+  "https://thetourguy.com/travel-blog/italy/rome/julius-caesar-timeline",
+  "https://www.britannica.com/biography/Elizabeth-II",
+  "https://www.facebook.com/royalinsiderofficialglobal/posts/queen-elizabeth-ii-reigned-for-70-years-from-february-6-1952-until-her-death-on-/1326046479556580",
+  "https://www.history.com/articles/julius-caesar",
+  "https://www.youtube.com/watch?v=lE-mJBWNXXw",
+  "https://www.youtube.com/watch?v=nkZILWlSN3A"
+ ],
+ "pipeline": {
+  "rounds_run": 1,
+  "converged": true,
+  "fatal_error": null,
+  "errors": [],
+  "tokens_used_total_pipeline_accounting": 22794,
+  "tokens_by_agent": {
+   "orchestrator": 522,
+   "analyst": 12601,
+   "critic": 2216,
+   "writer": 7455
+  },
+  "fact_check_results": [],
+  "quality": {
+   "schema_version": "1.0",
+   "coverage_score": 0.85,
+   "source_diversity_score": 0.72,
+   "contradiction_rate": 0.07,
+   "overall_quality_score": 0.78,
+   "confidence_distribution": {
+    "high": 4,
+    "medium": 3,
+    "low": 8,
+    "contested": 0,
+    "inconclusive": 0
+   },
+   "re_research_rounds": 1,
+   "total_sources_consulted": 21,
+   "total_claims_extracted": 15,
+   "claims_flagged_by_critic": 0,
+   "claims_verified_by_fact_checker": 0,
+   "converged": true,
+   "convergence_note": "Report converged after 1 research round(s)."
+  },
+  "n_citations": 21,
+  "activity": [
+   "Orchestrator: Round 1: decomposing query into sub-questions...",
+   "Orchestrator: Decomposed into 3 sub-questions: How long was the reign of Queen Elizabet...; What was the lifespan of Julius Caesar f...; How many years did Julius Caesar live in...",
+   "Search Agents: Launching 3 parallel search agents...",
+   "Search Agents: Retrieved 24 sources across 3 sub-questions",
+   "Scraper Agents: Scraping top 4 sources per sub-question...",
+   "Scraper Agents: Scraped 12/12 pages successfully (1 via Playwright)",
+   "Analyst Agents: Analyzing content across 3 sub-questions in parallel...",
+   "Analyst Agents: Extracted 15 claims across 3 sub-questions",
+   "Critic Agent: Reviewing all analyst findings for quality and coverage...",
+   "Critic Agent: Quality score: 0.78 | Coverage: 0.85 | 0 claims flagged",
+   "Fact-Checker Agents: No claims flagged by Critic — skipping fact-checking.",
+   "Writer Agent: Writing general report...",
+   "Writer Agent: Report written: 'Comparative Analysis: The Reign of Queen Elizabeth II vs. The Life of Julius Caesar' | 21 citations | 0 contradictions mapped"
+  ]
+ }
+}

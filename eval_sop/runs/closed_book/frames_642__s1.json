@@ -1,0 +1,44 @@
+{
+ "condition": "closed_book",
+ "qid": "frames_642",
+ "question": "How much older than Michael B. Jordan is Michael Jordan?",
+ "reference": "24 years",
+ "seed": 1,
+ "generator": "claude-haiku-4-5-20251001",
+ "wall_seconds_this_invocation": 1.64,
+ "telemetry": {
+  "llm_calls": 1,
+  "llm_calls_from_cache": 0,
+  "input_tokens": 54,
+  "output_tokens": 139,
+  "llm_seconds": 1.64,
+  "usd_spent_now": 0.000749,
+  "usd_if_uncached": 0.000749,
+  "models": [
+   "claude-haiku-4-5-20251001"
+  ],
+  "tavily_searches": 0,
+  "tavily_credits_if_uncached": 0,
+  "tavily_credits_spent_now": 0,
+  "llm_calls_by_agent": {
+   "closed_book": 1
+  },
+  "tokens_by_agent": {
+   "closed_book": 193
+  },
+  "pipeline_only": {
+   "input_tokens": 54,
+   "output_tokens": 139,
+   "llm_seconds": 1.64,
+   "llm_calls": 1,
+   "truncated_calls": 0
+  }
+ },
+ "error": null,
+ "error_kind": null,
+ "nonfatal_errors": [],
+ "strict_error": false,
+ "output_text": "# Reasoning\n\nTo answer this question, I need to find the birth dates of both Michael Jordan and Michael B. Jordan.\n\n**Michael Jordan** (the basketball player): Born February 17, 1963\n\n**Michael B. Jordan** (the actor): Born February 9, 1987\n\nThe age difference is: 1987 - 1963 = 24 years\n\nMore precisely: Michael Jordan is about 24 years older than Michael B. Jordan (Michael Jordan was born about 24 years before Michael B. Jordan).\n\nFinal answer: Michael Jordan is approximately 24 years older than Michael B. Jordan.",
+ "final_answer": "Michael Jordan is approximately 24 years older than Michael B. Jordan.",
+ "claims": []
+}

@@ -1,0 +1,139 @@
+{
+ "condition": "search1",
+ "qid": "frames_403",
+ "question": "Put in chronological order the Major League Baseball seasons in which Barry Bonds, Tony Gwynn, and Benny Kauff hit for a .370 batting average.",
+ "reference": "1914, 1987, 2002",
+ "seed": 1,
+ "generator": "claude-haiku-4-5-20251001",
+ "wall_seconds_this_invocation": 4.46,
+ "telemetry": {
+  "llm_calls": 1,
+  "llm_calls_from_cache": 0,
+  "input_tokens": 2209,
+  "output_tokens": 148,
+  "llm_seconds": 1.78,
+  "usd_spent_now": 0.002949,
+  "usd_if_uncached": 0.002949,
+  "models": [
+   "claude-haiku-4-5-20251001"
+  ],
+  "tavily_searches": 1,
+  "tavily_credits_if_uncached": 1,
+  "tavily_credits_spent_now": 1,
+  "llm_calls_by_agent": {
+   "search1": 1
+  },
+  "tokens_by_agent": {
+   "search1": 2357
+  },
+  "pipeline_only": {
+   "input_tokens": 2209,
+   "output_tokens": 148,
+   "llm_seconds": 1.78,
+   "llm_calls": 1,
+   "truncated_calls": 0
+  }
+ },
+ "error": null,
+ "error_kind": null,
+ "nonfatal_errors": [],
+ "strict_error": false,
+ "output_text": "• Barry Bonds hit .370 (.36973) in 2002 with the San Francisco Giants [1]\n\n• Tony Gwynn hit .370 (.37012) in 1987 with the San Diego Padres [1]\n\n• Benny Kauff hit .370 (.36953) in 1914 with the Indianapolis Hoosiers [1]\n\nFinal answer: In chronological order, the MLB seasons in which these three players hit .370 are:\n1. 1914 - Benny Kauff\n2. 1987 - Tony Gwynn\n3. 2002 - Barry Bonds",
+ "final_answer": "In chronological order, the MLB seasons in which these three players hit .370 are:",
+ "claims": [
+  {
+   "text": "Barry Bonds hit .370 (.36973) in 2002 with the San Francisco Giants",
+   "source_urls": [
+    "https://www.baseball-almanac.com/hitting/hibavg2.shtml"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "Put in chronological order the Major League Baseball seasons in which Barry Bonds, Tony Gwynn, and Benny Kauff hit for a .370 batting average.",
+   "stage": "final"
+  },
+  {
+   "text": "Tony Gwynn hit .370 (.37012) in 1987 with the San Diego Padres",
+   "source_urls": [
+    "https://www.baseball-almanac.com/hitting/hibavg2.shtml"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "Put in chronological order the Major League Baseball seasons in which Barry Bonds, Tony Gwynn, and Benny Kauff hit for a .370 batting average.",
+   "stage": "final"
+  },
+  {
+   "text": "Benny Kauff hit .370 (.36953) in 1914 with the Indianapolis Hoosiers",
+   "source_urls": [
+    "https://www.baseball-almanac.com/hitting/hibavg2.shtml"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "Put in chronological order the Major League Baseball seasons in which Barry Bonds, Tony Gwynn, and Benny Kauff hit for a .370 batting average.",
+   "stage": "final"
+  },
+  {
+   "text": "1914 - Benny Kauff",
+   "source_urls": [],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "Put in chronological order the Major League Baseball seasons in which Barry Bonds, Tony Gwynn, and Benny Kauff hit for a .370 batting average.",
+   "stage": "final"
+  },
+  {
+   "text": "1987 - Tony Gwynn",
+   "source_urls": [],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "Put in chronological order the Major League Baseball seasons in which Barry Bonds, Tony Gwynn, and Benny Kauff hit for a .370 batting average.",
+   "stage": "final"
+  },
+  {
+   "text": "2002 - Barry Bonds",
+   "source_urls": [],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "Put in chronological order the Major League Baseball seasons in which Barry Bonds, Tony Gwynn, and Benny Kauff hit for a .370 batting average.",
+   "stage": "final"
+  }
+ ],
+ "sources": [
+  {
+   "schema_version": "1.0",
+   "url": "https://www.baseball-almanac.com/hitting/hibavg2.shtml",
+   "title": "Top 500 MLB Single-Season Batting Average Leaders | Baseball Almanac",
+   "snippet": "| Sam Thompson | .370 (.37000) | 1893 | Philadelphia Phillies | NL | 144 |\n| Barry Bonds | .370 (.36973) | 2002 | San Francisco Giants | NL | 145 |\n| Benny Kauff | .370 (.36953) | 1914 | Indianapolis Hoosiers | FL | 146 |\n| Ty Cobb | .369 (.36945) | 1915 | Detroit Tigers | AL | 147 |\n| Ted Williams | .369 (.36935) | 1948 | Boston Red Sox | AL | 148 |\n| Billy Hamilton | .369 (.36930) | 1898 | Boston Beaneaters | NL | 149 |\n| Lew Fonseca | .369 (.36926) | 1929 | Cleveland Indians | AL | 150 | [...] | Al Wingo | .370 (.37045) | 1925 | Detroit Tigers | AL | 137 |\n| Paul Waner | .370 (.37043) | 1928 | Pittsburgh Pirates | NL | 138 |\n| Andres Galarraga | .370 (.37021) | 1993 | Colorado Rockies | NL | 139 |\n| Ty Cobb | .370 (.37017) | 1916 | Detroit Tigers | AL | 140 |\n| Dan Brouthers | .370 (.37014) | 1886 | Detroit Wolverines | NL | 141 |\n| Tony Gwynn | .370 (.37012) | 1987 | San Diego Padres | NL | 142 |\n| Rogers Hornsby | .370 (.37012) | 1920 | St. Louis Cardinals | NL | 143 | [...] | Ichiro Suzuki | .372 (.37216) | 2004 | Seattle Mariners | AL | 123 |\n| Eddie Collins | .372 (.37209) | 1920 | Chicago White Sox | AL | 124 |\n| Tommy Tucker | .372 (.37192) | 1889 | Baltimore Orioles | AA | 125 |\n| Bug Holliday | .372 (.37182) | 1894 | Cincinnati Reds | NL | 126 |\n| Babe Ruth | .372 (.37172) | 1926 | New York Yankees | AL | 127 |\n| Heinie Zimmerman | .372 (.37163) | 1912 | Chicago Cubs | NL | 128 |\n| Tony Gwynn | .372 (.37162) | 1997 | San Diego Padres | NL | 129 |",
+   "relevance_score": 0.7644879,
+   "published_date": null,
+   "source_domain": "www.baseball-almanac.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.baseball-reference.com/leaders/H_top_ten.shtml",
+   "title": "Year-by-Year Top-Tens Leaders & Records for Hits | Baseball-Reference.com",
+   "snippet": "NL Batting Leaders:2026·2025·2024·2023·2022·2021·2020·2019·2018·2017·2016·2015·2014·2013·2012·2011·2010·2009·2008·2007 NL Pitching Leaders:2026·2025·2024·2023·2022·2021·2020·2019·2018·2017·2016·2015·2014·2013·2012·2011·2010·2009·2008·2007 OPS+: Year-by-Year Top-Tens·Active·Career·Progressive·Yearly League·Single-Season  BA: Year-by-Year Top-Tens·Active·Career·Progressive·Yearly League·Single-Season  WHIP: Year-by-Year Top-Tens·Active·Career·Progressive·Yearly League·Single-Season  SO/W: [...] LeadersMLB Batting Leaders:2026·2025·2024·2023·2022·2021·2020·2019·2018·2017·2016·2015·2014·2013·2012·2011·2010·2009·2008·2007 MLB Pitching Leaders:2026·2025·2024·2023·2022·2021·2020·2019·2018·2017·2016·2015·2014·2013·2012·2011·2010·2009·2008·2007 AL Batting Leaders:2026·2025·2024·2023·2022·2021·2020·2019·2018·2017·2016·2015·2014·2013·2012·2011·2010·2009·2008·2007 AL Pitching Leaders:2026·2025·2024·2023·2022·2021·2020·2019·2018·2017·2016·2015·2014·2013·2012·2011·2010·2009·2008·2007 NL [...] Seasons2026, 2025, 2026 MLB Pitching, 2026 MLB Batting, 2026 MLB Standings, 2026 MLB Attendance, 2026 MLB Rookies, ... \n   Major League Leaders2026 MLB Batting, 2026 MLB Pitching, Career WAR Leaders, Single-Season Home Run Leaders, Active Strikeout Leaders, Upcoming Player Milestones, ... \n   MLB ScoresYesterday's MLB Games, Scores from any date in Major League history, MLB Probable Pitchers, Baseball-Reference Stream Finder, ... \n   MLB Schedule",
+   "relevance_score": 0.53079647,
+   "published_date": null,
+   "source_domain": "www.baseball-reference.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.baseball-reference.com/leaders/batting_avg_top_ten.shtml",
+   "title": "Year-by-Year Top-Tens Leaders & Records for Batting Average | Baseball-Reference.com",
+   "snippet": "NL Batting Leaders:2026·2025·2024·2023·2022·2021·2020·2019·2018·2017·2016·2015·2014·2013·2012·2011·2010·2009·2008·2007 NL Pitching Leaders:2026·2025·2024·2023·2022·2021·2020·2019·2018·2017·2016·2015·2014·2013·2012·2011·2010·2009·2008·2007 OPS+: Year-by-Year Top-Tens·Active·Career·Progressive·Yearly League·Single-Season  BA: Year-by-Year Top-Tens·Active·Career·Progressive·Yearly League·Single-Season  WHIP: Year-by-Year Top-Tens·Active·Career·Progressive·Yearly League·Single-Season  SO/W: [...] LeadersMLB Batting Leaders:2026·2025·2024·2023·2022·2021·2020·2019·2018·2017·2016·2015·2014·2013·2012·2011·2010·2009·2008·2007 MLB Pitching Leaders:2026·2025·2024·2023·2022·2021·2020·2019·2018·2017·2016·2015·2014·2013·2012·2011·2010·2009·2008·2007 AL Batting Leaders:2026·2025·2024·2023·2022·2021·2020·2019·2018·2017·2016·2015·2014·2013·2012·2011·2010·2009·2008·2007 AL Pitching Leaders:2026·2025·2024·2023·2022·2021·2020·2019·2018·2017·2016·2015·2014·2013·2012·2011·2010·2009·2008·2007 NL [...] Seasons2026, 2025, 2026 MLB Pitching, 2026 MLB Batting, 2026 MLB Standings, 2026 MLB Attendance, 2026 MLB Rookies, ... \n   Major League Leaders2026 MLB Batting, 2026 MLB Pitching, Career WAR Leaders, Single-Season Home Run Leaders, Active Strikeout Leaders, Upcoming Player Milestones, ... \n   MLB ScoresYesterday's MLB Games, Scores from any date in Major League history, MLB Probable Pitchers, Baseball-Reference Stream Finder, ... \n   MLB Schedule",
+   "relevance_score": 0.52042377,
+   "published_date": null,
+   "source_domain": "www.baseball-reference.com"
+  }
+ ],
+ "provided_urls": [
+  "https://www.baseball-almanac.com/hitting/hibavg2.shtml",
+  "https://www.baseball-reference.com/leaders/H_top_ten.shtml",
+  "https://www.baseball-reference.com/leaders/batting_avg_top_ten.shtml"
+ ]
+}
