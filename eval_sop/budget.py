@@ -108,9 +108,14 @@ def default_state_dir() -> Path:
     credit ledger and the run lock. A run from the worktree and one from the
     main checkout therefore share one ledger, and no output-directory setting
     can point the spend at a fresh file. Tests monkeypatch common.STATE_DIR.
+
+    `Path.home()` on every platform, never `%LOCALAPPDATA%`: that variable is
+    routinely set per-process, and moving it moved both the ledger — a fresh $0
+    total, so the canary's spend was forgotten and the next run got the whole
+    cap again — and the run lock beside it, letting two paid runs overlap.
+    There is deliberately no environment-variable override.
     """
-    base = os.environ.get("LOCALAPPDATA") or str(Path.home() / "AppData" / "Local")
-    return Path(base) / "sop_eval" / "research_report"
+    return Path.home() / ".sop_eval" / "research_report"
 
 
 def _connect(path: Path) -> sqlite3.Connection:
@@ -296,7 +301,11 @@ def check_cap(cap_usd) -> float:
     bare `cap > MAX` guard let `--usd-cap nan` through, and every later
     `spent + worst > cap` was False too — a ledger with no cap at all.
     """
-    cap_usd = float(cap_usd)  # also used as argparse's `type`, which passes strings
+    # Accepts a string as well as a number: the CLI does NOT use this as
+    # argparse's `type` (that is plain `float`, run_conditions.py:468) — the
+    # parsed value is validated separately at run_conditions.py:373, and
+    # `SOP_USD_CAP` arrives via cap_from_env() below.
+    cap_usd = float(cap_usd)
     if not math.isfinite(cap_usd) or cap_usd <= 0:
         raise ValueError(f"cap {cap_usd!r} must be a finite positive number of dollars")
     if cap_usd > PROJECT_HARD_MAX_USD:

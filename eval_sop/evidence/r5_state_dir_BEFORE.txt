@@ -1,0 +1,43 @@
+# BEFORE the round-5 fix: default_state_dir() still resolved its base from
+# $LOCALAPPDATA. Run on 2026-10-04, branch sop-eval.
+$ python -m pytest eval_sop/tests/test_state_lock.py -k '<the four state-dir cases>'
+_________________ test_state_dir_is_under_the_home_directory __________________
+
+    def test_state_dir_is_under_the_home_directory():
+        """Round-5: the path is derived from Path.home(), so no variable can move it."""
+        d = budget.default_state_dir()
+        assert Path.home() in d.parents
+>       assert d.parts[-2:] == (".sop_eval", "research_report")
+E       AssertionError: assert ('sop_eval', ...earch_report') == ('.sop_eval',...earch_report')
+E         
+E         At index 0 diff: 'sop_eval' != '.sop_eval'
+E         Use -v to get more diff
+
+eval_sop\tests\test_state_lock.py:40: AssertionError
+___________ test_state_dir_ignores_localappdata_in_a_fresh_process ____________
+
+tmp_path = WindowsPath('<path>')
+
+    def test_state_dir_ignores_localappdata_in_a_fresh_process(tmp_path):
+        """
+        The gate failure: with LOCALAPPDATA redirected, a dry run reported an empty
+        ledger - a fresh cap's worth of headroom, the canary's spend forgotten -
+        and the run lock moved with it, so two paid runs could overlap. Resolved in
+        a child process (and with both modules reloaded there), because an import-
+        time constant is exactly what a new shell re-evaluates.
+        """
+        redirected = tmp_path / "redirected"
+        before = _resolve_in_child()
+        after = _resolve_in_child({"LOCALAPPDATA": str(redirected)})
+>       assert after == before
+E       AssertionError: assert ['C:\\Users\\...edits.sqlite'] == ['C:\\Users\\...edits.sqlite']
+E         
+E         At index 0 diff: 'C:\\Users\\<USER>\\AppData\\Local\\Temp\\claude\\C--Users-<USER>-OneDrive-Desktop-GITHUB-REPOS\\275afb2e-ec05-44c7-a2d7-94ea985b341c\\scratchpad\\pt\\test_state_dir_ignores_localap0\\redirected\\sop_eval\\research_report' != 'C:\\Users\\<USER>\\AppData\\Local\\sop_eval\\research_report'
+E         Use -v to get more diff
+
+eval_sop\tests\test_state_lock.py:72: AssertionError
+=========================== short test summary info ===========================
+FAILED eval_sop/tests/test_state_lock.py::test_state_lives_outside_the_checkout_and_out_dir_cannot_move_it
+FAILED eval_sop/tests/test_state_lock.py::test_state_dir_is_under_the_home_directory
+FAILED eval_sop/tests/test_state_lock.py::test_state_dir_ignores_localappdata_in_a_fresh_process
+================== 3 failed, 1 passed, 9 deselected in 2.67s ==================

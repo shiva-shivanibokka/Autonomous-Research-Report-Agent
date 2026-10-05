@@ -1,0 +1,12 @@
+# AFTER: default_state_dir() == Path.home()/'.sop_eval'/'research_report'.
+$ python -m pytest eval_sop/tests/test_state_lock.py -k '<the four state-dir cases>'
+============================= test session starts =============================
+platform win32 -- Python 3.12.3, pytest-9.0.3, pluggy-1.6.0
+rootdir: <path>
+plugins: anyio-4.12.1, dash-3.0.4, Faker-40.15.0, hydra-core-1.3.3, langsmith-0.7.30, nbmake-1.5.5, asyncio-1.4.0, cov-5.0.0, typeguard-4.5.2
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 13 items / 9 deselected / 4 selected
+
+eval_sop\tests\test_state_lock.py ....                                   [100%]
+
+======================= 4 passed, 9 deselected in 2.44s =======================
