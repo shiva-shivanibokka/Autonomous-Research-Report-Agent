@@ -5,6 +5,8 @@
 
 A multi-agent pipeline that researches the open web and writes **cited, quality-scored research reports** — with a self-improving critic loop, source triangulation, contradiction detection, and per-report cost accounting.
 
+> **Measured evaluation: [`RESULTS.md`](RESULTS.md)** — the local judges used to validate this pipeline mark **refusals as correct**, which inflates the very baselines they are used to compare against.
+
 ---
 
 ## ▶ [See it run →](https://autonomous-research-report-agent-shiv-a.vercel.app)
