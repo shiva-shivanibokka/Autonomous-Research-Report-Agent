@@ -173,7 +173,7 @@ frontend/          Next.js 14 + TS + Tailwind UI
   public/demo/     the committed recording the hosted page replays
 scripts/           record_demo_run.py — captures a real run as the demo
 monitoring/        Prometheus, Grafana, Alertmanager, alert rules
-tests/             83 tests; no network, no database, no API keys required
+tests/             87 tests (70 unit + 17 integration); no network, no database, no API keys
 Dockerfile         multi-stage: base -> api / worker
 docker-compose.yml full local stack (API, worker, Redis, Postgres, observability)
 ```
@@ -244,8 +244,15 @@ pip install -r requirements.txt -r requirements-dev.txt
 pytest tests/unit          # pure logic: cost math, provider routing, JSON extraction, schemas
 pytest tests/integration   # the API via TestClient — in-process store, no database, no keys
 pytest                     # both (87 tests)
-pytest eval_sop/tests      # the evaluation harness (104 tests from the line above)
+pytest eval_sop/tests      # the evaluation harness — a SEPARATE 102 tests
 ```
+
+So the project has **189 tests in two independent suites**: 87 in `tests/` and
+102 in `eval_sop/tests`. Collected with `pytest --collect-only -q` on each path
+rather than typed — an earlier version of these lines said `tests/` held 83 and
+described the harness as "104 tests from the line above", which both understated
+`tests/` and implied the harness was a subset of it. It is not; the two share no
+files.
 
 Neither suite needs a network, a database or an API key, so CI runs the whole
 thing on every push, alongside a pinned `ruff` and a full frontend build.
