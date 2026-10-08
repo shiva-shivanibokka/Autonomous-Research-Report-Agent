@@ -105,7 +105,7 @@ checks; no judge is involved.
 | source_diversity_score | 0.52 | Listed citations: 25 domains / 30 URLs = 0.83. Inline-cited: 12 domains / 17 URLs = 0.71 | Neither obvious definition reproduces it. n = 1, so this is not a calibration estimate. |
 | coverage_score, overall_quality_score | 0.75, 0.58 | Not recomputable from what the run stored | Also LLM self-report. All **four** quality scores come from the Critic LLM; none is computed. |
 | Fact-checking | Round 1 flagged 5 claims; the final round flagged 0 | Fact-checker **skipped**; verified = 0 | Confirmed. In a 2-round run, round-1 flags go to re-research, never to the fact-checker (`test_two_round_run_never_fact_checks_round_one_flags`). |
-| Citations | `total_sources_consulted = 81` | The report lists 30 (`citations[:30]`, `writer_agent.py:463`). **13 of the 17 URLs cited in the text are missing from that list.** | New finding. Not fixed; see §10. |
+| Citations | `total_sources_consulted = 81` | The report lists 30 (`citations[:30]` — `writer_agent.py:254` renders the list, `:460` stores it; this table cited `:463`, which is now the title default, until corrected 2026-10-08). **13 of the 17 URLs cited in the text are missing from that list.** | New finding. Not fixed; see §10. Stated in the README as of 2026-10-08. |
 | Token budget | 80,000 | Used 78,591 | Under budget in this run. The code does not enforce a hard budget: `call_llm` only clamps each call's *output* to `max(256, remaining)` (`llm_client.py:301` at c0ae667, `:302` on this branch). |
 
 ### 2c. Conditions (a) closed-book, (b) search + summarise, (d) pipeline r=2

@@ -57,11 +57,25 @@ that a single search could not.
 | Rounds | **2 of 2** — the Critic judged round one insufficient and sent it back |
 | Sources retrieved | 81, across 25 domains |
 | Claims extracted | 60 |
-| Citations in report | 30 |
+| Citations in report | 30 listed — but **13 of the 17 URLs cited inline in the text are missing from that list.** The list is truncated with `citations[:30]` (`writer_agent.py:254` for the rendered list, `:460` for the stored one) while the inline citations are not drawn from it. Unfixed; a reader can catch it by clicking |
 | Tokens / cost | 78,591 · **$0.49** (Sonnet 4.5) |
-| Overall quality | 58% · coverage 75% · source diversity 52% |
+| Overall quality | 58% · coverage 75% · source diversity 52% — **all four of these are the Critic LLM's self-report, not computed.** See the note below |
 | Confidence spread | 6 high · 13 medium · **41 low** |
 | Converged | **No** — the Critic's bar was still unmet when the rounds ran out |
+
+> **The quality scores are self-reported, and one of them is wrong.** All four
+> — coverage, source diversity, contradiction rate, overall — are produced by
+> the Critic LLM (`critic_agent.py:116` prompt) and passed through unchanged
+> (`writer_agent.py:156`). None is computed from the run's own data, and
+> nothing validates them. In this recorded run the reported
+> `contradiction_rate` of **0.12** is contradicted by the run's own records:
+> **0 of 60 claims were contested and 0 contradictions were mapped, so the
+> computed value is 0.00.** `source_diversity_score` of 0.52 matches neither
+> obvious definition either (listed citations give 25/30 = 0.83, inline-cited
+> give 12/17 = 0.71). Treat the percentages as the model's opinion of its own
+> work, not as measurements. Full detail and the two RAGTruth-validated
+> citation judges — which *are* measured — are in
+> [`RESULTS.md`](RESULTS.md).
 
 **Those last three rows are the point.** The run surfaced the METR randomized
 controlled trial, in which developers took **19% longer** with AI assistance
@@ -89,7 +103,7 @@ or citations — an unhealthy run must not silently become the demo.
 | Sources | whatever's in weights / one search | **decomposed sub-questions**, parallel web search + scrape |
 | Trust | "trust me" | every claim carries **supporting/contradicting source counts** and a confidence level |
 | Disagreement | smoothed over | **contradiction map** — surfaces where sources conflict and how it was resolved |
-| Quality | unknown | **coverage, source-diversity, contradiction-rate, overall** scores per report |
+| Quality | unknown | **coverage, source-diversity, contradiction-rate, overall** scores per report — *self-reported by the Critic LLM, not computed; see the note above* |
 | Rigor | single pass | **self-improving critic loop** re-researches weak claims until it converges or hits budget |
 | Cost | opaque | **per-agent token + USD accounting** on every run |
 | Model | fixed | **bring your own key** — Anthropic, OpenAI, Google, or Groq, chosen in the UI |
@@ -158,6 +172,17 @@ failures otherwise:
   written costs one retry once rather than failing forever.
 - **Sampling parameters** are not forwarded at all — several current models reject
   a non-default `temperature` with a hard 400. Determinism comes from the prompts.
+
+**Known gap, accepted rather than fixed: the spend guard is HTTP-only.** The
+request-rate and budget checks live in the HTTP layer. The Celery task
+signature is `api_key: str | None = None` (`api/worker.py:65`) with **no gate of
+its own**, and it passes that value straight into the pipeline state
+(`api/worker.py:97`). So anything that can enqueue a job directly — bypassing
+the API — can spend against a supplied key without passing a budget check. That
+is acceptable for a single-operator deployment where only the API can reach the
+queue, and it is not acceptable for a shared or multi-tenant one. It is
+recorded in [`RESULTS.md`](RESULTS.md) as accepted-not-fixed rather than
+quietly left out.
 
 ---
 
