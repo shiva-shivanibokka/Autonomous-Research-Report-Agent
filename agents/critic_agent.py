@@ -60,9 +60,9 @@ async def run_critic_agent(state: ResearchState) -> ResearchState:
     )
 
     # Aggregate all claims across sub-questions
-    all_claims: list[Claim] = []
-    for analyst_out in state.analyst_outputs:
-        all_claims.extend(analyst_out.key_claims)
+    # Includes claims approved in earlier rounds (carried_claims), not just
+    # this round's analyst output.
+    all_claims: list[Claim] = state.collected_claims()
 
     if not all_claims:
         log.warning("critic_no_claims", job_id=state.job_id)

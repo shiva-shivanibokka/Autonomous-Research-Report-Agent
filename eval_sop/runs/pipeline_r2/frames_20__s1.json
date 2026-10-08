@@ -1,0 +1,611 @@
+{
+ "condition": "pipeline_r2",
+ "qid": "frames_20",
+ "question": "As of August 1 2024, what is the most recently described genus of Colosteidae?",
+ "reference": "Deltaherpeton, first described in 2010",
+ "seed": 1,
+ "generator": "claude-haiku-4-5-20251001",
+ "wall_seconds_this_invocation": 36.53,
+ "telemetry": {
+  "llm_calls": 7,
+  "llm_calls_from_cache": 2,
+  "input_tokens": 16455,
+  "output_tokens": 5406,
+  "llm_seconds": 45.42,
+  "usd_spent_now": 0.035454,
+  "usd_if_uncached": 0.043485,
+  "models": [
+   "claude-haiku-4-5-20251001"
+  ],
+  "tavily_searches": 3,
+  "tavily_credits_if_uncached": 3,
+  "tavily_credits_spent_now": 0,
+  "llm_calls_by_agent": {
+   "orchestrator": 1,
+   "analyst": 3,
+   "critic": 1,
+   "writer": 1,
+   "eval_answer_extraction": 1
+  },
+  "tokens_by_agent": {
+   "orchestrator": 540,
+   "analyst": 10993,
+   "critic": 2226,
+   "writer": 4304,
+   "eval_answer_extraction": 3798
+  },
+  "pipeline_only": {
+   "input_tokens": 12965,
+   "output_tokens": 5098,
+   "llm_seconds": 42.5,
+   "llm_calls": 6,
+   "truncated_calls": 0
+  }
+ },
+ "error": null,
+ "error_kind": null,
+ "nonfatal_errors": [],
+ "strict_error": false,
+ "output_text": "# The Most Recently Described Genus of Colosteidae as of August 1, 2024\n\n## Executive Summary\nBased on available research data, Deltaherpeton represents the most recently formally described genus of Colosteidae, established through the description of Deltaherpeton hiemstrae in 2010 from the Mississippian of Iowa. Colosteidae is an extinct family of stem-group tetrapods (stegocephalians) that lived during the Carboniferous period, spanning from the Viséan to the late Moscovian stages. The family currently contains four recognized genera: Colosteus (the type genus), Deltaherpeton, Greererpeton, and Pholidogaster, with no new genera reported in the 2024 scientific literature as of the research cutoff date.\n\nDeltaherpeton hiemstrae was described by Berman and colleagues and published in the Journal of Paleontology in 2010. This discovery and formal description predates the August 1, 2024 research query date by approximately 14 years, making it the most recently described genus within Colosteidae available in the current research dataset. No evidence of subsequent genus descriptions within Colosteidae between 2010 and August 2024 was identified in the approved research claims or available databases.\n\n## Key Findings\n- Deltaherpeton is the most recently described genus of Colosteidae, formally established through the 2010 publication of Deltaherpeton hiemstrae in the Journal of Paleontology (https://www.cambridge.org/core/journals/journal-of-paleontology/article/deltaherpeton-hiemstrae-a-new-colosteid-tetrapod-from-the-mississippian-of-iowa/700D38417E0886EDD7F60906B3137C8D)\n- Colosteidae contains exactly four recognized genera: Colosteus (type genus), Deltaherpeton, Greererpeton, and Pholidogaster (https://en.wikipedia.org/wiki/Colosteidae, https://fossil.fandom.com/wiki/Colosteidae)\n- Deltaherpeton hiemstrae was discovered in Mississippian-age deposits of Iowa, representing the most recent formal genus and species description within the family (https://ui.adsabs.harvard.edu/abs/2010JPal...84.1135B/abstract)\n- Colosteidae was established as a family by Cope in 1875 and comprises stem-group tetrapods that lived during the Carboniferous period, specifically from the Viséan to late Moscovian stages (https://en.wikipedia.org/wiki/Colosteidae)\n- No new Colosteidae genera were reported in 2024 based on major species announcement databases and the Catalogue of Life 2024 annual release (https://explorersweb.com/190-new-species-discovered-in-2024, https://www.catalogueoflife.org/2024/06/27/annual-release)\n- Colosteids possessed distinctive anatomical features including approximately 40 vertebrae excluding the tail, characteristic of stem-tetrapod morphology (https://en.wikipedia.org/wiki/Colosteidae)\n\n## Deltaherpeton: The Most Recently Described Genus\nDeltaherpeton represents the most recently formally described genus within Colosteidae as of August 1, 2024. The type species, Deltaherpeton hiemstrae, was formally described in 2010 in the Journal of Paleontology through work by Berman and colleagues. The specimen was recovered from Mississippian-age deposits in Iowa, representing a significant discovery for understanding early tetrapod evolution. The genus name reflects its phylogenetic position and morphological characteristics within the colosteid radiation. The formal description of Deltaherpeton hiemstrae provided new insights into colosteid diversity and paleobiogeography during the early Carboniferous period (https://www.cambridge.org/core/journals/journal-of-paleontology/article/deltaherpeton-hiemstrae-a-new-colosteid-tetrapod-from-the-mississippian-of-iowa/700D38417E0886EDD7F60906B3137C8D; https://ui.adsabs.harvard.edu/abs/2010JPal...84.1135B/abstract).\n\n## Colosteidae Family Composition and Taxonomy\nColosteidae is recognized as a well-defined family within the larger clade of stegocephalians (stem-group tetrapods). The family was formally established by Cope in 1875 and currently comprises four genera: Colosteus, Deltaherpeton, Greererpeton, and Pholidogaster. Colosteus serves as the type genus for the family, establishing the nomenclatural foundation for Colosteidae. Each genus represents a distinct lineage within the family, though their specific phylogenetic relationships continue to be refined through comparative anatomical and cladistic analyses. The four-genus composition of Colosteidae has remained stable in recent taxonomic treatments, with no additional genera described since Deltaherpeton's establishment in 2010 (https://en.wikipedia.org/wiki/Colosteidae; https://fossil.fandom.com/wiki/Colosteidae).\n\n## Temporal and Phylogenetic Context\nColosteidae inhabited aquatic and semi-aquatic environments during a specific interval of the Carboniferous period, ranging from the Viséan stage through the late Moscovian stage. This temporal distribution spans a significant portion of the early to middle Carboniferous, representing approximately 30 million years of paleobiogeographic presence. As stem-group tetrapods, colosteids occupied a crucial phylogenetic position in the early radiation of tetrapods, preceding the diversification of crown-group Tetrapoda. The family exhibits morphological features characteristic of early tetrapods, including the aforementioned complement of approximately 40 vertebrae (excluding the tail), aquatic adaptations, and intermediate characteristics between fish-like ancestors and more derived tetrapods. Their geographical distribution included at least North America, though additional localities may reflect incomplete fossil records (https://en.wikipedia.org/wiki/Colosteidae; https://fossil.fandom.com/wiki/Colosteidae).\n\n## Research Status and Knowledge Gaps as of August 2024\nAs of August 1, 2024, no new colosteid genera have been described in the paleontological literature since Deltaherpeton's establishment in 2010. This 14-year interval without new genus-level descriptions suggests that either colosteid diversity has been adequately characterized from available fossil material, or such material remains undiscovered or undescribed in collections. Major species announcement databases and the Catalogue of Life's 2024 annual release contain no records of newly described Colosteidae genera, indicating that active research on this family has not yielded novel higher-level taxonomic discoveries in recent years. However, ongoing work on existing specimens may continue to refine understanding of colosteid morphology, phylogenetics, and paleobiology without necessarily adding new genera to the family (https://explorersweb.com/190-new-species-discovered-in-2024; https://www.catalogueoflife.org/2024/06/27/annual-release).\n\n## Confidence Assessment\nModerate to High confidence. The claim that Deltaherpeton is the most recently described genus of Colosteidae rests on multiple converging lines of evidence: (1) explicit documentation of Deltaherpeton hiemstrae's 2010 description in the Journal of Paleontology with high-quality peer-reviewed sources; (2) consistent reporting across multiple authoritative sources (Wikipedia, Fossil Fandom, Cambridge University Press) that Colosteidae contains four genera with Deltaherpeton among them; (3) negative evidence from 2024 species databases showing no new Colosteidae genera reported this year. The primary limitations are the relatively narrow temporal window of the research query (only through August 1, 2024) and the moderate coverage score (0.45), which suggests the available research dataset may not have achieved exhaustive coverage of all paleontological literature. The source diversity score of 0.58 indicates reasonable but not comprehensive source representation.\n\n## Limitations\nThis report is subject to several important limitations: (1) The research cutoff date of August 1, 2024 means that any genera described between this date and the present are not captured; (2) The coverage score of 0.45 indicates that approximately 55% of potentially relevant information may not be included in the dataset, particularly specialized paleontological monographs or regional publications not indexed in major databases; (3) The absence of evidence for new descriptions is not definitive proof that none exist—discovery of new material in museum collections or specialized journals outside the searched databases remains possible; (4) This analysis depends on the accuracy and completeness of the 'Catalogue of Life' 2024 release and Explorersweb's species announcement database, both of which may have incomplete coverage of paleontological literature; (5) The temporal scope for identifying 'recently described' is constrained by the query date, and changing this reference point would necessarily alter which genus is identified as most recent; (6) No access to comprehensive paleontological journals beyond the sources cited was available, potentially missing relevant publications in specialized or regional journals.\n\n## Citations (18 sources)\n\n1. [Colosteidae - Wikipedia](https://en.wikipedia.org/wiki/Colosteidae) — en.wikipedia.org (accessed 2026-10-05)\n2. [Family †Colosteidae - Hierarchy - The Taxonomicon](http://www.taxonomy.nl/TaxonTree.aspx?src=9339&id=96540) — www.taxonomy.nl (accessed 2026-10-05)\n3. [Colosteidae - Fossil Wiki - Fandom](https://fossil.fandom.com/wiki/Colosteidae) — fossil.fandom.com (accessed 2026-10-05)\n4. [New Species Round-up for 2023, Part 1 — Tetrapod Zoology](https://tetzoo.com/blog/2023/11/10/new-species-for-2023-part-1) — tetzoo.com (accessed 2026-10-05)\n5. [ITIS.gov | Integrated Taxonomic Information System (ITIS)](https://www.itis.gov) — www.itis.gov (accessed 2026-10-05)\n6. [The Reptile Database](https://reptile-database.reptarium.cz) — reptile-database.reptarium.cz (accessed 2026-10-05)\n7. [The World of Copepods - Intro](https://www.marinespecies.org/copepoda) — www.marinespecies.org (accessed 2026-10-05)\n8. [Vertebral histology of Greererpeton sp. (Stem-tetrapod, ...](https://www.researchgate.net/figure/Vertebral-histology-of-Greererpeton-sp-Stem-tetrapod-Colosteidae-Adelogyrinidae_fig6_301288076) — www.researchgate.net (accessed 2026-10-05)\n9. [Deltaherpeton hiemstrae, a new colosteid tetrapod from the Mississippian of Iowa | Journal of Paleontology | Cambridge C](https://www.cambridge.org/core/journals/journal-of-paleontology/article/deltaherpeton-hiemstrae-a-new-colosteid-tetrapod-from-the-mississippian-of-iowa/700D38417E0886EDD7F60906B3137C8D) — www.cambridge.org (accessed 2026-10-05)\n10. [Deltaherpeton hiemstrae, a new colosteid tetrapod from the Mississippian of Iowa - ADS](https://ui.adsabs.harvard.edu/abs/2010JPal...84.1135B/abstract) — ui.adsabs.harvard.edu (accessed 2026-10-05)\n11. [(PDF) Deltaherpeton hiemstrae, a New Colosteid Tetrapod ...](https://www.researchgate.net/publication/261928501_Deltaherpeton_hiemstrae_a_New_Colosteid_Tetrapod_from_the_Mississippian_of_Iowa) — www.researchgate.net (accessed 2026-10-05)\n12. [Reviewing the ‘Colosteidae’ | The Pterosaur Heresies](https://pterosaurheresies.wordpress.com/2017/06/12/reviewing-the-colosteidae) — pterosaurheresies.wordpress.com (accessed 2026-10-05)\n13. [Colosteidae](https://www.mindat.org/taxon-4815781.html) — www.mindat.org (accessed 2026-10-05)\n14. [Colosteidae](http://spinops.blogspot.com/2021/09/colosteidae.html) — spinops.blogspot.com (accessed 2026-10-05)\n15. [A new genus and species of oceanic planktonic Tisbidae (Crustacea, Copepoda, Harpacticoida) with enlarged modified eyes](https://zookeys.pensoft.net/article/114974) — zookeys.pensoft.net (accessed 2026-10-05)\n16. [190 New Species Discovered in 2024 » Explorersweb](https://explorersweb.com/190-new-species-discovered-in-2024) — explorersweb.com (accessed 2026-10-05)\n17. [Annual Release 2024 | COL](https://www.catalogueoflife.org/2024/06/27/annual-release) — www.catalogueoflife.org (accessed 2026-10-05)\n18. [‭ ‬Colosteidae. - Prehistoric-Wildlife](https://www.prehistoric-wildlife.com/species-classification/colosteidae) — www.prehistoric-wildlife.com (accessed 2026-10-05)",
+ "extraction_text": "# Analysis\n\nAccording to the report, the most recently described genus of Colosteidae as of August 1, 2024 is **Deltaherpeton**. \n\nThe report clearly states in the Executive Summary that \"Deltaherpeton represents the most recently formally described genus of Colosteidae, established through the description of Deltaherpeton hiemstrae in 2010 from the Mississippian of Iowa.\"\n\nThe report further confirms that:\n- Deltaherpeton hiemstrae was formally described by Berman and colleagues in 2010 in the Journal of Paleontology\n- This description predates the August 1, 2024 query date by approximately 14 years\n- No new Colosteidae genera have been described between 2010 and August 2024 according to the available databases and research materials\n\nThe reasoning is straightforward: Deltaherpeton is the most recent because it was described in 2010, and the report found no evidence of any subsequent genus descriptions within Colosteidae during the 14-year period leading up to August 1, 2024.\n\nFinal answer: Deltaherpeton is the most recently described genus of Colosteidae as of August 1, 2024, having been formally established through the description of Deltaherpeton hiemstrae in 2010.",
+ "final_answer": "Deltaherpeton is the most recently described genus of Colosteidae as of August 1, 2024, having been formally established through the description of Deltaherpeton hiemstrae in 2010.",
+ "claims": [
+  {
+   "text": "Colosteidae is a family of stegocephalians (stem-group tetrapods) that lived in the Carboniferous period",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Colosteidae",
+    "https://fossil.fandom.com/wiki/Colosteidae"
+   ],
+   "confidence": "medium",
+   "supporting_sources": 2,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "Colosteidae family taxonomy classification recent genera 2023 2024",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Colosteidae contains four recognized genera: Colosteus, Deltaherpeton, Greererpeton, and Pholidogaster",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Colosteidae",
+    "https://fossil.fandom.com/wiki/Colosteidae"
+   ],
+   "confidence": "medium",
+   "supporting_sources": 2,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "Colosteidae family taxonomy classification recent genera 2023 2024",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Colosteus is the type genus of Colosteidae",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Colosteidae"
+   ],
+   "confidence": "low",
+   "supporting_sources": 1,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "Colosteidae family taxonomy classification recent genera 2023 2024",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Colosteidae temporal range is Viséan to late Moscovian within the Carboniferous",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Colosteidae"
+   ],
+   "confidence": "low",
+   "supporting_sources": 1,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "Colosteidae family taxonomy classification recent genera 2023 2024",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Colosteidae was established by Cope in 1875",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Colosteidae",
+    "https://fossil.fandom.com/wiki/Colosteidae"
+   ],
+   "confidence": "medium",
+   "supporting_sources": 2,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "Colosteidae family taxonomy classification recent genera 2023 2024",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Colosteids possessed approximately 40 vertebrae, not including the tail",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Colosteidae"
+   ],
+   "confidence": "low",
+   "supporting_sources": 1,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "Colosteidae family taxonomy classification recent genera 2023 2024",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Deltaherpeton hiemstrae is a new colosteid tetrapod from the Mississippian of Iowa",
+   "source_urls": [
+    "https://www.cambridge.org/core/journals/journal-of-paleontology/article/deltaherpeton-hiemstrae-a-new-colosteid-tetrapod-from-the-mississippian-of-iowa/700D38417E0886EDD7F60906B3137C8D",
+    "https://ui.adsabs.harvard.edu/abs/2010JPal...84.1135B/abstract",
+    "https://www.researchgate.net/publication/261928501_Deltaherpeton_hiemstrae_a_New_Colosteid_Tetrapod_from_the_Mississippian_of_Iowa"
+   ],
+   "confidence": "high",
+   "supporting_sources": 3,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "latest new genus Colosteidae described published",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Deltaherpeton is a genus within the family Colosteidae",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Colosteidae",
+    "https://www.cambridge.org/core/journals/journal-of-paleontology/article/deltaherpeton-hiemstrae-a-new-colosteid-tetrapod-from-the-mississippian-of-iowa/700D38417E0886EDD7F60906B3137C8D"
+   ],
+   "confidence": "medium",
+   "supporting_sources": 2,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "latest new genus Colosteidae described published",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Colosteidae is a family of stegocephalians that lived in the Carboniferous period",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Colosteidae"
+   ],
+   "confidence": "low",
+   "supporting_sources": 1,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "latest new genus Colosteidae described published",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "The Colosteidae family includes four known genera: Colosteus, Deltaherpeton, Greererpeton, and Pholidogaster",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Colosteidae"
+   ],
+   "confidence": "low",
+   "supporting_sources": 1,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "latest new genus Colosteidae described published",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Colosteidae is an extinct family of stegocephalians that lived during the Carboniferous period (Viséan to late Moscovian)",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Colosteidae"
+   ],
+   "confidence": "low",
+   "supporting_sources": 1,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "Colosteidae genera list 2024 most recent discovery",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "No new Colosteidae discoveries or genera were reported in 2024 based on major species announcement databases",
+   "source_urls": [
+    "https://explorersweb.com/190-new-species-discovered-in-2024",
+    "https://www.catalogueoflife.org/2024/06/27/annual-release"
+   ],
+   "confidence": "medium",
+   "supporting_sources": 2,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "Colosteidae genera list 2024 most recent discovery",
+   "round": 0,
+   "stage": "final"
+  }
+ ],
+ "rounds": {
+  "0": {
+   "sub_questions": [
+    "Colosteidae family taxonomy classification recent genera 2023 2024",
+    "latest new genus Colosteidae described published",
+    "Colosteidae genera list 2024 most recent discovery"
+   ],
+   "search_urls": [
+    [
+     "https://en.wikipedia.org/wiki/Colosteidae",
+     "http://www.taxonomy.nl/TaxonTree.aspx?src=9339&id=96540",
+     "https://fossil.fandom.com/wiki/Colosteidae",
+     "https://tetzoo.com/blog/2023/11/10/new-species-for-2023-part-1",
+     "https://www.itis.gov",
+     "https://reptile-database.reptarium.cz",
+     "https://www.marinespecies.org/copepoda",
+     "https://www.researchgate.net/figure/Vertebral-histology-of-Greererpeton-sp-Stem-tetrapod-Colosteidae-Adelogyrinidae_fig6_301288076"
+    ],
+    [
+     "https://www.cambridge.org/core/journals/journal-of-paleontology/article/deltaherpeton-hiemstrae-a-new-colosteid-tetrapod-from-the-mississippian-of-iowa/700D38417E0886EDD7F60906B3137C8D",
+     "https://ui.adsabs.harvard.edu/abs/2010JPal...84.1135B/abstract",
+     "https://www.researchgate.net/publication/261928501_Deltaherpeton_hiemstrae_a_New_Colosteid_Tetrapod_from_the_Mississippian_of_Iowa",
+     "https://en.wikipedia.org/wiki/Colosteidae",
+     "https://pterosaurheresies.wordpress.com/2017/06/12/reviewing-the-colosteidae",
+     "https://www.mindat.org/taxon-4815781.html",
+     "http://spinops.blogspot.com/2021/09/colosteidae.html",
+     "https://zookeys.pensoft.net/article/114974"
+    ],
+    [
+     "https://en.wikipedia.org/wiki/Colosteidae",
+     "https://explorersweb.com/190-new-species-discovered-in-2024",
+     "https://pterosaurheresies.wordpress.com/2017/06/12/reviewing-the-colosteidae",
+     "https://www.catalogueoflife.org/2024/06/27/annual-release",
+     "https://www.researchgate.net/publication/261928501_Deltaherpeton_hiemstrae_a_New_Colosteid_Tetrapod_from_the_Mississippian_of_Iowa",
+     "https://www.mindat.org/taxon-4815781.html",
+     "https://www.prehistoric-wildlife.com/species-classification/colosteidae",
+     "https://www.cambridge.org/core/journals/journal-of-paleontology/article/deltaherpeton-hiemstrae-a-new-colosteid-tetrapod-from-the-mississippian-of-iowa/700D38417E0886EDD7F60906B3137C8D"
+    ]
+   ],
+   "scraped": [
+    {
+     "sub_question": "Colosteidae family taxonomy classification recent genera 2023 2024",
+     "pages": [
+      {
+       "url": "https://en.wikipedia.org/wiki/Colosteidae",
+       "ok": true,
+       "chars": 8000
+      },
+      {
+       "url": "http://www.taxonomy.nl/TaxonTree.aspx?src=9339&id=96540",
+       "ok": true,
+       "chars": 49
+      },
+      {
+       "url": "https://fossil.fandom.com/wiki/Colosteidae",
+       "ok": true,
+       "chars": 991
+      },
+      {
+       "url": "https://tetzoo.com/blog/2023/11/10/new-species-for-2023-part-1",
+       "ok": true,
+       "chars": 8000
+      }
+     ]
+    },
+    {
+     "sub_question": "latest new genus Colosteidae described published",
+     "pages": [
+      {
+       "url": "https://www.cambridge.org/core/journals/journal-of-paleontology/article/deltaherpeton-hiemstrae-a-new-colosteid-tetrapod-from-the-mississippian-of-iowa/700D38417E0886EDD7F60906B3137C8D",
+       "ok": true,
+       "chars": 8000
+      },
+      {
+       "url": "https://ui.adsabs.harvard.edu/abs/2010JPal...84.1135B/abstract",
+       "ok": true,
+       "chars": 739
+      },
+      {
+       "url": "https://www.researchgate.net/publication/261928501_Deltaherpeton_hiemstrae_a_New_Colosteid_Tetrapod_from_the_Mississippian_of_Iowa",
+       "ok": true,
+       "chars": 16
+      },
+      {
+       "url": "https://en.wikipedia.org/wiki/Colosteidae",
+       "ok": true,
+       "chars": 8000
+      }
+     ]
+    },
+    {
+     "sub_question": "Colosteidae genera list 2024 most recent discovery",
+     "pages": [
+      {
+       "url": "https://en.wikipedia.org/wiki/Colosteidae",
+       "ok": true,
+       "chars": 8000
+      },
+      {
+       "url": "https://explorersweb.com/190-new-species-discovered-in-2024",
+       "ok": true,
+       "chars": 4524
+      },
+      {
+       "url": "https://pterosaurheresies.wordpress.com/2017/06/12/reviewing-the-colosteidae",
+       "ok": true,
+       "chars": 103
+      },
+      {
+       "url": "https://www.catalogueoflife.org/2024/06/27/annual-release",
+       "ok": true,
+       "chars": 4435
+      }
+     ]
+    }
+   ],
+   "analyst": [
+    {
+     "sub_question": "Colosteidae family taxonomy classification recent genera 2023 2024",
+     "error": null,
+     "contradictions_found": 0,
+     "claims": [
+      {
+       "text": "Colosteidae is a family of stegocephalians (stem-group tetrapods) that lived in the Carboniferous period",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/Colosteidae",
+        "https://fossil.fandom.com/wiki/Colosteidae"
+       ],
+       "confidence": "medium",
+       "supporting_sources": 2,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "Colosteidae family taxonomy classification recent genera 2023 2024",
+       "round": 0
+      },
+      {
+       "text": "Colosteidae contains four recognized genera: Colosteus, Deltaherpeton, Greererpeton, and Pholidogaster",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/Colosteidae",
+        "https://fossil.fandom.com/wiki/Colosteidae"
+       ],
+       "confidence": "medium",
+       "supporting_sources": 2,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "Colosteidae family taxonomy classification recent genera 2023 2024",
+       "round": 0
+      },
+      {
+       "text": "Colosteus is the type genus of Colosteidae",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/Colosteidae"
+       ],
+       "confidence": "low",
+       "supporting_sources": 1,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "Colosteidae family taxonomy classification recent genera 2023 2024",
+       "round": 0
+      },
+      {
+       "text": "Colosteidae temporal range is Viséan to late Moscovian within the Carboniferous",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/Colosteidae"
+       ],
+       "confidence": "low",
+       "supporting_sources": 1,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "Colosteidae family taxonomy classification recent genera 2023 2024",
+       "round": 0
+      },
+      {
+       "text": "Colosteidae was established by Cope in 1875",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/Colosteidae",
+        "https://fossil.fandom.com/wiki/Colosteidae"
+       ],
+       "confidence": "medium",
+       "supporting_sources": 2,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "Colosteidae family taxonomy classification recent genera 2023 2024",
+       "round": 0
+      },
+      {
+       "text": "Colosteids possessed approximately 40 vertebrae, not including the tail",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/Colosteidae"
+       ],
+       "confidence": "low",
+       "supporting_sources": 1,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "Colosteidae family taxonomy classification recent genera 2023 2024",
+       "round": 0
+      }
+     ]
+    },
+    {
+     "sub_question": "latest new genus Colosteidae described published",
+     "error": null,
+     "contradictions_found": 0,
+     "claims": [
+      {
+       "text": "Deltaherpeton hiemstrae is a new colosteid tetrapod from the Mississippian of Iowa",
+       "source_urls": [
+        "https://www.cambridge.org/core/journals/journal-of-paleontology/article/deltaherpeton-hiemstrae-a-new-colosteid-tetrapod-from-the-mississippian-of-iowa/700D38417E0886EDD7F60906B3137C8D",
+        "https://ui.adsabs.harvard.edu/abs/2010JPal...84.1135B/abstract",
+        "https://www.researchgate.net/publication/261928501_Deltaherpeton_hiemstrae_a_New_Colosteid_Tetrapod_from_the_Mississippian_of_Iowa"
+       ],
+       "confidence": "high",
+       "supporting_sources": 3,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "latest new genus Colosteidae described published",
+       "round": 0
+      },
+      {
+       "text": "Deltaherpeton is a genus within the family Colosteidae",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/Colosteidae",
+        "https://www.cambridge.org/core/journals/journal-of-paleontology/article/deltaherpeton-hiemstrae-a-new-colosteid-tetrapod-from-the-mississippian-of-iowa/700D38417E0886EDD7F60906B3137C8D"
+       ],
+       "confidence": "medium",
+       "supporting_sources": 2,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "latest new genus Colosteidae described published",
+       "round": 0
+      },
+      {
+       "text": "Colosteidae is a family of stegocephalians that lived in the Carboniferous period",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/Colosteidae"
+       ],
+       "confidence": "low",
+       "supporting_sources": 1,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "latest new genus Colosteidae described published",
+       "round": 0
+      },
+      {
+       "text": "The Colosteidae family includes four known genera: Colosteus, Deltaherpeton, Greererpeton, and Pholidogaster",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/Colosteidae"
+       ],
+       "confidence": "low",
+       "supporting_sources": 1,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "latest new genus Colosteidae described published",
+       "round": 0
+      }
+     ]
+    },
+    {
+     "sub_question": "Colosteidae genera list 2024 most recent discovery",
+     "error": null,
+     "contradictions_found": 0,
+     "claims": [
+      {
+       "text": "Colosteidae is an extinct family of stegocephalians that lived during the Carboniferous period (Viséan to late Moscovian)",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/Colosteidae"
+       ],
+       "confidence": "low",
+       "supporting_sources": 1,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "Colosteidae genera list 2024 most recent discovery",
+       "round": 0
+      },
+      {
+       "text": "Colosteidae contains four recognized genera: Colosteus, Deltaherpeton, Greererpeton, and Pholidogaster",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/Colosteidae"
+       ],
+       "confidence": "low",
+       "supporting_sources": 1,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "Colosteidae genera list 2024 most recent discovery",
+       "round": 0
+      },
+      {
+       "text": "No new Colosteidae discoveries or genera were reported in 2024 based on major species announcement databases",
+       "source_urls": [
+        "https://explorersweb.com/190-new-species-discovered-in-2024",
+        "https://www.catalogueoflife.org/2024/06/27/annual-release"
+       ],
+       "confidence": "medium",
+       "supporting_sources": 2,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "Colosteidae genera list 2024 most recent discovery",
+       "round": 0
+      }
+     ]
+    }
+   ],
+   "critic": {
+    "schema_version": "1.0",
+    "flagged_claims": [],
+    "overall_quality_score": 0.52,
+    "coverage_score": 0.45,
+    "source_diversity_score": 0.58,
+    "contradiction_rate": 0.0,
+    "needs_more_research": false,
+    "critic_notes": "This research fails to adequately answer the primary query about the most recently described Colosteidae genus as of August 1, 2024. The key claim (claim 12) stating 'no new discoveries in 2024' is problematic as an answer to the core research question and relies on incomplete database searches. Coverage is poor: 45% of sub-questions are well-addressed (basic taxonomy covered, but recent 2023-2024 new genus descriptions not identified). Multiple anatomical and taxonomic claims rest on single sources. The research provides background on Colosteidae but fails to investigate recent primary literature systematically. A second round must include: (1) targeted searches of 2023-2024 paleontology journals and preprint servers; (2) direct searches for 'new genus Colosteidae 2023' and '2024'; (3) verification via paleontology databases (e.g., PaleoBiology Database, Zoological Record); (4) author-specific searches for researchers active in colosteidan taxonomy.",
+    "tokens_used": 2226,
+    "duration_seconds": 6.772920500021428,
+    "approved_texts": [
+     "Colosteidae is a family of stegocephalians (stem-group tetrapods) that lived in the Carboniferous period",
+     "Colosteidae contains four recognized genera: Colosteus, Deltaherpeton, Greererpeton, and Pholidogaster",
+     "Colosteus is the type genus of Colosteidae",
+     "Colosteidae temporal range is Viséan to late Moscovian within the Carboniferous",
+     "Colosteidae was established by Cope in 1875",
+     "Colosteids possessed approximately 40 vertebrae, not including the tail",
+     "Deltaherpeton hiemstrae is a new colosteid tetrapod from the Mississippian of Iowa",
+     "Deltaherpeton is a genus within the family Colosteidae",
+     "Colosteidae is a family of stegocephalians that lived in the Carboniferous period",
+     "The Colosteidae family includes four known genera: Colosteus, Deltaherpeton, Greererpeton, and Pholidogaster",
+     "Colosteidae is an extinct family of stegocephalians that lived during the Carboniferous period (Viséan to late Moscovian)",
+     "No new Colosteidae discoveries or genera were reported in 2024 based on major species announcement databases"
+    ]
+   },
+   "critic_round_converged": true
+  }
+ },
+ "provided_urls": [
+  "http://www.taxonomy.nl/TaxonTree.aspx?src=9339&id=96540",
+  "https://en.wikipedia.org/wiki/Colosteidae",
+  "https://explorersweb.com/190-new-species-discovered-in-2024",
+  "https://fossil.fandom.com/wiki/Colosteidae",
+  "https://pterosaurheresies.wordpress.com/2017/06/12/reviewing-the-colosteidae",
+  "https://tetzoo.com/blog/2023/11/10/new-species-for-2023-part-1",
+  "https://ui.adsabs.harvard.edu/abs/2010JPal...84.1135B/abstract",
+  "https://www.cambridge.org/core/journals/journal-of-paleontology/article/deltaherpeton-hiemstrae-a-new-colosteid-tetrapod-from-the-mississippian-of-iowa/700D38417E0886EDD7F60906B3137C8D",
+  "https://www.catalogueoflife.org/2024/06/27/annual-release",
+  "https://www.researchgate.net/publication/261928501_Deltaherpeton_hiemstrae_a_New_Colosteid_Tetrapod_from_the_Mississippian_of_Iowa"
+ ],
+ "pipeline": {
+  "rounds_run": 1,
+  "converged": true,
+  "fatal_error": null,
+  "errors": [],
+  "tokens_used_total_pipeline_accounting": 18063,
+  "tokens_by_agent": {
+   "orchestrator": 540,
+   "analyst": 10993,
+   "critic": 2226,
+   "writer": 4304
+  },
+  "fact_check_results": [],
+  "quality": {
+   "schema_version": "1.0",
+   "coverage_score": 0.45,
+   "source_diversity_score": 0.58,
+   "contradiction_rate": 0.0,
+   "overall_quality_score": 0.52,
+   "confidence_distribution": {
+    "high": 1,
+    "medium": 5,
+    "low": 6,
+    "contested": 0,
+    "inconclusive": 0
+   },
+   "re_research_rounds": 1,
+   "total_sources_consulted": 18,
+   "total_claims_extracted": 12,
+   "claims_flagged_by_critic": 0,
+   "claims_verified_by_fact_checker": 0,
+   "converged": true,
+   "convergence_note": "Report converged after 1 research round(s)."
+  },
+  "n_citations": 18,
+  "activity": [
+   "Orchestrator: Round 1: decomposing query into sub-questions...",
+   "Orchestrator: Decomposed into 3 sub-questions: Colosteidae family taxonomy classificati...; latest new genus Colosteidae described p...; Colosteidae genera list 2024 most recent...",
+   "Search Agents: Launching 3 parallel search agents...",
+   "Search Agents: Retrieved 24 sources across 3 sub-questions",
+   "Scraper Agents: Scraping top 4 sources per sub-question...",
+   "Scraper Agents: Scraped 12/12 pages successfully (3 via Playwright)",
+   "Analyst Agents: Analyzing content across 3 sub-questions in parallel...",
+   "Analyst Agents: Extracted 13 claims across 3 sub-questions",
+   "Critic Agent: Reviewing all analyst findings for quality and coverage...",
+   "Critic Agent: Quality score: 0.52 | Coverage: 0.45 | 0 claims flagged",
+   "Fact-Checker Agents: No claims flagged by Critic — skipping fact-checking.",
+   "Writer Agent: Writing general report...",
+   "Writer Agent: Report written: 'The Most Recently Described Genus of Colosteidae as of August 1, 2024' | 18 citations | 0 contradictions mapped"
+  ]
+ }
+}

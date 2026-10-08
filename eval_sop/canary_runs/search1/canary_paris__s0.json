@@ -1,0 +1,188 @@
+{
+ "condition": "search1",
+ "qid": "canary_paris",
+ "question": "What is the capital city of France?",
+ "reference": "Paris",
+ "seed": 0,
+ "generator": "claude-haiku-4-5-20251001",
+ "wall_seconds_this_invocation": 4.23,
+ "telemetry": {
+  "llm_calls": 1,
+  "llm_calls_from_cache": 0,
+  "input_tokens": 3157,
+  "output_tokens": 241,
+  "llm_seconds": 2.88,
+  "usd_spent_now": 0.004362,
+  "usd_if_uncached": 0.004362,
+  "models": [
+   "claude-haiku-4-5-20251001"
+  ],
+  "tavily_searches": 1,
+  "tavily_credits_if_uncached": 1,
+  "tavily_credits_spent_now": 1,
+  "llm_calls_by_agent": {
+   "search1": 1
+  },
+  "tokens_by_agent": {
+   "search1": 3398
+  },
+  "pipeline_only": {
+   "input_tokens": 3157,
+   "output_tokens": 241,
+   "llm_seconds": 2.88,
+   "llm_calls": 1,
+   "truncated_calls": 0
+  }
+ },
+ "error": null,
+ "error_kind": null,
+ "nonfatal_errors": [],
+ "strict_error": false,
+ "output_text": "• Paris is the capital and largest city of France, located in the north-central part of the country on the Seine River in the Île-de-France region [1, 3, 6]\n\n• Paris is nicknamed the \"City of Light\" (ville lumière), mainly due to its leading role in the Age of Enlightenment [3]\n\n• The city has a population of approximately 2.04 million within the city proper, with a metropolitan population of around 13.3 million [3]\n\n• Paris became the capital of France in 508 under King Clovis, and retrieved its capital status under King Philippe Auguste (1180-1223), remaining the capital until today except for a brief interruption during German occupation in World War II (1940-1944) [5]\n\n• Paris is famous for iconic landmarks including the Eiffel Tower, Louvre Museum, Notre-Dame Cathedral, and is recognized as a world center for art, fashion, cuisine, and culture [1, 2, 4]\n\nFinal answer: The capital city of France is **Paris**.",
+ "final_answer": "The capital city of France is **Paris**.",
+ "claims": [
+  {
+   "text": "Paris is the capital and largest city of France, located in the north-central part of the country on the Seine River in the Île-de-France region",
+   "source_urls": [
+    "https://www.britannica.com/place/France",
+    "https://en.wikipedia.org/wiki/Paris",
+    "https://www.coe.int/en/web/interculturalcities/paris"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "What is the capital city of France?",
+   "stage": "final"
+  },
+  {
+   "text": "Paris is nicknamed the \"City of Light\" (ville lumière), mainly due to its leading role in the Age of Enlightenment",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Paris"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "What is the capital city of France?",
+   "stage": "final"
+  },
+  {
+   "text": "The city has a population of approximately 2.04 million within the city proper, with a metropolitan population of around 13.3 million",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Paris"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "What is the capital city of France?",
+   "stage": "final"
+  },
+  {
+   "text": "Paris became the capital of France in 508 under King Clovis, and retrieved its capital status under King Philippe Auguste (1180-1223), remaining the capital until today except for a brief interruption during German occupation in World War II (1940-1944)",
+   "source_urls": [
+    "https://home.adelphi.edu/~ca19535/page%204.html"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "What is the capital city of France?",
+   "stage": "final"
+  },
+  {
+   "text": "Paris is famous for iconic landmarks including the Eiffel Tower, Louvre Museum, Notre-Dame Cathedral, and is recognized as a world center for art, fashion, cuisine, and culture",
+   "source_urls": [
+    "https://www.britannica.com/place/France",
+    "https://brainly.in/question/62118432",
+    "https://www.cia-france.com/french-kids-teenage-courses/paris-school/visit-paris"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "What is the capital city of France?",
+   "stage": "final"
+  }
+ ],
+ "sources": [
+  {
+   "schema_version": "1.0",
+   "url": "https://www.britannica.com/place/France",
+   "title": "France | History, Maps, Flag, Population, Cities, Capital, & Facts",
+   "snippet": "This answer is created from Britannica articles using AI. AI can make mistakes, so verify using Britannica articles. \n\n   What is the capital city of France and why is it famous?  \n\nThe capital of France is Paris. Situated in the north-central part of the country, Paris is France's center of commerce and culture. [...] The capital and by far the most important city of France is Paris, one of the world’s preeminent cultural and commercial centres. A majestic city known as the _ville lumière_, or “city of light,” Paris has often been remade, most famously in the mid-19th century under the command of Georges-Eugène, Baron Haussman, who was committed to Napoleon III’s vision of a modern city free of the choleric swamps and congested alleys of old, with broad avenues and a regular plan. Paris is now a sprawling [...] Quick Facts\n\nImage 23: France\n\nSee article: flag of France\n\nAudio 1\n\nAudio File: Anthem of France (see article)\n\nHead Of Government: Prime minister: Sébastien Lecornu _(Show more)_\n\nCapital: Paris_(Show more)_\n\nPopulation: (2026 est.) 66,590,000 _(Show more)_\n\nCurrency Exchange Rate: 1 USD equals 0.888 euro _(Show more)_\n\nHead Of State: President: Emmanuel Macron_(Show more)_\n\nForm Of Government: republic with two legislative houses (Parliament; Senate , National Assembly )_(Show more)_",
+   "relevance_score": 0.9377661,
+   "published_date": null,
+   "source_domain": "www.britannica.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://brainly.in/question/62118432",
+   "title": "What is the capital city of France and why is it famous? - Brainly.in",
+   "snippet": "Answer:\n\nParis is the capital of France, famous for its history, culture, and beauty. Known as the “City of Light,” it has landmarks like the Eiffel Tower, Louvre Museum, and Notre-Dame Cathedral. It is also a world center for art, fashion, and cuisine, attracting millions of tourists every year.\n\nExplore all similar answers\n\n \n\nThanks 0\n\nrating answer section\n\nAnswer rating 4.0\n\n(2 votes)\n\nAdvertisement\n\n### Still have questions?\n\nFind more answers\n\nAsk your question [...] Skip to main content\n\nImage 1: brainly\n\nAsk Question\n\nLog in\n\nJoin for free\n\nFor parents\n\nFor teachers\n\nHonor code\n\nTextbook Solutions\n\nBrainly App\n\nmeham495 \n\n   13.08.2025 \n   Geography\n   Secondary School\n\nanswered\n\n# What is the capital city of France and why is it famous?\n\n2\n\nSee answers\n\n## Answer\n\n1 person found it helpful\n\nashishrawatrawat14 \n\nashishrawatrawat14 \n\nAnswer:\n\nThe capital city of France is Paris.\n\nIt’s famous for several reasons: [...] Cultural heritage – Paris is home to iconic landmarks like the Eiffel Tower, Louvre Museum (housing the Mona Lisa), and Notre-Dame Cathedral.\n\nFashion capital – Known as the global hub for fashion and luxury brands, hosting events like Paris Fashion Week.\n\nHistory – The city has played a major role in European history, from the French Revolution to modern politics.\n\nCuisine – Renowned for its cafés, bakeries, and fine dining, with culinary traditions admired worldwide.",
+   "relevance_score": 0.9065293,
+   "published_date": null,
+   "source_domain": "brainly.in"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://en.wikipedia.org/wiki/Paris",
+   "title": "Paris - Wikipedia",
+   "snippet": "Paris is the capital and largest city of France, with an estimated city population of 2.04 million in an area of 105.4 km2 (40.7 sq mi), as of January 2026( and a metropolitan population of 13.3 million (2023). Located on the Seine in the centre of the Île-de-France region, it is the largest metropolitan area and fourth-most populous city in the European Union (EU). Paris is nicknamed the \"City of Light\" mainly due to its leading role in the Age of Enlightenment. [...] Appearance\n\nCoordinates: 48°51′24″N 2°21′08″E﻿ / ﻿48.8567°N 2.3522°E﻿ / 48.8567; 2.3522_region:FR-75C)\n\nPage semi-protected\n\nFrom Wikipedia, the free encyclopedia\n\nCapital and largest city of France\n\nThis article is about the capital city of France. For other uses, see Paris (disambiguation) \"Paris (disambiguation)\").\n\n\"Parisien\" redirects here. For other uses, see Parisien (disambiguation) \"Parisien (disambiguation)\").\n\nCapital city in Île-de-France, France\n\n| Paris | [...] With 200,000 inhabitants in 1328, Paris, then already the capital of France, was the most populous city of Europe. By comparison, London in 1300 had 80,000 inhabitants. Around 1340 the city had between 250,000 and 300,000 inhabitants. By the early fourteenth century, so much filth had collected inside urban Europe that French and Italian cities were naming streets after human waste. In medieval Paris, several street names were inspired by merde, the French word for \"shit\".",
+   "relevance_score": 0.8839694,
+   "published_date": null,
+   "source_domain": "en.wikipedia.org"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.cia-france.com/french-kids-teenage-courses/paris-school/visit-paris",
+   "title": "Discover the city of Paris | Paris the capital city of France",
+   "snippet": "Enjoying an ice-cream or macaroons on a terrace, enjoying the parks and gardens, seeing a musical or taking part in an Escape Game are all things you can do in the capital. Paris is also a city of sport which is renowned for football (PSG) and tennis (Roland Garros and Paris-Bercy tournaments). Montmartre is the setting of Amélie, and will captivate you with its preserved authenticity. This district, which resembles a village with its paved streets, its portraitists and bistros is an absolute [...] Exploring Paris is an essential rite of passage for anyone who decides to learn French and get to know France. There are so many things to do and see in Paris that, however long you stay, it won't seem long enough. You can climb to the top of the Eiffel Tower to enjoy breathtaking views of the city, wander along the Champs-Elysées, visit the Louvre, have fun at Disneyland Paris, go shopping or window-shopping in the stores of Le Marais and the Place des Vosges. [...] is an absolute must-see.",
+   "relevance_score": 0.8638634,
+   "published_date": null,
+   "source_domain": "www.cia-france.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://home.adelphi.edu/~ca19535/page%204.html",
+   "title": "page 4",
+   "snippet": "|  |  |  |  |  |  |  |\n ---  ---  --- \n| Home | Spain | Sydney | San Francisco | Paris | Las Vegas | Maui |\n\n  \n Paris, France\n\n  \n\n## Paris facts: Paris, the capital of France\n\nParis is the capital of France, the largest country of Europe with 550 000 km2 (65 millions inhabitants).\n\nParis has 2.234 million inhabitants end 2011. She is the core of Ile de France region (12 million people). [...] Paris remained the capital of France until today, with one four year interruption. During German occupation (WW2 , 1940-1944), the capital of France was Vichy.\n\ngo to top\n\nReference: [...] ## Paris facts: the capital of France in history\n\nBefore Paris, the capital of France was Lyon (under the Romans). Paris first became the capital of France in 508 under King Clovis. After centuries with no unique capital of France, Paris retrieved its status of capital of France under King Philippe Auguste, who reigned between 1180 and 1223. You can see remains of the Philippe August Paris walls in the passageway between the Louvre parking and Louvre Museum",
+   "relevance_score": 0.8533396,
+   "published_date": null,
+   "source_domain": "home.adelphi.edu"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.coe.int/en/web/interculturalcities/paris",
+   "title": "Paris, France - Intercultural City - Intercultural Cities Programme",
+   "snippet": "Paris is the capital and most populous city of France. Situated on the Seine River, in the north of the country, it is in the centre of the Île-de-France region, also known as the région parisienne, \"Paris Region\". The City of Paris has an area of 105 km² and a population of 2,241,346 (2014 estimate). Since the 19th century, the built-up area of Paris has grown far beyond its administrative borders; together with its suburbs, the whole agglomeration has a population of 10,550,350 (Jan. 2012 [...] 2019 to present\n\nHouse for Refugees\n\n Twitter\n Facebook\n LinkedIn\n Email\n\n2016-2024 (renewal planned for 2025-2027)\n\nLanguage Platform EIF-FEL Network\n\n Twitter\n Facebook\n LinkedIn\n Email\n\nSince May 2023\n\nLa Bulle, maison des solidarités LGBTQI+\n\n Twitter\n Facebook\n LinkedIn\n Email\n\n2014 - Ongoing\n\nCity of Paris Participatory Budget\n\n[](\n\nmayor\n\n  \nEmmanuel GREGOIRE\n\nUseful links\n\n Paris city official website\n Paris Facebook page [...] English\nFrançais\n\nOther languages\n\nChoose language\n\nEuskara\n\nDeutsch\n\nΕλληνικά\n\nItaliano\n\nPortuguês\n\nEspañol\n\nTürkçe\n\nУкраїнська\n\nShqip\n\nСрпски\n\nSuomi\n\nCouncil of Europe Logo\n\n# \n\n# Intercultural Cities Programme\n\nEnglish\n\nChoose language\n\nEnglish\nFrançais\n\nOther languages\n\nChoose language\n\nEuskara\n\nDeutsch\n\nΕλληνικά\n\nItaliano\n\nPortuguês\n\nEspañol\n\nTürkçe\n\nУкраїнська\n\nShqip\n\nСрпски\n\nSuomi\n\nMenu\n\nIntercultural Cities Programme\n\n# Paris, France - Intercultural City",
+   "relevance_score": 0.8440111,
+   "published_date": null,
+   "source_domain": "www.coe.int"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.facebook.com/groups/376100836095453/posts/2780652808973565",
+   "title": "GENERAL KNOWLEDGE  सामान्य ज्ञान | What is the capital city of France | Facebook",
+   "snippet": "Log In\n\nLog In\n\nForgot Account?\n\n[](\n\n## GENERAL KNOWLEDGE सामान्य ज्ञान · \n\nJoin\n\nIQ world hub\n\n · June 25 · \n\nWhat is the capital city of France?\n\nTitles are generated by AI from Meta\n\nWhat is the capital city of France?Image 1: 🤔\n\n#GKQuiz#GeneralKnowledge#QuizChallenge#BrainTeaser#GeographyQuiz\n\nVideo 1\n\nImage 2\n\n0:00 / 0:00\n\n[](\n\nImage 3\n\nAll reactions:\n\n2\n\nLike\n\nComment\n\nShare\n\nSee more on Facebook\n\nSee more on Facebook\n\nEmail or phone number\n\n \n\nPassword\n\n \n\nLog In\n\nForgot password?\n\nor [...] or\n\nCreate new account",
+   "relevance_score": 0.50388235,
+   "published_date": null,
+   "source_domain": "www.facebook.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.instagram.com/reel/DY7Le9zPT5l?hl=en",
+   "title": "Instagram",
+   "snippet": "Video by cityblock3d (nodrone_explorer) on September 12, 2026. May be an image of map, radar and text that says 'Geneva Switzerland + Google GoogleEarth Earth Landsat/ Landsat/Copemicus.DataSIO.NOA andsat/Copernicus,Dat Copernicus, Data SIO, NOAA'.\nVideo by cityblock3d (nodrone_explorer) on September 07, 2026. May be an image of map, flag, poster and text that says 'Vienna Austria Google GoogleEarth Earth Landsat/Capermicus.DataSIO,NOA Landsat/ Copernicus, Data SIO, NOAA'. [...] Video by cityblock3d (nodrone_explorer) on August 30, 2026. May be an image of map, radar and text that says 'Washington, UnitedStates United States D.C. Google GoogleEarth Earth Data DataSIO,NOAA,U.S.Navy SIO, ,NOAA, U.S. Navy'.\nVideo by cityblock3d (nodrone_explorer) on August 29, 2026. May be an image of map and text that says 'Trento Trentino-Alto Trentino-AltoAdige/Sudtirol Adige/ Adige/Sudtirol O Google GoogleEarth Earth Landsat Copernicus Data SIO, Landsat/Copernicus,DataSIO,NOAA NOAA'. [...] barbara_anactasia's profile picture\nmilaaraujo23's profile picture\namir__ghassemi's profile picture\nelodiebossele's profile picture\nimdaisychan_art's profile picture\nVideo by cityblock3d (nodrone_explorer) on June 29, 2026. May be an image of flag, La Sagrada Familia and tower.\nVideo by cityblock3d (nodrone_explorer) on January 11, 2026.\nVideo by cityblock3d (nodrone_explorer) on November 28, 2025.",
+   "relevance_score": 0.05669954,
+   "published_date": null,
+   "source_domain": "www.instagram.com"
+  }
+ ],
+ "provided_urls": [
+  "https://www.britannica.com/place/France",
+  "https://brainly.in/question/62118432",
+  "https://en.wikipedia.org/wiki/Paris",
+  "https://www.cia-france.com/french-kids-teenage-courses/paris-school/visit-paris",
+  "https://home.adelphi.edu/~ca19535/page%204.html",
+  "https://www.coe.int/en/web/interculturalcities/paris",
+  "https://www.facebook.com/groups/376100836095453/posts/2780652808973565",
+  "https://www.instagram.com/reel/DY7Le9zPT5l?hl=en"
+ ]
+}

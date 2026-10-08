@@ -260,7 +260,24 @@ def main() -> int:
     parser.add_argument("--rounds", type=int, default=2)
     parser.add_argument("--budget", type=int, default=120_000)
     parser.add_argument("--dry-run", action="store_true")
+    # This script runs the real pipeline on a live model with no spend ledger,
+    # no USD cap and no run lock (unlike eval_sop/, which meters every call).
+    # It reads ANTHROPIC_API_KEY from the environment or .env, so without this
+    # flag an exported key could be spent by simply running the file.
+    parser.add_argument(
+        "--i-want-to-spend-real-money",
+        action="store_true",
+        help="required for a live recording: this script is NOT metered and has no cap",
+    )
     args = parser.parse_args()
+
+    if not args.dry_run and not args.i_want_to_spend_real_money:
+        sys.exit(
+            "REFUSING: a live recording costs real money and is not metered — no spend "
+            "ledger, no cap, no lock (contrast eval_sop/, which meters every call). "
+            "Pass --i-want-to-spend-real-money to confirm, or --dry-run to check the "
+            "setup without calling a model."
+        )
 
     load_env()
     os.environ.setdefault("LOG_LEVEL", "WARNING")

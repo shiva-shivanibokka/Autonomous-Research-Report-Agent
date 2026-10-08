@@ -72,7 +72,8 @@ _RETRYABLE = (
 _COST_TABLE: dict[str, dict[str, float]] = {
     # Anthropic
     "claude-opus-4-8": {"input": 5.00, "output": 25.00},
-    "claude-sonnet-5": {"input": 3.00, "output": 15.00},
+    # Also prices claude-sonnet-5-5 by prefix.
+    "claude-sonnet-5": {"input": 2.00, "output": 10.00},
     "claude-sonnet-4-5": {"input": 3.00, "output": 15.00},
     "claude-haiku-4-5": {"input": 1.00, "output": 5.00},
     # OpenAI

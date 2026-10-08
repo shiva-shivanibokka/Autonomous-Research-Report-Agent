@@ -1,0 +1,5 @@
+# before
+FAILED eval_sop/tests/test_unledgered_spend.py::test_refuses_without_the_opt_in_flag
+FAILED eval_sop/tests/test_unledgered_spend.py::test_dry_run_still_works_without_the_flag
+FAILED eval_sop/tests/test_unledgered_spend.py::test_runbook_warns_that_the_key_goes_only_in_the_env_file
+3 failed in 0.73s

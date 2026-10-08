@@ -1,0 +1,6 @@
+# before
+E       assert 12.0 == 8.0
+E        +  where 12.0 = budget.PROJECT_HARD_MAX_USD
+E       Failed: DID NOT RAISE ValueError
+E       assert 0 == 2
+3 failed in 7.19s

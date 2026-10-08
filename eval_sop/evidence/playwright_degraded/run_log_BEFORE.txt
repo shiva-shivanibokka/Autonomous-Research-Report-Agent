@@ -1,0 +1,92 @@
+2026-10-05 12:27:41 [error    ] scraper_agent_exception        error="'charmap' codec can't encode characters in position 253-314: character maps to <undefined>"
+2026-10-05 12:27:41 [warning  ] analyst_no_content             job_id=d1d33cbf-8f22-42cf-9d54-357cf1403a03 sub_question='Did that male costar win an Academy Award for Best Actor for'
+2026-10-05 12:27:42 [warning  ] httpx_scrape_failed_trying_playwright error= url=https://www.vanityfair.com/hollywood/story/academy-award-best-supporting-actor
+2026-10-05 12:27:54 [warning  ] critic_flag_incomplete         claim_text='Emma Stone won the Academy Award for Best Actress at the 89th Oscars ceremony fo' re_search_query=
+2026-10-05 12:27:54 [warning  ] critic_flag_incomplete         claim_text='Emma Stone won the Academy Award for Best Actress at the 96th Oscars ceremony fo' re_search_query=
+2026-10-05 12:27:54 [warning  ] critic_flag_incomplete         claim_text='Emma Stone won Best Actress at the 89th Oscars in 2017' re_search_query=
+2026-10-05 12:27:54 [warning  ] critic_flag_incomplete         claim_text="Bradley Cooper appeared with Emma Stone in an 'Actors on Actors' segment" re_search_query=
+2026-10-05 12:27:54 [warning  ] critic_flag_incomplete         claim_text='Emma Stone has won two Academy Awards for Best Actress' re_search_query=
+2026-10-05 12:28:06 [warning  ] writer_json_invalid_attempting_repair error='no JSON dict found in response'
+    -> answer="Based on the report, there is no evidence that Ryan Gosling, Emma Stone's co-sta" err=None usd=0.035236 credits_now=3
+[12:28:17] closed_book frames_631 seed=1 usd_spent=0.3929 credits_spent=29
+    -> answer='I cannot provide a confident answer to this question without being able to verif' err=None usd=0.001986 credits_now=0
+[12:28:21] search1 frames_631 seed=1 usd_spent=0.3949 credits_spent=29
+    -> answer='I cannot answer this question based on the provided sources. While the sources c' err=None usd=0.004445 credits_now=1
+[12:28:26] pipeline_r2 frames_631 seed=1 usd_spent=0.3993 credits_spent=30
+2026-10-05 12:28:50 [warning  ] critic_flag_incomplete         claim_text="The stadium's first match was played on April 15, 1944, between Club Atlético Ar" re_search_query=
+2026-10-05 12:28:50 [warning  ] critic_flag_incomplete         claim_text='No Argentine president resigned in 1944, the year the José Martín Olaeta Stadium' re_search_query=
+2026-10-05 12:28:50 [warning  ] critic_flag_incomplete         claim_text='The stadium was named after José Martín Olaeta, president of Club Argentino who ' re_search_query=
+2026-10-05 12:28:50 [warning  ] critic_flag_incomplete         claim_text="The stadium was declared a 'City of Rosario Heritage Site' in 2012" re_search_query=
+2026-10-05 12:28:50 [warning  ] critic_flag_incomplete         claim_text='The stadium has a capacity of 8,000 spectators' re_search_query=
+    -> answer='According to the report, no Argentine president resigned in 1944, the year the J' err=None usd=0.046027 credits_now=3
+[12:29:09] closed_book frames_675 seed=1 usd_spent=0.4454 credits_spent=33
+    -> answer='40 years' err=None usd=0.00186 credits_now=0
+[12:29:13] search1 frames_675 seed=1 usd_spent=0.4472 credits_spent=33
+    -> answer='I cannot answer this question based on the provided sources. While the sources c' err=None usd=0.005832 credits_now=1
+[12:29:24] pipeline_r2 frames_675 seed=1 usd_spent=0.4531 credits_spent=34
+2026-10-05 12:29:32 [warning  ] httpx_scrape_failed_trying_playwright error="Client error '403 Forbidden' for url 'https://math.stackexchange.com/questions/3815490/there-is-no-closed-form-solution-of-the-three-body-problem-is-this-just-a-fol'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403" url=https://math.stackexchange.com/questions/3815490/there-is-no-closed-form-solution-of-the-three-body-problem-is-this-just-a-fol
+2026-10-05 12:29:32 [warning  ] httpx_scrape_failed_trying_playwright error="Client error '403 Forbidden' for url 'https://retrospectjournal.com/2024/04/07/solving-the-three-body-problem-isaac-newtons-role-in-the-rise-of-eighteenth-century-celestial-mechanics'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403" url=https://retrospectjournal.com/2024/04/07/solving-the-three-body-problem-isaac-newtons-role-in-the-rise-of-eighteenth-century-celestial-mechanics
+2026-10-05 12:29:32 [warning  ] httpx_scrape_failed_trying_playwright error="Client error '400 Bad Request' for url 'https://www.facebook.com/StarTalk/posts/what-is-the-three-body-problem/1632807508478302'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400" url=https://www.facebook.com/StarTalk/posts/what-is-the-three-body-problem/1632807508478302
+2026-10-05 12:29:32 [warning  ] httpx_scrape_failed_trying_playwright error="Client error '403 Forbidden' for url 'https://www.britannica.com/science/celestial-mechanics-physics/The-three-body-problem'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403" url=https://www.britannica.com/science/celestial-mechanics-physics/The-three-body-problem
+2026-10-05 12:29:32 [warning  ] httpx_scrape_failed_trying_playwright error="Client error '403 Forbidden' for url 'https://galileo-unbound.blog/2019/07/05/the-three-body-problem-longitude-at-sea-and-lagranges-points'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403" url=https://galileo-unbound.blog/2019/07/05/the-three-body-problem-longitude-at-sea-and-lagranges-points
+2026-10-05 12:29:32 [warning  ] httpx_scrape_failed_trying_playwright error="Client error '403 Forbidden' for url 'https://galileo-unbound.blog/2019/07/05/the-three-body-problem-longitude-at-sea-and-lagranges-points'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403" url=https://galileo-unbound.blog/2019/07/05/the-three-body-problem-longitude-at-sea-and-lagranges-points
+2026-10-05 12:29:35 [error    ] scraper_agent_exception        error="'charmap' codec can't encode characters in position 253-314: character maps to <undefined>"
+2026-10-05 12:29:35 [error    ] scraper_agent_exception        error="'charmap' codec can't encode characters in position 253-314: character maps to <undefined>"
+2026-10-05 12:29:35 [error    ] scraper_agent_exception        error="'charmap' codec can't encode characters in position 253-314: character maps to <undefined>"
+2026-10-05 12:29:35 [error    ] scraper_agent_exception        error="'charmap' codec can't encode characters in position 253-314: character maps to <undefined>"
+2026-10-05 12:29:35 [warning  ] analyst_no_content             job_id=1a0ad5c8-101a-4cea-a556-36e14d9f8d03 sub_question='What is the three-body problem in classical mechanics and wh'
+2026-10-05 12:29:35 [warning  ] analyst_no_content             job_id=1a0ad5c8-101a-4cea-a556-36e14d9f8d03 sub_question='Which 18th century French mathematicians worked on the three'
+2026-10-05 12:29:35 [warning  ] analyst_no_content             job_id=1a0ad5c8-101a-4cea-a556-36e14d9f8d03 sub_question='How did solutions to the three-body problem for lunar motion'
+2026-10-05 12:29:35 [warning  ] analyst_no_content             job_id=1a0ad5c8-101a-4cea-a556-36e14d9f8d03 sub_question='What is the connection between the three-body problem, lunar'
+2026-10-05 12:29:36 [warning  ] httpx_scrape_failed_trying_playwright error= url=https://www.ebsco.com/research-starters/history/three-body-problem
+2026-10-05 12:29:50 [warning  ] critic_flag_incomplete         claim_text= re_search_query=
+2026-10-05 12:29:50 [warning  ] critic_flag_incomplete         claim_text= re_search_query=
+2026-10-05 12:29:50 [warning  ] critic_flag_incomplete         claim_text= re_search_query=
+2026-10-05 12:29:50 [warning  ] critic_flag_incomplete         claim_text= re_search_query=
+2026-10-05 12:29:50 [warning  ] critic_flag_incomplete         claim_text= re_search_query=
+2026-10-05 12:30:18 [warning  ] writer_json_invalid_attempting_repair error='no JSON dict found in response'
+    -> answer='31 years. (Note: While the report confirms Harrison spent 31 years perfecting hi' err=None usd=0.053016 credits_now=5
+[12:30:42] closed_book frames_32 seed=1 usd_spent=0.5061 credits_spent=39
+    -> answer='55' err=None usd=0.00104 credits_now=0
+[12:30:44] search1 frames_32 seed=1 usd_spent=0.5071 credits_spent=39
+    -> answer='55' err=None usd=0.004709 credits_now=1
+[12:30:51] pipeline_r2 frames_32 seed=1 usd_spent=0.5118 credits_spent=40
+2026-10-05 12:30:55 [warning  ] httpx_scrape_failed_trying_playwright error="Client error '400 Bad Request' for url 'https://www.facebook.com/zflixfootball/posts/most-fifa-world-cup-titles-won-%F0%9D%90%85%F0%9D%90%88%F0%9D%90%85%F0%9D%90%80-%F0%9D%90%96%F0%9D%90%A8%F0%9D%90%AB%F0%9D%90%A5%F0%9D%90%9D-%F0%9D%90%82%F0%9D%90%AE%F0%9D%90%A9-%F0%9D%90%82%F0%9D%90%A1%F0%9D%90%9A%F0%9D%90%A6%F0%9D%90%A9%F0%9D%90%A2%F0%9D%90%A8%F0%9D%90%A7%F0%9D%90%AC-brazil-5-titles-1958-196/122248533584286874'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400" url=https://www.facebook.com/zflixfootball/posts/most-fifa-world-cup-titles-won-%F0%9D%90%85%F0%9D%90%88%F0%9D%90%85%F0%9D%90%80-%F0%9D%90%96%F0%9D%90%A8%F0%9D%90%AB%F0%9D%90%A5%F0%9D%90%9D-%F0%9D%90%82%F0%9D%90%AE%F0%9D%90%A9-%F0%9D%90%82%F0%9D%90%A1%F0%9D%90%9A%F0%9D%90%A6%F0%9D%90%A9%F0%9D%90%A2%F0%9D%90%A8%F0%9D%90%A7%F0%9D%90%AC-brazil-5-titles-1958-196/122248533584286874
+2026-10-05 12:30:56 [warning  ] httpx_scrape_failed_trying_playwright error="Client error '400 Bad Request' for url 'https://www.facebook.com/nba/posts/-nba-champions-of-the-2010s-/10158194746483463'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400" url=https://www.facebook.com/nba/posts/-nba-champions-of-the-2010s-/10158194746483463
+2026-10-05 12:30:58 [warning  ] httpx_scrape_failed_trying_playwright error= url=https://www.dazn.com/en-US/news/american-football/how-many-super-bowls-have-the-dallas-cowboys-won-list-of-championships-appearances-last-super-bowl-win/24spdexaavfw16hw7mslwa56g
+2026-10-05 12:30:58 [error    ] scraper_agent_exception        error="'charmap' codec can't encode characters in position 253-314: character maps to <undefined>"
+2026-10-05 12:30:58 [error    ] scraper_agent_exception        error="'charmap' codec can't encode characters in position 253-314: character maps to <undefined>"
+2026-10-05 12:30:58 [error    ] scraper_agent_exception        error="'charmap' codec can't encode characters in position 253-314: character maps to <undefined>"
+2026-10-05 12:30:58 [warning  ] analyst_no_content             job_id=bb95e1cd-a74d-474f-8253-b3d76fde3410 sub_question='How many FIFA World Cups had Brazil won by 2010?'
+2026-10-05 12:30:58 [warning  ] analyst_no_content             job_id=bb95e1cd-a74d-474f-8253-b3d76fde3410 sub_question='How many NBA Championships had the Chicago Bulls won by 2010'
+2026-10-05 12:30:58 [warning  ] analyst_no_content             job_id=bb95e1cd-a74d-474f-8253-b3d76fde3410 sub_question='How many Super Bowls had the Dallas Cowboys won by 2010?'
+2026-10-05 12:30:58 [warning  ] critic_no_claims               job_id=bb95e1cd-a74d-474f-8253-b3d76fde3410
+    -> answer='55' err=None usd=0.015006 credits_now=3
+[12:31:18] closed_book frames_403 seed=1 usd_spent=0.5268 credits_spent=43
+    -> answer='I cannot confidently answer this question as I cannot verify that Barry Bonds ev' err=None usd=0.001834 credits_now=0
+[12:31:22] search1 frames_403 seed=1 usd_spent=0.5287 credits_spent=43
+    -> answer='In chronological order, the MLB seasons in which these three players hit .370 ar' err=None usd=0.002949 credits_now=1
+[12:31:27] pipeline_r2 frames_403 seed=1 usd_spent=0.5316 credits_spent=44
+2026-10-05 12:31:37 [warning  ] httpx_scrape_failed_trying_playwright error= url=https://www.espn.com/mlb/player/stats/_/id/23572/benny-kauff
+2026-10-05 12:31:37 [error    ] scraper_agent_exception        error="'charmap' codec can't encode characters in position 253-314: character maps to <undefined>"
+2026-10-05 12:31:37 [warning  ] analyst_no_content             job_id=f3dc0200-ef5b-459d-8778-d294cc706ae4 sub_question='Benny Kauff seasons with .370 or higher batting average MLB '
+2026-10-05 12:31:50 [warning  ] critic_flag_incomplete         claim_text='Barry Bonds won batting titles in 2002 and 2004' re_search_query=
+2026-10-05 12:31:50 [warning  ] critic_flag_incomplete         claim_text='Barry Bonds established San Francisco-era records with a .314 average' re_search_query=
+2026-10-05 12:31:50 [warning  ] critic_flag_incomplete         claim_text='In 1990, Barry Bonds hit .301 with 33 home runs and 52 stolen bases' re_search_query=
+2026-10-05 12:31:50 [warning  ] critic_flag_incomplete         claim_text='Tony Gwynn batted .371 in his two World Series appearances' re_search_query=
+2026-10-05 12:31:50 [warning  ] critic_flag_incomplete         claim_text='Tony Gwynn batted .323 in the year 2000, topping .300 for an N.L.-record 18th co' re_search_query=
+    -> answer='The report does not contain information identifying specific MLB seasons in whic' err=None usd=0.033733 credits_now=3
+[12:32:09] closed_book frames_642 seed=1 usd_spent=0.5653 credits_spent=47
+    -> answer='Michael Jordan is approximately 24 years older than Michael B. Jordan.' err=None usd=0.000749 credits_now=0
+[12:32:10] search1 frames_642 seed=1 usd_spent=0.5661 credits_spent=47
+    -> answer='I cannot answer this question because the provided sources do not contain Michae' err=None usd=0.003378 credits_now=1
+[12:32:16] pipeline_r2 frames_642 seed=1 usd_spent=0.5695 credits_spent=48
+2026-10-05 12:32:20 [warning  ] httpx_scrape_failed_trying_playwright error="Client error '400 Bad Request' for url 'https://www.facebook.com/officialangiemartinez/posts/happy-63rd-birthday-michael-jordan-/1480151453476160'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400" url=https://www.facebook.com/officialangiemartinez/posts/happy-63rd-birthday-michael-jordan-/1480151453476160
+2026-10-05 12:32:20 [warning  ] httpx_scrape_failed_trying_playwright error="Client error '400 Bad Request' for url 'https://www.facebook.com/timelesssports/posts/happy-63rd-birthday-to-michael-jordan-%EF%B8%8F/917066467744418'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400" url=https://www.facebook.com/timelesssports/posts/happy-63rd-birthday-to-michael-jordan-%EF%B8%8F/917066467744418
+2026-10-05 12:32:31 [error    ] scraper_agent_exception        error="'charmap' codec can't encode characters in position 253-314: character maps to <undefined>"
+2026-10-05 12:32:31 [warning  ] analyst_no_content             job_id=1848269b-08f1-49a5-aab7-07a2a5278810 sub_question="What is Michael Jordan's birth date?"
+2026-10-05 12:32:37 [warning  ] critic_flag_incomplete         claim_text= re_search_query=
+2026-10-05 12:32:51 [warning  ] writer_json_invalid_attempting_repair error='no JSON dict found in response'
+    -> answer='Michael Jordan is approximately 23-24 years older than Michael B. Jordan, though' err=None usd=0.029798 credits_now=2
+
+[exited with code 0]

@@ -26,6 +26,13 @@ def test_compute_cost_prefix_match():
     )
 
 
+def test_compute_cost_sonnet_5_price():
+    # Claude Sonnet 5 (and Sonnet 5.5, which prefix-matches it) list at
+    # $2.00 in / $10.00 out per 1M tokens, not the Sonnet 4.x $3 / $15.
+    assert compute_cost("claude-sonnet-5", 1_000_000, 1_000_000) == pytest.approx(12.00)
+    assert compute_cost("claude-sonnet-5-5", 1_000_000, 0) == pytest.approx(2.00)
+
+
 def test_compute_cost_unknown_model_uses_default():
     # Unknown model → default estimate ($1 in / $3 out), never crashes.
     assert compute_cost("some-future-model", 1_000_000, 1_000_000) == pytest.approx(

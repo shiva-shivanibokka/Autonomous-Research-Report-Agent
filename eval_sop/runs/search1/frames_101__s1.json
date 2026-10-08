@@ -1,0 +1,174 @@
+{
+ "condition": "search1",
+ "qid": "frames_101",
+ "question": "In the first movie that Emma Stone won an Academy Award for Best Actress in, did her costar win an Academy Award for Best Actor?",
+ "reference": "Ryan Gosling was nominated for an Academy Award for Best Actor in La La Land, but didn't win.",
+ "seed": 1,
+ "generator": "claude-haiku-4-5-20251001",
+ "wall_seconds_this_invocation": 7.41,
+ "telemetry": {
+  "llm_calls": 1,
+  "llm_calls_from_cache": 0,
+  "input_tokens": 5050,
+  "output_tokens": 224,
+  "llm_seconds": 2.61,
+  "usd_spent_now": 0.00617,
+  "usd_if_uncached": 0.00617,
+  "models": [
+   "claude-haiku-4-5-20251001"
+  ],
+  "tavily_searches": 1,
+  "tavily_credits_if_uncached": 1,
+  "tavily_credits_spent_now": 1,
+  "llm_calls_by_agent": {
+   "search1": 1
+  },
+  "tokens_by_agent": {
+   "search1": 5274
+  },
+  "pipeline_only": {
+   "input_tokens": 5050,
+   "output_tokens": 224,
+   "llm_seconds": 2.61,
+   "llm_calls": 1,
+   "truncated_calls": 0
+  }
+ },
+ "error": null,
+ "error_kind": null,
+ "nonfatal_errors": [],
+ "strict_error": false,
+ "output_text": "• Emma Stone won her first Academy Award for Best Actress at the 2024 Academy Awards (96th Academy Awards) for her role in \"Poor Things\" [1, 2]\n\n• In \"Poor Things,\" Emma Stone's male costar was Mark Ruffalo, who won the Academy Award for Best Actor in a Supporting Role at the same ceremony [1]\n\n• Mark Ruffalo won an Academy Award, but it was in the Supporting Actor category, not the Best Actor category [1]\n\n• Cillian Murphy won the Best Actor award at the 2024 Academy Awards, but he won it for \"Oppenheimer,\" not for \"Poor Things\" [2]\n\nFinal answer: No. Emma Stone's costar in \"Poor Things\" (her first Best Actress Oscar win) was Mark Ruffalo, who won an Academy Award for Best Supporting Actor for that film, not Best Actor. The Best Actor award that year went to Cillian Murphy for a different film (\"Oppenheimer\").",
+ "final_answer": "No. Emma Stone's costar in \"Poor Things\" (her first Best Actress Oscar win) was Mark Ruffalo, who won an Academy Award for Best Supporting Actor for that film, not Best Actor. The Best Actor award that year went to Cillian Murphy for a different film (\"Oppenheimer\").",
+ "claims": [
+  {
+   "text": "Emma Stone won her first Academy Award for Best Actress at the 2024 Academy Awards (96th Academy Awards) for her role in \"Poor Things\"",
+   "source_urls": [
+    "https://www.instagram.com/popular/in-the-first-movie-that-emma-stone-won-an-academy-award-for-best-actress-in-did-her-costar-win-an-academy-award-for-best-actor",
+    "https://www.filmibeat.com/top-listing/oscar-winners-2024-best-actor-cillian-murphy-best-actress-emma-stone-1-2439.html"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "In the first movie that Emma Stone won an Academy Award for Best Actress in, did her costar win an Academy Award for Best Actor?",
+   "stage": "final"
+  },
+  {
+   "text": "In \"Poor Things,\" Emma Stone's male costar was Mark Ruffalo, who won the Academy Award for Best Actor in a Supporting Role at the same ceremony",
+   "source_urls": [
+    "https://www.instagram.com/popular/in-the-first-movie-that-emma-stone-won-an-academy-award-for-best-actress-in-did-her-costar-win-an-academy-award-for-best-actor"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "In the first movie that Emma Stone won an Academy Award for Best Actress in, did her costar win an Academy Award for Best Actor?",
+   "stage": "final"
+  },
+  {
+   "text": "Mark Ruffalo won an Academy Award, but it was in the Supporting Actor category, not the Best Actor category",
+   "source_urls": [
+    "https://www.instagram.com/popular/in-the-first-movie-that-emma-stone-won-an-academy-award-for-best-actress-in-did-her-costar-win-an-academy-award-for-best-actor"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "In the first movie that Emma Stone won an Academy Award for Best Actress in, did her costar win an Academy Award for Best Actor?",
+   "stage": "final"
+  },
+  {
+   "text": "Cillian Murphy won the Best Actor award at the 2024 Academy Awards, but he won it for \"Oppenheimer,\" not for \"Poor Things\"",
+   "source_urls": [
+    "https://www.filmibeat.com/top-listing/oscar-winners-2024-best-actor-cillian-murphy-best-actress-emma-stone-1-2439.html"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "In the first movie that Emma Stone won an Academy Award for Best Actress in, did her costar win an Academy Award for Best Actor?",
+   "stage": "final"
+  }
+ ],
+ "sources": [
+  {
+   "schema_version": "1.0",
+   "url": "https://www.instagram.com/popular/in-the-first-movie-that-emma-stone-won-an-academy-award-for-best-actress-in-did-her-costar-win-an-academy-award-for-best-actor",
+   "title": "In The First Movie That Emma Stone Won An Academy Award For Best Actress In Did Her Costar Win An Academy Award For Best Actor",
+   "snippet": "Title: In The First Movie That Emma Stone Won An Academy Award For Best Actress In Did Her Costar Win An Academy Award For Best Actor\n[[Image 2: clickdotofficial's profile picture](https://www.instagram.com/clickdotofficial) clickdotofficial 952 Emma Stone, a BAFTA nominee for Best Actress for Yorgos Lanthimos' film \"Poor Things,\" showed up at the ceremony wearing a simple Louis Vuitton dress.](https://www.instagram.com/reel/DVH8cK2Ck2_/). [[Image 6: clickdotofficial's profile picture](https://www.instagram.com/clickdotofficial) clickdotofficial 1,583 Emma Stone, a BAFTA nominee for Best Actress for Yorgos Lanthimos' film \"Poor Things,\" showed up at the ceremony wearing a simple Louis Vuitton dress.](https://www.instagram.com/reel/DVH8xOTCqVq/). At the 96th Academy Awards, POOR THINGS received 11 nominations, winning four: Actor in Supporting Role - Mark Ruffalo Actress in a Leading Role - Emma Stone (WON) Adapted Screenplay - Tony McNamara Cinematography - Robbie Ryan Costume Design - Holly Waddington (WON) Directing - Yorgos Lanthimos Film Editing - Yorgos Mavropsaridis Makeup and Hairstyling - Nadia Stacey, Mark Coulier and Josh Weston (WON) Original Score - Jerskin Fendrix Production Design - Production Design: James Price and Shona Heath; Set Decoration: Zsuzsa Mihalek (WON) Best Picture [[Image 10: l_.movies_hub's profile picture](https://www.instagram.com/l_.movies_hub) l_.movies_hub 15.2K Emma Stone's Oscar-winning performance as Bella Baxter in Yorgos Lanthimos' POOR THINGS. At the 96th Academy Awards, POOR THINGS received 11 nominations, winning four: Actor in Supporting Role - Mark Ruffalo Actress in a Leading Role - Emma Stone (WON) Adapted Screenplay - Tony McNamara Cinematography - Robbie Ryan Costume Design - Holly Waddington (WON) Directing - Yorgos Lanthimos Film Editing - Yorgos Mavropsaridis Makeup and Hairstyling - Nadia Stacey, Mark Coulier and Josh Weston (WON) Original Score - Jerskin Fendrix Production Design - Production Design: James Price and Shona Heath; Set Decoration: Zsuzsa Mihalek (WON) Best Picture](https://www.instagram.com/reel/DULbBEcDwUL/). #Oscars2026 #EmmaStone #Bugonia #BestActress #YorgosLanthimos [[Image 14: filmhouse_35's profile picture](https://www.instagram.com/filmhouse_35) filmhouse_35 2,470 Emma Stone picks up her fourth Oscar nomination for Best Actress in Yorgos Lanthimos's Bugonia, continuing one of the most prolific actor-director partnerships in modern cinema. #Oscars2026 #EmmaStone #Bugonia #BestActress #YorgosLanthimos [[Image 22: filmdiscussion_'s profile picture](https://www.instagram.com/filmdiscussion_) filmdiscussion_ 4,966 Emma Stone picks up her fourth Oscar nomination for Best Actress in Yorgos Lanthimos's Bugonia, continuing one of the most prolific actor-director partnerships in modern cinema. #Oscars2026 #EmmaStone #Bugonia #BestActress #YorgosLanthimos [[Image 24: occupyacting's profile picture](https://www.instagram.com/occupyacting) occupyacting 5,468 Emma Stone picks up her fourth Oscar nomination for Best Actress in Yorgos Lanthimos's Bugonia, continuing one of the most prolific actor-director partnerships in modern cinema.",
+   "relevance_score": 0.9240941,
+   "published_date": null,
+   "source_domain": "www.instagram.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.filmibeat.com/top-listing/oscar-winners-2024-best-actor-cillian-murphy-best-actress-emma-stone-1-2439.html",
+   "title": "Oscar Winners 2024: Best Actor Cillian Murphy; Best Actress Emma Stone | Academy Awards 2024: Best Actor Cillian Murphy; Best Actress Emma Stone – FilmiBeat",
+   "snippet": "Title: Oscar Winners 2024: Best Actor Cillian Murphy; Best Actress Emma Stone | Academy Awards 2024: Best Actor Cillian Murphy; Best Actress Emma Stone – FilmiBeat\n# Oscar Winners 2024: Best Actor Cillian Murphy; Best Actress Emma Stone. Cillian Murphy and Emma Stone emerged as the evening's standout winners, clinching the prestigious awards for Best Actor and Best Actress, respectively. Cillian Murphy Won the Best Actor Award At Oscars 2024;). Emma Stone Won the Best Actress Award At Oscars 2024;). Oscar 2024: Poor Things Movie Won 4 Oscar;). Oscar 2024: Oppenheimer Won 7 Awards At Oscar;). Cillian Murphy Won the Best Actor Award At Oscars 2024. Cillian Murphy won the prestigious Best Actor at Oscar Award in 2024 for his remarkable portrayal in \"Oppenheimer\". Murphy's nuanced performance brought depth and authenticity to the role, showcasing his exceptional talent and versatility as an actor. This win solidifies Murphy's status as one of the finest actors in the industry, further cementing his legacy. \"Oppenheimer\" itself garnered attention for its compelling storytelling and stellar cast, with Murphy's performance standing out as a highlight. The award recognizes Murphy's dedication to his craft and his ability to bring complex characters to life on the screen. As fans eagerly await his future projects, Murphy's Oscar win serves as a testament to his talent and hard work in the film industry. Emma Stone Won the Best Actress Award At Oscars 2024. Emma Stone triumphed at the 2024 Oscar Awards, securing the prestigious title of Best Actress for her stellar performance in \"Poor Things\". Stone's portrayal in the film captivated audiences and critics alike, earning widespread acclaim for its depth and authenticity. The award recognizes Stone's dedication to her craft and her ability to embody complex roles with grace and conviction. \"Poor Things\" itself garnered attention for its compelling storytelling and strong ensemble cast, with Stone's performance standing out as a highlight. This win solidifies Stone's status as one of the leading actresses in Hollywood, further cementing her place among the industry's elite. As fans eagerly anticipate her future projects, Stone's Oscar win serves as a testament to her exceptional talent and contributions to the world of cinema. Oscar 2024: Poor Things Movie Won 4 Oscar. Emma Stone Won For \"Poor Things\". Oscar 2024: Oppenheimer Won 7 Awards At Oscar. Cillian Murphy Won For \"Oppenheimer\".",
+   "relevance_score": 0.4342459,
+   "published_date": null,
+   "source_domain": "www.filmibeat.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.quora.com/Who-will-win-the-Academy-Award-for-Best-Actress-in-2017",
+   "title": "Who will win the Academy Award for Best Actress in 2017? - Quora",
+   "snippet": "Who will win the Academy Award for Best Actress in 2017? Who is the youngest actress to ever win an Academy Award for best Actress? Who won the Academy Award for best Actress in 2022? Isabelle Huppert did win the Golden Globe for the Best Actress in a Drama, but the Academy hasn’t always agreed with the Hollywood Foreign Press Association, because the difference in number of voters is huge. Who do you think will win the Oscar for Best Actress at the 2019 Academy Awards? What year did Streep win her first Academy Award for Best Actress in a Leading Role? Ryan Gosling and Emma Stone are Oscar nominees for best actor and best actress for their roles in \"La La Land.\". Ryan Gosling and Emma Stone are Oscar nominees for best actor and best actress for their roles in \"La La Land.\". Originally Answered: Who do you think will win Best Actress for the 89th Academy Awards this year? Originally Answered: Who do you think will win Best Actress for the 89th Academy Awards this year? She has given the most acclaimed performance of the year, winning awards from the NY critics, LA critics and the National Society of Film Critics, along with her shock victory of the Golden Globe for Best Actress in a Drama. Who is the youngest actress to ever win an Academy Award for best Actress? Who won the Academy Award for best Actress in 2022? Who do you think will win the Oscar for Best Actress at the 2019 Academy Awards? What year did Streep win her first Academy Award for Best Actress in a Leading Role? Who is the oldest woman to win an Academy Award for best Actress? Who was the first woman to win an Academy Award for best Supporting Actress? Who is the youngest actress to ever win an Academy Award for best Actress? Who won the Academy Award for best Actress in 2022? Who do you think will win the Oscar for Best Actress at the 2019 Academy Awards? What year did Streep win her first Academy Award for Best Actress in a Leading Role?",
+   "relevance_score": 0.31226563,
+   "published_date": null,
+   "source_domain": "www.quora.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.quora.com/Do-you-think-Emma-Stone-deserved-the-best-Actress-award-over-Lily-Gladstone-at-the-2024-Academy-Awards",
+   "title": "Do you think Emma Stone deserved the best Actress award over Lily Gladstone at the 2024 Academy Awards? - Quora",
+   "snippet": "Title: Do you think Emma Stone deserved the best Actress award over Lily Gladstone at the 2024 Academy Awards? - Quora\nDo you think Emma Stone deserved the best Actress award over Lily Gladstone at the 2024 Academy Awards? Does Emma Stone deserve to win the best actress Oscar? Do you think Lily Gladstone should have won best Actress at the 96th Annual Academy Awards instead of Emma Stone? Does Emma Stone deserve to win the best actress Oscar? I do not even think she deserved to be nominated for Best Actress for her role in Poor Things, even though I liked the movie, it was not Oscar-worthy. I do not even think she deserved to be nominated for Best Actress for her role in Poor Things, even though I liked the movie, it was not Oscar-worthy. Does Emma Stone deserve to win the best actress Oscar? Do you think Emma Stone's previous best Actress win will hurt her chances at the Oscars this year? Who do you think deserves to win the best actress at the Oscars tonight more, Lily, Gladstone or Emma Stone? Does Emma Stone deserve to win the best actress Oscar? Does Emma Stone deserve to win the best actress Oscar? Does Emma Stone deserve to win the best actress Oscar? Does Emma Stone deserve to win the best actress Oscar? Does Emma Stone deserve to win the best actress Oscar? Does Emma Stone deserve to win the best actress Oscar? Do you think Emma Stone's previous best Actress win will hurt her chances at the Oscars this year? Who do you think deserves to win the best actress at the Oscars tonight more, Lily, Gladstone or Emma Stone? What do you think about Lily Gladstone winning the SAG Award for best female actor, but Emma Stone taking home the Oscar a year ago? Does having a best Actress win for a previous film make it less likely for Emma Stone to win best Actress at the 2024 Oscars? Does Emma Stone deserve to win the best actress Oscar? Do you think Emma Stone's previous best Actress win will hurt her chances at the Oscars this year? Who do you think deserves to win the best actress at the Oscars tonight more, Lily, Gladstone or Emma Stone?",
+   "relevance_score": 0.26670793,
+   "published_date": null,
+   "source_domain": "www.quora.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.quora.com/Can-an-actor-win-an-Academy-Award-for-acting-if-they-are-not-top-billed-in-their-movie",
+   "title": "Can an actor win an Academy Award for acting if they are not top billed in their movie?",
+   "snippet": "Can an actor win an Academy Award for acting if they are not top billed in their movie? Can you name some actors and actresses that have never been nominated for an Academy Award, but are considered to be among the best in their field? In which movie did Leonardo DiCaprio win his first Academy Award for best Actor? Can an actor win an Academy Award for acting if they are not top billed in their movie? Have any actors or actresses been nominated for an Academy Award (Oscar) despite only playing bit parts in films? Beatrice Straight (1914–2001) won the Academy Award for Best Supporting Actress for her performance as abandoned wife Louise Schumacher in “Network” (1976.) Her performance is the shortest ever to win an Academy Award for acting, at five minutes and two seconds of screen time. Beatrice Straight (1914–2001) won the Academy Award for Best Supporting Actress for her performance as abandoned wife Louise Schumacher in “Network” (1976.) Her performance is the shortest ever to win an Academy Award for acting, at five minutes and two seconds of screen time. In which movie did Morgan Freeman win the Academy Award for best Actor in a supporting role? In which movie did Jeff Bridges win the Academy Award for best Actor? Can an actor or actress be nominated twice for the same acting award, but not both from the same movie and not both as lead actor/actress (for example: supporting actor)? Can you name some actors and actresses that have never been nominated for an Academy Award, but are considered to be among the best in their field? In which movie did Leonardo DiCaprio win his first Academy Award for best Actor? In which movie did Morgan Freeman win the Academy Award for best Actor in a supporting role? In which movie did Jeff Bridges win the Academy Award for best Actor? Can you name some actors and actresses that have never been nominated for an Academy Award, but are considered to be among the best in their field? In which movie did Leonardo DiCaprio win his first Academy Award for best Actor?",
+   "relevance_score": 0.18444444,
+   "published_date": null,
+   "source_domain": "www.quora.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.quora.com/In-what-movie-did-Brie-Larson-win-an-Academy-Award-for-best-Actress",
+   "title": "In what movie did Brie Larson win an Academy Award for best Actress? - Quora",
+   "snippet": "In what movie did Brie Larson win an Academy Award for best Actress? In what movie did Halle Berry win an Academy Award for best Actress? Julia Roberts won the best Actress Academy Award for what movie in 2000? In what movie did Jennifer Hudson win an Academy Award for best Supporting Actress? Brie Larson won the Academy Award for Best Actress for her performance in the film \"Room\" (2015). In which movie did Helen Mirren win her first Academy Award for best Actress? In what movie did Jennifer Connelly win an Academy Award for best Supporting Actress? Julie Andrews won the Academy Award for best Actress after her first film performance. Brie Larson won the Academy Award for Best Actress for her role in the movie \"Room\" (2015). Brie Larson won the Academy Award for Best Actress for her role in the movie \"Room\" (2015). What movie led to a best actress Academy Award for the woman who played the title role? What movie led to a best actress Academy Award for the woman who played the title role? In what movie did Halle Berry win an Academy Award for best Actress? Julia Roberts won the best Actress Academy Award for what movie in 2000? In what movie did Jennifer Hudson win an Academy Award for best Supporting Actress? In which movie did Helen Mirren win her first Academy Award for best Actress? In what movie did Jennifer Connelly win an Academy Award for best Supporting Actress? Julie Andrews won the Academy Award for best Actress after her first film performance. In what movie did Judi Dench win an Academy Award for best Supporting Actress? In what movie did Halle Berry win an Academy Award for best Actress? Julia Roberts won the best Actress Academy Award for what movie in 2000? In what movie did Jennifer Hudson win an Academy Award for best Supporting Actress? In which movie did Helen Mirren win her first Academy Award for best Actress? In what movie did Jennifer Connelly win an Academy Award for best Supporting Actress? Julie Andrews won the Academy Award for best Actress after her first film performance.",
+   "relevance_score": 0.16426189,
+   "published_date": null,
+   "source_domain": "www.quora.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.quora.com/What-are-the-requirements-to-win-a-best-actor-actress-Academy-Award-Oscar",
+   "title": "What are the requirements to win a best actor/actress Academy Award (Oscar)? - Quora",
+   "snippet": "What are the requirements to win a best actor/actress Academy Award (Oscar)? You have to have performed a lead role in a film screened for at least a week in either New York or Los Angeles in the previous calendar year and actors who are members of the Academy of Motion Picture Arts and Sciences have to have voted to nominate you in sufficient numbers that you were one of the top five nominees. What is the criteria for an actor to get nominated as best actor in the Academy Awards? Who was the first Black actor to win an Academy Award (Oscar) for best actor? What are the requirements for winning an Academy Award as a movie actor or actress? What actor/actress’ performance is the longest to win a Best Supporting Actor/Actress Academy Award? Have any actors or actresses been nominated for an Academy Award (Oscar) despite only playing bit parts in films? Beatrice Straight (1914–2001) won the Academy Award for Best Supporting Actress for her performance as abandoned wife Louise Schumacher in “Network” (1976.) Her performance is the shortest ever to win an Academy Award for acting, at five minutes and two seconds of screen time. Beatrice Straight (1914–2001) won the Academy Award for Best Supporting Actress for her performance as abandoned wife Louise Schumacher in “Network” (1976.) Her performance is the shortest ever to win an Academy Award for acting, at five minutes and two seconds of screen time. How are the best actor and actress are decided in Oscars/Academy Awards? If an actor or actress doesn’t win the Academy Award, what is the next best award they could win? Did Jeff Bridges win the Academy Award for best Actor? Who will win Best Actor Award this year at Oscars? Who was the first Black actor to win an Academy Award (Oscar) for best actor? What are the requirements for winning an Academy Award as a movie actor or actress? Who was the first Black actor to win an Academy Award (Oscar) for best actor? What are the requirements for winning an Academy Award as a movie actor or actress?",
+   "relevance_score": 0.13145196,
+   "published_date": null,
+   "source_domain": "www.quora.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.quora.com/In-what-movie-did-Octavia-Spencer-win-an-Academy-Award-for-best-Supporting-Actress",
+   "title": "In what movie did Octavia Spencer win an Academy Award for best Supporting Actress? - Quora",
+   "snippet": "In what movie did Octavia Spencer win an Academy Award for best Supporting Actress? Octavia Spencer won the Academy Award for Best Supporting Actress for her role in the 2011 film The Help. Spencer has been nominated for the Academy Award for Best Supporting Actress three times, including her win for The Help. Octavia Spencer won the Academy Award for Best Supporting Actress for her role in the 2011 film The Help. Spencer has been nominated for the Academy Award for Best Supporting Actress three times, including her win for The Help. In which movie did Geena Davis win the Academy Award for best actress in a supporting role? Octavia Spencer won her Academy Award for Best Supporting Actress for her role in the 2011 film \"The Help.\". In what film did Rachel Weisz win an Academy Award for best Supporting Actress? What movie led to a best actress Academy Award for the woman who played the title role? Octavia Spencer won an Oscar as Best Supporting Actress in the movie, ““The Help” in which she played a maid in the 1960’s South in 2011. Linda Hunt won Best Supporting Actress for Year of Living Dangerously (1983) for playing a man - she was the first female actress to win an Oscar for playing a gender-switched character role - a character of the opposite sex. Linda Hunt won Best Supporting Actress for Year of Living Dangerously (1983) for playing a man - she was the first female actress to win an Oscar for playing a gender-switched character role - a character of the opposite sex. What movie led to a best actress Academy Award for the woman who played the title role? In which movie did Geena Davis win the Academy Award for best actress in a supporting role? In what film did Rachel Weisz win an Academy Award for best Supporting Actress? In what movie did Jennifer Hudson win an Academy Award for best Supporting Actress? In what movie did Judi Dench win an Academy Award for best Supporting Actress? In which movie did Geena Davis win the Academy Award for best actress in a supporting role? In what film did Rachel Weisz win an Academy Award for best Supporting Actress?",
+   "relevance_score": 0.10470616,
+   "published_date": null,
+   "source_domain": "www.quora.com"
+  }
+ ],
+ "provided_urls": [
+  "https://www.instagram.com/popular/in-the-first-movie-that-emma-stone-won-an-academy-award-for-best-actress-in-did-her-costar-win-an-academy-award-for-best-actor",
+  "https://www.filmibeat.com/top-listing/oscar-winners-2024-best-actor-cillian-murphy-best-actress-emma-stone-1-2439.html",
+  "https://www.quora.com/Who-will-win-the-Academy-Award-for-Best-Actress-in-2017",
+  "https://www.quora.com/Do-you-think-Emma-Stone-deserved-the-best-Actress-award-over-Lily-Gladstone-at-the-2024-Academy-Awards",
+  "https://www.quora.com/Can-an-actor-win-an-Academy-Award-for-acting-if-they-are-not-top-billed-in-their-movie",
+  "https://www.quora.com/In-what-movie-did-Brie-Larson-win-an-Academy-Award-for-best-Actress",
+  "https://www.quora.com/What-are-the-requirements-to-win-a-best-actor-actress-Academy-Award-Oscar",
+  "https://www.quora.com/In-what-movie-did-Octavia-Spencer-win-an-Academy-Award-for-best-Supporting-Actress"
+ ]
+}

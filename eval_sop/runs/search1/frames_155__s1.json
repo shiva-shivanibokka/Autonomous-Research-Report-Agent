@@ -1,0 +1,174 @@
+{
+ "condition": "search1",
+ "qid": "frames_155",
+ "question": "As of August 1 2024, what books has the author of the Harry Potter series written under an alias?",
+ "reference": "The Cuckoo's Calling, The Silkworm, Career of Evil, Lethal White, Troubled Blood, The Ink Black Heart, The Running Grave",
+ "seed": 1,
+ "generator": "claude-haiku-4-5-20251001",
+ "wall_seconds_this_invocation": 4.84,
+ "telemetry": {
+  "llm_calls": 1,
+  "llm_calls_from_cache": 0,
+  "input_tokens": 2512,
+  "output_tokens": 292,
+  "llm_seconds": 3.21,
+  "usd_spent_now": 0.003972,
+  "usd_if_uncached": 0.003972,
+  "models": [
+   "claude-haiku-4-5-20251001"
+  ],
+  "tavily_searches": 1,
+  "tavily_credits_if_uncached": 1,
+  "tavily_credits_spent_now": 1,
+  "llm_calls_by_agent": {
+   "search1": 1
+  },
+  "tokens_by_agent": {
+   "search1": 2804
+  },
+  "pipeline_only": {
+   "input_tokens": 2512,
+   "output_tokens": 292,
+   "llm_seconds": 3.21,
+   "llm_calls": 1,
+   "truncated_calls": 0
+  }
+ },
+ "error": null,
+ "error_kind": null,
+ "nonfatal_errors": [],
+ "strict_error": false,
+ "output_text": "Based on the provided sources, here are the key facts:\n\n• J.K. Rowling writes crime fiction novels under the alias Robert Galbraith [1, 2]\n\n• The Cormoran Strike series includes the following books as of August 1, 2024: The Cuckoo's Calling (2011), The Silkworm (2014), Career of Evil (2015), Lethal White (2018), Troubled Blood (2020), The Ink Black Heart (2022), and The Running Grave (2023) [5]\n\n• The eighth book in the series, The Hallmarked Man, is listed as published in 2025, which is after the August 1, 2024 date specified in the question [5]\n\n• Rowling continues to write under the Galbraith pseudonym to keep the distinction from her other writing and so readers know what to expect from a Cormoran Strike novel [5]\n\nFinal answer: As of August 1, 2024, J.K. Rowling has written seven books under the alias Robert Galbraith: The Cuckoo's Calling, The Silkworm, Career of Evil, Lethal White, Troubled Blood, The Ink Black Heart, and The Running Grave.",
+ "final_answer": "As of August 1, 2024, J.K. Rowling has written seven books under the alias Robert Galbraith: The Cuckoo's Calling, The Silkworm, Career of Evil, Lethal White, Troubled Blood, The Ink Black Heart, and The Running Grave.",
+ "claims": [
+  {
+   "text": "J.K. Rowling writes crime fiction novels under the alias Robert Galbraith",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/J._K._Rowling",
+    "https://time.com/4097917/j-k-rowling-robert-galbraith-pseudonym"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "As of August 1 2024, what books has the author of the Harry Potter series written under an alias?",
+   "stage": "final"
+  },
+  {
+   "text": "The Cormoran Strike series includes the following books as of August 1, 2024: The Cuckoo's Calling (2011), The Silkworm (2014), Career of Evil (2015), Lethal White (2018), Troubled Blood (2020), The Ink Black Heart (2022), and The Running Grave (2023)",
+   "source_urls": [
+    "https://www.jkrowling.com/writing"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "As of August 1 2024, what books has the author of the Harry Potter series written under an alias?",
+   "stage": "final"
+  },
+  {
+   "text": "The eighth book in the series, The Hallmarked Man, is listed as published in 2025, which is after the August 1, 2024 date specified in the question",
+   "source_urls": [
+    "https://www.jkrowling.com/writing"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "As of August 1 2024, what books has the author of the Harry Potter series written under an alias?",
+   "stage": "final"
+  },
+  {
+   "text": "Rowling continues to write under the Galbraith pseudonym to keep the distinction from her other writing and so readers know what to expect from a Cormoran Strike novel",
+   "source_urls": [
+    "https://www.jkrowling.com/writing"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "As of August 1 2024, what books has the author of the Harry Potter series written under an alias?",
+   "stage": "final"
+  }
+ ],
+ "sources": [
+  {
+   "schema_version": "1.0",
+   "url": "https://en.wikipedia.org/wiki/J._K._Rowling",
+   "title": "J. K. Rowling - Wikipedia",
+   "snippet": "Joanne Rowling (/ˈroʊlɪŋ/ ⓘ.ogg \"File:J. K. Rowling (2).ogg\") ROH-ling; born 31 July 1965), better known by her pen name J. K. Rowling, is a British author, philanthropist, producer, and screenwriter. She is best known for writing Harry Potter, a seven-volume series about a young wizard and the best-selling book series in history, with over 600 million copies sold. She also writes Cormoran Strike, an ongoing crime fiction series, under the alias Robert Galbraith. [...] Whited, Lana A. (2015). \"A survey of the critical reception of the Harry Potter series\". In Grimes, M. Katherine; Whited, Lana A. (eds.). Critical Insights: The Harry Potter Series. Salem Press. ISBN \"ISBN (identifier)\") 978-1-61925-520-3. EBSCOhost \"EBSCOhost (identifier)\") 108515151.\n Whited, Lana A., ed. (2024). The Ivory Tower, Harry Potter, and Beyond. University of Missouri Press. ISBN \"ISBN (identifier)\") 978-0-8262-2300-5.\n  + Whited, Lana A. Introduction. In Whited (ed) 20242024). [...] Rowling has enjoyed enormous commercial success as an author. Her Harry Potter series topped bestseller lists, spawned a global media franchise including films \"Harry Potter (films)\") and video games \"Harry Potter (games)\"), and had been translated into 85 languages by 2023. The first three Harry Potter books occupied the top three spots of The New York Times bestseller list for more than a year; they were then moved to a newly created children's list. The final four books each set records as",
+   "relevance_score": 0.8808076,
+   "published_date": null,
+   "source_domain": "en.wikipedia.org"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://time.com/4097917/j-k-rowling-robert-galbraith-pseudonym",
+   "title": "J.K. Rowling Explains Robert Galbraith Pseudonym",
+   "snippet": "Although Harry Potter and the Cursed Child is stealing all the J.K. Rowling-related headlines lately, the Harry Potter author has more things on her mind than the famous boy wizard. For the past few years, Rowling has been writing a series of crime novels under the pseudonym Robert Galbraith. The ruse was successful for a little while, but now that Rowling and Galbraith have been outed as one and the same, she’s fine with openly discussing her alternate identity. [...] In a new interview with NPR about the latest Galbraith novel, Career of Evil,Rowling discusses the research that went in and why she decided to go the pseudonym route after Harry Potter. [...] Interestingly, the protagonist of the Galbraith books, Comoran Strike, has his own complicated relationship to fame thanks to his rock star parentage. Rowling, who maintains a prolific Twitter presence but gives few interviews and keeps her personal life private, said that this element of Strike did come from personal experience.\n\nAdvertisement",
+   "relevance_score": 0.8088086,
+   "published_date": null,
+   "source_domain": "time.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.reddit.com/r/books/comments/2b4bit/jk_rowling_says_that_her_crime_novels_written",
+   "title": "JK Rowling says that her crime novels written under the ...",
+   "snippet": "JK Rowling's crime novels written under the pseudonym Robert Galbraith will eventually outnumber her Harry Potter books, she reveals. Open.",
+   "relevance_score": 0.7938904,
+   "published_date": null,
+   "source_domain": "www.reddit.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://robert-galbraith.com/about-the-author",
+   "title": "About Robert Galbraith (AKA J.K. Rowling)",
+   "snippet": "There are big developments in both their private lives, particularly Robin’s. The relationship between the detective partners is enormous fun to write because underneath a sound friendship there is so much that is unsaid and barely acknowledged. At the beginning of Lethal White, we see a very big step forward, in that both of them admit to themselves what they’re feeling in a very overwrought and stressful setting. The possibility of something more happening between a very intelligent, [...] Why the name Robert Galbraith?\n\nI chose Robert because it’s one of my favourite men’s names, because Robert F Kennedy is my hero and because, mercifully, I hadn’t used it for any of the characters in the Potter series or The Casual Vacancy. [...] Having said that, my favourite of the four published books is Lethal White, which really couldn’t have been trickier to write, partly because I had so much else going on and partly because I’d chosen not only to create a labyrinthine plot, but also to weave in a lot of developments in Strike and Robin’s personal lives.\n\nAt the end of Career of Evil the reader is left wanting to know more about Strike and Robin’s relationship. Can you tell us anything about how it develops in Lethal White?",
+   "relevance_score": 0.62906903,
+   "published_date": null,
+   "source_domain": "robert-galbraith.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.jkrowling.com/writing",
+   "title": "Writing - J.K. Rowling",
+   "snippet": "The Robert Galbraith website can be found here - robert-galbraith.com\n\n[](\n\n### The Cuckoo’s Calling\n\n[](\n\n### The Silkworm\n\n[](\n\n### Career of Evil\n\n[](\n\n### Lethal White\n\n[](\n\n### Troubled Blood\n\n[](\n\n### The Ink Black Heart\n\n[](\n\n### The Running Grave\n\n[](\n\n### The Hallmarked Man\n\n## Other works\n\n[](\n\n### The Casual Vacancy\n\n[](\n\n### Very Good Lives\n\n[](\n\n### The Ickabog\n\n[](\n\n### The Christmas Pig [...] J.K. Rowling’s original intention for writing as Robert Galbraith was for the books to be judged on their own merit, and to establish Galbraith as a well-regarded name in crime in its own right.\n\nNow Robert Galbraith’s true identity is widely known, J.K. Rowling continues to write the crime series under the Galbraith pseudonym to keep the distinction from her other writing and so people will know what to expect from a Cormoran Strike novel. [...] Home\n News\n In My Own Words\n On Writing\n Books\n About\n\n Grown-Ups\n Younger Readers\n\nSkip to content\n\n, The Silkworm (2014), Career of Evil ( 2015), Lethal White (2018), Troubled Blood (2020), The Ink Black Heart (2022), The Running Grave (2023) and The Hallmarked Man (2025), all were published to critical acclaim and were bestsellers in the UK and internationally.The books have all been adapted for television by the BBC and HBO.",
+   "relevance_score": 0.41435426,
+   "published_date": null,
+   "source_domain": "www.jkrowling.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.facebook.com/groups/983616945825132/posts/1634933047360182",
+   "title": "JK Rowling's Cormoran Strike series written under ...",
+   "snippet": "I have a favourite author Robert Galbraith. I just found out today it actually JKRowling writing under a pseudonym. What the heck?",
+   "relevance_score": 0.32190803,
+   "published_date": null,
+   "source_domain": "www.facebook.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://annerallen.com/2012/10/what-if-j-k-rowling-had-used-pseudony",
+   "title": "What if J. K. Rowling had used a Pseudonym? Should Authors Use Different Names for Different Genres? - Anne R. Allen's Blog... with Ruth Harris",
+   "snippet": "I mean, if I'm her, I'm already a Billionaire. So money isn't an issue. I'd just be curious to see if my newest book can stand on it's own merits, how it would be received as a stand-alone novel, instead of as a book \"by the Author of Harry Potter\"\n\n    Yeah, somebody probably would have spilled the beans eventually. But I wouldn't care – my editors would be plotting it as a publicity stunt, most likely! – so long as it didn't happen until after I had seen how the book fared on its own. [...] A number of readers weighed in on The Passive Voice blog about it, and author Mary Sisson left this comment ” If I were her I would have released this under a different name. All anyone is going to do is compare the book to Harry Potter, and then get upset because it’s not Harry Potter.”\n\nOther commenters agreed, saying things like,”The trouble with writing a series of such staggering success right off the bat is that inevitably everyone will be saying, ‘It wasn’t as good as Harry Potter’.” [...] About Rowlings … I have the opposite reaction of many. I think no matter what she wrote the next time around, she'd get bashed by some. Not because the world expects her to reproduce the incredible results of Harry Potter, but because too many have been waiting to tear her down.\n\n    Reply\n28. Ryan Hunter - Writer says\n\n    Interesting post. Thank you! I agree with a lot of your points on taking pen names and considered it quite heavily before I took one myself.",
+   "relevance_score": 0.29258567,
+   "published_date": null,
+   "source_domain": "annerallen.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://joelgoldman.com/on-jk-rowling-pen-names-and-co-authoring-books",
+   "title": "On JK Rowling, Pen Names, and Co-Authoring Books | Joel Goldman | International Best Selling Crime Author",
+   "snippet": "JK Rowling - The Cuckoo’s Calling\n\nAll the controversy and hand wringing surrounding the JK Rowling pen name debacle got me to thinking about pen names. Did you realize that even before Rowling wrote The Cuckoo’s Calling as Robert Galbraith, she used a pen name? According to her website, her official name is Joanne Rowling, but she chose to write under the name J.K. Rowling on the advice of her publisher. He thought young boys might not want to read a book written by a woman. [...] My good friend, Lee Goldberg, wrote under the pen name Ian Ludlow for his first four books, published while he was in college. Lee writes books and television shows. One of his most notable television shows is Monk. He’s also written many books, including The Dead Man (a monthly series), The Walk, and Watch Me Die.\n\ncarers allowance loans [...] 5. Stan Lee – his real name is Stanley Martin Lieber. He wanted to save his real name for highbrow literary work after he got his career going writing comics. But, once he became so famous for his comic books, he had his name legally changed to Stan Lee.",
+   "relevance_score": 0.28569117,
+   "published_date": null,
+   "source_domain": "joelgoldman.com"
+  }
+ ],
+ "provided_urls": [
+  "https://en.wikipedia.org/wiki/J._K._Rowling",
+  "https://time.com/4097917/j-k-rowling-robert-galbraith-pseudonym",
+  "https://www.reddit.com/r/books/comments/2b4bit/jk_rowling_says_that_her_crime_novels_written",
+  "https://robert-galbraith.com/about-the-author",
+  "https://www.jkrowling.com/writing",
+  "https://www.facebook.com/groups/983616945825132/posts/1634933047360182",
+  "https://annerallen.com/2012/10/what-if-j-k-rowling-had-used-pseudony",
+  "https://joelgoldman.com/on-jk-rowling-pen-names-and-co-authoring-books"
+ ]
+}

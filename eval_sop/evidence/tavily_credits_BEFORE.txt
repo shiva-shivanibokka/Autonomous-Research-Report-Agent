@@ -1,0 +1,14 @@
+# before
+E       assert (5 <= 2)
+E        +  where 5 = <eval_sop.tests.test_tavily_credits.SlowTavily object at 0x000001987611DAC0>.calls
+______________ test_failed_searches_still_count_against_the_cap _______________
+    def test_failed_searches_still_count_against_the_cap(tavily):
+E       assert 0 == 1
+E        +  where 0 = <function credits_spent at 0x00000198751E9440>()
+E        +    where <function credits_spent at 0x00000198751E9440> = common.credits_spent
+E       assert (1 == 1 and 5 == 1)
+E        +  where 1 = <eval_sop.tests.test_tavily_credits.SlowTavily object at 0x00000198751BBC80>.calls
+E        +  and   5 = <function credits_spent at 0x00000198751E9440>()
+E        +    where <function credits_spent at 0x00000198751E9440> = common.credits_spent
+FAILED eval_sop/tests/test_tavily_credits.py::test_failed_searches_still_count_against_the_cap
+3 failed in 6.00s

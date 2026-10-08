@@ -1,0 +1,5 @@
+# after
+12 passed in 1.42s
+# parametrised ids actually collected in this venv (httpx2 present):
+read_timeout_is_charged_and_bounded[httpx2]
+read_timeout_is_charged_and_bounded[httpx]

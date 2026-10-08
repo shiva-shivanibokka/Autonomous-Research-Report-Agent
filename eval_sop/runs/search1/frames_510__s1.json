@@ -1,0 +1,125 @@
+{
+ "condition": "search1",
+ "qid": "frames_510",
+ "question": "As of August 2024, which cast member fired from Saturday Night Live appeared on the show Hot Ones?",
+ "reference": "Shane Gillis",
+ "seed": 1,
+ "generator": "claude-haiku-4-5-20251001",
+ "wall_seconds_this_invocation": 5.6,
+ "telemetry": {
+  "llm_calls": 1,
+  "llm_calls_from_cache": 0,
+  "input_tokens": 1525,
+  "output_tokens": 235,
+  "llm_seconds": 2.87,
+  "usd_spent_now": 0.0027,
+  "usd_if_uncached": 0.0027,
+  "models": [
+   "claude-haiku-4-5-20251001"
+  ],
+  "tavily_searches": 1,
+  "tavily_credits_if_uncached": 1,
+  "tavily_credits_spent_now": 1,
+  "llm_calls_by_agent": {
+   "search1": 1
+  },
+  "tokens_by_agent": {
+   "search1": 1760
+  },
+  "pipeline_only": {
+   "input_tokens": 1525,
+   "output_tokens": 235,
+   "llm_seconds": 2.87,
+   "llm_calls": 1,
+   "truncated_calls": 0
+  }
+ },
+ "error": null,
+ "error_kind": null,
+ "nonfatal_errors": [],
+ "strict_error": false,
+ "output_text": "# Key Facts from Sources\n\n• As of August 2024, three cast members were fired/departed from SNL: Punkie Johnson (August 1, 2024), Molly Kearney (August 2, 2024), and Chloe Troast (after season 49). [1]\n\n• The provided sources list cast members who departed or were let go from SNL around August 2024, including Punkie Johnson, Molly Kearney, and Chloe Troast. [1]\n\n• However, the sources provided do not contain any information about which of these departing cast members appeared on the show Hot Ones. [1, 2, 3, 4]\n\nFinal answer: I cannot answer this question based on the provided sources. While the sources identify which cast members were fired/departed from SNL as of August 2024 (Punkie Johnson, Molly Kearney, and Chloe Troast), they do not contain any information about appearances on Hot Ones.",
+ "final_answer": "I cannot answer this question based on the provided sources. While the sources identify which cast members were fired/departed from SNL as of August 2024 (Punkie Johnson, Molly Kearney, and Chloe Troast), they do not contain any information about appearances on Hot Ones.",
+ "claims": [
+  {
+   "text": "As of August 2024, three cast members were fired/departed from SNL: Punkie Johnson (August 1, 2024), Molly Kearney (August 2, 2024), and Chloe Troast (after season 49).",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Saturday_Night_Live_season_49"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "As of August 2024, which cast member fired from Saturday Night Live appeared on the show Hot Ones?",
+   "stage": "final"
+  },
+  {
+   "text": "The provided sources list cast members who departed or were let go from SNL around August 2024, including Punkie Johnson, Molly Kearney, and Chloe Troast.",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Saturday_Night_Live_season_49"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "As of August 2024, which cast member fired from Saturday Night Live appeared on the show Hot Ones?",
+   "stage": "final"
+  },
+  {
+   "text": "However, the sources provided do not contain any information about which of these departing cast members appeared on the show Hot Ones.",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Saturday_Night_Live_season_49",
+    "https://www.billboard.com/lists/saturday-night-live-cast-changes-exits-season-51-snl",
+    "https://parade.com/tv/every-cast-member-and-writer-leaving-snl-season-51",
+    "https://deadline.com/lists/saturday-night-live-cast-members-not-returning-snl-season-51-nbc"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "As of August 2024, which cast member fired from Saturday Night Live appeared on the show Hot Ones?",
+   "stage": "final"
+  }
+ ],
+ "sources": [
+  {
+   "schema_version": "1.0",
+   "url": "https://en.wikipedia.org/wiki/Saturday_Night_Live_season_49",
+   "title": "Saturday Night Live season 49 - Wikipedia",
+   "snippet": "On August 1, 2024, it was announced that cast member Punkie Johnson would be departing the series, after four years. The next day, on August 2, fellow castmate and featured player Molly Kearney announced that they were leaving the show, after just two years. Chloe Troast was let go after this season.\n\n### Cast roster [...] 4. ↑ White, Peter; Grobar, Matt (October 4, 2023). \"'SNL': Pete Davidson & Bad Bunny Among Hosts As NBC Show Sets Returns With SAG-AFTRA Blessing, Full Cast Comes Back For Season 49 & Chloe Troast Joins\". Deadline. Retrieved October 4, 2023.\n5. ↑ Schwartz, Ryan (October 4, 2023). \"Saturday Night Live Sets Return Date; Pete Davidson to Host Season 49 Premiere\". TVLine. Retrieved October 4, 2023.\n6. ↑ \"Punkie Johnson Leaving 'SNL' After 4 Seasons\". August 2024. [...] 23. 1 2 Katz, A.J. (February 27, 2024). \"Shane Gillis' Saturday Night Live Struggles in Total Viewers, But Thrives in P18-49 Demo\". LateNighter. Retrieved March 3, 2024.\n24. ↑ Tolentino, Daysia (February 5, 2024). \"Shane Gillis was fired from 'SNL' for racist and homophobic jokes. Now he's going to host\". NBC News. Retrieved April 21, 2024.`{{cite web}}`: CS1 maint: deprecated archival service (link)",
+   "relevance_score": 0.74385756,
+   "published_date": null,
+   "source_domain": "en.wikipedia.org"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.billboard.com/lists/saturday-night-live-cast-changes-exits-season-51-snl",
+   "title": "'SNL' Cast Changes Ahead of Season 51: Full List of Exits & New Cast",
+   "snippet": "The 2024-25 season 50 cast included 17 people in total: 14 full-time cast members and three featured players. The longest-running cast members on Saturday Night Live are led by Kenan Thompson, who started on the show in 2003 and holds the record for the longest-tenured SNL castmate of all time. Other vets in the mix: Weekend Update co-anchors Colin Jost and Michael Che, who both joined the cast in 2014; Mikey Day (2016); Ego Nwodim (2018); and Chloe Fineman and Bowen Yang (both 2019). So far, [...] A post shared by Michael Longfellow (@longfellow\\_michael)\n\n## Leaving: Heidi Gardner\n\nHeidi Gardner at The Television Academy in North Hollywood, CA on June 2, 2025.\n\nHeidi Gardner is the longest-running cast member to exit so far, joining the show in 2017 as a featured player on season 43. She was promoted to full-time cast two years later, in 2019, spending eight seasons on the show. [...] “After seven unforgettable seasons, I have decided to leave SNL. I am immensely grateful to Lorne for the opportunity, to my castmates, the writers, and the crew for their brilliance, support, and friendship,” she wrote in part on Instagram Stories. “Week after week on that stage taught me more than I could have ever imagined, and I will carry those memories (and that laughter) with me always.”\n\n## Joining: Ben Marshall\n\nBen Marshall",
+   "relevance_score": 0.59796065,
+   "published_date": null,
+   "source_domain": "www.billboard.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://parade.com/tv/every-cast-member-and-writer-leaving-snl-season-51",
+   "title": "Every Cast Member and Writer Leaving 'SNL' Before Season 51",
+   "snippet": "Emil Wakim announced his exit from SNL on Aug. 27, saying he received the call that he’d been cut from the show while he was at Six Flags. Wakim joined as a featured player for Season 50 and will",
+   "relevance_score": 0.467308,
+   "published_date": null,
+   "source_domain": "parade.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://deadline.com/lists/saturday-night-live-cast-members-not-returning-snl-season-51-nbc",
+   "title": "'Saturday Night Live': All Cast Members Not Returning For 'SNL' Season 51 On NBC",
+   "snippet": "Devon Walker, was the first cast member to exit SNL ahead of Season 51. Walker joined in 2022 as a featured player and was promoted to main cast member ahead of Season 50.\n\nThe comedic actor leaves SNL after a three-season stint. He has done impressions of the likes of Frank Ocean, Michael Strahan, Shannon Sharpe, Draymond Green and Eric Adams during his time on the show.\n\nWalker took to Instagram to share the news, writing, “Me and baby broke up.” [...] As Lorne Michaels looks ahead to what SNL will look like for the next 50 years, some cast members have announced their exits, and we have compiled a list of all the actors who have confirmed they will not be returning.\n\nRELATED: Every ‘SNL’ Cast Member Over the Years Since 1975\n\nScroll through the list below to see which SNL cast members are exiting ahead of Season 51.\n\n## Michael Longfellow\n\nMichael Longfellow\nMichael Longfellow [...] I still have a crush on Chloe Fineman but I don’t want to see her leave yet. I’m really going to miss Heidi. Love to see her along with Sesame Street cast member Violet Tinnirello on an NBC sitcom show in 2026. I would love to see Chloe Fineman to star in her very own sitcom show on CBS, by the time she leaves SNL. Jane Wickline happens to be a breakout star. I would love to see her be a repertory player when the new season of SNL stars October 4th. I’ll hope that Heidi Gardner to come back to",
+   "relevance_score": 0.32924125,
+   "published_date": null,
+   "source_domain": "deadline.com"
+  }
+ ],
+ "provided_urls": [
+  "https://en.wikipedia.org/wiki/Saturday_Night_Live_season_49",
+  "https://www.billboard.com/lists/saturday-night-live-cast-changes-exits-season-51-snl",
+  "https://parade.com/tv/every-cast-member-and-writer-leaving-snl-season-51",
+  "https://deadline.com/lists/saturday-night-live-cast-members-not-returning-snl-season-51-nbc"
+ ]
+}

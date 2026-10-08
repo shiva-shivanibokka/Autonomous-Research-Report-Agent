@@ -1,0 +1,7 @@
+# after (round-4 items 1 and 2)
+12 passed in 1.09s
+# invalid caps refused via the CLI (exit 2, with the reason)
+--usd-cap 12 -> exit=2 REFUSED: cap $12.0 exceeds this project's hard max $8.0
+--usd-cap nan -> exit=2 REFUSED: cap nan must be a finite positive number of dollars
+--usd-cap inf -> exit=2 REFUSED: cap inf must be a finite positive number of dollars
+--usd-cap 0 -> exit=2 REFUSED: cap 0.0 must be a finite positive number of dollars

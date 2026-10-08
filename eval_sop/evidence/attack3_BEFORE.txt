@@ -1,0 +1,5 @@
+# review3/rr/attack3.py at 059bd76
+1 interleave: cap 0.006 spent 0.01010 -> over cap: True
+2 crash-resume: spent 0.25 rows [('pending', 0.25)]
+3 order: rows visible to another process at send time: [('pending', 0.000555)]
+4 http-529 then ok: [('stream_error:overloaded_error', 0.005052), ('ok', 6e-05)]

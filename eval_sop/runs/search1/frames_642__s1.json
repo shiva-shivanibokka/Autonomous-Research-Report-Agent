@@ -1,0 +1,184 @@
+{
+ "condition": "search1",
+ "qid": "frames_642",
+ "question": "How much older than Michael B. Jordan is Michael Jordan?",
+ "reference": "24 years",
+ "seed": 1,
+ "generator": "claude-haiku-4-5-20251001",
+ "wall_seconds_this_invocation": 5.81,
+ "telemetry": {
+  "llm_calls": 1,
+  "llm_calls_from_cache": 0,
+  "input_tokens": 2283,
+  "output_tokens": 219,
+  "llm_seconds": 2.83,
+  "usd_spent_now": 0.003378,
+  "usd_if_uncached": 0.003378,
+  "models": [
+   "claude-haiku-4-5-20251001"
+  ],
+  "tavily_searches": 1,
+  "tavily_credits_if_uncached": 1,
+  "tavily_credits_spent_now": 1,
+  "llm_calls_by_agent": {
+   "search1": 1
+  },
+  "tokens_by_agent": {
+   "search1": 2502
+  },
+  "pipeline_only": {
+   "input_tokens": 2283,
+   "output_tokens": 219,
+   "llm_seconds": 2.83,
+   "llm_calls": 1,
+   "truncated_calls": 0
+  }
+ },
+ "error": null,
+ "error_kind": null,
+ "nonfatal_errors": [],
+ "strict_error": false,
+ "output_text": "# Key Facts\n\n• Michael B. Jordan was born on February 9, 1987 [1, 3]\n\n• The sources provided do not contain information about Michael Jordan's (the basketball player's) birth date or age [all sources]\n\n• Michael B. Jordan's father is named Michael A. Jordan, and according to Michael B. Jordan himself, his father is older than NBA player Michael Jordan [7]\n\n• The sources reference \"Michael Jordan\" the basketball player only in comparison to Michael B. Jordan's name, not providing his biographical details [3, 4, 6, 7]\n\n• Without Michael Jordan's birth date in the provided sources, the exact age difference cannot be calculated [all sources]\n\n**Final answer:** I cannot answer this question because the provided sources do not contain Michael Jordan's (the NBA player's) birth date or age. While the sources confirm Michael B. Jordan was born in 1987, they do not provide the information needed to calculate the age difference between the two individuals.",
+ "final_answer": "I cannot answer this question because the provided sources do not contain Michael Jordan's (the NBA player's) birth date or age. While the sources confirm Michael B. Jordan was born in 1987, they do not provide the information needed to calculate the age difference between the two individuals.",
+ "claims": [
+  {
+   "text": "Michael B. Jordan was born on February 9, 1987",
+   "source_urls": [
+    "https://olderthan.com/people/michael-b-jordan",
+    "https://en.wikipedia.org/wiki/Michael_B._Jordan"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "How much older than Michael B. Jordan is Michael Jordan?",
+   "stage": "final"
+  },
+  {
+   "text": "The sources provided do not contain information about Michael Jordan's (the basketball player's) birth date or age [all sources]",
+   "source_urls": [],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "How much older than Michael B. Jordan is Michael Jordan?",
+   "stage": "final"
+  },
+  {
+   "text": "Michael B. Jordan's father is named Michael A. Jordan, and according to Michael B. Jordan himself, his father is older than NBA player Michael Jordan",
+   "source_urls": [
+    "https://www.youtube.com/watch?v=Xgw2WsSrN4w"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "How much older than Michael B. Jordan is Michael Jordan?",
+   "stage": "final"
+  },
+  {
+   "text": "The sources reference \"Michael Jordan\" the basketball player only in comparison to Michael B. Jordan's name, not providing his biographical details",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Michael_B._Jordan",
+    "https://www.eonline.com/news/1426953/michael-b-jordan-on-michael-jordan-comparisons-changing-name",
+    "https://www.nbcnewyork.com/entertainment/entertainment-news/michael-b-jordan-on-michael-jordan-comparisons-changing-name/6439980",
+    "https://www.youtube.com/watch?v=Xgw2WsSrN4w"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "How much older than Michael B. Jordan is Michael Jordan?",
+   "stage": "final"
+  },
+  {
+   "text": "Without Michael Jordan's birth date in the provided sources, the exact age difference cannot be calculated [all sources]",
+   "source_urls": [],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "How much older than Michael B. Jordan is Michael Jordan?",
+   "stage": "final"
+  }
+ ],
+ "sources": [
+  {
+   "schema_version": "1.0",
+   "url": "https://olderthan.com/people/michael-b-jordan",
+   "title": "Are You Older Than Michael B. Jordan? (Age 39) | OlderThan",
+   "snippet": "2016\n\n2017\n\n2018\n\n2019\n\n2020\n\n2021\n\n2022\n\n2023\n\n2024\n\n2025\n\n2026\n\nMichael B. Jordan, Actor\n\nActor\n\n# Michael B. Jordan\n\nMichael B. Jordan was born on February 9, 1987 in Santa Ana, California. He appeared in 'The Sopranos' at age 12 and starred in 'The Wire' at 16.\n\nMichael B. Jordan was born in 1987 and is currently 39 years old. Anyone born before 1987 is older than Michael.\n\nMichael B. Jordan is 39 years old in 2026, born on February 9, 1987 in Santa Ana, California (Aquarius).\n\nBorn [...] Michael B. Jordan was 36 years old when he directed and starred in 'Creed III', marking his feature directorial debut while continuing the beloved boxing franchise.\n\nMichael B. Jordan was 36 years old when he directed and starred in 'Creed III' in 2023. Are you older than Michael was? Enter your birth year to compare.\n\n## Age by Year [...] Michael B. Jordan was 36 years old when he received the NAACP Image Award for Outstanding Actor in 2023. This award recognized his contributions to film and television, as well as his advocacy for diversity in the industry.\n\nMichael B. Jordan was 36 years old when he received the NAACP Image Award for Outstanding Actor in 2023. Are you older than Michael was? Enter your birth year to compare.\n\n36\n\n2023\n\n### Directed and starred in 'Creed III'",
+   "relevance_score": 0.9071234,
+   "published_date": null,
+   "source_domain": "olderthan.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.reddit.com/r/OnCinemaAtTheCinema/comments/1vjvdil/other_michael_a_jordanthe_father_of_actor_michael",
+   "title": "[Other] Michael A. Jordan—the father of actor Michael B. ...",
+   "snippet": "Michael A. Jordan—the father of actor Michael B. Jordan—appears to be 39 years older than his son. If their naming trend continues, Michael Z.",
+   "relevance_score": 0.81133276,
+   "published_date": null,
+   "source_domain": "www.reddit.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://en.wikipedia.org/wiki/Michael_B._Jordan",
+   "title": "Michael B. Jordan - Wikipedia",
+   "snippet": "For the American former professional basketball player, see Michael Jordan.\n\n| Michael B. Jordan |\n\n| Jordan in 2025 |\n| Born | Michael Bakari Jordan   (1987-02-09) February 9, 1987 (age 39)  Santa Ana, California, U.S. |\n| Occupations |  Actor  director  producer |\n| Years active | 1999–present |\n| Awards | Full list | [...] 70. ↑ \"The Heartwarming Reason Why Michael B. Jordan Lives with His Parents\". Flare. February 23, 2018. Archived from the original on May 1, 2021. Retrieved October 17, 2018.\n71. ↑ Berger, Sarah (February 20, 2018). \"Why 31-year-old 'Black Panther' star Michael B. Jordan still lives with his parents\". CNBC. Archived from the original on October 18, 2018. Retrieved October 17, 2018.\n72. ↑ \"Michael B Jordan Goes Undercover on Twitter, YouTube and Reddit\". GQ. November 12, 2018.[dead YouTube link] [...] 63. ↑ Fleming, Mike Jr. (October 26, 2021). \"Michael B. Jordan's 'Val Zod' Superhero Project Lands Darnell Metayer & Josh Peters To Adapt For HBO Max\". Deadline Hollywood. Archived from the original on October 26, 2021. Retrieved January 21, 2022.",
+   "relevance_score": 0.6058229,
+   "published_date": null,
+   "source_domain": "en.wikipedia.org"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.eonline.com/news/1426953/michael-b-jordan-on-michael-jordan-comparisons-changing-name",
+   "title": "Michael B. Jordan on Michael Jordan Comparisons, Changing Name",
+   "snippet": "“I got teased so much,” he told CBS Sunday Morning in an interview that aired Jan. 4, “to the point where I almost changed my name.”\n\nIn fact, the 38-year-old—who was named after his father, Michael A. Jordan—considered going by his middle name Bakari, meaning “noble promise” in Swahili. However, he opted instead to embrace his given moniker, noting that being compared to the basketball superstar “was a part of the alchemy that made me who I am today.” [...] She said her mother, who gave birth to her at age 19, responded, \"Let me look at that!\" and then, recalling her postpartum experience, added, \"I was only a teenager, and I was in a lot of pain. Give me a break.\"\n\nPrince Williams/WireImage\n\nCollins Obinna Chibueze\n\nThe outlaw country star adopted Shaboozey as his nickname and later used it as his official alias as a music artist after his Virginia high school misspelled his surname that way.\n\n(Disney/Eric McCandless)\n\nKatheryn Elizabeth Hudson [...] \"Because he passed away when I was 10, by the time I turned 16 and I hadn't heard his name for five, five-and-a-half years,” he continued. “I was like, ‘I kinda just want to hear that name again.’ So I asked people to call me Sterling.\"\n\nChristopher Polk/Variety via Getty Images\n\nNicholas Dylan Efron",
+   "relevance_score": 0.57666177,
+   "published_date": null,
+   "source_domain": "www.eonline.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.facebook.com/djenvy/posts/my-dads-name-is-michael-jordan-and-hes-older-than-mj-michael-b-jordan/1155058289320687",
+   "title": "My dad's name is Michael Jordan and he's older than MJ",
+   "snippet": "Granted I was 14 at the time and this was not an easy feat... But Mr Jordan saw this and parted the sea of people to allow us to come see him. I",
+   "relevance_score": 0.575517,
+   "published_date": null,
+   "source_domain": "www.facebook.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.nbcnewyork.com/entertainment/entertainment-news/michael-b-jordan-on-michael-jordan-comparisons-changing-name/6439980",
+   "title": "Michael B. Jordan almost changed his name due to NBA’s Michael Jordan – NBC New York",
+   "snippet": "In fact, the 38-year-old — who was named after his father, Michael A. Jordan — considered going by his middle name Bakari, meaning “noble promise” in Swahili. However, he opted instead to embrace his given moniker, noting that being compared to the basketball superstar “was a part of the alchemy that made me who I am today.” [...] [](\n\nMar 1, 2023\n\n### Michael B. Jordan Honored With Star on Hollywood Walk of Fame\n\n[](\n\nnews  Apr 23, 2025\n\n### How ‘Sinners' star Michael B. Jordan starts his day and approaches food in his 30s: ‘You know what the consequences are if you eat like s—‘\n\nBut for now, Jordan is celebrating the ongoing success of \"Sinners,\" both at the box office and among critics. [...] “It definitely made me want to be competitive,” he explained. “I wanted to be great at something, if not for nothing else at that time, just to feel like I had my own identity.”\n\nWhat a difference a decade makes.\n\nREAD: Inside Michael B. Jordan’s Award-Worthy Evolution From All My Children to Sinners",
+   "relevance_score": 0.5568099,
+   "published_date": null,
+   "source_domain": "www.nbcnewyork.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.youtube.com/watch?v=Xgw2WsSrN4w",
+   "title": "Michael B. Jordan On Having Same Name As Michael Jordan",
+   "snippet": "[0:19] the NBA. And actually technically that Michael Jordan was an actor too as he starred in 1996's Space Jam three years before Michael B. Jordan's first acting\n[0:27] credit in 1999 at 12 years old, but before that he was just Michael Jordan in school.\n[0:33] I think it kind of created like a healthy chip. So like, you know, of wanting to be competitive at whatever it was or a sense of wanting your own identity. [...] [0:41] Now, it wasn't that Michael Bee's parents were completely oblivious to the rising star in the NBA. You know, they named their son in line with family lineage.\n[0:49] My dad's name is Michael Jordan. Okay.\n[0:51] I think that my dad Yeah. No, I know. It was it was the most and so he was probably around the same. My dad's older than Mike. He's older than Mike. Yeah. Yeah. So, no, no, I had no shot.\n[0:59] It was what it was going to be. [...] [1:46] more inclined to name their son Michael after the rise of Michael Jordan, the basketball star, or they were less inclined to name their son Michael.\n[1:54] Yeah. So, it wasn't the same as the basketball star. And the funny thing is that Michael B. Jordan did play basketball in high school. And yeah, he has said that he, you know, was interested in pursuing a career there",
+   "relevance_score": 0.49787658,
+   "published_date": null,
+   "source_domain": "www.youtube.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.imdb.com/name/nm0430107",
+   "title": "Michael B. Jordan",
+   "snippet": "Michael B. Jordan, the middle of three children, was born in Santa Ana, California and raised in Newark, New Jersey. He is the son of Donna (Davis),",
+   "relevance_score": 0.2417269,
+   "published_date": null,
+   "source_domain": "www.imdb.com"
+  }
+ ],
+ "provided_urls": [
+  "https://olderthan.com/people/michael-b-jordan",
+  "https://www.reddit.com/r/OnCinemaAtTheCinema/comments/1vjvdil/other_michael_a_jordanthe_father_of_actor_michael",
+  "https://en.wikipedia.org/wiki/Michael_B._Jordan",
+  "https://www.eonline.com/news/1426953/michael-b-jordan-on-michael-jordan-comparisons-changing-name",
+  "https://www.facebook.com/djenvy/posts/my-dads-name-is-michael-jordan-and-hes-older-than-mj-michael-b-jordan/1155058289320687",
+  "https://www.nbcnewyork.com/entertainment/entertainment-news/michael-b-jordan-on-michael-jordan-comparisons-changing-name/6439980",
+  "https://www.youtube.com/watch?v=Xgw2WsSrN4w",
+  "https://www.imdb.com/name/nm0430107"
+ ]
+}

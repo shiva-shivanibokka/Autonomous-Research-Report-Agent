@@ -1,0 +1,3 @@
+# after
+tests/integration/test_api.py::test_failed_job_does_not_leak_the_exception_to_the_client
+122 passed, 4 warnings in 12.61s

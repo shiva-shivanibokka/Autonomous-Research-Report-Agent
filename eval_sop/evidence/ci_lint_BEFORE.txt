@@ -1,0 +1,8 @@
+# ruff check . at 894b577 (CI runs this on the whole repo)
+144
+    144 eval_sop
+24 files would be reformatted, 44 files already formatted
+# before
+E           AssertionError: (['check', '.'], 'val_sop\\tests\\test_tavily_credits.py:43:5
+eval_sop\tests\test_lint.py:21: AssertionError
+1 failed in 1.14s

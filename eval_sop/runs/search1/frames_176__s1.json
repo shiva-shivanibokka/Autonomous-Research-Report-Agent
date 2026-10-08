@@ -1,0 +1,160 @@
+{
+ "condition": "search1",
+ "qid": "frames_176",
+ "question": "For the year 2020, what was the difference in total fertility rate (TFR) for East Timor and Japan?",
+ "reference": "1.92",
+ "seed": 1,
+ "generator": "claude-haiku-4-5-20251001",
+ "wall_seconds_this_invocation": 3.25,
+ "telemetry": {
+  "llm_calls": 1,
+  "llm_calls_from_cache": 0,
+  "input_tokens": 3070,
+  "output_tokens": 165,
+  "llm_seconds": 1.8,
+  "usd_spent_now": 0.003895,
+  "usd_if_uncached": 0.003895,
+  "models": [
+   "claude-haiku-4-5-20251001"
+  ],
+  "tavily_searches": 1,
+  "tavily_credits_if_uncached": 1,
+  "tavily_credits_spent_now": 1,
+  "llm_calls_by_agent": {
+   "search1": 1
+  },
+  "tokens_by_agent": {
+   "search1": 3235
+  },
+  "pipeline_only": {
+   "input_tokens": 3070,
+   "output_tokens": 165,
+   "llm_seconds": 1.8,
+   "llm_calls": 1,
+   "truncated_calls": 0
+  }
+ },
+ "error": null,
+ "error_kind": null,
+ "nonfatal_errors": [],
+ "strict_error": false,
+ "output_text": "• Japan's total fertility rate for 2020 was 1.3 children per woman [1]\n\n• East Timor (Timor-Leste) had a total fertility rate of 3.366 children per woman in 2020, according to the World Bank data [5]\n\n• The difference between East Timor's TFR (3.366) and Japan's TFR (1.3) for 2020 is 2.066 children per woman\n\nFinal answer: The difference in total fertility rate between East Timor and Japan for 2020 was approximately 2.07 children per woman, with East Timor having the higher rate (3.366 vs 1.3).",
+ "final_answer": "The difference in total fertility rate between East Timor and Japan for 2020 was approximately 2.07 children per woman, with East Timor having the higher rate (3.366 vs 1.3).",
+ "claims": [
+  {
+   "text": "Japan's total fertility rate for 2020 was 1.3 children per woman",
+   "source_urls": [
+    "https://www.facebook.com/SimonGerman600/posts/fertility-rates-across-east-asia-are-comically-low-look-to-these-nations-to-see-/1508471033974933"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "For the year 2020, what was the difference in total fertility rate (TFR) for East Timor and Japan?",
+   "stage": "final"
+  },
+  {
+   "text": "East Timor (Timor-Leste) had a total fertility rate of 3.366 children per woman in 2020, according to the World Bank data",
+   "source_urls": [
+    "https://www.macrotrends.net/global-metrics/countries/jpn/japan/fertility-rate"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "For the year 2020, what was the difference in total fertility rate (TFR) for East Timor and Japan?",
+   "stage": "final"
+  },
+  {
+   "text": "The difference between East Timor's TFR (3.366) and Japan's TFR (1.3) for 2020 is 2.066 children per woman",
+   "source_urls": [],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "For the year 2020, what was the difference in total fertility rate (TFR) for East Timor and Japan?",
+   "stage": "final"
+  }
+ ],
+ "sources": [
+  {
+   "schema_version": "1.0",
+   "url": "https://www.facebook.com/SimonGerman600/posts/fertility-rates-across-east-asia-are-comically-low-look-to-these-nations-to-see-/1508471033974933",
+   "title": "Fertility rates across East Asia are comically low. Look to ...",
+   "snippet": "Japan's fertility rate of 1.3 in 2020, the latest year for which comparable figures are available, puts it on a par with mainland China",
+   "relevance_score": 0.49816954,
+   "published_date": null,
+   "source_domain": "www.facebook.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.elibrary.imf.org/view/journals/002/2020/040/article-A003-en.xml",
+   "title": "Japan: Selected Issues in: IMF Staff Country Reports Volume 2020 Issue 040 (2020)",
+   "snippet": "Figure 1.\n\nFigure 1.\n\nFigure 1.\n\nJapan’s Fertility Rate–Stylized Facts\n\nCitation: IMF Staff Country Reports 2020, 040; 10.5089/9781513529424.002.A003\n\n Download Figure\n Download figure as PowerPoint slide [...] 2\n\nThe total fertility rate in a specific year is defined as the total number of children that would be born to each woman if she were to live to the end of her child-bearing years and give birth to children in alignment with the prevailing age-specific fertility rates. This indicator is measured in children per woman. See OECD (2019).\n\n3\n\nSee NIPSSR (2015).\n\n4 [...] 1. Japan’s population is projected to decline by more than 25 percent in the next 40 years, if the current low fertility rate persists. Japan’s total fertility rate (sum of the age-specific birth rates of women aged 15 to 49) stood at 1.4 children per woman in 2018, which is well below the population replacement level of 2.1.2 In addition, a large gap remains between the actual fertility rate and the “desired” rate of 1.8—the latter being the rate expected if people had their desired number of",
+   "relevance_score": 0.36615953,
+   "published_date": null,
+   "source_domain": "www.elibrary.imf.org"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://populationeducation.org/what-total-fertility-rate-by-country-can-tell-you-about-world-population",
+   "title": "Total Fertility by Country & World Population - Population Education",
+   "snippet": "Total fertility rate (TFR) is defined as the average number of children a woman will have in her lifetime in a given population. Take a look at the chart below to see trends in TFR from 1990 to 2020, according to the 2021 World Population Data Sheet. The chart includes TFR in 1990 and TFR in 2020 for major world regions, countries of interest, for countries by income group, as well as the global average total fertility rate. [...] The country with the lowest TFR as of 2020 is South Korea (0.8), while the country with the highest TFR is Niger (7.0). The United Arab Emirates has experienced the greatest change since 1990, with a 69% decline in fertility rate. Of the 202 countries included in the World Population Data Sheet with data from 1990, 93 have a TFR that is at or below replacement level fertility. Only five countries have increased their TFR since 1990 and only seven countries’ TFR remained the same from 1990 to [...] same from 1990 to 2020. There are 28 countries that have a TFR that has decreased by 50% or more since 1990.",
+   "relevance_score": 0.3304069,
+   "published_date": null,
+   "source_domain": "populationeducation.org"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://en.wikipedia.org/wiki/List_of_countries_by_total_fertility_rate",
+   "title": "List of countries by total fertility rate",
+   "snippet": "Total fertility rate (TFR) is the expected number of children born per woman. Developing countries in Africa and the Middle East typically have the highest TFR, while developed economies, particularly those in Asia, are among the lowest. The TFR at which population is stable or growing, known as the replacement rate, is 2.2; below this is sub-replacement fertility. As of 2026( global TFR is 2.23, with the highest in Chad (5.84), Somalia (5.81), and DR Congo (5.80), and the lowest in Macau [...] ## Methodology\n\n[edit]\n\nThe first lists show the most recent year where there is published total fertility rate (TFR) data ranked by sovereign states and dependencies, and are ordered by organization type – intergovernmental, governmental, or non-governmental organization that searched, organized, and published the data. [...] The World Bank ranking list is based on the data for the year 2020 published online.( The World Bank is a United Nationsinternational financial institution, a component of the World Bank Group, and a member of the United Nations Development Group, but it also collects and analyses information on demography issues based on international and national sources: (1) United Nations Population Division: World Population Prospects, (2) United Nations Statistics Division: Population and Vital Statistics",
+   "relevance_score": 0.30173275,
+   "published_date": null,
+   "source_domain": "en.wikipedia.org"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.macrotrends.net/global-metrics/countries/jpn/japan/fertility-rate",
+   "title": "Japan Fertility Rate (1950-2026)",
+   "snippet": "Japan fertility rate for 2025 was 1.38, a 0.51% increase from 2024.\n   Japan fertility rate for 2024 was 1.37, a 0.51% increase from 2023.\n   Japan fertility rate for 2023 was 1.37, a 0.07% decline from 2022. [...] | Sudan | 4.005 |\n| Solomon Islands | 3.997 |\n| Guinea-Bissau | 3.982 |\n| Sao Tome and Principe | 3.938 |\n| Equatorial Guinea | 3.933 |\n| Togo | 3.909 |\n| Liberia | 3.868 |\n| Comoros | 3.765 |\n| Malawi | 3.736 |\n| Madagascar | 3.718 |\n| Sierra Leone | 3.621 |\n| Eritrea | 3.597 |\n| Ethiopia | 3.585 |\n| Gabon | 3.566 |\n| Samoa | 3.561 |\n| Rwanda | 3.549 |\n| Afghanistan | 3.521 |\n| Ghana | 3.517 |\n| Vanuatu | 3.516 |\n| Timor-Leste | 3.366 |\n| Iraq | 3.325 |\n| Kiribati | 3.315 |\n| Tonga | 3.3 | [...] Total fertility rate represents the number of children that would be born to a woman if she were to live to the end of her childbearing years and bear children in accordance with age-specific fertility rates of the specified year. The full historical dataset is available for download here: Japan Fertility Rate | Historical Data | 1950 - 2026.\n\nView More\n\n## Births per Woman\n\nImage 2: Click on chart icon to view chart\n\nImage 3: Click on table icon to view table\n\n## Annual % Change",
+   "relevance_score": 0.29768986,
+   "published_date": null,
+   "source_domain": "www.macrotrends.net"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.iffsreproduction.org/total-fertility-rate",
+   "title": "Total fertility rate | International Federation of Fertility Societies",
+   "snippet": "| Côte d’Ivoire | 5,07 | 4,23 |\n| Jamaica | 1,54 | 1,35 |\n| Japan | 1,39 | 1,22 |\n| Kazakhstan | 2,76 | 2,98 |\n| Jordan | 3,30 | 2,60 |\n| Kenya | 3,84 | 3,17 |\n| Dem. People’s Rep. of Korea | 1,87 | 1,78 |\n| Republic of Korea | 1,20 | 0,73 |\n| Kosovo (under UNSC res. 1244) | 1,87 | 1,54 |\n| Kuwait | 2,06 | 1,51 |\n| Kyrgyzstan | 3,21 | 2,78 |\n| Lao People’s Dem. Republic | 2,80 | 2,40 |\n| Lebanon | 2,38 | 2,23 |\n| Lesotho | 3,24 | 2,66 |\n| Latvia | 1,65 | 1,34 |\n| Liberia | 4,62 | 3,86 | [...] |  |  |  |\n --- \n| Location | Value 2014 | Value 2024 |\n| Afghanistan | 5,77 | 4,76 |\n| Albania | 1,72 | 1,34 |\n| Algeria | 3,08 | 2,72 |\n| American Samoa | 2,85 | 2,27 |\n| Andorra | 1,17 | 1,09 |\n| Angola | 5,86 | 5,05 |\n| Antigua and Barbuda | 1,53 | 1,58 |\n| Azerbaijan | 2,13 | 1,67 |\n| Argentina | 2,39 | 1,50 |\n| Australia | 1,81 | 1,64 |\n| Austria | 1,46 | 1,32 |\n| Bahamas | 1,69 | 1,37 |\n| Bahrain | 2,15 | 1,80 |\n| Bangladesh | 2,23 | 2,14 |\n| Armenia | 1,66 | 1,72 | [...] | Portugal | 1,23 | 1,51 |\n| Guinea-Bissau | 4,79 | 3,76 |\n| Timor-Leste | 4,00 | 2,63 |\n| Puerto Rico | 1,44 | 0,94 |\n| Qatar | 2,03 | 1,72 |\n| Réunion | 2,24 | 2,15 |\n| Romania | 1,56 | 1,71 |\n| Russian Federation | 1,77 | 1,46 |\n| Rwanda | 4,12 | 3,64 |\n| Saint Barthélemy | 0,93 | 0,81 |\n| Saint Helena | 1,70 | 1,64 |\n| Saint Kitts and Nevis | 1,67 | 1,53 |\n| Anguilla | 1,47 | 1,36 |\n| Saint Lucia | 1,48 | 1,39 |\n| Saint Martin (French part) | 2,71 | 2,67 |",
+   "relevance_score": 0.22517838,
+   "published_date": null,
+   "source_domain": "www.iffsreproduction.org"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://ourworldindata.org/fertility-rate",
+   "title": "Fertility Rate | Our World in Data",
+   "snippet": "#### The fertility rate varies greatly around the world\n\nFertility rates vary greatly around the world.\n\nIn 2023, the total fertility rate was highest in countries in Africa and central Asia, where most countries had a total fertility rate between 3 to 7 births per woman, and lowest in countries in East Asia, where most countries had a total fertility rate below 1. [...] Globally, the total fertility rate was 2.3 children per woman in 2023. This is much lower than in the past; in the 1950s, it was more than twice as high: 4.9. [...] The total fertility rate is a metric that summarizes fertility rates across all age groups of women in one particular year.\n It captures the average number of births per woman, assuming she experiences the same age-specific fertility rates over her lifetime as the fertility rates seen in each age group in one particular year.",
+   "relevance_score": 0.200699,
+   "published_date": null,
+   "source_domain": "ourworldindata.org"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://data.worldbank.org/indicator/SP.DYN.TFRT.IN",
+   "title": "Fertility rate, total (births per woman) | Data",
+   "snippet": "The World Bank\n\nBrowse World Development Indicators byCountryorIndicator\n\n# Fertility rate, total (births per woman)\n\n1960 - 2024\n\n#### Download\n\nCSVXMLEXCEL\n\n#### DataBank\n\nExplore Our DataBank\n\n#### WDI Tables\n\nThematic data tables from WDI\n\n## All Countries and Economies\n\nThe World Bank Working for a World Free of Poverty\nWorld Bank Facebook\nWorld Bank Twitter\nWorld Bank Github\nWorld Bank Linkedin [...] This site uses cookies to optimize functionality and give you the best possible experience. If you continue to navigate this website beyond this page, cookies will be placed on your browser. To learn more about cookies,  click here.",
+   "relevance_score": 0.16668928,
+   "published_date": null,
+   "source_domain": "data.worldbank.org"
+  }
+ ],
+ "provided_urls": [
+  "https://www.facebook.com/SimonGerman600/posts/fertility-rates-across-east-asia-are-comically-low-look-to-these-nations-to-see-/1508471033974933",
+  "https://www.elibrary.imf.org/view/journals/002/2020/040/article-A003-en.xml",
+  "https://populationeducation.org/what-total-fertility-rate-by-country-can-tell-you-about-world-population",
+  "https://en.wikipedia.org/wiki/List_of_countries_by_total_fertility_rate",
+  "https://www.macrotrends.net/global-metrics/countries/jpn/japan/fertility-rate",
+  "https://www.iffsreproduction.org/total-fertility-rate",
+  "https://ourworldindata.org/fertility-rate",
+  "https://data.worldbank.org/indicator/SP.DYN.TFRT.IN"
+ ]
+}

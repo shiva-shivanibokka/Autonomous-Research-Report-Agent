@@ -1,0 +1,2 @@
+# HEAD (059bd76) budget.worst_input_tokens on list content
+AttributeError 'list' object has no attribute 'encode'

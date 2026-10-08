@@ -1,0 +1,193 @@
+{
+ "condition": "search1",
+ "qid": "frames_267",
+ "question": "Twenty-three years after the deadliest battle in the US Civil War, who served as governor in the state in which this battle was fought?",
+ "reference": "Robert E Pattison",
+ "seed": 1,
+ "generator": "claude-haiku-4-5-20251001",
+ "wall_seconds_this_invocation": 7.37,
+ "telemetry": {
+  "llm_calls": 1,
+  "llm_calls_from_cache": 0,
+  "input_tokens": 3000,
+  "output_tokens": 294,
+  "llm_seconds": 3.63,
+  "usd_spent_now": 0.00447,
+  "usd_if_uncached": 0.00447,
+  "models": [
+   "claude-haiku-4-5-20251001"
+  ],
+  "tavily_searches": 1,
+  "tavily_credits_if_uncached": 1,
+  "tavily_credits_spent_now": 1,
+  "llm_calls_by_agent": {
+   "search1": 1
+  },
+  "tokens_by_agent": {
+   "search1": 3294
+  },
+  "pipeline_only": {
+   "input_tokens": 3000,
+   "output_tokens": 294,
+   "llm_seconds": 3.63,
+   "llm_calls": 1,
+   "truncated_calls": 0
+  }
+ },
+ "error": null,
+ "error_kind": null,
+ "nonfatal_errors": [],
+ "strict_error": false,
+ "output_text": "• The Battle of Gettysburg was fought in Pennsylvania on July 1-3, 1863, and is widely considered the deadliest battle in American Civil War history, claiming over 50,000 combined casualties [2]\n\n• Twenty-three years after the Battle of Gettysburg (1863) would be 1886 [2]\n\n• John White Geary served as governor of Pennsylvania after the Civil War, running as a Republican though he had been a lifelong Democrat [4]\n\n• Geary's second term as governor ended shortly before his death on February 8, 1873, meaning he was not serving as governor in 1886 [4]\n\n• Andrew Curtin was Pennsylvania's governor during the Civil War and immediately after the Battle of Gettysburg in 1863 [1], but the sources do not indicate he was governor in 1886\n\n• The provided sources do not contain information about who served as Pennsylvania's governor in 1886 (twenty-three years after Gettysburg)\n\nFinal answer: The sources provided do not contain sufficient information to answer this question. While they identify the Battle of Gettysburg as the deadliest Civil War battle fought in Pennsylvania, and provide information about some post-war Pennsylvania governors, they do not identify who specifically served as Pennsylvania's governor in 1886.",
+ "final_answer": "The sources provided do not contain sufficient information to answer this question. While they identify the Battle of Gettysburg as the deadliest Civil War battle fought in Pennsylvania, and provide information about some post-war Pennsylvania governors, they do not identify who specifically served as Pennsylvania's governor in 1886.",
+ "claims": [
+  {
+   "text": "The Battle of Gettysburg was fought in Pennsylvania on July 1-3, 1863, and is widely considered the deadliest battle in American Civil War history, claiming over 50,000 combined casualties",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Battle_of_Gettysburg"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "Twenty-three years after the deadliest battle in the US Civil War, who served as governor in the state in which this battle was fought?",
+   "stage": "final"
+  },
+  {
+   "text": "Twenty-three years after the Battle of Gettysburg (1863) would be 1886",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Battle_of_Gettysburg"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "Twenty-three years after the deadliest battle in the US Civil War, who served as governor in the state in which this battle was fought?",
+   "stage": "final"
+  },
+  {
+   "text": "John White Geary served as governor of Pennsylvania after the Civil War, running as a Republican though he had been a lifelong Democrat",
+   "source_urls": [
+    "https://www.battlefields.org/learn/biographies/john-white-geary"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "Twenty-three years after the deadliest battle in the US Civil War, who served as governor in the state in which this battle was fought?",
+   "stage": "final"
+  },
+  {
+   "text": "Geary's second term as governor ended shortly before his death on February 8, 1873, meaning he was not serving as governor in 1886",
+   "source_urls": [
+    "https://www.battlefields.org/learn/biographies/john-white-geary"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "Twenty-three years after the deadliest battle in the US Civil War, who served as governor in the state in which this battle was fought?",
+   "stage": "final"
+  },
+  {
+   "text": "Andrew Curtin was Pennsylvania's governor during the Civil War and immediately after the Battle of Gettysburg in 1863 , but the sources do not indicate he was governor in 1886",
+   "source_urls": [
+    "https://npshistory.com/series/symposia/gettysburg_seminars/15/essay2.pdf"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "Twenty-three years after the deadliest battle in the US Civil War, who served as governor in the state in which this battle was fought?",
+   "stage": "final"
+  },
+  {
+   "text": "The provided sources do not contain information about who served as Pennsylvania's governor in 1886 (twenty-three years after Gettysburg)",
+   "source_urls": [],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "Twenty-three years after the deadliest battle in the US Civil War, who served as governor in the state in which this battle was fought?",
+   "stage": "final"
+  }
+ ],
+ "sources": [
+  {
+   "schema_version": "1.0",
+   "url": "https://npshistory.com/series/symposia/gettysburg_seminars/15/essay2.pdf",
+   "title": "“Acting as an agent for Governor Curtin”",
+   "snippet": "attention has been directed to several places where the hogs were actually rooting out the bodies and devouring them.”3 Within a week of the battle the community received important support that would help with the cleanup when Pennsylvania’s governor, Andrew Curtin, dispatched militia to Gettysburg and then went to see things for himself. Over a week since the start of the battle, however, steps that began the large cleanup, including battlefield dead, and assist the local populace in this [...] had started as a position to honor the dead from the battle of Gettysburg from the state of Pennsylvania had developed into a national project of lasting significance, and that it did so had a great deal to do with Wills energy and vision. Little could David Wills have imagined that with one visit from Pennsylvania Governor Andrew Curtin to the small town following the climactic engagement that many aspects of his life would be put on hold to act as an agent for the governor for the next two [...] the beautiful order which prevailed throughout the ceremonies,” and even the rival Democratic newspaper the Compiler also praised Wills.56 For many, the unfinished work ended with President Lincoln’s train leaving Gettysburg late on the evening of November 19 and the public praise of Wills. For David Wills though, acting as an agent for Pennsylvania Governor Andrew Curtin, his work continued for two more years. On November 20, 1863, the day after the dedication ceremony, the reburial process",
+   "relevance_score": 0.74697095,
+   "published_date": null,
+   "source_domain": "npshistory.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Gettysburg",
+   "title": "Battle of Gettysburg - Wikipedia",
+   "snippet": "Photo of white-haired and bearded Robert E. Lee in a double breasted gray uniform with three stars on his collar\n\nRobert E. Lee, the Confederate general, whose attempt to penetrate the North was repelled by Union army troops in the Battle of Gettysburg in what proved the bloodiest battle in both the Civil War and any battle in American history [...] (July 1–3, 1863) was fought in the American Civil War between the Union and Confederate armies in and around Gettysburg, Pennsylvania. The battle, won by the Union, is widely considered the Civil War's turning point, leading to an ultimate victory of the Union \"Union (American Civil War)\") and the preservation of the nation. The Battle of Gettysburg was the bloodiest battle of both the Civil War and of any battle in American military history up to that time, claiming over 50,000 combined [...] In addition to being the deadliest battle of the war, Gettysburg also had the most generals killed in action. Several generals also were wounded. The Confederacy lost generals Paul Jones Semmes, William Barksdale, William Dorsey Pender, Richard Garnett, and Lewis Armistead, as well as J. Johnston Pettigrew during the retreat after the battle. Confederate generals who were wounded included Maj. Gen. John Bell Hood who lost the use of his left arm and Maj. Gen. Henry Heth who received a shot to",
+   "relevance_score": 0.5057865,
+   "published_date": null,
+   "source_domain": "en.wikipedia.org"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.pasuvcw.org/wp-content/uploads/2024/09/PA-State-Senators-in-the-Civil-War.pdf",
+   "title": "The Senate of Pennsylvania in the Civil War, 1861-1865",
+   "snippet": "and saw action at Fredericksburg and the Mud March, where he contracted typhoid fever. He was discharged May 23, 1863; returned to his Bradford law practice; District Attorney, 1864; delegate to the 1876 Cincinnati Republican Convention; state Senate, 1877-1884; candidate for state Treasurer, 1881; unsuccessful candidate for Lt. Gov., 1882; successful bid for Lt. Gov. with Governor Beaver, 1886-1891; married Mary Watkins of Towanda, Oct. 1861. William Davies died in Bradford County, September [...] the 7th Precinct, Saguache County in the Colorado Assembly, and served as Speaker of the House in 1883. Elisha received a federal appointment as Agent to the Nintah and Ute Indians (Utah Territory), but poor health caused Davis to return with his family to Philadelphia, arriving in the city in December 1886. The Honorable Elisha W. Davis died in Philadelphia on February 13, 1887. (Top) Restriction: Courtesy, Mort Kunstler, “The Mud March, January 21, 1863,” © 2006; (Ctr. Lt.) 121st Guidon, Pa. [...] in Philadelphia probably during his Jan.-March 1864 furlough, Photo, Dale Niesen, civilwarmysteries.com. (presently unidentified); (Top Rt.) 73rd State Colors, Pa. Capitol Preservation Committee; (Ctr.) A depiction of Devlin‟s and other Union regiments taking Missionary Ridge, Nov. 26, 1863, Litho., Cossack and Co., 1886, Lib. of Congress; (Btm.) Chmn. Of Regimental Monument Commission Devlin (left of monument, background, with bowtie and bowler hat) after handing the 73rd Monument over to the",
+   "relevance_score": 0.41705835,
+   "published_date": null,
+   "source_domain": "www.pasuvcw.org"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.battlefields.org/learn/biographies/john-white-geary",
+   "title": "John White Geary | American Battlefield Trust",
+   "snippet": "After the war, Geary returned to Pennsylvania and served as governor, running as a Republican though he had been a lifelong Democrat. On February 8, 1873, shortly after his second term as governor ended, Geary died of a heart attack and is buried in Harrisburg, Pennsylvania.\n\nTopic(s):\n\nLeaders\n\nRelated Biographies\n\nWar of 1812  |  Biography\n\n### Pierre Juzan\n\nWar of 1812  |  Biography\n\n### Albert Gallatin\n\n\n\nWar of 1812  |  Biography\n\n### James Barron\n\nView All Related Resources [...] Born on December 30, 1819, native Pennsylvanian John White Geary gained a reputation as much for his military bravery and leadership as for his political ambitions. The son of Richard and Margaret White Geary, John Geary attended Jefferson College at Canonsburg, Pennsylvania but dropped out when his father died. Geary's father left his family with debt from unsuccessful business ventures, a debt which John Geary worked off as a teacher, a store clerk and as an engineer for the railroad until [...] Geary’s “fitness to command and promptness to execute” may be best characterized in his courageous command at the Battle of Gettysburg. On July 3, 1863, the general led a bold counterattack, driving Confederates from their breastworks on Culp’s Hill. Geary’s efforts at Culp’s Hill critically protected the Baltimore Pike, the Union army’s lifeline at Gettysburg.",
+   "relevance_score": 0.27116472,
+   "published_date": null,
+   "source_domain": "www.battlefields.org"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.green-wood.com/2015/civil-war-biographies-granger-hallick",
+   "title": "Civil War Biographies: Granger-Hallick - Green-Wood",
+   "snippet": "was assigned to Virginia during that activation. He mustered out after three months on September 5 at New York City. When his unit was reactivated a year later, he re-enlisted and was commissioned into the same regiment and company on June 18, 1863. The 22nd Regiment was sent to Harrisburg, Pennsylvania, and served in the Department of the Susquehanna until July 8th when it was assigned to the Army of the Potomac. Grant mustered out with his company on July 24 at New York City after serving 30 [...] GREGORY, JR., DUDLEY SANFORD (1831-1886). First lieutenant, 71st Regiment, New York State National Guard, Company A. Born in New York City, Gregory’s family moved to Jersey City, New Jersey, when he was an infant. His father, who bore the same name, was a Congressman and three-time mayor from Jersey City, as well as an entrepreneur who accrued great wealth in the fields of insurance, banking and railroads. His uncle, by marriage, was George Catlin, the noted painter of Native Americans. In [...] HAGERMAN, WILLIAM (1846-1909). Private, 52nd Regiment, New York State National Guard, Company K; landsman, United States Navy. A sail-maker by trade, his father was Jacob Hagerman (see). William Hagerman was 5′ 4″ tall, of fair complexion with blue eyes and light hair, with the tattoo “K.D.” on his right arm. He first served with the 52nd Regiment from June 19, 1863, until he was discharged on July 25, 1863. He enlisted in the United States Navy on May 16, 1864, as a landsman, and served on the",
+   "relevance_score": 0.20121646,
+   "published_date": null,
+   "source_domain": "www.green-wood.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.fold3.com/blog/battle-of-chancellorsville-ends-may-6-1863",
+   "title": "Battle of Chancellorsville Ends: May 6, 1863 - Fold3 HQ",
+   "snippet": "three days at the battle in Pennsylvania. If Hooker’s force had been decimated, Lee would have advanced directly on Washington. [...] Hey Cheryl, that’s great that you know about your GG Grandfather. I have relatives (Virginia) who fought, some who lived, and some who died. Its awe inspiring to think of what they went throught. The South suffered so much, and your GG Grandmother lost her husband, as many women did. May the good Lord be looking out for all of them. Americans like us still have that part of them inside us I believe- I hope we see them again someday… all the best John C. Lee\n\nI also am proud of him [...] John my great-great grandfather. John lied about his age to get into the war, making himself seven years younger than he actually was.",
+   "relevance_score": 0.19990121,
+   "published_date": null,
+   "source_domain": "www.fold3.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://47thpennsylvaniavolunteers.com/history-of-company-a-47th-regiment-pennsylvania-volunteers/roster-company-a-47th-pennsylvania-volunteers/first-lieutenant-john-h-stein",
+   "title": "First Lieutenant John Henry Stein, Sr. — German Immigrant, Wounded Veteran, Restauranteur – 47th Pennsylvania Volunteers",
+   "snippet": "After he returned to his adopted home state of Pennsylvania from the war, John H. Stein settled in Northampton County, where he then wed Christiana Schled (1847-1901; alternate surname spellings: “Schlad,” “Schlete,” “Schlet,” “Schlett”) at St. John’s Lutheran Church in Easton in 1866 or 1867. A native of the Grand Duchy of Baden, Christiana was a daughter of Johanna (Vollmar) Schled (1816-1886), who had also been born in Baden. Following their wedding ceremony, the newlyweds began to make a [...] The 19th Corps, with the 47th in the thick of the fighting, then began pushing the Confederates back. Early’s “grays” retreated in the face of the valor displayed by Sheridan’s “blue jackets.” Leaving twenty-five hundred wounded behind, the Rebels retreated to Fisher’s Hill, eight miles south of Winchester (21-22 September), and then to Waynesboro, following a successful early morning flanking attack by Sheridan’s Union men which outnumbered Early’s three to one. Afterward, the 47th [...] .\n\nStill operating his restaurant in 1880, John H. Stein, Sr. resided with his wife and their six-year-old son, John H. Stein, Jr., in Easton’s First Ward. Also residing with them were his wife’s mother, Johanna Frederica (Vollmar) Schled (1816-1886), and twenty-one-year-old Hesse, Germany native, Henry Berck, who was working for the family as a servant.",
+   "relevance_score": 0.12331308,
+   "published_date": null,
+   "source_domain": "47thpennsylvaniavolunteers.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.facebook.com/WynningHistory/posts/this-is-captain-alexander-b-frazer-of-the-3rd-pennsylvania-cavalry-he-served-his/1331807682284601",
+   "title": "This is Captain Alexander B. Frazer of the 3rd ...",
+   "snippet": "This is Captain Alexander B. Frazer of the 3rd Pennsylvania Cavalry. He served his adopted country during the darkest days of the Civil War.",
+   "relevance_score": 0.12011872,
+   "published_date": null,
+   "source_domain": "www.facebook.com"
+  }
+ ],
+ "provided_urls": [
+  "https://npshistory.com/series/symposia/gettysburg_seminars/15/essay2.pdf",
+  "https://en.wikipedia.org/wiki/Battle_of_Gettysburg",
+  "https://www.pasuvcw.org/wp-content/uploads/2024/09/PA-State-Senators-in-the-Civil-War.pdf",
+  "https://www.battlefields.org/learn/biographies/john-white-geary",
+  "https://www.green-wood.com/2015/civil-war-biographies-granger-hallick",
+  "https://www.fold3.com/blog/battle-of-chancellorsville-ends-may-6-1863",
+  "https://47thpennsylvaniavolunteers.com/history-of-company-a-47th-regiment-pennsylvania-volunteers/roster-company-a-47th-pennsylvania-volunteers/first-lieutenant-john-h-stein",
+  "https://www.facebook.com/WynningHistory/posts/this-is-captain-alexander-b-frazer-of-the-3rd-pennsylvania-cavalry-he-served-his/1331807682284601"
+ ]
+}

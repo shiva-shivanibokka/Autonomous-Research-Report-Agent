@@ -1,0 +1,4 @@
+# before (regex fixed; evidence not yet scrubbed)
+E       AssertionError: assert ['canary_judg...k_BEFORE.txt'] == []
+E         
+E         Left contains 2 more items, first extra item: 'canary_judging_BEFORE.txt'

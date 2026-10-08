@@ -1,0 +1,7 @@
+# review3/rr/httpx2_attack.py at 059bd76
+raised httpx2 ReadTimeout
+attempts 1 rows [('pending', 0.005051)]
+# before (httpx2 cases)
+FAILED eval_sop/tests/test_review2_ledger.py::test_midstream_read_timeout_is_charged_and_bounded[httpx2]
+FAILED eval_sop/tests/test_review2_ledger.py::test_midstream_remote_protocol_error_is_charged[httpx2]
+2 failed, 7 passed in 3.97s

@@ -1,0 +1,321 @@
+{
+ "condition": "pipeline_r2",
+ "qid": "canary_paris",
+ "question": "What is the capital city of France?",
+ "reference": "Paris",
+ "seed": 0,
+ "generator": "claude-haiku-4-5-20251001",
+ "wall_seconds_this_invocation": 27.57,
+ "telemetry": {
+  "llm_calls": 5,
+  "llm_calls_from_cache": 0,
+  "input_tokens": 7898,
+  "output_tokens": 2564,
+  "llm_seconds": 25.73,
+  "usd_spent_now": 0.020718,
+  "usd_if_uncached": 0.020718,
+  "models": [
+   "claude-haiku-4-5-20251001"
+  ],
+  "tavily_searches": 1,
+  "tavily_credits_if_uncached": 1,
+  "tavily_credits_spent_now": 0,
+  "llm_calls_by_agent": {
+   "orchestrator": 1,
+   "analyst": 1,
+   "critic": 1,
+   "writer": 1,
+   "eval_answer_extraction": 1
+  },
+  "tokens_by_agent": {
+   "orchestrator": 435,
+   "analyst": 4747,
+   "critic": 1368,
+   "writer": 2010,
+   "eval_answer_extraction": 1902
+  },
+  "pipeline_only": {
+   "input_tokens": 6173,
+   "output_tokens": 2387,
+   "llm_seconds": 23.36,
+   "llm_calls": 4,
+   "truncated_calls": 0
+  }
+ },
+ "error": null,
+ "error_kind": null,
+ "nonfatal_errors": [],
+ "strict_error": false,
+ "output_text": "# Comprehensive Report: The Capital City of France\n\n## Executive Summary\nParis is definitively established as the capital city of France, a fact confirmed by multiple authoritative sources including Britannica and Wikipedia. Beyond its political significance, Paris holds substantial cultural and geographic importance as France's largest city, strategically positioned on the Seine River in the Île-de-France region. The city's prominence extends beyond administrative functions, as it maintains global recognition through its historical, cultural, and architectural significance.\n\nThis report synthesizes research findings regarding Paris's status and characteristics as the French capital. The research demonstrates high convergence across sources, with no conflicting claims identified. The available data provides clarity on Paris's fundamental role as France's capital while offering contextual information about its size, location, and cultural designation.\n\n## Key Findings\n- Paris is the capital city of France, confirmed by high-confidence sources including Britannica and Wikipedia\n- Paris is also the largest city in France by population and geographic significance\n- The city is located on the Seine River in the centre of the Île-de-France region, strategically positioned for national governance\n- Paris has an estimated city population of 2.04 million residents as of January 2026, making it a major metropolitan center\n- Paris holds the cultural designation 'City of Light' (Ville de Lumière), reflecting its historical importance and global cultural influence\n- Research convergence was achieved in a single research round with no conflicting information identified across sources\n\n## Political Status and Capital Function\nParis serves as the capital city of France, a designation documented in authoritative geographical and historical references. This political status makes Paris the seat of French government, including the presidency, parliament, and major governmental institutions. The confirmation of this basic fact across multiple independent sources, particularly from Britannica (https://www.britannica.com/place/France) and Wikipedia (https://en.wikipedia.org/wiki/Paris), establishes this with high confidence. Paris's role as capital reflects centuries of historical development and centralization of French political power.\n\n## Geographic Location and Regional Context\nParis is located on the Seine River in the centre of the Île-de-France region, a strategic position that has historically contributed to its development and prominence. The city's location on a major waterway provided commercial and transportation advantages that facilitated its growth as France's primary urban center. The Île-de-France region represents the broader metropolitan area surrounding the capital, with Paris serving as its cultural and economic core. This geographic positioning continues to influence the city's role as a national and European hub.\n\n## Demographic Size and Urban Significance\nAs France's largest city, Paris commands substantial demographic and economic importance. With an estimated city population of 2.04 million residents as of January 2026 (per https://en.wikipedia.org/wiki/Paris), Paris represents a significant concentration of France's urban population. This population figure reflects the city proper rather than the broader metropolitan area, which encompasses substantially more residents. The city's size correlates with its functions as the national capital, primary cultural center, and leading economic engine for the country.\n\n## Cultural Identity and Global Recognition\nParis carries the cultural epithet 'City of Light' (Ville de Lumière), a nickname that reflects its historical significance and global cultural influence documented across multiple sources (https://en.wikipedia.org/wiki/Paris and https://brainly.in/question/62118432). This designation speaks to Paris's role as a center of artistic, intellectual, and cultural achievement throughout modern history. The nickname encapsulates the city's influence on art, architecture, literature, philosophy, and design, contributing to its status as one of the world's most recognized and culturally significant cities.\n\n## Research Methodology and Source Assessment\nThis report is based on five approved research claims with no flagged concerns, demonstrating strong source convergence. The primary sources include Britannica, Wikipedia, and educational platforms, representing diverse but complementary sources of geographical and factual information. The coverage score of 1.00 indicates comprehensive treatment of the research query. Source diversity of 0.64 reflects appropriate reliance on specialized geographical and encyclopedic sources while maintaining multiple independent confirmations. Research convergence was achieved in a single round, indicating that available sources provide consistent and non-contradictory information.\n\n## Confidence Assessment\nVery High Confidence. The designation of Paris as France's capital city is supported by authoritative encyclopedic and geographical sources including Britannica and Wikipedia, the most widely recognized references for factual geographic information. The claim holds HIGH confidence rating in the research synthesis. Secondary facts regarding Paris's size, location, and cultural significance are supported by MEDIUM to LOW confidence sources but remain consistent across all available references. No conflicting information was identified, and research convergence was achieved immediately, indicating robust consensus among sources. The basic factual claim regarding Paris as the capital is among the most well-established facts in geographical knowledge.\n\n## Limitations\nThis research addresses a straightforward factual query with clear, established answers, limiting the complexity of findings. The research was completed in a single round, which, while efficient, does not permit exploration of deeper contextual questions about Paris's historical development as capital or comparative analysis with other national capitals. Population data provided is limited to city proper figures and represents a single date (January 2026), potentially missing nuances of metropolitan area populations or historical demographic trends. Some source citations (such as social media and informal educational posts) carry lower reliability than primary encyclopedic sources, though they demonstrate convergence with authoritative references. The research scope does not extend to detailed analysis of Paris's governmental functions, infrastructure, or role in contemporary French politics and policy.\n\n## Citations (8 sources)\n\n1. [France | History, Maps, Flag, Population, Cities, Capital, & Facts](https://www.britannica.com/place/France) — www.britannica.com (accessed 2026-10-05)\n2. [What is the capital city of France and why is it famous? - Brainly.in](https://brainly.in/question/62118432) — brainly.in (accessed 2026-10-05)\n3. [Paris - Wikipedia](https://en.wikipedia.org/wiki/Paris) — en.wikipedia.org (accessed 2026-10-05)\n4. [Discover the city of Paris | Paris the capital city of France](https://www.cia-france.com/french-kids-teenage-courses/paris-school/visit-paris) — www.cia-france.com (accessed 2026-10-05)\n5. [page 4](https://home.adelphi.edu/~ca19535/page%204.html) — home.adelphi.edu (accessed 2026-10-05)\n6. [Paris, France - Intercultural City - Intercultural Cities Programme](https://www.coe.int/en/web/interculturalcities/paris) — www.coe.int (accessed 2026-10-05)\n7. [GENERAL KNOWLEDGE  सामान्य ज्ञान | What is the capital city of France | Facebook](https://www.facebook.com/groups/376100836095453/posts/2780652808973565) — www.facebook.com (accessed 2026-10-05)\n8. [Instagram](https://www.instagram.com/reel/DY7Le9zPT5l?hl=en) — www.instagram.com (accessed 2026-10-05)",
+ "extraction_text": "# Answer\n\nAccording to the report, the answer is clearly stated in multiple sections:\n\nThe Executive Summary confirms that \"Paris is definitively established as the capital city of France, a fact confirmed by multiple authoritative sources including Britannica and Wikipedia.\"\n\nThe Key Findings section reiterates that \"Paris is the capital city of France, confirmed by high-confidence sources.\"\n\nThe Political Status and Capital Function section further elaborates that \"Paris serves as the capital city of France, a designation documented in authoritative geographical and historical references. This political status makes Paris the seat of French government, including the presidency, parliament, and major governmental institutions.\"\n\nThe report establishes this fact with \"Very High Confidence\" and notes it is \"among the most well-established facts in geographical knowledge.\"\n\nFinal answer: Paris is the capital city of France.",
+ "final_answer": "Paris is the capital city of France.",
+ "claims": [
+  {
+   "text": "Paris is the capital city of France",
+   "source_urls": [
+    "https://www.britannica.com/place/France",
+    "https://brainly.in/question/62118432",
+    "https://en.wikipedia.org/wiki/Paris",
+    "https://www.cia-france.com/french-kids-teenage-courses/paris-school/visit-paris"
+   ],
+   "confidence": "high",
+   "supporting_sources": 4,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "What is the capital city of France?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Paris is the largest city of France",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Paris",
+    "https://brainly.in/question/62118432"
+   ],
+   "confidence": "medium",
+   "supporting_sources": 2,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "What is the capital city of France?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Paris has an estimated city population of 2.04 million as of January 2026",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Paris"
+   ],
+   "confidence": "low",
+   "supporting_sources": 1,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "What is the capital city of France?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Paris is located on the Seine in the centre of the Île-de-France region",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Paris"
+   ],
+   "confidence": "low",
+   "supporting_sources": 1,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "What is the capital city of France?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Paris is nicknamed the City of Light",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Paris",
+    "https://brainly.in/question/62118432"
+   ],
+   "confidence": "medium",
+   "supporting_sources": 2,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "What is the capital city of France?",
+   "round": 0,
+   "stage": "final"
+  }
+ ],
+ "rounds": {
+  "0": {
+   "sub_questions": [
+    "What is the capital city of France?"
+   ],
+   "search_urls": [
+    [
+     "https://www.britannica.com/place/France",
+     "https://brainly.in/question/62118432",
+     "https://en.wikipedia.org/wiki/Paris",
+     "https://www.cia-france.com/french-kids-teenage-courses/paris-school/visit-paris",
+     "https://home.adelphi.edu/~ca19535/page%204.html",
+     "https://www.coe.int/en/web/interculturalcities/paris",
+     "https://www.facebook.com/groups/376100836095453/posts/2780652808973565",
+     "https://www.instagram.com/reel/DY7Le9zPT5l?hl=en"
+    ]
+   ],
+   "scraped": [
+    {
+     "sub_question": "What is the capital city of France?",
+     "pages": [
+      {
+       "url": "https://www.britannica.com/place/France",
+       "ok": true,
+       "chars": 8000
+      },
+      {
+       "url": "https://brainly.in/question/62118432",
+       "ok": true,
+       "chars": 1865
+      },
+      {
+       "url": "https://en.wikipedia.org/wiki/Paris",
+       "ok": true,
+       "chars": 8000
+      },
+      {
+       "url": "https://www.cia-france.com/french-kids-teenage-courses/paris-school/visit-paris",
+       "ok": true,
+       "chars": 5695
+      }
+     ]
+    }
+   ],
+   "analyst": [
+    {
+     "sub_question": "What is the capital city of France?",
+     "error": null,
+     "contradictions_found": 0,
+     "claims": [
+      {
+       "text": "Paris is the capital city of France",
+       "source_urls": [
+        "https://www.britannica.com/place/France",
+        "https://brainly.in/question/62118432",
+        "https://en.wikipedia.org/wiki/Paris",
+        "https://www.cia-france.com/french-kids-teenage-courses/paris-school/visit-paris"
+       ],
+       "confidence": "high",
+       "supporting_sources": 4,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "What is the capital city of France?",
+       "round": 0
+      },
+      {
+       "text": "Paris is the largest city of France",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/Paris",
+        "https://brainly.in/question/62118432"
+       ],
+       "confidence": "medium",
+       "supporting_sources": 2,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "What is the capital city of France?",
+       "round": 0
+      },
+      {
+       "text": "Paris has an estimated city population of 2.04 million as of January 2026",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/Paris"
+       ],
+       "confidence": "low",
+       "supporting_sources": 1,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "What is the capital city of France?",
+       "round": 0
+      },
+      {
+       "text": "Paris is located on the Seine in the centre of the Île-de-France region",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/Paris"
+       ],
+       "confidence": "low",
+       "supporting_sources": 1,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "What is the capital city of France?",
+       "round": 0
+      },
+      {
+       "text": "Paris is nicknamed the City of Light",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/Paris",
+        "https://brainly.in/question/62118432"
+       ],
+       "confidence": "medium",
+       "supporting_sources": 2,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "What is the capital city of France?",
+       "round": 0
+      }
+     ]
+    }
+   ],
+   "critic": {
+    "schema_version": "1.0",
+    "flagged_claims": [],
+    "overall_quality_score": 0.82,
+    "coverage_score": 1.0,
+    "source_diversity_score": 0.64,
+    "contradiction_rate": 0.0,
+    "needs_more_research": false,
+    "critic_notes": "The primary research question 'What is the capital city of France?' is fully answered with high confidence (4 sources, no contradictions). Claims 1, 2, and 5 are well-supported. However, claims 3 and 4 rely on single sources and should be strengthened with additional verification, particularly the population figure which includes a specific future date projection (January 2026). Source diversity is moderate - additional independent sources would improve confidence in peripheral claims. No contradictions detected. Overall publication quality is good for a straightforward factual query, though supporting claims benefit from additional verification before final publication.",
+    "tokens_used": 1368,
+    "duration_seconds": 4.589198500034399,
+    "approved_texts": [
+     "Paris is the capital city of France",
+     "Paris is the largest city of France",
+     "Paris has an estimated city population of 2.04 million as of January 2026",
+     "Paris is located on the Seine in the centre of the Île-de-France region",
+     "Paris is nicknamed the City of Light"
+    ]
+   },
+   "critic_round_converged": true
+  }
+ },
+ "provided_urls": [
+  "https://brainly.in/question/62118432",
+  "https://en.wikipedia.org/wiki/Paris",
+  "https://www.britannica.com/place/France",
+  "https://www.cia-france.com/french-kids-teenage-courses/paris-school/visit-paris"
+ ],
+ "pipeline": {
+  "rounds_run": 1,
+  "converged": true,
+  "fatal_error": null,
+  "errors": [],
+  "tokens_used_total_pipeline_accounting": 8560,
+  "tokens_by_agent": {
+   "orchestrator": 435,
+   "analyst": 4747,
+   "critic": 1368,
+   "writer": 2010
+  },
+  "fact_check_results": [],
+  "quality": {
+   "schema_version": "1.0",
+   "coverage_score": 1.0,
+   "source_diversity_score": 0.64,
+   "contradiction_rate": 0.0,
+   "overall_quality_score": 0.82,
+   "confidence_distribution": {
+    "high": 1,
+    "medium": 2,
+    "low": 2,
+    "contested": 0,
+    "inconclusive": 0
+   },
+   "re_research_rounds": 1,
+   "total_sources_consulted": 8,
+   "total_claims_extracted": 5,
+   "claims_flagged_by_critic": 0,
+   "claims_verified_by_fact_checker": 0,
+   "converged": true,
+   "convergence_note": "Report converged after 1 research round(s)."
+  },
+  "n_citations": 8,
+  "activity": [
+   "Orchestrator: Round 1: decomposing query into sub-questions...",
+   "Orchestrator: Decomposed into 1 sub-questions: What is the capital city of France?...",
+   "Search Agents: Launching 1 parallel search agents...",
+   "Search Agents: Retrieved 8 sources across 1 sub-questions",
+   "Scraper Agents: Scraping top 4 sources per sub-question...",
+   "Scraper Agents: Scraped 4/4 pages successfully",
+   "Analyst Agents: Analyzing content across 1 sub-questions in parallel...",
+   "Analyst Agents: Extracted 5 claims across 1 sub-questions",
+   "Critic Agent: Reviewing all analyst findings for quality and coverage...",
+   "Critic Agent: Quality score: 0.82 | Coverage: 1.00 | 0 claims flagged",
+   "Fact-Checker Agents: No claims flagged by Critic — skipping fact-checking.",
+   "Writer Agent: Writing general report...",
+   "Writer Agent: Report written: 'Comprehensive Report: The Capital City of France' | 8 citations | 0 contradictions mapped"
+  ]
+ }
+}

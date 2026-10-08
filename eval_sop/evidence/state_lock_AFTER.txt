@@ -1,0 +1,15 @@
+# after (state dir, run lock, atomic USD/Tavily reservation)
+eval_sop/tests/test_state_lock.py::test_state_lives_outside_the_checkout_and_out_dir_cannot_move_it PASSED
+eval_sop/tests/test_state_lock.py::test_two_handles_cannot_both_pass_the_check PASSED
+eval_sop/tests/test_state_lock.py::test_pending_row_is_visible_to_other_processes_before_the_request PASSED
+eval_sop/tests/test_state_lock.py::test_crash_after_reserve_is_still_charged_on_resume PASSED
+eval_sop/tests/test_state_lock.py::test_four_processes_cannot_overshoot_the_usd_cap PASSED
+eval_sop/tests/test_state_lock.py::test_four_processes_cannot_overshoot_the_tavily_cap PASSED
+eval_sop/tests/test_state_lock.py::test_second_process_is_refused_while_the_lock_is_held PASSED
+eval_sop/tests/test_state_lock.py::test_lock_is_released_on_normal_exit_and_ctrl_c[pass] PASSED
+eval_sop/tests/test_state_lock.py::test_lock_is_released_on_normal_exit_and_ctrl_c[raise KeyboardInterrupt] PASSED
+eval_sop/tests/test_state_lock.py::test_stale_lock_message_says_how_to_recover PASSED
+eval_sop/tests/test_token_estimate.py::test_cjk_input_is_not_undercounted PASSED
+eval_sop/tests/test_token_estimate.py::test_english_estimate_unchanged PASSED
+eval_sop/tests/test_token_estimate.py::test_list_content_blocks_are_counted PASSED
+============================= 13 passed in 23.12s =============================

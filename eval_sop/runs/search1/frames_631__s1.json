@@ -1,0 +1,186 @@
+{
+ "condition": "search1",
+ "qid": "frames_631",
+ "question": "Who was the Argentinian president who resigned from the position the same year the José Martín Olaeta Stadium was inaugurated?",
+ "reference": "Pedro Ramírez",
+ "seed": 1,
+ "generator": "claude-haiku-4-5-20251001",
+ "wall_seconds_this_invocation": 5.32,
+ "telemetry": {
+  "llm_calls": 1,
+  "llm_calls_from_cache": 0,
+  "input_tokens": 3245,
+  "output_tokens": 240,
+  "llm_seconds": 3.09,
+  "usd_spent_now": 0.004445,
+  "usd_if_uncached": 0.004445,
+  "models": [
+   "claude-haiku-4-5-20251001"
+  ],
+  "tavily_searches": 1,
+  "tavily_credits_if_uncached": 1,
+  "tavily_credits_spent_now": 1,
+  "llm_calls_by_agent": {
+   "search1": 1
+  },
+  "tokens_by_agent": {
+   "search1": 3485
+  },
+  "pipeline_only": {
+   "input_tokens": 3245,
+   "output_tokens": 240,
+   "llm_seconds": 3.09,
+   "llm_calls": 1,
+   "truncated_calls": 0
+  }
+ },
+ "error": null,
+ "error_kind": null,
+ "nonfatal_errors": [],
+ "strict_error": false,
+ "output_text": "# Key Facts\n\n• The José Martín Olaeta Stadium was inaugurated in 1944 [1]\n\n• Juan Perón served as President of Argentina from 1946–55 (first term), meaning he was not president in 1944 when the stadium was inaugurated [2, 6]\n\n• In 1944, Argentina was under de facto military rule with Edelmiro Julián Farrell as president (1944–46) [6]\n\n• The sources provided do not contain information about which Argentine president resigned in 1944 [1-8]\n\n• The sources do mention presidents who resigned in other years: Fernando de la Rúa resigned in 2001 [7, 8], and Juan Perón was deposed/forced to resign in September 1955 [5, 7]\n\n**Final answer:** I cannot answer this question based on the provided sources. While the sources confirm that the José Martín Olaeta Stadium was inaugurated in 1944, they do not identify which Argentine president resigned that same year.",
+ "final_answer": "I cannot answer this question based on the provided sources. While the sources confirm that the José Martín Olaeta Stadium was inaugurated in 1944, they do not identify which Argentine president resigned that same year.",
+ "claims": [
+  {
+   "text": "The José Martín Olaeta Stadium was inaugurated in 1944",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Estadio_Jos%C3%A9_Mart%C3%ADn_Olaeta"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "Who was the Argentinian president who resigned from the position the same year the José Martín Olaeta Stadium was inaugurated?",
+   "stage": "final"
+  },
+  {
+   "text": "Juan Perón served as President of Argentina from 1946–55 (first term), meaning he was not president in 1944 when the stadium was inaugurated",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Juan_Per%C3%B3n",
+    "https://www.britannica.com/place/list-of-presidents-of-Argentina-2060769"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "Who was the Argentinian president who resigned from the position the same year the José Martín Olaeta Stadium was inaugurated?",
+   "stage": "final"
+  },
+  {
+   "text": "In 1944, Argentina was under de facto military rule with Edelmiro Julián Farrell as president (1944–46)",
+   "source_urls": [
+    "https://www.britannica.com/place/list-of-presidents-of-Argentina-2060769"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "Who was the Argentinian president who resigned from the position the same year the José Martín Olaeta Stadium was inaugurated?",
+   "stage": "final"
+  },
+  {
+   "text": "The sources provided do not contain information about which Argentine president resigned in 1944 [1-8]",
+   "source_urls": [],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "Who was the Argentinian president who resigned from the position the same year the José Martín Olaeta Stadium was inaugurated?",
+   "stage": "final"
+  },
+  {
+   "text": "The sources do mention presidents who resigned in other years: Fernando de la Rúa resigned in 2001 , and Juan Perón was deposed/forced to resign in September 1955",
+   "source_urls": [
+    "https://www.bbc.com/news/world-latin-america-18712378",
+    "https://www.pbs.org/newshour/economy/latin_america-july-dec01-argentina_12-20",
+    "https://www.history.com/this-day-in-history/september-19/peron-deposed-in-argentina",
+    "https://www.bbc.com/news/world-latin-america-18712378"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "Who was the Argentinian president who resigned from the position the same year the José Martín Olaeta Stadium was inaugurated?",
+   "stage": "final"
+  }
+ ],
+ "sources": [
+  {
+   "schema_version": "1.0",
+   "url": "https://en.wikipedia.org/wiki/Estadio_Jos%C3%A9_Mart%C3%ADn_Olaeta",
+   "title": "Estadio José Martín Olaeta - Wikipedia",
+   "snippet": "The stadium was named after José Martín Olaeta, president of the club what promoted Argentino's affiliation to Argentine Football Association (AFA) in 1944, as part of being behind the construction of the venue. It has two grandstands, one cement-built and another wooden-built. Olaeta is regarded as the most important executive in club's history. [...] Estadio José Martín Olaeta is a football stadium located in the city of Rosario of Santa Fe Province, Argentina. The stadium is owned and operated by C.A. Argentino. It has a capacity of 8,500 spectators and was inaugurated in 1944. [...] In other projects\n\n Wikimedia Commons\n Wikidata item\n\nAppearance\n\nCoordinates: 32°54′27″S 60°41′01″W﻿ / ﻿32.9075°S 60.6837°W﻿ / -32.9075; -60.6837\n\nFrom Wikipedia, the free encyclopedia\n\nFootball stadium in Rosario, Argentina\n\nJosé Martín Olaeta Stadium",
+   "relevance_score": 0.5313802,
+   "published_date": null,
+   "source_domain": "en.wikipedia.org"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://en.wikipedia.org/wiki/Juan_Per%C3%B3n",
+   "title": "Juan Perón - Wikipedia",
+   "snippet": "Facing only token UCR and Socialist Party opposition and despite being unable to field his popular wife, Eva, as a running mate, Perón was re-elected in 1951 by a margin of over 30%. This election was the first to have extended suffrage to Argentine women and the first in Argentina to be televised: Perón was inaugurated on Channel 7 public television that October. He began his second term in June 1952 with serious economic problems, however, compounded by a severe drought that helped lead to a [...] and the press was controlled. Several high-profile Nazi war criminals found refuge in Argentina. Perón was re-elected by a landslide in 1951, though his second term (1952–55) was troubled. Eva died soon after his inauguration. Religious tolerance and charity given by Eva's foundation (historically provided by the church) damaged his standing with the Catholic Church. After an attempt to sanction a divorce law and deporting two priests, he was mistakenly thought to have been excommunicated, and [...] | President of Argentina First and Second Terms  1946–1955 | Succeeded by Eduardo Lonardi |\n| Preceded by Raúl Lastiri | President of Argentina Third Term  1973–1974 | Succeeded by Isabel Perón |",
+   "relevance_score": 0.43539792,
+   "published_date": null,
+   "source_domain": "en.wikipedia.org"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.ebsco.com/research-starters/politics-and-government/juan-peron-inaugurated-president-argentina",
+   "title": "Juan Perón Is Inaugurated President of Argentina | Politics and Government | Research Starters | EBSCOhost",
+   "snippet": "young and beautiful actress who captivated the Argentine populace, earning the affectionate nickname Evita. Evita was also very intelligent and politically ambitious, working with her husband on behalf of labor interests and establishing the Eva Perón Foundation to help the poor. Resistance from the military blocked her plan to become her husband's vice president in 1951, and she died shortly thereafter of cancer on July 26, 1952. [...] young and beautiful actress who captivated the Argentine populace, earning the affectionate nickname Evita. Evita was also very intelligent and politically ambitious, working with her husband on behalf of labor interests and establishing the Eva Perón Foundation to help the poor. Resistance from the military blocked her plan to become her husband's vice president in 1951, and she died shortly thereafter of cancer on July 26, 1952. [...] Juan Perón was inaugurated as President of Argentina on June 4, 1946, following a tumultuous rise in Argentine politics. Born on October 8, 1895, in Lobos, Argentina, Perón began his career in the military and became involved in politics through a military coup in 1943. Initially serving as the minister of labor, he gained popularity by championing the labor movement and earning the support of the working class, particularly the descamisados, or \"shirtless ones.\" His growing influence led to a",
+   "relevance_score": 0.35481355,
+   "published_date": null,
+   "source_domain": "www.ebsco.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://awpc.cattcenter.iastate.edu/communication/renunciation-vice-presidency-argentina-aug-31-1951",
+   "title": "Renunciation of the Vice Presidency of Argentina - Aug. 31, 1951 - Archives of Women's Political Communication",
+   "snippet": "Iowa State University\n\nArchives of Women's Political Communication\n\nSearch \n Close Search\n\nToggle Menu \n\nArchives of Women's Political Communication\n\nNeither the Catt Center nor Iowa State University is affiliated with any individual in the Archives or any political party. Inclusion in the Archives is not an endorsement by the center or the university.\n\nMaria Eva Peron\n\n# Renunciation of the Vice Presidency of Argentina - Aug. 31, 1951\n\nEvent: Radio speech\n\nVideo Poster\n\nCompañeros [companions]: [...] I had an almost infinitive debt to settle with them who had reconquered Perón for the country and for me. I believe that I have done everything in my power to justify my vote and to meet my debt. [...] Since that time, after that dialogue between my heart and my people, I have pondered long and hard in the solitude of my conscience and I have reflected calmly. I committed to myself and to my own conscience an everlasting vote filed with the Board of the Perónist Party and in the presence of our supreme commander, General Perón.\n\nNow I want the people of Argentina to know the reasons, made by myself, for my unwavering resignation.",
+   "relevance_score": 0.3384274,
+   "published_date": null,
+   "source_domain": "awpc.cattcenter.iastate.edu"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.history.com/this-day-in-history/september-19/peron-deposed-in-argentina",
+   "title": "Perón deposed in Argentina | September 19, 1955 | HISTORY",
+   "snippet": "In 1950, Argentina’s postwar export boom tapered off, and inflation and corruption grew. After being reelected in 1951, Perón became more conservative and repressive and seized control of the press to control criticism of his regime. In July 1952, Evita died of cancer, and support for President Perón among the working classes became decidedly less pronounced. His attempt to force the separation of church and state was met with considerable controversy. In June 1955, church leaders [...] September\n\n|  |  |  |  |  |  |  |\n ---  ---  --- \n|  |  |  |  |  |  |  |\n|  |  |  |  |  |  |  |\n|  |  |  |  |  |  |  |\n|  |  |  |  |  |  |  |\n|  |  |  |  |  |  |  |\n\nBy: HISTORY.com Editors\n\n1955\n\n# Perón deposed in Argentina\n\nHISTORY.com Editors\n\nPublished: February 09, 2010Last Updated: May 27, 2025 [...] Born into a lower middle class family in 1895, Juan Domingo Perón built a career in the army, eventually rising to the rank of colonel. In 1943, he was a leader of a group of military conspirators that overthrew Argentina’s ineffectual civilian government. Requesting for himself the seemingly minor cabinet post of secretary of labor and social welfare, he began building a political empire based in the labor unions. By 1945, he was also vice president and minister of war in the military regime.",
+   "relevance_score": 0.3052938,
+   "published_date": null,
+   "source_domain": "www.history.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.britannica.com/place/list-of-presidents-of-Argentina-2060769",
+   "title": "List of presidents of Argentina | Names & Terms",
+   "snippet": "Ramón Castillo (1940–43 [acting for incapacitated Ortiz to 1942]) \n   Arturo Rawson (de facto, June 4, 1943–June 7, 1943) \n   Pedro Pablo Ramírez (de facto, 1943–44) \n   Edelmiro Julián Farrell (de facto, 1944–46) \n   Juan Perón (1946–55 [first time]) \n   Eduardo Lonardi (de facto, September 23, 1955–November 13, 1955) \n   Pedro Eugenio Aramburu (de facto, 1955–58) \n   Arturo Frondizi (1958–62) \n   José María Guido (1962–63) \n   Arturo Illia (1963–66) [...] José Evaristo Uriburu (1895–98) \n   Julio Argentino Roca (1898–1904) \n   Manuel Quintana (1904–06) \n   José Figueroa Alcorta (1906–10) \n   Roque Sáenz Peña (1910–14) \n   Victorino de la Plaza (1914–16) \n   Hipólito Irigoyen (1916–22 [first time]) \n   Marcelo T. de Alvear (1922–28) \n   Hipólito Irigoyen (1928–30 [second time]) \n   José Félix Uriburu (de facto, 1930–32) \n   Agustín Pedro Justo (1932–38) \n   Roberto María Ortiz (1938–42) [...] Reynaldo Bignone (de facto, 1982–83) \n   Raúl Alfonsín (1983–89) \n   Carlos Menem (1989–99) \n   Fernando de la Rúa (1999–2001) \n   Adolfo Rodríguez Saá (2001–02) \n   Eduardo Duhalde (2002–03) \n   Néstor Kirchner (2003–07) \n   Cristina Fernández de Kirchner (2007–15) \n   Mauricio Macri (2015–19) \n   Alberto Fernández (2019–23) \n   Javier Milei (2023– )",
+   "relevance_score": 0.29707772,
+   "published_date": null,
+   "source_domain": "www.britannica.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.bbc.com/news/world-latin-america-18712378",
+   "title": "Argentina profile - Timeline - BBC News",
+   "snippet": "The Peron era\n\n1946 - Juan Peron wins presidential election on a promise of higher wages and social security. His wife, Eva 'Evita' Peron is put in charge of labour relations.\n\n1949 - A new constitution strengthens the power of the president. Opponents are imprisoned, independent newspapers are suppressed.\n\n1951 - Peron is re-elected with a huge majority, but his support begins to decline after Evita dies the following year. [...] 2001 December - IMF stops $1.3bn in aid, banks shut down. President De la Rua resigns after at least 25 people die in rioting.\n\n2002 January - Congress elects Peronist Senator Eduardo Duhalde as caretaker president. Within days the government devalues the peso, ending 10 years of parity with the US dollar.\n\n2002 November - Argentina defaults on an $800m debt repayment to the World Bank.\n\nKirchner sworn in\n\n2003 May - Mainstream Peronist candidate Nestor Kirchner wins presidential election. [...] 1955 August-September - Violent military uprisings drive President Peron to resign and go into exile.\n\n1966 - General Juan Carlos Ongania seizes power after years of unstable civilian government.\n\nTanks on the streets of Buenos Aires after the 1976 coup\n\nThe military seized power in 1976. The dictatorship of General Jorge Videla was characterised by the 'Dirty War' in which opponents were eliminated\n\n1973 - The Peronist party wins elections in March, Peron becomes president in September.",
+   "relevance_score": 0.29320762,
+   "published_date": null,
+   "source_domain": "www.bbc.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.pbs.org/newshour/economy/latin_america-july-dec01-argentina_12-20",
+   "title": "Argentine President Resigns, Yielding to Public Demands | PBS News",
+   "snippet": "Politics\nArts\nNation\nWorld\nEconomy\nScience\nHealth\nEducation\nEducation\n\n#### Get news alerts from PBS News\n\n##### Turn on desktop notifications?\n\nLeave your feedback\n\n# Argentine President Resigns, Yielding to Public Demands\n\nOne day after declaring a \"state of seige\" in an attempt to calm thousands of protestors, President Fernando de la Rua was whisked away from the presidential mansion by helicopter after tendering his resignation. [...] Earlier today, President de la Rua accepted the resignation of the Finance Minister Domingo Cavallo, who De la Rua recruited in March to restructure Argentina's struggling economy, but the president refused to accept the resignations of several other cabinet ministers.\n\nCavallo, a Harvard-educated free market economist, had implemented austere financial measures, such as freezing bank accounts, reducing pensions, and cutting state budgets and public spending. [...] \"I am writing to you to present my resignation as President of the Nation,\" De la Rua said in a handwritten resignation letter presented to the nation's Congress. \"My message today, which intended to guarantee governability and which proposed the creation of a unity government, has been rejected by parliamentary leaders.\"",
+   "relevance_score": 0.2723424,
+   "published_date": null,
+   "source_domain": "www.pbs.org"
+  }
+ ],
+ "provided_urls": [
+  "https://en.wikipedia.org/wiki/Estadio_Jos%C3%A9_Mart%C3%ADn_Olaeta",
+  "https://en.wikipedia.org/wiki/Juan_Per%C3%B3n",
+  "https://www.ebsco.com/research-starters/politics-and-government/juan-peron-inaugurated-president-argentina",
+  "https://awpc.cattcenter.iastate.edu/communication/renunciation-vice-presidency-argentina-aug-31-1951",
+  "https://www.history.com/this-day-in-history/september-19/peron-deposed-in-argentina",
+  "https://www.britannica.com/place/list-of-presidents-of-Argentina-2060769",
+  "https://www.bbc.com/news/world-latin-america-18712378",
+  "https://www.pbs.org/newshour/economy/latin_america-july-dec01-argentina_12-20"
+ ]
+}

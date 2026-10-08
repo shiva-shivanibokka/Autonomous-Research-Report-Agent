@@ -1,0 +1,25 @@
+# eval_sop/tests/test_review2_ledger.py at b6c919a (before the round-2 ledger fixes)
+E           anthropic.APIStatusError: overloaded
+E                   eval_sop.common.TransportError: Anthropic 200: overloaded
+E           httpx.ReadTimeout: read timed out
+E           httpx.RemoteProtocolError: peer closed
+E       assert 0.0 == 0.000551 ± 5.5e-10
+E         
+E         comparison failed
+E         Obtained: 0.0
+E         Expected: 0.000551 ± 5.5e-10
+E       assert 0.0 == 0.000551 ± 5.5e-10
+E         
+E         comparison failed
+E         Obtained: 0.0
+E         Expected: 0.000551 ± 5.5e-10
+E       assert 4050 >= 10000
+E       AttributeError: module 'eval_sop.common' has no attribute 'ledger_path'
+FAILED eval_sop/tests/test_review2_ledger.py::test_midstream_overloaded_status_200_is_retried_and_charged
+FAILED eval_sop/tests/test_review2_ledger.py::test_midstream_httpx_read_timeout_is_charged_and_bounded
+FAILED eval_sop/tests/test_review2_ledger.py::test_midstream_remote_protocol_error_is_charged
+FAILED eval_sop/tests/test_review2_ledger.py::test_keyboard_interrupt_mid_call_leaves_a_worst_case_charge
+FAILED eval_sop/tests/test_review2_ledger.py::test_cancelled_call_leaves_a_worst_case_charge
+FAILED eval_sop/tests/test_review2_ledger.py::test_cjk_input_is_not_undercounted
+FAILED eval_sop/tests/test_review2_ledger.py::test_resetting_out_dir_cannot_reset_spend
+7 failed, 1 passed in 5.66s

@@ -11,3 +11,15 @@ ruff==0.16.3
 pytest>=8.2.0
 pytest-asyncio>=0.23.0
 pytest-cov>=5.0.0
+
+# ---------------------------------------------------------------------------
+# Evaluation harness (eval_sop/). Lower bounds, in the style of the test
+# tooling above: eval_sop/stats.py imports numpy, scipy and scikit-learn, and
+# eval_sop/common.py + tavily_usage.py read the paid key's env file through
+# python-dotenv. Without these, collecting eval_sop/tests aborts with
+# ModuleNotFoundError before a single test runs.
+# ---------------------------------------------------------------------------
+numpy>=1.26.0
+scipy>=1.11.0
+scikit-learn>=1.4.0
+python-dotenv>=1.0.0

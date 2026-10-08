@@ -1,0 +1,172 @@
+{
+ "condition": "search1",
+ "qid": "frames_32",
+ "question": "As of 2010, if you added the number of times Brazil had won the World Cup to the amount of times the Chicago Bulls had won the NBA Championship and multiplied this number by the amount of times the Dallas Cowboys had won the Super Bowl, what number are you left with?",
+ "reference": "55",
+ "seed": 1,
+ "generator": "claude-haiku-4-5-20251001",
+ "wall_seconds_this_invocation": 6.76,
+ "telemetry": {
+  "llm_calls": 1,
+  "llm_calls_from_cache": 0,
+  "input_tokens": 3964,
+  "output_tokens": 149,
+  "llm_seconds": 1.92,
+  "usd_spent_now": 0.004709,
+  "usd_if_uncached": 0.004709,
+  "models": [
+   "claude-haiku-4-5-20251001"
+  ],
+  "tavily_searches": 1,
+  "tavily_credits_if_uncached": 1,
+  "tavily_credits_spent_now": 1,
+  "llm_calls_by_agent": {
+   "search1": 1
+  },
+  "tokens_by_agent": {
+   "search1": 4113
+  },
+  "pipeline_only": {
+   "input_tokens": 3964,
+   "output_tokens": 149,
+   "llm_seconds": 1.92,
+   "llm_calls": 1,
+   "truncated_calls": 0
+  }
+ },
+ "error": null,
+ "error_kind": null,
+ "nonfatal_errors": [],
+ "strict_error": false,
+ "output_text": "• Brazil won the FIFA World Cup 5 times, which is more than any other country [5]\n\n• The Chicago Bulls won the NBA Championship 6 times total (three times in a row twice in the same decade) [8]\n\n• The Dallas Cowboys won the Super Bowl 5 times (in 1972, 1978, 1993, 1994, and 1996) [1, 2]\n\n• The calculation requires: (Brazil World Cups + Chicago Bulls NBA Championships) × Dallas Cowboys Super Bowls = (5 + 6) × 5 = 11 × 5 = 55\n\nFinal answer: 55",
+ "final_answer": "55",
+ "claims": [
+  {
+   "text": "Brazil won the FIFA World Cup 5 times, which is more than any other country",
+   "source_urls": [
+    "https://www.sportsunfold.com/which-country-has-won-the-fifa-world-cup-most-number-of-times"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "As of 2010, if you added the number of times Brazil had won the World Cup to the amount of times the Chicago Bulls had won the NBA Championship and multiplied this number by the amount of times the Dallas Cowboys had won the Super Bowl, what number are you left with?",
+   "stage": "final"
+  },
+  {
+   "text": "The Chicago Bulls won the NBA Championship 6 times total (three times in a row twice in the same decade)",
+   "source_urls": [
+    "https://www.reddit.com/r/todayilearned/comments/5b9w5m/til_the_chicago_bulls_won_the_nba_championship"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "As of 2010, if you added the number of times Brazil had won the World Cup to the amount of times the Chicago Bulls had won the NBA Championship and multiplied this number by the amount of times the Dallas Cowboys had won the Super Bowl, what number are you left with?",
+   "stage": "final"
+  },
+  {
+   "text": "The Dallas Cowboys won the Super Bowl 5 times (in 1972, 1978, 1993, 1994, and 1996)",
+   "source_urls": [
+    "https://www.reference.com/world-view/many-times-dallas-cowboys-won-super-bowl-dbd183970798ba65",
+    "https://www.lonestarlive.com/cowboys/2024/02/how-many-times-have-the-dallas-cowboys-won-the-super-bowl.html"
+   ],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "As of 2010, if you added the number of times Brazil had won the World Cup to the amount of times the Chicago Bulls had won the NBA Championship and multiplied this number by the amount of times the Dallas Cowboys had won the Super Bowl, what number are you left with?",
+   "stage": "final"
+  },
+  {
+   "text": "The calculation requires: (Brazil World Cups + Chicago Bulls NBA Championships) × Dallas Cowboys Super Bowls = (5 + 6) × 5 = 11 × 5 = 55",
+   "source_urls": [],
+   "confidence": null,
+   "supporting_sources": null,
+   "contradicting_sources": null,
+   "context": "As of 2010, if you added the number of times Brazil had won the World Cup to the amount of times the Chicago Bulls had won the NBA Championship and multiplied this number by the amount of times the Dallas Cowboys had won the Super Bowl, what number are you left with?",
+   "stage": "final"
+  }
+ ],
+ "sources": [
+  {
+   "schema_version": "1.0",
+   "url": "https://www.reference.com/world-view/many-times-dallas-cowboys-won-super-bowl-dbd183970798ba65",
+   "title": "How Many Times Have the Dallas Cowboys Won the Super Bowl?",
+   "snippet": "Title: How Many Times Have the Dallas Cowboys Won the Super Bowl?\n# How Many Times Have the Dallas Cowboys Won the Super Bowl? By Staff WriterLast Updated May 20, 2025. Getty Images/Getty Images Sport/Getty Images. **The Dallas Cowboys have won the Super Bowl a total of five times.** The Texas NFL team won the Super Bowl in 1972, 1978, 1993, 1994 and 1996. At Super Bowl VI on January 16, 1972, the Dallas Cowboys faced off against the Miami Dolphins and won the game with a score of 24-3. At Super Bowl XII on January 15, 1978, the Cowboys were paired up against the Denver Broncos and won with a final score of 27-10. On January 31, 1993, the Dallas Cowboys faced the Buffalo Bills in Super Bowl XXVII. The Cowboys won with a final score of 52-17. At Super Bowl XXVIII on January 30, 1994, the Cowboys beat the Buffalo Bills with a final score of 30-13. On January 28, 1996, the Cowboys played the Pittsburgh Steelers in Super Bowl XXX. The Cowboys won with a score of 27-17. Is the YouTube TV Subscription Trial Worth It? How to Locate Reliable Oxygen Refill Services in Your Area. Common Signs of a Faulty Bush Hog Gearbox and How to Repair It. Enhancing Efficiency with Upgraded Kuhn Hay Tedder Parts: What to Consider. Building Strategic Partnerships through Subcontracting Opportunities. Uncover Your Heritage: How to Find Out Your Ethnicity.",
+   "relevance_score": 0.50944775,
+   "published_date": null,
+   "source_domain": "www.reference.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.lonestarlive.com/cowboys/2024/02/how-many-times-have-the-dallas-cowboys-won-the-super-bowl.html",
+   "title": "How many times have the Dallas Cowboys won the Super Bowl? - lonestarlive.com",
+   "snippet": "> The @dallascowboys of the 1990s are one of the greatest turnaround stories in sports history.  \n>   \n> Three years after finishing 1-15, Dallas launched a dynasty #OTD in 1993, with @TroyAikman the MVP of the Cowboys' 52-17 win over Buffalo in Super Bowl XXVII.  \n>   \n> 🎥: @NFL pic.twitter.com/3V30z9QkQM\n>\n> — Pro Football Hall of Fame (@ProFootballHOF) January 31, 2024 [...] The Cowboys hold the NFL record for most playoff appearances with 36 and have been to eight Super Bowls. They crushed their opponents in their five Super Bowl victories, winning by an average of 20 points. Only the Patriots and Steelers (6 each) have won more Super Bowls. [...] Skip to Article\n\n# How many times have the Dallas Cowboys won the Super Bowl?\n\n |\n\nSuper Bowl XXX - Dallas Cowboys v Pittsburgh Steelers\n\nTEMPE, AZ - JANUARY 28: Troy Aikman #8 of the Dallas Cowboys hands the ball off to Emmitt Smith #22 against the Pittsburgh Steelers during Super Bowl XXX on January 28, 1996 at Sun Devil Stadium in Tempe, Arizona. The Cowboys won the Super Bowl 27-17. (Photo by Focus on Sport/Getty Images)Getty Images\n\nBy \n\n John Roach | jroach@gulflive.com",
+   "relevance_score": 0.3340466,
+   "published_date": null,
+   "source_domain": "www.lonestarlive.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.sporcle.com/reference/clue/which-is-the-amount-of-times-this-team-won-the-super-bowl",
+   "title": "Which Is The Amount Of Times This Team Won The Super Bowl Crossword Clue",
+   "snippet": "Title: Which Is The Amount Of Times This Team Won The Super Bowl Crossword Clue\n# ***Which Is The Amount Of Times This Team Won The Super Bowl*** Crossword Clue. For the word puzzle clue of **which is the amount of times this team won the super bowl**, the Sporcle Puzzle Library found the following results. 25 results for \"which is the amount of times this team won the super bowl\". which is the amount of times this team won the super bowl. Which is the same year this team won the Super Bowl. ...Which is the same year this team won the Super Bowl? NFL 2010-2020s Chain Game. Which is the same year this team won the super bowl. Which was the year this team won the super bowl. Which is also the amount of times this team has won the Stanley Cup. NHL Chain Quiz 25 clues. Which is the amount of times what team won the Championship? Which is the same year that which team won the Super Bowl? Which is the year that which team won the super bowl? Which is the same amount of times who won the DPOY. Impossible NBA Chain Quiz for KOT4Q. Which is the year what team won the super bowl? Which is the amount of games which team won in the 2023-24 season? Which is the amount of times this team has competed in the NBA Finals? which is the same amount of time this player won DPOY? Which is the mascot of a team that has won a Super Bowl? Which is the amount of championships this team won. NBA Chain Game 100 Questions!!! Which is the amount of times the Patriots have won. Which was the amount of times which player won the championship. Which is the amount of super bowl wins this team has. which is the same amount of super bowl trophies this team has. which NFl team won the 2021 super bowl. Which NFL team won the first Super Bowl? How much do you know about the NFL? Which NFL team won the first Super Bowl? Which is the amount of premierships won by this team... Which is the same amount of premierships which team has won?",
+   "relevance_score": 0.27058607,
+   "published_date": null,
+   "source_domain": "www.sporcle.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://thelandryhat.com/when-was-the-last-time-the-dallas-cowboys-won-the-super-bowl-01jkkbys0td1",
+   "title": "When was the last time the Dallas Cowboys won the Super Bowl?",
+   "snippet": "With Aikman throwing for 209 yards and a touchdown, Smith rushing for a pair of scores, and surprise Super Bowl MVP Larry Brown intercepting Steelers quarterback Neil O'Donnell twice, the Cowboys walked away with a 27-17 victory.\n\n### More Cowboys news and analysis\n\nAdd us as a preferred source on Google\n\nFollow\n\nHome/Cowboys News [...] And of those eight trips to the title game, Dallas has won five of them, tying them for the third-most Super Bowl victories in history. The Steelers and Patriots are tied atop the list with six wins apiece.\n\nSo, again, nobody can deny the overall success of this historic franchise. That said, though, it's no secret that it's been quite some time since Dallas last hoisted the Lombardi Trophy — or even got close to doing so, for that matter. [...] Since joining the league in 1960, America's Team has made 36 trips to the postseason, good for a tie with the Pittsburgh Steelers for the second-most all-time, trailing only the Green Bay Packers (38).\n\nOf those 36 playoff appearances, eight have resulted in a trip to the Super Bowl, tying the Cowboys with the Steelers, San Francisco 49ers, and Denver Broncos for the second-most appearances in Big Game history. Only the New England Patriots have more with 11.",
+   "relevance_score": 0.22976018,
+   "published_date": null,
+   "source_domain": "thelandryhat.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.sportsunfold.com/which-country-has-won-the-fifa-world-cup-most-number-of-times",
+   "title": "Which Country Has Won The FIFA World Cup Most Number Of Times",
+   "snippet": "## About The Most Times FIFA Cup Winning Team- Brazil\n\nIn this article we summarizes overall result and performance of Brazil team in FIFA world cup. Brazil team won the FIFA world cup 5 times and that a record of winning FIFA more than any teams. This country is the successful national team in the world. They played total 114 matches in which they won 76 matches and they face only 19 looses and earn total 247 points.\n\nWinning World Cups [...] FIFA (Federation International De Football Association is governing body of the association football, futsal and beach Soccer. In this post we give you information about the which country has won the FIFA World Cup Most Number Of Times? Here is the answer- Brazil won’s the FIFA world cup titles 5 times which is more than any other countries. [...] Read Also: Top 10 FIFA Ranking Football Clubs in The World Right Now\n\nfootball news\n\nPrevious ArticleTop 5 Best Wicket Keeper Other Than MS Dhoni\n\nNext Article India vs Australia First ODI Pitch And Ground Report\n\n## Related Post\n\n## Premier League 2025/26: Assessing the title and relegation candidates\n\n## The Best Football Moments of 2024\n\n## ISL Top Scorer 2024: Know Who Is in the Race for Golden Boot?\n\n## Real Madrid vs Barcelona: La Liga 2024-25 Preview, Key Players & Match Highlights",
+   "relevance_score": 0.200793,
+   "published_date": null,
+   "source_domain": "www.sportsunfold.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.reddit.com/r/nfl/comments/ooweyq/the_last_time_the_milwaukee_bucks_won_the_nba",
+   "title": "The last time the Milwaukee Bucks won the NBA championship, the Dallas Cowboys won the next Super Bowl. The last time the Phoenix Suns lost in the NBA Finals... the Dallas Cowboys won the next Super Bowl.",
+   "snippet": "# The last time the Milwaukee Bucks won the NBA championship, the Dallas Cowboys won the next Super Bowl. The last time the Phoenix Suns lost in the NBA Finals... the Dallas Cowboys won the next Super Bowl. ## Post details. ## Content. The Bucks last won the championship in 1971. The Cowboys would go on to win Super Bowl VI over the Miami Dolphins in January of 1972 by a score of 24-3. The Suns last lost an NBA finals in 1993. The Cowboys would go on to win Super Bowl XXVIII over the Buffalo Bills in January of 1994 by a score of 30-13. Looks like we're in for another Cowboys victory in 2022 over some other AFC East team. ## Top Comments. - Cowboy fans, perennially predicting super bowls. - But the last time the Lightning won the Stanley cup, the Bucs won the super bowl, soooo. - classic case of \"trends are a thing until they're not\". - They have a large hill to climb. - Keep clawing at hope cowboys fans….fat mike will make sure your defense has more holes than Swiss cheese. - So Scooter isn't insane? - grrrrrrr we dont need another cowboys super bowl. This year must buck this trend. - People be hating on this post, bruh there’s been a surprise super bowl team every year, if you told me that the Bucs would be in super bowl 55 in 2019, I wouldn’t of believed you, if you told me San Francisco would be in the super bowl 54 in 2018 I wouldn’t of believed it, same thing goes for the Rams, Eagles, Falcons, pretty much every NFC team that’s made it to the super bowl sucked the year before they did it. So it’s possible we see the Cowboys get good out of nowhere, or maybe it’s a team like Carolina, or Minnesota’s turns. - The last time the Cowboys won the Superbowl, a majority of this sub likely wasn't born yet.",
+   "relevance_score": 0.18281944,
+   "published_date": null,
+   "source_domain": "www.reddit.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.sporcle.com/reference/clue/the-same-amount-of-times-this-team-has-competed-for-the-nba-championship",
+   "title": "The Same Amount Of Times This Team Has Competed For The Nba Championship Crossword Clue",
+   "snippet": "Title: The Same Amount Of Times This Team Has Competed For The Nba Championship Crossword Clue\n# ***The Same Amount Of Times This Team Has Competed For The Nba Championship*** Crossword Clue. For the word puzzle clue of **the same amount of times this team has competed for the nba championship**, the Sporcle Puzzle Library found the following results. 25 results for \"the same amount of times this team has competed for the nba championship\". The same amount of times this team has competed for the NBA Championship. Which is the amount of times this team has competed in the NBA Finals? The same amount of years ago this team won the championship. The same amount of times what superstar won the FTW championship. The same amount of time this team has been in been in their city. The same amount of times what superstar won the AEW Women World Championship. This team has competed this many times for the NBA Championship. Which is the number of times this team has won a championship. Which is the amount of times what team won the Championship? The same amount of times which franchise has won the NBA Finals? Which is the amount of times which franchise has won an NBA Championship? The same amount of NBA Finals this team has won? Which is also the amount of times this team has won the Stanley Cup. NHL Chain Quiz 25 clues. The same number of times \\_\\_\\_\\_\\_\\_\\_\\_ has won a WWE world championship. Which is how many times which team has won a championship? Which is the same amount of times that who has won the 6th man award. the same amount of SBs this Texas team has. The same amount of championships this team has. The same amount of championships this team has. The same number amount of teams that \\_\\_\\_\\_\\_ has played for. NBA Chain Quiz for KOT4Q. The same number of championships this team has won (not the Magic). NBA Chain Quiz for KOT4Q. The same amount of championships this team has won since 2000. Same amount of rings which team has won? The same amount of times he's been on this team. Which is the same amount of rings this NBA team has.",
+   "relevance_score": 0.17541124,
+   "published_date": null,
+   "source_domain": "www.sporcle.com"
+  },
+  {
+   "schema_version": "1.0",
+   "url": "https://www.reddit.com/r/todayilearned/comments/5b9w5m/til_the_chicago_bulls_won_the_nba_championship",
+   "title": "TIL the Chicago Bulls won the NBA Championship three times in a row.....twice....in the same decade : r/todayilearned",
+   "snippet": "Title: TIL the Chicago Bulls won the NBA Championship three times in a row.....twice....in the same decade : r/todayilearned\n# TIL the Chicago Bulls won the NBA Championship three times in a row.....twice....in the same decade : r/todayilearned. Skip to main contentTIL the Chicago Bulls won the NBA Championship three times in a row.....twice....in the same decade : r/todayilearned. Open menu Open navigationGo to Reddit Home. # TIL the Chicago Bulls won the NBA Championship three times in a row.....twice....in the same decade. Image 2: r/todayilearned - TIL the Chicago Bulls won the NBA Championship three times in a row.....twice....in the same decadeImage 3: r/todayilearned - TIL the Chicago Bulls won the NBA Championship three times in a row.....twice....in the same decade. When I was young and would travel abroad, people would react to my hometown by saying \"Chicago, Al Capone.\" After the Jordan era it was always \"Michael Jordan!\" (except in Venezuela, where it was \"Ozzie Guillen!\"). Who then went out to the Lakers and won three in a row once then two in a row but lost in the finals the third year. Meh, I'm more of the opinion that he left due to grief about his father being murdered earlier that year. His dad always wanted him to play baseball, and I think when he died it shook Jordan. But I doubt Stern suspended him, Jordan _was_ the NBA and the league was growing like it never had before. Like I said, his actions were not that different from other NBA contemporaries, and as long as he wasn't fixing games I doubt the NBA gave a shit what he did. I think the biggest evidence against this is the Jordan is now the majority owner of an NBA team. You don't make a guy who bets on NBA games or fixes them or whatever the majority owner of a team. As a kid it was the Chicago Bulls that introduced me to the term \"3-peat\". I'm pretty sure the word was only around for about a year or two anyway when the Lakers won. *   Reddit reReddit: Top posts of November 5, 2016 * * *. *   Reddit reReddit: Top posts of 2016 * * *. *   Best of Reddit in Portuguese. *   Best of Reddit in German.",
+   "relevance_score": 0.13627496,
+   "published_date": null,
+   "source_domain": "www.reddit.com"
+  }
+ ],
+ "provided_urls": [
+  "https://www.reference.com/world-view/many-times-dallas-cowboys-won-super-bowl-dbd183970798ba65",
+  "https://www.lonestarlive.com/cowboys/2024/02/how-many-times-have-the-dallas-cowboys-won-the-super-bowl.html",
+  "https://www.sporcle.com/reference/clue/which-is-the-amount-of-times-this-team-won-the-super-bowl",
+  "https://thelandryhat.com/when-was-the-last-time-the-dallas-cowboys-won-the-super-bowl-01jkkbys0td1",
+  "https://www.sportsunfold.com/which-country-has-won-the-fifa-world-cup-most-number-of-times",
+  "https://www.reddit.com/r/nfl/comments/ooweyq/the_last_time_the_milwaukee_bucks_won_the_nba",
+  "https://www.sporcle.com/reference/clue/the-same-amount-of-times-this-team-has-competed-for-the-nba-championship",
+  "https://www.reddit.com/r/todayilearned/comments/5b9w5m/til_the_chicago_bulls_won_the_nba_championship"
+ ]
+}

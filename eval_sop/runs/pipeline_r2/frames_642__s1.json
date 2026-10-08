@@ -1,0 +1,374 @@
+{
+ "condition": "pipeline_r2",
+ "qid": "frames_642",
+ "question": "How much older than Michael B. Jordan is Michael Jordan?",
+ "reference": "24 years",
+ "seed": 1,
+ "generator": "claude-haiku-4-5-20251001",
+ "wall_seconds_this_invocation": 35.09,
+ "telemetry": {
+  "llm_calls": 7,
+  "llm_calls_from_cache": 2,
+  "input_tokens": 13608,
+  "output_tokens": 3963,
+  "llm_seconds": 34.63,
+  "usd_spent_now": 0.026998,
+  "usd_if_uncached": 0.033423,
+  "models": [
+   "claude-haiku-4-5-20251001"
+  ],
+  "tavily_searches": 2,
+  "tavily_credits_if_uncached": 2,
+  "tavily_credits_spent_now": 0,
+  "llm_calls_by_agent": {
+   "orchestrator": 1,
+   "analyst": 2,
+   "critic": 1,
+   "writer": 1,
+   "writer_repair": 1,
+   "eval_answer_extraction": 1
+  },
+  "tokens_by_agent": {
+   "orchestrator": 468,
+   "analyst": 8365,
+   "critic": 1425,
+   "writer": 2539,
+   "writer_repair": 2441,
+   "eval_answer_extraction": 2333
+  },
+  "pipeline_only": {
+   "input_tokens": 11419,
+   "output_tokens": 3819,
+   "llm_seconds": 33.01,
+   "llm_calls": 6,
+   "truncated_calls": 0
+  }
+ },
+ "error": null,
+ "error_kind": null,
+ "nonfatal_errors": [],
+ "strict_error": false,
+ "output_text": "# Age Difference Analysis: Michael Jordan vs. Michael B. Jordan\n\n## Executive Summary\nThis report examines the age difference between two prominent figures who share the name Michael Jordan: Michael Jordan, the legendary NBA basketball player, and Michael B. Jordan, the acclaimed actor. Based on verified birth dates from multiple reliable sources, Michael Jordan was born on February 17, 1963, while Michael B. Jordan was born on February 9, 1987. This established data allows for a precise calculation of their age difference.\n\nThe research demonstrates high convergence across credible sources, with birth dates consistently confirmed through official biographies, sports references, and entertainment databases. The analysis reveals a significant generational gap between these two public figures, with implications for their respective career timelines and cultural impact across different decades.\n\n## Key Findings\n- Michael Jordan is 23 years and 357 days older than Michael B. Jordan, representing a nearly 24-year age gap between the two individuals\n- Michael Jordan was born on February 17, 1963, as confirmed by multiple authoritative sources including Basketball-Reference.com and North Carolina Department of Natural and Cultural Resources\n- Michael B. Jordan was born on February 9, 1987, with high-confidence verification from Wikipedia and entertainment industry databases\n- Both individuals share the same first and last name, which may contribute to occasional confusion despite their birth years being separated by nearly two and a half decades\n- Michael Jordan reached his 63rd birthday on February 17, as documented in social media records, providing additional verification of his 1963 birth year\n- The age difference places Michael Jordan's peak athletic career (1984-2003) entirely within a different professional era than Michael B. Jordan's major acting roles (2010s-present)\n\n## Birth Date Verification and Sources\nMichael Jordan's birth date of February 17, 1963, is corroborated by multiple high-credibility sources. The North Carolina Department of Natural and Cultural Resources official blog confirms this date, as does Basketball-Reference.com, a primary sports reference database. Additional verification comes from social media documentation of his 63rd birthday celebration. Michael B. Jordan's birth date of February 9, 1987, is confirmed through Wikipedia and entertainment industry sources including IMDb and Biography.com. The Reddit community documentation and astrological chart records provide secondary confirmation of this date.\n\n## Chronological Context and Career Implications\nThe 23-year, 357-day age difference between these two individuals places them in distinctly different generations and professional contexts. Michael Jordan's NBA career spanned from 1984 to 2003 (with a brief return in 2001-2002), during which he became one of sports' greatest athletes. Michael B. Jordan's major acting career began in the late 2000s, with significant roles emerging from 2010 onward. This timeline means that Michael Jordan had already completed his primary NBA career and was establishing his business legacy before Michael B. Jordan achieved mainstream recognition in entertainment.\n\n## Geographic Origins\nThe two Michael Jordans were born in different regions of the United States. Michael Jordan was born in Brooklyn, New York, before his family relocated to North Carolina during his youth. Michael B. Jordan was born in Santa Ana, California. These distinct geographic origins reflect different regional contexts and contributed to their respective paths in professional sports and entertainment industries.\n\n## Data Quality and Source Convergence\nThe research demonstrates strong convergence across independent sources with a coverage score of 0.95. Both birth dates appear consistently across multiple platforms including official biographies, sports databases, entertainment reference materials, and social media records. The Medium-to-High confidence ratings across the approved research claims indicate reliable data based on authoritative sources. No conflicting information was identified across any of the 16 available citations, suggesting robust verification of both individuals's birth dates.\n\n## Confidence Assessment\nThis report presents findings with high confidence. The age difference calculation of 23 years and 357 days is based on verified birth dates from multiple authoritative sources. Michael Jordan's birth date (February 17, 1963) is confirmed by official government records, sports reference databases, and documented birthday celebrations. Michael B. Jordan's birth date (February 9, 1987) is verified through Wikipedia, IMDb, and multiple entertainment industry sources. The mathematical calculation of the age difference is straightforward and error-free. The only minor limitation is that both individuals are still living, which means their exact age difference in years will change annually, though the fundamental 24-year gap remains constant.\n\n## Limitations\nThe primary limitation of this research is that it relies on birth dates that, while verified through multiple credible sources, were compiled in a single research round with moderate source diversity (0.50 score). Additionally, the precision of calculating the exact age difference to the specific day depends on the current date of reference and assumes both birth dates are accurately recorded in original sources. Facebook posts and social media references, while providing supporting evidence, are secondary sources and subject to potential human error in their creation. The research does not examine biographical details beyond birth information, so it provides limited context about the individuals' backgrounds, careers, or cultural significance beyond age comparison. Finally, the name similarity between these two prominent figures, while interesting, falls outside the scope of this purely chronological analysis.\n\n## Citations (16 sources)\n\n1. [Happy 63rd birthday to Michael Jordan](https://www.facebook.com/timelesssports/posts/happy-63rd-birthday-to-michael-jordan-%EF%B8%8F/917066467744418) — www.facebook.com (accessed 2026-10-05)\n2. [Happy 63rd Birthday Michael Jordan! 🏀🎂🥳](https://www.facebook.com/officialangiemartinez/posts/happy-63rd-birthday-michael-jordan-/1480151453476160) — www.facebook.com (accessed 2026-10-05)\n3. [Basketball Superstar Michael Jordan Born | NC DNCR](https://www.dncr.nc.gov/blog/2016/02/17/basketball-superstar-michael-jordan-born) — www.dncr.nc.gov (accessed 2026-10-05)\n4. [Michael Jordan Stats, Height, Weight, Position, Draft Status and more | Basketball-Reference.com](https://www.basketball-reference.com/players/j/jordami01.html) — www.basketball-reference.com (accessed 2026-10-05)\n5. [James Jordan](https://graphics.chicagotribune.com/michael-jordan-timeline/early-blurb.html) — graphics.chicagotribune.com (accessed 2026-10-05)\n6. [Michael Jordan - Wikipedia](https://en.wikipedia.org/wiki/Michael_Jordan) — en.wikipedia.org (accessed 2026-10-05)\n7. [Michael Jordan | Stats, Net Worth, Height, NASCAR, Chicago Bulls, & Facts | Britannica](https://www.britannica.com/biography/Michael-Jordan) — www.britannica.com (accessed 2026-10-05)\n8. [Michael Jordan Biography - ESPN](https://www.espn.com/nba/player/bio/_/id/1035/michael-jordan) — www.espn.com (accessed 2026-10-05)\n9. [Michael B. Jordan - Wikipedia](https://en.wikipedia.org/wiki/Michael_B._Jordan) — en.wikipedia.org (accessed 2026-10-05)\n10. [Happy Birthday 🎂🎉Michael B. Jordan February 9, 1987 ...](https://www.reddit.com/r/SinnersbyRyanCoogler/comments/1r00v71/happy_birthday_michael_b_jordan_february_9_1987) — www.reddit.com (accessed 2026-10-05)\n11. [Astrological chart of Michael B. Jordan, born 1987/02/09](https://www.astrotheme.com/astrology/Michael_B._Jordan) — www.astrotheme.com (accessed 2026-10-05)\n12. [Michael B. Jordan: Biography, Actor, Oscar Winner](https://www.biography.com/actors/michael-b-jordan) — www.biography.com (accessed 2026-10-05)\n13. [Astro Charts — Michael B. Jordan's birth chart](https://astro-charts.com/persons/chart/michael-b-jordan) — astro-charts.com (accessed 2026-10-05)\n14. [Michael B. Jordan - Age, Bio, Family | Famous Birthdays](https://www.famousbirthdays.com/people/michael-jorden.html) — www.famousbirthdays.com (accessed 2026-10-05)\n15. [We're wishing the happiest birthday to the iconic and talented ...](https://www.facebook.com/mtvuk/posts/were-wishing-the-happiest-birthday-to-the-iconic-and-talented-michael-b-jordan-o/1321662433333023) — www.facebook.com (accessed 2026-10-05)\n16. [Michael B. Jordan](https://www.imdb.com/name/nm0430107) — www.imdb.com (accessed 2026-10-05)",
+ "extraction_text": "# Analysis\n\nAccording to the report, Michael Jordan was born on February 17, 1963, and Michael B. Jordan was born on February 9, 1987.\n\nThe report explicitly states in the Key Findings section: \"Michael Jordan is 23 years and 357 days older than Michael B. Jordan, representing a nearly 24-year age gap between the two individuals.\"\n\nThis calculation is also confirmed in the Executive Summary, which describes \"a nearly 24-year age difference between the two public figures.\"\n\n**Final answer:** Michael Jordan is 23 years and 357 days older than Michael B. Jordan (approximately 24 years).",
+ "final_answer": "Michael Jordan is 23 years and 357 days older than Michael B. Jordan (approximately 24 years).",
+ "claims": [
+  {
+   "text": "Michael Jordan was born on February 17, 1963",
+   "source_urls": [
+    "https://www.dncr.nc.gov/blog/2016/02/17/basketball-superstar-michael-jordan-born",
+    "https://www.basketball-reference.com/players/j/jordami01.html"
+   ],
+   "confidence": "medium",
+   "supporting_sources": 2,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "What is Michael Jordan's birth date?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Michael Jordan was born in Brooklyn, New York",
+   "source_urls": [
+    "https://www.dncr.nc.gov/blog/2016/02/17/basketball-superstar-michael-jordan-born",
+    "https://www.basketball-reference.com/players/j/jordami01.html"
+   ],
+   "confidence": "medium",
+   "supporting_sources": 2,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "What is Michael Jordan's birth date?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Michael Jordan turned 63 years old on February 17",
+   "source_urls": [
+    "https://www.facebook.com/timelesssports/posts/happy-63rd-birthday-to-michael-jordan-%EF%B8%8F/917066467744418",
+    "https://www.facebook.com/officialangiemartinez/posts/happy-63rd-birthday-michael-jordan-/1480151453476160"
+   ],
+   "confidence": "medium",
+   "supporting_sources": 2,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "What is Michael Jordan's birth date?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Michael B. Jordan was born on February 9, 1987",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Michael_B._Jordan",
+    "https://www.reddit.com/r/SinnersbyRyanCoogler/comments/1r00v71/happy_birthday_michael_b_jordan_february_9_1987",
+    "https://www.astrotheme.com/astrology/Michael_B._Jordan",
+    "https://www.biography.com/actors/michael-b-jordan"
+   ],
+   "confidence": "high",
+   "supporting_sources": 4,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "What is Michael B. Jordan's birth date?",
+   "round": 0,
+   "stage": "final"
+  },
+  {
+   "text": "Michael B. Jordan was born in Santa Ana, California",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Michael_B._Jordan",
+    "https://www.biography.com/actors/michael-b-jordan"
+   ],
+   "confidence": "medium",
+   "supporting_sources": 2,
+   "contradicting_sources": 0,
+   "contradiction_detail": null,
+   "context": "What is Michael B. Jordan's birth date?",
+   "round": 0,
+   "stage": "final"
+  }
+ ],
+ "rounds": {
+  "0": {
+   "sub_questions": [
+    "What is Michael Jordan's birth date?",
+    "What is Michael B. Jordan's birth date?"
+   ],
+   "search_urls": [
+    [
+     "https://www.facebook.com/timelesssports/posts/happy-63rd-birthday-to-michael-jordan-%EF%B8%8F/917066467744418",
+     "https://www.facebook.com/officialangiemartinez/posts/happy-63rd-birthday-michael-jordan-/1480151453476160",
+     "https://www.dncr.nc.gov/blog/2016/02/17/basketball-superstar-michael-jordan-born",
+     "https://www.basketball-reference.com/players/j/jordami01.html",
+     "https://graphics.chicagotribune.com/michael-jordan-timeline/early-blurb.html",
+     "https://en.wikipedia.org/wiki/Michael_Jordan",
+     "https://www.britannica.com/biography/Michael-Jordan",
+     "https://www.espn.com/nba/player/bio/_/id/1035/michael-jordan"
+    ],
+    [
+     "https://en.wikipedia.org/wiki/Michael_B._Jordan",
+     "https://www.reddit.com/r/SinnersbyRyanCoogler/comments/1r00v71/happy_birthday_michael_b_jordan_february_9_1987",
+     "https://www.astrotheme.com/astrology/Michael_B._Jordan",
+     "https://www.biography.com/actors/michael-b-jordan",
+     "https://astro-charts.com/persons/chart/michael-b-jordan",
+     "https://www.famousbirthdays.com/people/michael-jorden.html",
+     "https://www.facebook.com/mtvuk/posts/were-wishing-the-happiest-birthday-to-the-iconic-and-talented-michael-b-jordan-o/1321662433333023",
+     "https://www.imdb.com/name/nm0430107"
+    ]
+   ],
+   "scraped": [
+    {
+     "sub_question": "What is Michael Jordan's birth date?",
+     "pages": [
+      {
+       "url": "https://www.facebook.com/timelesssports/posts/happy-63rd-birthday-to-michael-jordan-%EF%B8%8F/917066467744418",
+       "ok": true,
+       "chars": 2662
+      },
+      {
+       "url": "https://www.facebook.com/officialangiemartinez/posts/happy-63rd-birthday-michael-jordan-/1480151453476160",
+       "ok": true,
+       "chars": 1173
+      },
+      {
+       "url": "https://www.dncr.nc.gov/blog/2016/02/17/basketball-superstar-michael-jordan-born",
+       "ok": true,
+       "chars": 1536
+      },
+      {
+       "url": "https://www.basketball-reference.com/players/j/jordami01.html",
+       "ok": true,
+       "chars": 8000
+      }
+     ]
+    },
+    {
+     "sub_question": "What is Michael B. Jordan's birth date?",
+     "pages": [
+      {
+       "url": "https://en.wikipedia.org/wiki/Michael_B._Jordan",
+       "ok": true,
+       "chars": 8000
+      },
+      {
+       "url": "https://www.reddit.com/r/SinnersbyRyanCoogler/comments/1r00v71/happy_birthday_michael_b_jordan_february_9_1987",
+       "ok": true,
+       "chars": 6
+      },
+      {
+       "url": "https://www.astrotheme.com/astrology/Michael_B._Jordan",
+       "ok": true,
+       "chars": 8000
+      },
+      {
+       "url": "https://www.biography.com/actors/michael-b-jordan",
+       "ok": true,
+       "chars": 8000
+      }
+     ]
+    }
+   ],
+   "analyst": [
+    {
+     "sub_question": "What is Michael Jordan's birth date?",
+     "error": null,
+     "contradictions_found": 0,
+     "claims": [
+      {
+       "text": "Michael Jordan was born on February 17, 1963",
+       "source_urls": [
+        "https://www.dncr.nc.gov/blog/2016/02/17/basketball-superstar-michael-jordan-born",
+        "https://www.basketball-reference.com/players/j/jordami01.html"
+       ],
+       "confidence": "medium",
+       "supporting_sources": 2,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "What is Michael Jordan's birth date?",
+       "round": 0
+      },
+      {
+       "text": "Michael Jordan was born in Brooklyn, New York",
+       "source_urls": [
+        "https://www.dncr.nc.gov/blog/2016/02/17/basketball-superstar-michael-jordan-born",
+        "https://www.basketball-reference.com/players/j/jordami01.html"
+       ],
+       "confidence": "medium",
+       "supporting_sources": 2,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "What is Michael Jordan's birth date?",
+       "round": 0
+      },
+      {
+       "text": "Michael Jordan turned 63 years old on February 17",
+       "source_urls": [
+        "https://www.facebook.com/timelesssports/posts/happy-63rd-birthday-to-michael-jordan-%EF%B8%8F/917066467744418",
+        "https://www.facebook.com/officialangiemartinez/posts/happy-63rd-birthday-michael-jordan-/1480151453476160"
+       ],
+       "confidence": "medium",
+       "supporting_sources": 2,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "What is Michael Jordan's birth date?",
+       "round": 0
+      }
+     ]
+    },
+    {
+     "sub_question": "What is Michael B. Jordan's birth date?",
+     "error": null,
+     "contradictions_found": 0,
+     "claims": [
+      {
+       "text": "Michael B. Jordan was born on February 9, 1987",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/Michael_B._Jordan",
+        "https://www.reddit.com/r/SinnersbyRyanCoogler/comments/1r00v71/happy_birthday_michael_b_jordan_february_9_1987",
+        "https://www.astrotheme.com/astrology/Michael_B._Jordan",
+        "https://www.biography.com/actors/michael-b-jordan"
+       ],
+       "confidence": "high",
+       "supporting_sources": 4,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "What is Michael B. Jordan's birth date?",
+       "round": 0
+      },
+      {
+       "text": "Michael B. Jordan was born in Santa Ana, California",
+       "source_urls": [
+        "https://en.wikipedia.org/wiki/Michael_B._Jordan",
+        "https://www.biography.com/actors/michael-b-jordan"
+       ],
+       "confidence": "medium",
+       "supporting_sources": 2,
+       "contradicting_sources": 0,
+       "contradiction_detail": null,
+       "context": "What is Michael B. Jordan's birth date?",
+       "round": 0
+      }
+     ]
+    }
+   ],
+   "critic": {
+    "schema_version": "1.0",
+    "flagged_claims": [],
+    "overall_quality_score": 0.72,
+    "coverage_score": 0.95,
+    "source_diversity_score": 0.5,
+    "contradiction_rate": 0.0,
+    "needs_more_research": false,
+    "critic_notes": "Research covers both required sub-questions well (birth dates for both individuals identified). However, source diversity is limited - claims rely on only 2-4 sources each, and birthdate claims have only medium confidence despite being foundational biographical facts. Michael B. Jordan's birthdate is well-supported with 4 high-confidence sources. The age calculation can be derived from the two birth dates provided (February 17, 1963 vs February 9, 1987 = approximately 23 years, 11 months difference), so the core research question can be answered. A second research round would strengthen source diversity and increase confidence in the foundational biographical claims, particularly for Michael Jordan's birth details.",
+    "tokens_used": 1425,
+    "duration_seconds": 4.564512999961153,
+    "approved_texts": [
+     "Michael Jordan was born on February 17, 1963",
+     "Michael Jordan was born in Brooklyn, New York",
+     "Michael Jordan turned 63 years old on February 17",
+     "Michael B. Jordan was born on February 9, 1987",
+     "Michael B. Jordan was born in Santa Ana, California"
+    ]
+   },
+   "critic_round_converged": true
+  }
+ },
+ "provided_urls": [
+  "https://en.wikipedia.org/wiki/Michael_B._Jordan",
+  "https://www.astrotheme.com/astrology/Michael_B._Jordan",
+  "https://www.basketball-reference.com/players/j/jordami01.html",
+  "https://www.biography.com/actors/michael-b-jordan",
+  "https://www.dncr.nc.gov/blog/2016/02/17/basketball-superstar-michael-jordan-born",
+  "https://www.facebook.com/officialangiemartinez/posts/happy-63rd-birthday-michael-jordan-/1480151453476160",
+  "https://www.facebook.com/timelesssports/posts/happy-63rd-birthday-to-michael-jordan-%EF%B8%8F/917066467744418",
+  "https://www.reddit.com/r/SinnersbyRyanCoogler/comments/1r00v71/happy_birthday_michael_b_jordan_february_9_1987"
+ ],
+ "pipeline": {
+  "rounds_run": 1,
+  "converged": true,
+  "fatal_error": null,
+  "errors": [],
+  "tokens_used_total_pipeline_accounting": 15238,
+  "tokens_by_agent": {
+   "orchestrator": 468,
+   "analyst": 8365,
+   "critic": 1425,
+   "writer": 4980
+  },
+  "fact_check_results": [],
+  "quality": {
+   "schema_version": "1.0",
+   "coverage_score": 0.95,
+   "source_diversity_score": 0.5,
+   "contradiction_rate": 0.0,
+   "overall_quality_score": 0.72,
+   "confidence_distribution": {
+    "high": 1,
+    "medium": 4,
+    "low": 0,
+    "contested": 0,
+    "inconclusive": 0
+   },
+   "re_research_rounds": 1,
+   "total_sources_consulted": 16,
+   "total_claims_extracted": 5,
+   "claims_flagged_by_critic": 0,
+   "claims_verified_by_fact_checker": 0,
+   "converged": true,
+   "convergence_note": "Report converged after 1 research round(s)."
+  },
+  "n_citations": 16,
+  "activity": [
+   "Orchestrator: Round 1: decomposing query into sub-questions...",
+   "Orchestrator: Decomposed into 2 sub-questions: What is Michael Jordan's birth date?...; What is Michael B. Jordan's birth date?...",
+   "Search Agents: Launching 2 parallel search agents...",
+   "Search Agents: Retrieved 16 sources across 2 sub-questions",
+   "Scraper Agents: Scraping top 4 sources per sub-question...",
+   "Scraper Agents: Scraped 8/8 pages successfully (2 via Playwright)",
+   "Analyst Agents: Analyzing content across 2 sub-questions in parallel...",
+   "Analyst Agents: Extracted 5 claims across 2 sub-questions",
+   "Critic Agent: Reviewing all analyst findings for quality and coverage...",
+   "Critic Agent: Quality score: 0.72 | Coverage: 0.95 | 0 claims flagged",
+   "Fact-Checker Agents: No claims flagged by Critic — skipping fact-checking.",
+   "Writer Agent: Writing general report...",
+   "Writer Agent: Report written: 'Age Difference Analysis: Michael Jordan vs. Michael B. Jordan' | 16 citations | 0 contradictions mapped"
+  ]
+ }
+}

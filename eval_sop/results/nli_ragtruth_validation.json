@@ -1,0 +1,61 @@
+{
+ "n_items": 300,
+ "construction": "(fixed before running any judge):\n* tasks QA and Summary only (Data2txt contexts are JSON tables, unlike web pages);\n* responses with quality == \"good\";\n* each response is split into sentences; a sentence is UNSUPPORTED if it\n  overlaps any human-annotated hallucination span (any label type), else SUPPORTED;\n* sentences shorter than 25 characters are dropped;\n* random.Random(2026) draws 75 supported + 75 unsupported sentences per task\n  -> 300 balanced items. Premise = the response's source context.\n* SECOND_JUDGE_PER_CELL can restrict the slower second judge to a subset;\n  in the reported run it is 75, i.e. both judges see all 300 items.",
+ "judges": {
+  "deberta-v3-large": {
+   "n": 300,
+   "balanced_accuracy": 0.64,
+   "balanced_accuracy_ci95": [
+    0.5893036579737772,
+    0.6915572089547839
+   ],
+   "cohen_kappa_vs_human": 0.28,
+   "kappa_ci95": [
+    0.17739239326594944,
+    0.38213900587985783
+   ],
+   "auroc_p_entail": 0.7253333333333334,
+   "auroc_p_entail_ci95": [
+    0.6641166979514277,
+    0.7840829648645761
+   ],
+   "predicted_supported_rate": 0.3333333333333333,
+   "recall_supported": 0.47333333333333333,
+   "recall_unsupported": 0.8066666666666666,
+   "per_task_balanced_accuracy": {
+    "QA": 0.6933333333333334,
+    "Summary": 0.5866666666666667
+   }
+  },
+  "deberta-xlarge-mnli": {
+   "n": 300,
+   "balanced_accuracy": 0.7233333333333334,
+   "balanced_accuracy_ci95": [
+    0.6734166196966591,
+    0.7722787844907626
+   ],
+   "cohen_kappa_vs_human": 0.44666666666666677,
+   "kappa_ci95": [
+    0.34724390058138066,
+    0.5419949350028104
+   ],
+   "auroc_p_entail": 0.7694222222222222,
+   "auroc_p_entail_ci95": [
+    0.711783062529795,
+    0.8228765594119141
+   ],
+   "predicted_supported_rate": 0.5566666666666666,
+   "recall_supported": 0.78,
+   "recall_unsupported": 0.6666666666666666,
+   "per_task_balanced_accuracy": {
+    "QA": 0.7733333333333333,
+    "Summary": 0.6733333333333333
+   }
+  }
+ },
+ "inter_judge": {
+  "n": 300,
+  "cohen_kappa": 0.41541755888650955,
+  "raw_agreement": 0.6966666666666667
+ }
+}

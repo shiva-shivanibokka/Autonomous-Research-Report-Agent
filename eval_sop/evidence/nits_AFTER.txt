@@ -1,0 +1,2 @@
+# after (fix commit following 3126752)
+2 passed in 4.92s
